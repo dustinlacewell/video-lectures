@@ -5,6 +5,7 @@ out/
 __pycache__/
 *.wav
 !voice/refs/*.wav
+!voice/clips/*.wav
 *.mp4
 voice/models/
 voice/vendor/
