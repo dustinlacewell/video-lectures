@@ -14,5 +14,5 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false
   },
-  "include": ["engine", "kit", "scenes", "script", "player", "tools", "test", ".wm", "wm.ts", "vite.config.ts"]
+  "include": ["engine", "kit", "scenes", "script", "player", "tools", "test", "wm.ts", "vite.config.ts"]
 }
