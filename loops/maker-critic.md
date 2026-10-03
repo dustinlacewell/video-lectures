@@ -50,8 +50,32 @@ checks (see [notes-to-checks](notes-to-checks.md)).
 6. **Stop.** Stop when a critic round has zero blocking findings. Stop
    after round 3 at most. Open findings after round 3 go to escalation.
 
+On the lean track, stop after round 2. Animation on lean gets one
+supervisor pass and at most one fix round. The fix round's own verify
+commands close it; findings still open go to the notes round.
+
 A cold viewer is the exception: never reuse one. Each review needs fresh
 agents (see [cold-viewer-review](cold-viewer-review.md)).
+
+## Scratch and resume
+
+`{SCRATCH}` is `{PROJECT_ROOT}\.scratch\<brief-id>-r<N>`. The brief id
+is the role, plus the chapter when several run at once
+(`animator-zombie`, `supervisor-zombie`). `N` is the loop round. The
+folder is in the main checkout, even when the agent works in a worktree,
+so the evidence outlives the worktree. `.scratch/` is gitignored
+([new project](../engine/new-project.md) section 4).
+
+Every agent writes its probes, screenshots, tool outputs and its report
+there. The report also goes to `{SCRATCH}\report.md`. The
+[status](../documents/status.md) file points at the last report of each
+open loop.
+
+**Resume in a new session.** The old agents are gone; SendMessage cannot
+reach them. Re-brief the maker as a fresh spawn: its brief, plus the
+critic's last report (`report.md` path from the status file) as the
+blocking findings. The re-check is a fresh critic with the same
+checklist and that report. The round number goes on.
 
 ## The evidence rule
 
@@ -64,9 +88,10 @@ A finding without evidence is dropped. No exceptions. Valid evidence:
 - **Rule:** the document and the entry that the work breaks
   (bible entry, terminology row, visual-vocabulary row, spine chapter job).
 
-"The visuals are unclear" is not a finding. "At t=212.4 (ch6 `inventory.saw`)
-the checkmark means 'has it'; the visual vocabulary says checkmark means
-'tested'; screenshot: `{SCRATCH}/ch6-212.4.png`" is a finding.
+"The visuals are unclear" is not a finding. This one, checked on the
+reference video's frames, is: "At 2:27.2 (`body.name`, the card) the
+words 'This' and 'machinery' overlap while the words pop in. The settled
+card at 2:29.4 is spaced right (sheet `04-body-3.png`)."
 
 ## What a critic may and may not do
 
@@ -121,15 +146,15 @@ with the report block. Paste both, filled in.
 ```
 ENVIRONMENT
 - Windows 11. Shells: Git Bash and PowerShell. Use absolute paths. The working directory resets between calls.
-- Project root: {PROJECT_ROOT}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes and screenshots: {SCRATCH}.
+- Project root: {PROJECT_ROOT}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes, screenshots and report: {SCRATCH} ({PROJECT_ROOT}\.scratch\<brief-id>-r<N>, gitignored).
 - The project honors the engine contract: C:\Users\dustin\.claude\skills\video-studio\engine\contract.md
   (script is pure data with stable beat ids; every frame is a pure function of time; page globals __seek(t), __info(), __cam(), __voice()).
 - Workspace commands: `wm build` (type-check and build), `wm test` (unit tests), `wm voice:manifest`, `wm voice:render`.
 - Python only through the uv venv in {PROJECT_ROOT}/voice (Python 3.12). Never system Python.
-- Edit files with the Edit and Write tools. Do not rewrite files with sed, Python, or heredocs: that changes line endings.
+- Edit files with the Edit and Write tools. Do not rewrite files with sed, Python, or heredocs: that changes line endings. The one exception: a command this brief gives verbatim.
 - Do not open or drive GUI windows. Headless Playwright at exact times via __seek(t) is allowed and expected.
 - Edit only the files you own (listed below). If you need another file changed, stop and report it.
-- Work in {WORKTREE} if given. Stop any server you started before you report.
+- Work in {WORKTREE} if given (a worktree under {PROJECT_ROOT}\.claude\worktrees\). Stop any server you started before you report.
 - Do not commit unless this brief says so. Check free disk space before any render.
 ```
 
@@ -137,6 +162,7 @@ ENVIRONMENT
 
 ```
 REPORT (at most {N} words; facts only; no pasted files or logs)
+Write it to {SCRATCH}\report.md too.
 - Files changed: path, one line each.
 - Verify: each command run and its result line (pass counts, error count).
 - Evidence: paths of screenshots or outputs you made.

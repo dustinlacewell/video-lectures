@@ -85,8 +85,10 @@ The Symbols and Sounds tables are parsed by the storyboard test
 - A data row starts with `` | ` ``. Its first cell is one id in
   backticks, and nothing else.
 - An id matches `[a-z][a-z0-9-]*`. Ids are unique within their table.
-- Every `SfxName` in `script/types.ts` has a Sounds row, and every
-  Sounds row is an `SfxName`.
+- Every sound the script uses (a beat's `sfx`, a chapter's `cues`) has
+  a Sounds row, and every Sounds row is an `SfxName`. An `SfxName`
+  nothing uses needs no row.
+- A missing vocabulary file counts as empty tables.
 - "Drawn by" names the code that draws the symbol: a kit or engine
   function in backticks. It is `PROPOSED` while no function exists. The
   board renderer draws a PROPOSED symbol as a labelled box
@@ -99,7 +101,8 @@ does.
 ## How it is checked
 
 - The storyboard test ([storyboard](../storyboard.md)): a board that
-  cites an id with no row fails. An `SfxName` with no Sounds row fails.
+  cites an id with no row fails. A sound the script uses with no Sounds
+  row fails.
 - [Animation-supervisor](../../roles/animation-supervisor.md) looks at
   rendered frames at each beat's midpoint and end. Failure: a symbol on
   screen with a meaning not in its row, or a drawn element that carries

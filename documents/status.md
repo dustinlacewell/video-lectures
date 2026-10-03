@@ -40,9 +40,14 @@ worktree.
 
 ## Open loops
 
-| Role | Round | Worktree | Branch | Waiting on |
-|---|---|---|---|---|
-| <animator, ch 3–4> | <2 of 3> | <absolute path> | <branch> | <supervisor re-check> |
+| Role | Round | Worktree | Branch | Evidence ({SCRATCH}) | Last report | Waiting on |
+|---|---|---|---|---|---|---|
+| <animator, zombie> | <2 of 3> | <absolute path or none> | <branch> | <{PROJECT_ROOT}\.scratch\animator-zombie-r2> | <{PROJECT_ROOT}\.scratch\supervisor-zombie-r1\report.md> | <supervisor re-check> |
+
+"Last report" is the newest report in the loop: the critic's findings
+while the maker fixes, the maker's fix report while the critic
+re-checks. A new session resumes the loop from it
+([maker-critic](../loops/maker-critic.md), "Scratch and resume").
 
 ## Frozen
 
@@ -53,7 +58,8 @@ worktree.
 
 At the start of a session the producer compares "Open loops" with
 `git worktree list` and `git branch`. A worktree with no row, or a row
-with no worktree, is fixed before anything else.
+with no worktree, is fixed before anything else. Each row's "Last
+report" path MUST exist; a loop without one restarts its round.
 
 The narrator rate is spoken words per second of runtime. The producer
 records it before any script is written. The writer plans word counts

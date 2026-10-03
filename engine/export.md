@@ -4,6 +4,16 @@
 
 Goal: one MP4 that matches the live player frame for frame and sample for sample, plus a chapters list and a captions file for YouTube.
 
+## First production on a new engine builds this
+
+The first production that delivers an MP4 builds the exporter. Later productions copy it with the engine.
+
+- **Owner:** the [engine owner](../roles/engine-owner.md) (contract section 10 lists the exporter as its file). Opus, its own brief.
+- **Critic:** [QA](../roles/qa.md), in a [maker-critic loop](../loops/maker-critic.md). The engine owner never certifies its own export.
+- **Needs first:** the pure `score()` (section 3). It is a readiness gap ([contract](contract.md) section 11), closed in [preproduction](../phases/preproduction.md) step 0.
+- **When:** after the animatic is signed. The animatic has the real clips and the real timing, so the exporter is proven on the real video's length and audio before any animation is final.
+- **Pass before delivery:** run `wm export` on the animatic build. QA runs all five checks in section 6 on that MP4 and records the results in `out/export.json`. All five pass. Only then does delivery export the final cut.
+
 ## Outputs
 
 `wm export [--fps 30|60] [--size 1080|2160]` writes into `out/` (gitignored):

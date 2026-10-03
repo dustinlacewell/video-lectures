@@ -7,15 +7,33 @@ the same kind of defect does not reach the human again.
 ## When it runs
 
 After every human review: the table read, the animatic gate, any draft
-the human watches, the final cut. Cold-viewer findings go through it too.
+the human watches, the final cut. Cold-viewer findings and tool
+findings go through it too. Cold-viewer findings first go through the
+comparison with the spine ([cold-viewer review](cold-viewer-review.md),
+"Comparing answers against the spine"). In a notes round that starts
+from cold-viewer reports, that comparison is the round's first job.
 
-## Step 1. Split the note into atoms
+## Step 1. Verify each finding on the evidence
+
+Before anything is classified or routed, open the evidence at the time
+the note gives: the frame, the clip, or the transcript line. Write what
+it shows in the ledger's "Verified on frame" column. If the evidence
+says something else, rewrite the atom and its cause. If it shows
+nothing, the row closes as no-action.
+
+The reference case: a tool reported "'Thismachinery' missing space in
+the body.name card (2:27) — likely rich-text wrap bug". The frames say
+otherwise. The settled card at 2:29.4 is spaced right. The words
+overlap only during the pop-in, at 2:27.2. Routed as written, the
+engine owner would have opened the text-wrap code, the wrong file.
+
+## Step 2. Split the note into atoms
 
 One note often holds several defects. Split until each atom names one
 thing in one place. "Several bubbles half off screen" is one atom per
 bubble, plus one atom for the pattern.
 
-## Step 2. Classify each atom
+## Step 3. Classify each atom
 
 | Class | The defect | Example from the reference production |
 |---|---|---|
@@ -29,9 +47,17 @@ bubble, plus one atom for the pattern.
 If an atom fits two classes, pick the one whose fix is cheapest to make
 permanent. Consistency beats clarity; framing beats taste.
 
-## Step 3. Pick the outcome
+## Step 4. Pick the outcome
 
-Ask these in order. Stop at the first yes.
+First: does the atom attack a [bible](../documents/bible.md) entry (say
+the decision is wrong)? Then it goes to the human as a question. It is
+never fixed against the entry and never dropped. Status
+`human-decision`. The rules for grouping these questions are in
+[cold-viewer review](cold-viewer-review.md), "From findings to notes".
+An atom the bible already decides, which does not say the entry is
+wrong, is `settled`: no fix, and the human is told in one line.
+
+Otherwise ask these in order. Stop at the first yes.
 
 1. **Structural fix.** Can a change make this defect impossible? Do that.
    Examples: clone every line from one frozen reference clip (voice drift
@@ -46,7 +72,7 @@ Ask these in order. Stop at the first yes.
 3. **Checklist item.** Can a critic catch it by looking or reading? Add
    one line to that critic's project checklist,
    `production/checks/<role>.md` in the video repo. Do not edit the
-   skill's `roles/*.md` (see Step 6). Write the line as an observable
+   skill's `roles/*.md` (see Step 7). Write the line as an observable
    failure with the evidence it needs. Pick the critic by sense: text →
    [script-editor](../roles/script-editor.md); frames →
    [animation-supervisor](../roles/animation-supervisor.md); a
@@ -59,17 +85,22 @@ Ask these in order. Stop at the first yes.
    [visual vocabulary](../documents/style-guide/visual-vocabulary.md), so
    no agent reopens it.
 5. **Taste only.** Fix it. Keep the (draft, fix) pair for style learning
-   (Step 5). No check.
+   (Step 6). No check.
 
 Most atoms get a fix plus one of 1–4. A taste atom that recurs becomes a
 style-guide rule and then a script-editor item in the project checks.
 
-## Step 4. Record it
+## Step 5. Record and route
 
 Add one row per atom to the [notes ledger](../documents/notes-ledger.md):
-the note as the human said it, the atom, beat id and time, class, outcome,
-the check or document entry it produced (by path), and status. The
-ledger is how the producer proves a note became a check.
+the note as the human said it, the atom, beat id and time, what the
+evidence showed, class, outcome, the check or document entry it
+produced (by path), and status. The ledger is how the producer proves a
+note became a check.
+
+Before any fix goes out, mark every file a pending human question can
+touch. Fix-now work avoids those files. A row whose fix touches one is
+`held` until the answer comes.
 
 Changes to a tool or a shared document flow through the owner of that
 file. The producer briefs the owner; it does not edit the file itself.
@@ -78,7 +109,7 @@ The producer owns `production/checks/<role>.md`. It writes each new line
 there and pastes the whole file into every brief for that role, under
 "project checks".
 
-## Step 5. Style learning from (draft, fix) pairs
+## Step 6. Style learning from (draft, fix) pairs
 
 Each text note where the human rewrote a line gives a pair: the draft
 line and the human's line. Keep both, verbatim, in the ledger.
@@ -103,7 +134,7 @@ rules they support:
 | "Marbles and a rocker can add too. The same play, in a different performance." | (cut) | W6. Cut a metaphor that restates a claim. |
 | "...Form is function." | "...Form *is* function." | W11. Mark the word the voice must stress. |
 
-## Step 6. Promote a generic check into the skill
+## Step 7. Promote a generic check into the skill
 
 The skill's `roles/*.md` checklists serve every production. A
 project's checks stay in its own repo. Most are about this video only

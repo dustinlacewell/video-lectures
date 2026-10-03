@@ -33,8 +33,13 @@ This is the one place that story is told. Other files link here.
 - To challenge an entry, an agent writes one line to the producer: the
   entry id, and the new evidence. The producer asks the human one
   question. Agents never act against an entry while a challenge is open.
-- Before the producer or director raises any objection to the argument,
-  it searches the bible first. If the point is there, it is not raised.
+- Before the producer or director raises its own objection to the
+  argument, it searches the bible first. If the point is there, it is
+  not raised.
+- A finding from outside the team (a cold viewer, a human reviewer)
+  that attacks an entry is new evidence. It goes to the human as a
+  question. The team never fixes against the entry and never drops the
+  finding ([notes to checks](../loops/notes-to-checks.md), step 4).
 - When sources disagree, the newest version the human made wins, unless
   the human says otherwise.
 
@@ -85,6 +90,9 @@ after each director pass.
   searched in the bible first.
 
 ## Filled example: "What a Mind Is Made Of"
+
+Reconstructed. The production kept no bible. The decisions are the
+human's real ones, gathered from the session and the notes rounds.
 
 ```markdown
 # Bible: What a Mind Is Made Of
@@ -205,6 +213,7 @@ after each director pass.
 ## Open
 - B13 defect: body.list follows the card body.name. Pending the human's decision.
 - B13 defect: words.cause follows the card words.claim. Pending the human's decision.
+- B13 defect: animals.end (no words, a 7 s closing hold) follows the last card, animals.claim. Pending: an allowed exception, or cut?
 - B13 defect: inventory has no card. Pending the human's decision.
 ```
 
@@ -214,4 +223,6 @@ after each director pass.
   rewrite. Most entries come from the notes round. A bible started in
   development would have held B1–B3 before any work began.
 - The "Open" section is where structural checks land when they find
-  live violations. The B13 test, run on the final script, finds three.
+  live violations. The B13 test, run on the final script, finds three
+  beats after cards: body.list, words.cause, animals.end. It cannot see
+  a missing card. The spine checklist finds that one (inventory).

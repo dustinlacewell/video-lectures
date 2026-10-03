@@ -6,6 +6,8 @@ A new video starts as a copy of the reference repo, `D:\code\ai\cognition`, with
 
 **Who:** the [engine owner](../roles/engine-owner.md). A Sonnet agent may do the copy steps (2–4 and 6) under its brief. If the human handed over a single-file prototype, follow [porting](porting.md) instead of steps 3–4: the port supplies the content.
 
+**Not here:** the engine readiness gaps ([contract](contract.md) section 11). They need production files that do not exist yet. [Preproduction](../phases/preproduction.md) step 0 is their only home.
+
 ## 1. Name, place, disk
 
 The human names the project and its folder. Ask one question; default `D:\code\<area>\<project-slug>`.
@@ -39,7 +41,7 @@ Copy from the reference repo's tracked files (`git -C D:/code/ai/cognition ls-fi
 | `player/**` | All of it. Change the page title in `player/index.html`. |
 | `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the visual vocabulary uses them: they carry the old video's symbols. |
 | `scenes/types.ts`, `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts` | Shared scene services. Not `thoughtTag.ts` or `titleArt.ts`: they belong to the old video. |
-| `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting declares every other speaker at the start of preproduction. Keep `SfxName`; the sound engineer changes it. |
+| `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting declares every other speaker at the start of preproduction. Keep `SfxName`; the sound engineer changes it. The storyboard test checks only sounds the script uses, so the inherited list needs no Sounds rows yet. |
 | `voice/breeze.py`, `render.py`, `verify.py`, `transcribe.py`, `speak.py`, `manifest.ts`, `refs.ts`, `pyproject.toml`, `uv.lock` | The voice pipeline. |
 | `test/text.test.ts`, `test/voiceCoverage.test.ts` | Generic. The other tests assert on the old script's chapters; rewrite them against a small fixture script. |
 | `.wm/traits/video.ts`, `.wm/commands/**`, `wm.ts` | Workmark commands. |
@@ -71,15 +73,26 @@ __pycache__/
 voice/models/
 voice/vendor/
 .claude/worktrees/
+.scratch/
 ```
+
+`.scratch/` holds each loop's evidence and reports ([maker-critic](../loops/maker-critic.md), "Scratch and resume"). It is not in the reference repo's `.gitignore`; add it.
 
 Reference clips are tracked. Rendered clips are not. `voice/clips/durations.json` is tracked, so a fresh checkout or a worktree has correct timing without audio.
 
-## 5. Voice references: reuse or fresh
+## 5. Reuse from an earlier production
+
+### "Same style as X"
+
+Copy X's tracked `production/style-guide/*`: the writing guide, the terminology table and the visual vocabulary (with its Sounds table). Copy X's `voice/refs/**` too, by the voice rule below.
+
+If X has no tracked `production/style-guide/`, there is nothing to copy. Tell the human in one line. The reference repo (`D:\code\ai\cognition`) tracks none today; its style exists only as this skill's reconstructed examples.
+
+### Voice references: reuse or fresh
 
 The human says which. [Casting](../roles/casting.md) owns `voice/refs/**` and `script/cast.ts` in both cases.
 
-- **Same voices as an earlier production.** For each reused speaker, casting copies that project's `voice/refs/<speaker>.wav` and `voice/refs/<speaker>.txt` byte for byte and checks that the sha256 of each copy equals its source. It copies the speaker's cast entry (`style`, `pad`), adds the speaker id to `SpeakerId`, and records the hashes in the bible's Locks. The voices are not auditioned again. This needs no voice stack, so it can run at repo creation.
+- **Same voices as an earlier production.** For each reused speaker, casting copies that project's `voice/refs/<speaker>.wav` and `voice/refs/<speaker>.txt` byte for byte and checks that the sha256 of each copy equals its source. The copy may take a new speaker id (`friend.wav` → `host.wav`); the hash is on the content. It copies the speaker's cast entry (`style`, `pad`), adds the speaker id to `SpeakerId`, and records the hashes and each clip's length in the bible's Locks. The voices are not auditioned again. The hash check is the whole check: no voice stack, no Whisper, no length rule ([voice pipeline](voice-pipeline.md) section 1). So it can run at repo creation.
 - **New voices.** Leave `voice/refs/` empty. Casting makes each reference fresh ([voice pipeline](voice-pipeline.md) section 1).
 
 A production can mix the two: reused speakers copied, new speakers cast.
@@ -99,11 +112,7 @@ node "<vscode extensions>/ldlework.workmark-vsc-<ver>/dist/wm/node_modules/@ldle
 
 The voice stack is not installed here. The sound engineer installs it before casting needs it ([voice pipeline](voice-pipeline.md), "Install").
 
-## 7. Close the reference gaps
-
-The reference repo does not meet the whole contract. The engine owner closes each gap in [contract](contract.md) section 11 now, each with its verify command. The documents and tools depend on them.
-
-## 8. Verify
+## 7. Verify
 
 ```bash
 wm --help        # lists build, dev, test, voice:manifest, voice:render

@@ -21,8 +21,9 @@ land.
 1. **At the animatic.** Before the human's main sign-off. Fixes are cheap here.
 2. **At the final cut.** Before delivery.
 
-Each run uses three new agents. Never reuse a cold viewer from an earlier
-run.
+Each run uses three new agents: newcomer, skeptic, domain expert. The
+lean track uses two: newcomer and skeptic. Never reuse a cold viewer
+from an earlier run.
 
 ## The rule: cold viewers never read production documents
 
@@ -87,9 +88,10 @@ Then it answers, in this order:
 ## Comparing answers against the spine
 
 The producer spawns one Fable synthesis agent for this step. Its explicit
-inputs: the spine, the bible, the visual vocabulary, the three cold-viewer
-reports, and `__info()` output (beats with start times and ids). It does
-not read code.
+inputs: the spine, the bible, the visual vocabulary, the cold-viewer
+reports, the timestamped transcript, and `__info()` output (beats with
+start times and ids). It does not read code. This step is not optional.
+When cold-viewer findings reach a notes round without it, run it first.
 
 It produces:
 
@@ -107,6 +109,8 @@ It produces:
   beat id), where the skeptic said it was not answered, is blocking.
 - **Symbol confusion.** Each confused symbol, with its visual-vocabulary
   row (or "no row": an unlisted symbol).
+- **Bible attacks.** Each finding that says a bible entry is wrong,
+  with the entry id.
 
 Skeptic disagreement alone is not a defect. The skeptic may stay
 unconvinced. The defect is a step the skeptic could not follow, or an
@@ -127,39 +131,66 @@ The synthesis lists priority notes first. The producer brings them to
 the human. The skill does not judge the thesis: the human owns the
 argument, and the bible records it.
 
-## Worked example: the reference production
+## Worked example: a real run on the reference video
 
-Three cold viewers (newcomer, skeptic, expert in philosophy of mind) ran
-on a contact sheet and transcript of "What a Mind Is Made Of".
+Three Fable cold viewers (newcomer, skeptic, expert in philosophy of
+mind) on the final cut of "What a Mind Is Made Of", runtime 7:06. Inputs:
+the timestamped transcript and 26 contact-sheet PNGs. Nothing else.
 
-Priority notes (two or more personas, independently):
+Converging findings (two or more personas, independently):
 
-1. **Inventory repeats zombie.** All three personas flagged the
-   inventory chapter as a repeat of the zombie chapter.
-2. **The jump to "no moral or ethical import" is not argued.** The
-   skeptic: the video showed inner experience is causally idle; it did
-   not show it is worthless. The expert: sentientism (the view that
-   the capacity for experience grounds moral status) is a mainstream
-   position, and the video dismisses it without stating it.
+1. **Inventory repeats zombie.** All three. The inventory chapter
+   (4:36–5:28) makes the zombie chapter's point again. The trait list is
+   read two or three times (4:44, 5:18, 5:48).
+2. **"No moral or ethical import" (6:35) is not argued.** All three.
+   The skeptic: the video showed experience is causally idle, not that
+   it is worthless; "pain hurts, and hurting is bad regardless of what
+   it causes" is not answered. The expert: sentientism (Bentham, Singer)
+   is mainstream, and the video dismisses it without stating it.
+3. **The zombie stipulation assumes the disputed point.** Two: newcomer
+   and expert. "Give it one difference: no inner experience" (3:55). The
+   newcomer: "if form is function, how can a same-form copy differ at
+   all?" The expert: under physicalism the zombie is impossible; the card
+   at 4:28 follows only on property dualism.
 
-Single-persona notes, weighed by job (both from the expert, whose job
-is wrong or non-standard claims):
+Single-persona findings, a few of them:
 
-3. "Form is function" reads against multiple realizability, the
-   standard view that one function can run on many different forms.
-4. The "?" icon on the AI's self-model reads as a ranking of the AI
-   below the animals, not as "unknown".
+- Newcomer: the XOR/AND/"ones"/"twos" labels at 1:37 are never
+  explained.
+- Skeptic: the ghost test (0:31) is a joke, not evidence. The script
+  gives the evidence earlier, at `physics.laws` (0:14). That is an
+  unlanded answer, so it is blocking.
+- Expert: the "?" on the AI's self-model (6:51) reads as ranking the AI
+  lowest, while the narration says "the same is true of AI".
 
-All four go to the human as notes, one decision at a time. Whether
-the thesis is right is not the finding. The finding is where the video
-failed to carry these viewers, and what an expert will raise.
+Findings 2 and 3 attack bible entries (B2 the "trivia" wording, B4 the
+stipulation). They go to the human as questions. No line will make a
+committed skeptic agree. The fix the producer can recommend is to argue
+the step, never to change the claim.
+
+One finding failed the evidence check. "'Yes. Obviously. I am
+experiencing this right now.' heard three times (3:13, 4:05, and once
+more)." The transcript has two. The third has no timestamp. The
+planned pair is bible B10 and B11. The row closed as settled.
 
 ## From findings to notes
 
 Every blocking finding and every note goes into the
 [notes ledger](../documents/notes-ledger.md) as a row, its Note column
-prefixed `cold-viewer/<persona>:`. Then each one runs through
-[notes-to-checks](notes-to-checks.md), the same as a human note.
+prefixed `cold-viewer/<persona>:` (or `cold-viewer/all:`). Then each one
+runs through [notes-to-checks](notes-to-checks.md), the same as a human
+note.
+
+**Verify a finding on the frame before routing it.** A cold viewer's
+timestamp, or a tool's guess at a cause, is a claim. Open the frame or
+the transcript line at that time first. A finding the evidence does not
+show is dropped, as in the worked example above.
+
+**A finding that attacks a bible entry goes to the human as a
+question.** The team never fixes against the entry and never drops the
+finding. A converging attack, or an expert naming a fact or a standard
+view, gets its own question. Single-persona attacks go together in one
+question: "keep these entries?", with the producer's recommendation.
 
 The producer shows the human a short summary at the gate: the thesis
 match, the top three hot spots, and one recommendation. Not the raw reports.

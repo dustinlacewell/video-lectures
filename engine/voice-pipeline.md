@@ -39,13 +39,14 @@ How to pick a voice:
    `uv run speak.py --text "<passage>" --voice "<description>" --out samples/NN-name.wav --seed <n>`
    Try two or three seeds for the favourite description; each seed is a different person.
 3. The human listens and picks one file. Agents MUST NOT pick a voice.
-4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav`. Aim for 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
+4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav`. A new ref is 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
 5. Transcribe it: `uv run transcribe.py refs/<speaker>.wav`. Correct the text against what is actually said, word for word, fillers included. Save it as `voice/refs/<speaker>.txt`.
 6. The speaker id and its `CAST` entry already exist: casting declared them at the start of preproduction ([contract](contract.md) section 3). Casting points the entry's `ref` at the frozen clip.
 
 Rules:
 
 - A reference clip MUST NOT change after sign-off. Changing it changes every hash, so every clip of that speaker re-renders.
+- The 8–15 s rule is for new refs. A reused ref that already rendered a production is grandfathered: it is checked by hash only ([new project](new-project.md) section 5). The reference `you.wav` is 7.0 s and stays.
 - Speakers that must sound identical share one cast entry by spread. The manifest gives them one `voiceKey`.
 - `style` steers delivery (tone, pace, emotion) on top of the clone. It does not change who speaks. A style line renders with guidance 4.0; a plain clone renders with 1.0.
 

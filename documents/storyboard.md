@@ -104,17 +104,30 @@ Rules:
 ## How it is checked
 
 **The storyboard test**, `test/storyboard.test.ts`. Cheap, exact, runs
-on every `wm test`. It parses the Symbols table of
+on every `wm test`. It parses the Symbols and Sounds tables of
 `production/style-guide/visual-vocabulary.md` (format in
 [visual vocabulary](style-guide/visual-vocabulary.md)) and fails when:
 
-1. a beat with a `say` has no board;
+1. a chapter has a board file, and a beat in it with a `say` has no
+   board;
 2. a board key is not a beat id;
 3. a board's `purpose` is missing or empty;
 4. a `{id}` in `frame`, a `symbols` id or a figure id is not in the
    vocabulary;
 5. a `{id}` in `frame` is missing from `symbols`;
-6. a `frame` has no `{id}` at all.
+6. a `frame` has no `{id}` at all;
+7. a sound the script uses (a beat's `sfx` or a chapter's `cues`) has
+   no Sounds row.
+
+The test checks only what exists. With zero board files and no sound
+cues it passes, even before the vocabulary file exists. An `SfxName`
+that nothing uses needs no row. So a new project that inherits the
+reference's `SfxName` list is green before anyone writes the Sounds
+table.
+
+Coverage is the director's check: at the end of
+[preproduction](../phases/preproduction.md), every chapter has a board
+file.
 
 The test sees only marked ids. The mark rule is what makes an undefined
 symbol visible. In the dry run of this skill, boards passed a test that
@@ -140,8 +153,9 @@ purpose. Evidence: screenshot path and the purpose text.
 
 ## Filled example: "What a Mind Is Made Of"
 
-Boards the art-director would have written. The first is the beat where
-the real production went wrong. As first drafted:
+Reconstructed: the production had no boards. These are the boards the
+art-director would have written for the final script. The first is the
+beat where the real production went wrong. As first drafted:
 
 ```ts
 // production/storyboard/01-physics.ts

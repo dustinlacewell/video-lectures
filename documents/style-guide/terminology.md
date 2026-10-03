@@ -64,6 +64,9 @@ defect.
 
 ## Filled example: "What a Mind Is Made Of"
 
+Reconstructed. The production had no terminology table. This one is
+built from the final script; the lines it quotes are real.
+
 ```markdown
 # Terminology: What a Mind Is Made Of
 
