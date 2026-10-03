@@ -245,11 +245,11 @@
   {
     "id": "words.ask1",
     "beat": "words.ask1",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Someone asks: coffee or tea?",
-    "hash": "be61aae148c1a736"
+    "speaker": "friend",
+    "voiceKey": "friend",
+    "voice": "A warm, friendly cartoon character with a lower, rounder, chubby voice, gentle and easygoing, like a big-hearted animated buddy. Relaxed, steady pace.",
+    "text": "Coffee or tea?",
+    "hash": "243795b1c208714c"
   },
   {
     "id": "words.weigh",
@@ -263,29 +263,47 @@
   {
     "id": "words.ans1",
     "beat": "words.ans1",
+    "speaker": "you",
+    "voiceKey": "you",
+    "voice": "A cheerful cartoon character with a small, bright, bouncy voice, slightly high pitched, like a friendly animated sidekick. Earnest and eager, quick pace.",
+    "text": "Coffee.",
+    "hash": "695247242cbfb83f"
+  },
+  {
+    "id": "words.selected",
+    "beat": "words.selected",
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "“Coffee.” A physical process selected that word.",
-    "hash": "e0f194bfb84e0b35"
+    "text": "A physical process selected that word.",
+    "hash": "5f0a3863928c10c6"
+  },
+  {
+    "id": "words.stranger",
+    "beat": "words.stranger",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Now a stranger question.",
+    "hash": "5a7810f93dfaf927"
   },
   {
     "id": "words.ask2",
     "beat": "words.ask2",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Now a stranger question. Are you conscious?",
-    "hash": "a2ff3eb55ffb1c02"
+    "speaker": "friend",
+    "voiceKey": "friend",
+    "voice": "A warm, friendly cartoon character with a lower, rounder, chubby voice, gentle and easygoing, like a big-hearted animated buddy. Relaxed, steady pace.",
+    "text": "Are you conscious?",
+    "hash": "ea746a0f6ab21b63"
   },
   {
     "id": "words.ans2",
     "beat": "words.ans2",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "speaker": "you",
+    "voiceKey": "you",
+    "voice": "A cheerful cartoon character with a small, bright, bouncy voice, slightly high pitched, like a friendly animated sidekick. Earnest and eager, quick pace.",
     "text": "Yes. Obviously. I am experiencing this right now.",
-    "hash": "fe38371b5bf1571e"
+    "hash": "5774916de3f9f300"
   },
   {
     "id": "words.same",
@@ -302,8 +320,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Whatever else is true of experience, your report of it has a physical cause.",
-    "hash": "879e9be13c1c0af9"
+    "text": "Whatever else is true of experience, your report of it has physical causes.",
+    "hash": "601ea02eec2f0619"
   },
   {
     "id": "zombie.intro",
@@ -311,8 +329,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Philosophers built a thought experiment for exactly this.",
-    "hash": "8f5e86a3135ce247"
+    "text": "Let’s try a thought experiment.",
+    "hash": "bd5db7b527dcdd72"
   },
   {
     "id": "zombie.movie",
@@ -320,8 +338,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "It is called a zombie. Not the movie kind.",
-    "hash": "593b56bede74fd0b"
+    "text": "Imagine a zombie. Not the movie kind.",
+    "hash": "a7f57b4e062ce87d"
   },
   {
     "id": "zombie.copy",
@@ -347,17 +365,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "One difference. The zombie has no inner conscious experience.",
-    "hash": "5cca25e72c1f2237"
-  },
-  {
-    "id": "zombie.dark",
-    "beat": "zombie.dark",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "There is nothing it is like to be the zombie. No felt redness. No felt pain.",
-    "hash": "c0fe56f7684968e2"
+    "text": "For the sake of the experiment, give it one difference: no inner experience. No lights on inside.",
+    "hash": "d839432dcafc0020"
   },
   {
     "id": "zombie.ask",
@@ -365,17 +374,26 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "So ask it. Are you conscious?",
-    "hash": "8ba1b8bad07db49d"
+    "text": "So let’s ask. Hey, are you conscious?",
+    "hash": "66471979e8fbc4eb"
   },
   {
-    "id": "zombie.yes",
+    "id": "zombie.yes.you",
     "beat": "zombie.yes",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "speaker": "you",
+    "voiceKey": "you",
+    "voice": "A cheerful cartoon character with a small, bright, bouncy voice, slightly high pitched, like a friendly animated sidekick. Earnest and eager, quick pace.",
     "text": "Yes. Obviously. I am experiencing this right now.",
-    "hash": "fe38371b5bf1571e"
+    "hash": "5774916de3f9f300"
+  },
+  {
+    "id": "zombie.yes.zombie",
+    "beat": "zombie.yes",
+    "speaker": "zombie",
+    "voiceKey": "you",
+    "voice": "A cheerful cartoon character with a small, bright, bouncy voice, slightly high pitched, like a friendly animated sidekick. Earnest and eager, quick pace.",
+    "text": "Yes. Obviously. I am experiencing this right now.",
+    "hash": "5774916de3f9f300"
   },
   {
     "id": "zombie.must",
@@ -383,8 +401,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "It has to say that. Its brain has the same form as yours, and form is function.",
-    "hash": "109ce1214b453507"
+    "text": "The zombie gives the same response you do, for all the same physical reasons.",
+    "hash": "698a31d5faa6e34d"
   },
   {
     "id": "zombie.toe",
