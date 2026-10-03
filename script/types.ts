@@ -9,6 +9,20 @@ export type SfxName =
 /** A sound at `at` seconds into a beat. `arg` shifts pitch for some sounds. */
 export type SfxCue = [at: number, sfx: SfxName, arg?: number];
 
+/** Who speaks a line. Voices live in script/cast.ts. */
+export type SpeakerId = 'narrator' | 'you' | 'zombie' | 'friend' | 'aibot';
+
+export interface CastMember {
+  /** Label in the script text and speech bubbles. */
+  name: string;
+  /** Breeze TTS voice description. */
+  voice: string;
+  /** Seconds of quiet after this speaker's line before the next beat. Default in engine/timeline.ts. */
+  pad?: number;
+}
+
+export type Cast = Record<SpeakerId, CastMember>;
+
 export interface Cam { x: number; y: number; z: number }
 
 /** A camera that moves with time inside its beat. */
@@ -17,8 +31,12 @@ export type CamFn = (S: BeatState) => Cam;
 export interface BeatScript {
   /** Stable global id, "<chapter>.<key>". Audio files are named by it. */
   id: string;
-  /** Narration, shown as the caption. */
+  /** The spoken line. A narrator line is also the caption. */
   say?: string;
+  /** Who says `say`. Default "narrator". Several speakers each get their own clip and speak together. */
+  speaker?: SpeakerId | SpeakerId[];
+  /** With several speakers: seconds between each one's start. Default 0.15. */
+  stagger?: number;
   /** Full-screen card text. */
   card?: string;
   /** Fixed duration in seconds. Without it, duration comes from word count. */

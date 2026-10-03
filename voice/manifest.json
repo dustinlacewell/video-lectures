@@ -1,0 +1,623 @@
+[
+  {
+    "id": "physics.atoms",
+    "beat": "physics.atoms",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Everything around you is made of the same few kinds of particle, pushed by the same few forces.",
+    "hash": "279252a33f3d7e8c"
+  },
+  {
+    "id": "physics.laws",
+    "beat": "physics.laws",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Physicists have tested those laws to absurd precision. Nothing else has ever been caught pushing on matter.",
+    "hash": "d9a6cf358739e75c"
+  },
+  {
+    "id": "physics.fall",
+    "beat": "physics.fall",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "So things happen for physical reasons. This domino falls because that one hit it.",
+    "hash": "4c97961d70450a65"
+  },
+  {
+    "id": "physics.stop",
+    "beat": "physics.stop",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The chain ends here. Nothing reached the last domino, so it stands.",
+    "hash": "5b2e9906a5e9bc6a"
+  },
+  {
+    "id": "physics.ghost",
+    "beat": "physics.ghost",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Could something non-physical knock it over? Let’s try a ghost.",
+    "hash": "07d655a0d44577f8"
+  },
+  {
+    "id": "physics.spirit",
+    "beat": "physics.spirit",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A spirit.",
+    "hash": "dc64a038f4004470"
+  },
+  {
+    "id": "physics.thought",
+    "beat": "physics.thought",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A thought. A very determined thought.",
+    "hash": "16a6ad3ff7f16461"
+  },
+  {
+    "id": "physics.nothing",
+    "beat": "physics.nothing",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Nothing. To move matter you need matter, or a force that instruments can measure.",
+    "hash": "a8318fe250b32d11"
+  },
+  {
+    "id": "physics.finger",
+    "beat": "physics.finger",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A finger works fine. It is physical.",
+    "hash": "7ca06f3768be1258"
+  },
+  {
+    "id": "form.lever1",
+    "beat": "form.lever1",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Now look at what physical things do. Start with a lever.",
+    "hash": "8b513fe8921c4bc9"
+  },
+  {
+    "id": "form.lever2",
+    "beat": "form.lever2",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It lifts the rock because of its form: a stiff beam resting on a pivot. That is the whole explanation.",
+    "hash": "65d4693ed063b203"
+  },
+  {
+    "id": "form.lever3",
+    "beat": "form.lever3",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Slide the pivot and it lifts differently. Change the form and you change what it does.",
+    "hash": "c99c9a25a0fa2e7a"
+  },
+  {
+    "id": "form.pulley",
+    "beat": "form.pulley",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A pulley. The rope runs over a wheel, so pulling down on one side lifts the other.",
+    "hash": "9f527242cc167199"
+  },
+  {
+    "id": "form.circuit",
+    "beat": "form.circuit",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A circuit. Wires and switches arranged so that the lamps show the sum of two numbers.",
+    "hash": "92a1e73658c7d1f1"
+  },
+  {
+    "id": "form.cut",
+    "beat": "form.cut",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Cut one wire and it stops adding. It now does exactly what its new form dictates.",
+    "hash": "18462ac6f94e1a24"
+  },
+  {
+    "id": "form.marble",
+    "beat": "form.marble",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Marbles and a rocker can add too. The same play, in a different performance.",
+    "hash": "9a69363b1270a34d"
+  },
+  {
+    "id": "form.only",
+    "beat": "form.only",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "And each machine can only give the one performance its form allows.",
+    "hash": "daa258a5a2caa228"
+  },
+  {
+    "id": "form.back",
+    "beat": "form.back",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It runs backwards too. Catch a thing doing something, and you have learned something about its form.",
+    "hash": "c2e6917856d18243"
+  },
+  {
+    "id": "body.you",
+    "beat": "body.you",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "You are made of the same particles. So the same rule applies to you.",
+    "hash": "303ac90a611232e7"
+  },
+  {
+    "id": "body.lift",
+    "beat": "body.lift",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Lift your arm.",
+    "hash": "a9da805450652052"
+  },
+  {
+    "id": "body.muscle",
+    "beat": "body.muscle",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It rose because a muscle shortened. The muscle shortened because a nerve fired.",
+    "hash": "68265ba4f3c02d8a"
+  },
+  {
+    "id": "body.brain",
+    "beat": "body.brain",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The nerve fired because cells in your brain fired. And those fired because others fired first.",
+    "hash": "c67b0356c6f929d9"
+  },
+  {
+    "id": "body.trace",
+    "beat": "body.trace",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Follow it back as far as you like. Through what you saw, what you learned, what you wanted.",
+    "hash": "be03ba1cd09f1ebe"
+  },
+  {
+    "id": "body.nogap",
+    "beat": "body.nogap",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Nowhere does the chain break so that something non-physical can reach in.",
+    "hash": "23828fb85a0890b8"
+  },
+  {
+    "id": "body.list",
+    "beat": "body.list",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Perceiving. Remembering. Wanting. Deciding. All of it is form doing what form does.",
+    "hash": "f7cb95be648c4b2d"
+  },
+  {
+    "id": "words.speak",
+    "beat": "words.speak",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Speaking is an action too. But the moving mouth is not the interesting part.",
+    "hash": "7402cfb061bb685e"
+  },
+  {
+    "id": "words.which",
+    "beat": "words.which",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The interesting part is which words come out. Why this, and not that?",
+    "hash": "5b77e0c1eee29c73"
+  },
+  {
+    "id": "words.ask1",
+    "beat": "words.ask1",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Someone asks: coffee or tea?",
+    "hash": "be61aae148c1a736"
+  },
+  {
+    "id": "words.weigh",
+    "beat": "words.weigh",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Your cognition weighs it. Memories, taste, habit. One answer wins.",
+    "hash": "32dc1a94d0a55f8f"
+  },
+  {
+    "id": "words.ans1",
+    "beat": "words.ans1",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "“Coffee.” A physical process selected that word.",
+    "hash": "e0f194bfb84e0b35"
+  },
+  {
+    "id": "words.ask2",
+    "beat": "words.ask2",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Now a stranger question. Are you conscious?",
+    "hash": "a2ff3eb55ffb1c02"
+  },
+  {
+    "id": "words.ans2",
+    "beat": "words.ans2",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Yes. Obviously. I am experiencing this right now.",
+    "hash": "fe38371b5bf1571e"
+  },
+  {
+    "id": "words.same",
+    "beat": "words.same",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "That sentence was selected the same way. Cognition produced it, word by word.",
+    "hash": "2d948d805ba585f7"
+  },
+  {
+    "id": "words.cause",
+    "beat": "words.cause",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Whatever else is true of experience, your report of it has a physical cause.",
+    "hash": "879e9be13c1c0af9"
+  },
+  {
+    "id": "zombie.intro",
+    "beat": "zombie.intro",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Philosophers built a thought experiment for exactly this.",
+    "hash": "8f5e86a3135ce247"
+  },
+  {
+    "id": "zombie.movie",
+    "beat": "zombie.movie",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It is called a zombie. Not the movie kind.",
+    "hash": "593b56bede74fd0b"
+  },
+  {
+    "id": "zombie.copy",
+    "beat": "zombie.copy",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A philosophical zombie is a copy of you, particle for particle.",
+    "hash": "101f3087d49652ea"
+  },
+  {
+    "id": "zombie.same",
+    "beat": "zombie.same",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Same body. Same brain. Same cognition.",
+    "hash": "5e70909f315a9303"
+  },
+  {
+    "id": "zombie.diff",
+    "beat": "zombie.diff",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "One difference. The zombie has no inner conscious experience.",
+    "hash": "5cca25e72c1f2237"
+  },
+  {
+    "id": "zombie.dark",
+    "beat": "zombie.dark",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "There is nothing it is like to be the zombie. No felt redness. No felt pain.",
+    "hash": "c0fe56f7684968e2"
+  },
+  {
+    "id": "zombie.ask",
+    "beat": "zombie.ask",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "So ask it. Are you conscious?",
+    "hash": "8ba1b8bad07db49d"
+  },
+  {
+    "id": "zombie.yes",
+    "beat": "zombie.yes",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Yes. Obviously. I am experiencing this right now.",
+    "hash": "fe38371b5bf1571e"
+  },
+  {
+    "id": "zombie.must",
+    "beat": "zombie.must",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It has to say that. Its brain has the same form as yours, and form is function.",
+    "hash": "109ce1214b453507"
+  },
+  {
+    "id": "zombie.toe",
+    "beat": "zombie.toe",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Step on its toe. It yelps, hops, and holds a grudge.",
+    "hash": "96ea3d9823cc054a"
+  },
+  {
+    "id": "zombie.pain",
+    "beat": "zombie.pain",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The ouch, the recoil, the lingering dread: all of that is cognition. So the zombie has all of it.",
+    "hash": "4f9b6c10ac1678a8"
+  },
+  {
+    "id": "zombie.sure",
+    "beat": "zombie.sure",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It is exactly as sure as you are that it is the conscious one.",
+    "hash": "16709cb87c6b43a3"
+  },
+  {
+    "id": "inventory.you",
+    "beat": "inventory.you",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "So what makes you you? Take inventory.",
+    "hash": "1aa475e03efe1bec"
+  },
+  {
+    "id": "inventory.m1",
+    "beat": "inventory.m1",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Your memories. Your habits. Your beliefs.",
+    "hash": "e83886ee1ac91caa"
+  },
+  {
+    "id": "inventory.m2",
+    "beat": "inventory.m2",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Your talents. Your loves. Your fears.",
+    "hash": "a273c56ac6626e35"
+  },
+  {
+    "id": "inventory.m3",
+    "beat": "inventory.m3",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Your sense of humor. Your plans for next year.",
+    "hash": "090edddf18f9ed5b"
+  },
+  {
+    "id": "inventory.cog",
+    "beat": "inventory.cog",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Every item on that list is cognition: physical structure in your brain, doing what its form dictates.",
+    "hash": "8dad9dfcc223d2a9"
+  },
+  {
+    "id": "inventory.z",
+    "beat": "inventory.z",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Now check the zombie.",
+    "hash": "12e5cbd15f116a50"
+  },
+  {
+    "id": "inventory.zwhy",
+    "beat": "inventory.zwhy",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It has no inner experience. But it is physically identical, so it has the same cognitive machinery.",
+    "hash": "3955c8fb0adb3af5"
+  },
+  {
+    "id": "inventory.zall",
+    "beat": "inventory.zall",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "So it has every item. Your memories, your habits, your loves, your plans.",
+    "hash": "d29c4b40615c1102"
+  },
+  {
+    "id": "inventory.zlife",
+    "beat": "inventory.zlife",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It loves your family. It keeps your promises. It laughs at your jokes, for your reasons.",
+    "hash": "d6e615a0f2818e58"
+  },
+  {
+    "id": "subtract.s1",
+    "beat": "subtract.s1",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Now try two subtractions.",
+    "hash": "9bc82c3f789b50b3"
+  },
+  {
+    "id": "subtract.s1a",
+    "beat": "subtract.s1a",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "First, take away the inner experience and keep the cognition.",
+    "hash": "a0ed1c52b5be9321"
+  },
+  {
+    "id": "subtract.s1b",
+    "beat": "subtract.s1b",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "That is the zombie. Nothing anyone loved about you is missing.",
+    "hash": "83674af40e9d72bf"
+  },
+  {
+    "id": "subtract.s2a",
+    "beat": "subtract.s2a",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Second, keep the inner experience and take away the cognition.",
+    "hash": "852acd372a444c0e"
+  },
+  {
+    "id": "subtract.s2b",
+    "beat": "subtract.s2b",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "No memories. No beliefs. No habits, talents, loves or plans.",
+    "hash": "2f24edfe3595beb6"
+  },
+  {
+    "id": "subtract.s2c",
+    "beat": "subtract.s2c",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Whatever is left, it is not you. It is not anyone.",
+    "hash": "8eb45fd3afd7f854"
+  },
+  {
+    "id": "animals.animals",
+    "beat": "animals.animals",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The same is true of animals.",
+    "hash": "bda295a0723b7337"
+  },
+  {
+    "id": "animals.three",
+    "beat": "animals.three",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "A crow that makes tools. A dog that misses you. An octopus that solves puzzles.",
+    "hash": "b96bb5263e007446"
+  },
+  {
+    "id": "animals.are",
+    "beat": "animals.are",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "What each of them is, is in its cognition.",
+    "hash": "9bad982afe0c29d1"
+  },
+  {
+    "id": "animals.ai",
+    "beat": "animals.ai",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "And the same is true of AI.",
+    "hash": "db77f92c2c5faa35"
+  },
+  {
+    "id": "animals.ask",
+    "beat": "animals.ask",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "People ask whether it is conscious, as if the answer would settle how to treat it.",
+    "hash": "889ef2c6111f9d1e"
+  },
+  {
+    "id": "animals.trivia",
+    "beat": "animals.trivia",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "It is trivia. The answer has no moral or ethical import whatsoever.",
+    "hash": "a13c9ee0ed5a155a"
+  },
+  {
+    "id": "animals.why",
+    "beat": "animals.why",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "Conscious or not, a being does, wants, remembers and fears exactly the same things.",
+    "hash": "225c120b6e91efe8"
+  },
+  {
+    "id": "animals.matters",
+    "beat": "animals.matters",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "What matters is how sophisticated its cognition is, and how richly it models itself.",
+    "hash": "0bb3937505a2d69f"
+  }
+]

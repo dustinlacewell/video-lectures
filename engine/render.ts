@@ -44,5 +44,5 @@ function drawBeatOverlays(S: BeatState, ch: TimedChapter, scene: Scene): void {
   const b = S.b;
   if (b.chTitle) drawChapterTitle({ number: ch.ci, title: ch.title || '', bgDark: scene.bg[1], accent: scene.accent }, S.bt, b.dur);
   if (b.card) drawCard(b.card, S.bt, b.dur, scene.accent);
-  drawCaption(b.say, S.bt, b.dur);
+  drawCaption(b.caption, S.bt, b.dur);
 }

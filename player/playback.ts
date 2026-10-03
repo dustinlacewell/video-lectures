@@ -1,18 +1,21 @@
-/* Playback state: the clock T, play/pause, speed, sound cues, and drawing the current frame. */
+/* Playback state: the clock T, play/pause, speed, sound cues, voice, and drawing the current frame. */
 
 import { auPad, auMusic, setSound } from '../engine/audio/music';
 import { sfx } from '../engine/audio/sfx';
 import { AU, auInit } from '../engine/audio/synth';
+import type { VoiceTrack } from '../engine/audio/voice';
 import { resetGrain } from '../engine/grain';
 import { H, W } from '../engine/math';
 import { renderFrame, type SceneMap } from '../engine/render';
 import { clearWrapCache } from '../engine/text';
-import { chapterAt, type TimedChapter, type Timeline } from '../engine/timeline';
+import { chapterAt, firstCueAt, type TimedChapter, type Timeline } from '../engine/timeline';
 import type { PlayerEls } from './dom';
 import { markChip } from './scriptText';
 
 export interface Playback {
   render(): void;
+  /** The clock T in seconds. */
+  time(): number;
   toggle(): void;
   seek(T: number): void;
   jumpTo(ch: TimedChapter): void;
@@ -26,7 +29,7 @@ export interface Playback {
 const MAX_CANVAS_W = 1920;
 const SPEEDS: Record<number, number> = { 1: 1.25, 1.25: 1.5, 1.5: 1 };
 
-export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls): Playback {
+export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls, voice: VoiceTrack): Playback {
   let T = 0, playing = false, lastTs = 0, cueI = 0, curCh = -1, RATE = 1;
   els.seek.max = tl.total.toFixed(1);
 
@@ -44,14 +47,20 @@ export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls): 
     els.play.textContent = playing ? 'Pause' : (T > 0.05 ? 'Resume' : 'Play');
   }
 
-  /** Skip cues at or before T so seeking does not replay them. */
-  function resetCues(): void { cueI = 0; while (cueI < tl.cues.length && tl.cues[cueI].t <= T) cueI++; }
+  /** Skip cues before T so seeking does not replay them. A cue exactly at T still plays. */
+  function resetCues(): void { cueI = firstCueAt(tl.cues, T); }
 
   function setPlaying(v: boolean): void {
     playing = v;
     if (v) { auInit(); if (AU.ctx && AU.ctx.state === 'suspended') AU.ctx.resume(); resetCues(); }
     auPad(v);
+    syncVoice(true);
   }
+
+  function syncVoice(jumped: boolean): void { voice.sync(T, { playing: playing, rate: RATE, jumped: jumped }); }
+
+  /** Move the clock to v without playing the sounds in between. */
+  function jump(v: number): void { T = v; resetCues(); render(); syncVoice(true); }
 
   function tick(ts: number): void {
     if (playing) {
@@ -59,6 +68,7 @@ export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls): 
       while (cueI < tl.cues.length && tl.cues[cueI].t <= T) { sfx(tl.cues[cueI].type, tl.cues[cueI].arg); cueI++; }
       auMusic(T, chapterAt(tl, T));
       render();
+      syncVoice(false);
     }
     lastTs = ts;
     requestAnimationFrame(tick);
@@ -66,9 +76,10 @@ export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls): 
 
   return {
     render: render,
+    time: function () { return T; },
     toggle: function () { if (!playing && T >= tl.total - 0.05) T = 0; setPlaying(!playing); render(); },
-    seek: function (v) { T = v; resetCues(); render(); },
-    jumpTo: function (ch) { T = ch.start + 0.01; resetCues(); render(); },
+    seek: jump,
+    jumpTo: function (ch) { jump(ch.start + 0.01); },
     fit: function () {
       const w = els.cv.clientWidth || 640, d = window.devicePixelRatio || 1;
       els.cv.width = Math.min(MAX_CANVAS_W, Math.round(w * d)); els.cv.height = Math.round(els.cv.width * H / W);

@@ -7,6 +7,8 @@ export interface AudioState {
   root?: number;
   master: GainNode;
   noise: AudioBuffer;
+  /** Music bus (pad + sequencer echo) into master. Ducked under the voice. */
+  music: GainNode;
   fx: GainNode;
   pad: GainNode;
   po: OscillatorNode[];
@@ -24,9 +26,10 @@ export function auInit(): void {
   AU.master = x.createGain(); AU.master.gain.value = AU.on ? 0.9 : 0;
   const comp = x.createDynamicsCompressor(); AU.master.connect(comp); comp.connect(x.destination);
   AU.noise = whiteNoise(x);
-  AU.fx = echoBus(x);
+  AU.music = x.createGain(); AU.music.connect(AU.master);
+  AU.fx = echoBus(x, AU.music);
   AU.pad = x.createGain(); AU.pad.gain.value = 0;
-  const lp = x.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 620; AU.pad.connect(lp); lp.connect(AU.master);
+  const lp = x.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 620; AU.pad.connect(lp); lp.connect(AU.music);
   AU.po = [0, 1, 2].map(function (k) {
     const o = x.createOscillator(); o.type = k === 1 ? 'triangle' : 'sine'; o.frequency.value = 110; o.detune.value = (k - 1) * 7;
     o.connect(AU.pad); o.start(); return o;
@@ -39,12 +42,12 @@ function whiteNoise(x: AudioContext): AudioBuffer {
   return nb;
 }
 
-/** A gain that feeds master directly and through a feedback delay. */
-function echoBus(x: AudioContext): GainNode {
+/** A gain that feeds `out` directly and through a feedback delay. */
+function echoBus(x: AudioContext, out: AudioNode): GainNode {
   const fx = x.createGain();
   const dl = x.createDelay(1), fb = x.createGain(), wet = x.createGain();
   dl.delayTime.value = 0.34; fb.gain.value = 0.34; wet.gain.value = 0.4;
-  fx.connect(AU.master); fx.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(AU.master);
+  fx.connect(out); fx.connect(dl); dl.connect(fb); fb.connect(dl); dl.connect(wet); wet.connect(out);
   return fx;
 }
 

@@ -1,5 +1,6 @@
 /* Debug globals for tools (exporter, parity check). Shapes match the original single-file player. */
 
+import type { VoiceTrack } from '../engine/audio/voice';
 import { mkS } from '../engine/beatState';
 import { camAt } from '../engine/camera';
 import { chapterAt, type Cue, type Timeline } from '../engine/timeline';
@@ -13,10 +14,16 @@ declare global {
     __cam(T: number): [number, string, number, number, number, number];
     /** Timing of every chapter and beat. Beat rows: [key, start, dur, global id]. Cues: every sound, sorted by time. */
     __info(): { total: number; chapters: { id: string; start: number; dur: number; beats: [string, number, number, string][] }[]; cues: Cue[] };
+    /** Voice clips playing now: clip id, seconds into the clip, paused. */
+    __voice(): { id: string; offset: number; paused: boolean }[];
+    /** The clock T in seconds. */
+    __t(): number;
   }
 }
 
-export function exposeDebug(tl: Timeline, player: Playback): void {
+export function exposeDebug(tl: Timeline, player: Playback, voice: VoiceTrack): void {
+  window.__voice = voice.now;
+  window.__t = player.time;
   window.__seek = function (v) { player.seek(v); };
   window.__cam = function (v) {
     const ch = chapterAt(tl, v), S = mkS(ch, v - ch.start), cm = camAt(ch, S);

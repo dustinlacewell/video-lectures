@@ -33,6 +33,14 @@ export function auPad(on: boolean): void {
   if (AU.ctx) AU.pad.gain.setTargetAtTime(on && AU.on ? 0.05 : 0, AU.ctx.currentTime, 0.3);
 }
 
+const DUCK_GAIN = Math.pow(10, -8 / 20);
+const DUCK_RAMP = 0.08;
+
+/** Lower the music about 8 dB while the voice speaks, with short ramps. */
+export function duckMusic(under: boolean): void {
+  if (AU.ctx) AU.music.gain.setTargetAtTime(under ? DUCK_GAIN : 1, AU.ctx.currentTime, DUCK_RAMP);
+}
+
 /** Mute or unmute everything. */
 export function setSound(on: boolean, playing: boolean): void {
   AU.on = on;

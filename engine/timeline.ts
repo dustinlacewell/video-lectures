@@ -1,6 +1,7 @@
 /* Pure: script chapters (+ optional measured durations) -> timed beats, cues, total. */
 
-import type { BeatScript, Cam, CamFn, ChapterScript, SfxCue, SfxName } from '../script/types';
+import type { BeatScript, Cam, CamFn, Cast, ChapterScript, SfxCue, SfxName, SpeakerId } from '../script/types';
+import { captionOf, speakersOf, voiceLines, type VoiceLine } from './audio/voiceLines';
 import { resolveCams } from './camera';
 
 export interface TimedBeat extends BeatScript {
@@ -11,6 +12,12 @@ export interface TimedBeat extends BeatScript {
   start: number;
   dur: number;
   chTitle?: boolean;
+  /** Who says `say`, always a list. Scenes draw non-narrator lines in speech bubbles. */
+  speakers: SpeakerId[];
+  /** The caption: `say` when the narrator speaks it, else nothing. */
+  caption?: string;
+  /** Voice clips of this beat, `at` seconds after the beat starts. */
+  lines: VoiceLine[];
 }
 
 export interface TimedChapter {
@@ -61,7 +68,7 @@ function timeChapter(script: ChapterScript, ci: number, T: number, durations: Du
     const key = keyOf(script.id, b.id);
     const dur = beatDuration(b, durations);
     const sfx = b.sfx || (b.card ? CARD_SFX : undefined);
-    const tb: TimedBeat = { ...b, key: key, i: i, start: a, dur: dur };
+    const tb: TimedBeat = { ...b, key: key, i: i, start: a, dur: dur, speakers: speakersOf(b), caption: captionOf(b), lines: voiceLines(b) };
     if (sfx) tb.sfx = sfx;
     beats.push(tb);
     idx[key] = i;
@@ -86,6 +93,34 @@ function withTitleBeat(script: ChapterScript): (BeatScript & { chTitle?: boolean
   return [title, ...script.beats];
 }
 
+/** Seconds of quiet after a line when the speaker sets no pad. */
+export const DEFAULT_PAD = 0.6;
+
+/**
+ * Beat durations from voice clip lengths (clip id -> seconds).
+ * A voiced beat lasts until its last clip ends (start offset + length), plus the largest pad of its speakers.
+ * An explicit `dur` wins only when it is longer: a visual beat may need more time than its line.
+ * A beat with any clip missing gets no entry, so it falls back to `dur` or the word-count estimate.
+ */
+export function voiceDurations(chapters: ChapterScript[], clips: Durations, cast: Cast): Durations {
+  const out: Durations = {};
+  chapters.forEach(function (ch) {
+    ch.beats.forEach(function (b) {
+      const voiced = voicedDuration(b, clips, cast);
+      if (voiced !== undefined) out[b.id] = b.dur && b.dur > voiced ? b.dur : voiced;
+    });
+  });
+  return out;
+}
+
+function voicedDuration(b: BeatScript, clips: Durations, cast: Cast): number | undefined {
+  const lines = voiceLines(b);
+  if (!lines.length || lines.some(function (l) { return !clips[l.clip]; })) return undefined;
+  const end = Math.max(...lines.map(function (l) { return l.at + clips[l.clip]; }));
+  const pad = Math.max(...lines.map(function (l) { return cast[l.speaker].pad ?? DEFAULT_PAD; }));
+  return end + pad;
+}
+
 /** Measured duration, else the script's fixed duration, else the word-count estimate. */
 export function beatDuration(b: BeatScript, durations: Durations): number {
   const measured = durations[b.id];
@@ -99,6 +134,13 @@ export function keyOf(chapterId: string, beatId: string): string {
   const prefix = chapterId + '.';
   if (beatId.indexOf(prefix) !== 0) throw new Error('beat id "' + beatId + '" must start with "' + prefix + '"');
   return beatId.slice(prefix.length);
+}
+
+/** Index of the first cue at or after T in time-sorted cues. A cue exactly at T is still to play. */
+export function firstCueAt(cues: Cue[], T: number): number {
+  let i = 0;
+  while (i < cues.length && cues[i].t < T) i++;
+  return i;
 }
 
 /** The chapter that contains time T (seconds from video start). */
