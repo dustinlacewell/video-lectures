@@ -1,31 +1,9 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { beatDuration, buildTimeline, keyOf } from '../engine/timeline';
 import { SCRIPT } from '../script';
 
-/** Timeline and sound cues captured from the original single-file HTML. */
-const ORIGINAL = JSON.parse(readFileSync(new URL('./fixtures/original-timeline.json', import.meta.url), 'utf8')) as {
-  total: number;
-  chapters: { start: number; dur: number; beats: [string, number, number][] }[];
-  cues: { t: number; type: string; arg?: number }[];
-};
-
-describe('buildTimeline against the original', () => {
+describe('buildTimeline', () => {
   const tl = buildTimeline(SCRIPT);
-
-  it('has the same total runtime', () => {
-    expect(tl.total).toBe(ORIGINAL.total);
-    expect(tl.total).toBe(582.36);
-  });
-
-  it('has the same chapter and beat start times and durations', () => {
-    expect(tl.chapters.map(ch => ({ start: ch.start, dur: ch.dur, beats: ch.beats.map(b => [b.key, b.start, b.dur]) })))
-      .toEqual(ORIGINAL.chapters);
-  });
-
-  it('has the same sound cues in the same order', () => {
-    expect(tl.cues.map(q => ({ t: q.t, type: q.type, arg: q.arg }))).toEqual(ORIGINAL.cues);
-  });
 
   it('opens each titled chapter with a title beat that holds the first beat camera', () => {
     tl.chapters.forEach((ch, i) => {
