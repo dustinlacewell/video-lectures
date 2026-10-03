@@ -1,37 +1,39 @@
 /* Text: font setting, measuring, wrapping, pill labels, speech bubbles.
-   Labels and bubbles stay inside the frame. */
+   Every string may carry `*italic*` spans (see richText). Labels and bubbles stay inside the frame. */
 
 import { c } from './canvas';
 import { fillRR, poly } from './draw';
 import { C, FONT } from './palette';
+import { parseRuns, runsWidth, wrapMarkup, type Measure, type Run } from './richText';
 import { labelShift, onScreenShift, type Box } from './safeArea';
 
-export function font(size: number, weight?: number): void { c.font = (weight || 600) + ' ' + size + 'px ' + FONT; }
-
-export function txt(s: string, x: number, y: number, size: number, col: string, align?: CanvasTextAlign, weight?: number): void {
-  font(size, weight); c.fillStyle = col; c.textAlign = align || 'center'; c.textBaseline = 'middle'; c.fillText(s, x, y);
+export function font(size: number, weight?: number, italic?: boolean): void {
+  c.font = (italic ? 'italic ' : '') + (weight || 600) + ' ' + size + 'px ' + FONT;
 }
 
-export function tw(s: string, size: number, weight?: number): number { font(size, weight); return c.measureText(s).width; }
+export function txt(s: string, x: number, y: number, size: number, col: string, align?: CanvasTextAlign, weight?: number): void {
+  c.fillStyle = col; c.textBaseline = 'middle';
+  const runs = parseRuns(s);
+  if (isPlain(runs)) { font(size, weight); c.textAlign = align || 'center'; c.fillText(s, x, y); return; }
+  drawRuns(runs, x, y, size, align || 'center', weight);
+}
+
+export function tw(s: string, size: number, weight?: number): number {
+  const runs = parseRuns(s);
+  if (isPlain(runs)) { font(size, weight); return c.measureText(s).width; }
+  return runsWidth(runs, measurer(size, weight));
+}
 
 let wrapCache: Record<string, string[]> = {};
 
 /** Forget measured wraps. Call after web fonts arrive. */
 export function clearWrapCache(): void { wrapCache = {}; }
 
+/** Lines of markup no wider than maxW. */
 export function wrap(s: string, size: number, weight: number, maxW: number): string[] {
   const key = s + '|' + size + '|' + weight + '|' + maxW;
-  if (wrapCache[key]) return wrapCache[key];
-  font(size, weight);
-  const words = s.split(' '), lines: string[] = [];
-  let cur = '';
-  words.forEach(function (w) {
-    const t = cur ? cur + ' ' + w : w;
-    if (c.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t;
-  });
-  if (cur) lines.push(cur);
-  wrapCache[key] = lines;
-  return lines;
+  if (!wrapCache[key]) wrapCache[key] = wrapMarkup(s, maxW, measurer(size, weight));
+  return wrapCache[key];
 }
 
 /** Pill label centred on (x,y), nudged inside the frame when it pokes out. Returns the drawn box. */
@@ -74,4 +76,18 @@ export function bubble(s: string, x: number, y: number, size: number, o?: Bubble
 function toward(x: number, y: number, tx: number, ty: number, max: number): [number, number] {
   const dx = tx - x, dy = ty - y, len = Math.hypot(dx, dy);
   return len <= max ? [tx, ty] : [x + dx / len * max, y + dy / len * max];
+}
+
+function isPlain(runs: Run[]): boolean { return runs.length <= 1 && !(runs[0] && runs[0].italic); }
+
+function measurer(size: number, weight?: number): Measure {
+  return function (text, italic) { font(size, weight, italic); return c.measureText(text).width; };
+}
+
+/** Draw style runs as one line, aligned as a single string would be. */
+function drawRuns(runs: Run[], x: number, y: number, size: number, align: CanvasTextAlign, weight?: number): void {
+  const total = runsWidth(runs, measurer(size, weight));
+  let xx = align === 'center' ? x - total / 2 : align === 'right' || align === 'end' ? x - total : x;
+  c.textAlign = 'left';
+  runs.forEach(function (r) { font(size, weight, r.italic); c.fillText(r.text, xx, y); xx += c.measureText(r.text).width; });
 }
