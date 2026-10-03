@@ -21,7 +21,7 @@ export const physics: Scene = {
     floaters(cam, T, 4, 10, [C.cyan, C.purple], 0.5);
   },
   draw: function (S, cam, T) {
-    const th = angles(S.since('fall') - PUSH), lat = cl((cam.z - 2.3) / 1.2);
+    const th = angles(S.since('fall') - PUSH), lat = cl(cam.z - 2.0);
     ground(GY, -900, 3200, '#4C6BE0', '#253A94');
     for (let i = N - 1; i >= 0; i--) domino(x0 + i * ds, th[i], true, i < 4 ? lat : 0, T);
     lawProbes(S, T);
@@ -85,14 +85,10 @@ function particleLattice(lattice: number, T: number): void {
   c.globalAlpha = GA;
 }
 
-/** Tested: probes and ticks around the lattice. */
+/** Tested: a probe searches the lattice and finds no extra push. */
 function lawProbes(S: BeatState, T: number): void {
   const la = S.on('laws', 0.6, 0.6) * (1 - S.on('fall', 0, 0.4));
   if (la > 0) withA(la, function () {
-    for (let k = 0; k < 3; k++) {
-      const p = S.pop('laws', 1.6 + k * 0.7);
-      if (p > 0) { tf(304 + k * 26, 392, p, 0, function () { circ(0, 0, 9, C.teal); check(0, 0, 9, C.white, 2.2); }); }
-    }
     const p2 = S.pop('laws', 3.7);
     if (p2 > 0) tf(330, 420, p2, 0, function () { tag('no extra push found', 0, 0, 9.5, C.ink, C.cream); });
     const sx = 212 + Math.sin(T * 1.3) * 9, sy = 440 + Math.cos(T * 0.9) * 40;
@@ -102,7 +98,7 @@ function lawProbes(S: BeatState, T: number): void {
 
 function closeUpLabel(S: BeatState): void {
   const ca = S.on('atoms', 0.8, 0.5) * (1 - S.on('laws', 0, 0.4));
-  if (ca > 0) withA(ca, function () { tag('a domino, very close up', 262, 404, 5.4, C.ink, C.cream); });
+  if (ca > 0) withA(ca, function () { tag('a domino, very close up', 104, 404, 9.5, C.ink, C.cream); });
 }
 
 /** The finger that starts the chain. */

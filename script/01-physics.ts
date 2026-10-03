@@ -4,7 +4,7 @@ import type { ChapterCue, ChapterScript } from './types';
 /** The camera follows the falling chain. */
 function followChain(S: { since(key: string): number }) {
   const u = S.since('fall') - PUSH;
-  return { x: Math.max(500, Math.min(1010, x0 + Math.max(0, u) / DELTA * ds + 130)), y: 420, z: 1.45 };
+  return { x: Math.max(500, Math.min(1040, x0 + Math.max(0, u) / DELTA * ds + 130)), y: 420, z: 1.45 };
 }
 
 function dominoTicks(): ChapterCue[] {
@@ -18,8 +18,8 @@ function dominoTicks(): ChapterCue[] {
 export const physics: ChapterScript = {
   id: 'physics', title: 'Only physical things push', short: 'Physics', root: 196, scale: [0, 2, 4, 7, 9, 12],
   beats: [
-    { id: 'physics.atoms', say: 'Everything around you is made of the same few kinds of particle, pushed by the same few forces.', cam: { x: 214, y: 450, z: 7.5 } },
-    { id: 'physics.laws', say: 'Physicists have tested those laws to absurd precision. Nothing else has ever been caught pushing on matter.', cam: { x: 262, y: 440, z: 4.0 }, sfx: [[1.6, 'blip'], [2.3, 'blip'], [3.0, 'blip'], [3.7, 'ding']] },
+    { id: 'physics.atoms', say: 'Everything around you is made of the same few kinds of particles, pushed by the same few forces.', cam: { x: 200, y: 468, z: 3.3 } },
+    { id: 'physics.laws', say: 'Physicists have tested those laws to absurd precision. Nothing else has ever been caught pushing on matter.', cam: { x: 200, y: 466, z: 3.0 }, sfx: [[3.7, 'ding']] },
     { id: 'physics.fall', say: 'So things happen for physical reasons. This domino falls because that one hit it.', camT: 1.4, cam: followChain, sfx: [[0.3, 'swish']] },
     { id: 'physics.stop', say: 'The chain ends here. Nothing reached the last domino, so it stands.', cam: { x: 1290, y: 420, z: 1.5 } },
     { id: 'physics.ghost', say: 'Could something non-physical knock it over? Let’s try a ghost.', cam: { x: 1560, y: 404, z: 1.62 }, sfx: [[0.1, 'boo'], [1.8, 'whoosh'], [2.7, 'fail']] },
