@@ -1,22 +1,33 @@
 /* The page elements the player drives. */
 
 export interface PlayerEls {
-  cv: HTMLCanvasElement;
+  /** The video box: stage plus control bar. Goes full screen as one. */
+  player: HTMLElement;
   stage: HTMLElement;
-  seek: HTMLInputElement;
-  time: HTMLElement;
+  cv: HTMLCanvasElement;
+  bigPlay: HTMLElement;
   play: HTMLButtonElement;
-  snd: HTMLButtonElement;
+  cur: HTMLElement;
+  total: HTMLElement;
+  scrub: HTMLElement;
+  track: HTMLElement;
+  seek: HTMLInputElement;
+  tip: HTMLElement;
+  chap: HTMLButtonElement;
+  chapMenu: HTMLElement;
   spd: HTMLButtonElement;
+  spdMenu: HTMLElement;
+  snd: HTMLButtonElement;
   full: HTMLButtonElement;
-  chips: HTMLElement;
-  script: HTMLElement;
 }
 
 export function findElements(): PlayerEls {
   function el<T extends HTMLElement>(id: string): T { return document.getElementById(id) as T; }
   return {
-    cv: el('cv'), stage: el('stage'), seek: el('seek'), time: el('time'), play: el('play'),
-    snd: el('snd'), spd: el('spd'), full: el('full'), chips: el('chips'), script: el('script')
+    player: el('player'), stage: el('stage'), cv: el('cv'), bigPlay: el('bigplay'),
+    play: el('play'), cur: el('cur'), total: el('total'),
+    scrub: el('scrub'), track: el('track'), seek: el('seek'), tip: el('tip'),
+    chap: el('chap'), chapMenu: el('chapmenu'), spd: el('spd'), spdMenu: el('spdmenu'),
+    snd: el('snd'), full: el('full')
   };
 }

@@ -1,0 +1,150 @@
+/* The page is the video: a title line, then the stage with one control bar on its bottom edge. */
+
+:root {
+  color-scheme: dark;
+  --page: #0d0d10;
+  --title: #b9b7c6;
+  --stage: #120e2e;
+  --accent: #ff7aa2;
+  --focus: #ffc2d4;
+  --bar-ink: #fff;
+  --bar-solid: #17151f;
+  --bar-fade: rgba(0, 0, 0, 0.72);
+  --menu-bg: rgba(24, 22, 34, 0.97);
+  --hover: rgba(255, 255, 255, 0.14);
+  --rail: rgba(255, 255, 255, 0.32);
+  --display: "Fredoka", "Trebuchet MS", "Segoe UI", sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { color-scheme: light; --page: #ebeaf0; --title: #3a3750; }
+}
+:root[data-theme="light"] { color-scheme: light; --page: #ebeaf0; --title: #3a3750; }
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--page); color: var(--title); font-family: var(--body); }
+
+.page {
+  min-height: 100dvh; padding: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+}
+.title {
+  width: var(--player-w); margin: 0;
+  font: 600 17px/1.2 var(--display); letter-spacing: 0.01em; color: var(--title);
+}
+.page { --player-w: min(100%, 1440px, calc((100dvh - 80px) * 16 / 9)); }
+
+/* ---- The video box ---- */
+.player { position: relative; width: var(--player-w); container: player / inline-size; color: var(--bar-ink); }
+.stage { position: relative; aspect-ratio: 16 / 9; background: var(--stage); border-radius: 12px; overflow: hidden; cursor: pointer; }
+.stage canvas { display: block; width: 100%; height: 100%; }
+.bigplay {
+  position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; transform: translate(-50%, -50%);
+  display: grid; place-items: center; padding-left: 4px; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55); color: #fff; pointer-events: none;
+}
+.bigplay svg { width: 36px; height: 36px; }
+
+.player:fullscreen { width: 100vw; height: 100vh; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.player:fullscreen .stage { width: min(100vw, calc(100vh * 16 / 9)); border-radius: 0; }
+.player:fullscreen .bar { border-radius: 0; }
+
+/* ---- Control bar: overlaid on the video's bottom edge ---- */
+.bar {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  display: grid; align-items: center; column-gap: 2px;
+  grid-template-columns: auto auto 1fr auto auto auto auto;
+  grid-template-areas: "play time scrub chap spd snd full";
+  padding: 40px 10px 8px;
+  background: linear-gradient(to bottom, transparent, var(--bar-fade));
+  border-radius: 0 0 12px 12px;
+  transition: opacity 0.25s ease;
+}
+.play { grid-area: play; }
+.time { grid-area: time; }
+.scrub { grid-area: scrub; }
+#chap { grid-area: chap; }
+#spd { grid-area: spd; }
+#snd { grid-area: snd; }
+#full { grid-area: full; }
+.menu-anchor { display: contents; }
+
+@container player (min-width: 640px) {
+  .player.idle:not(:has(:focus-visible)):not(:has([aria-expanded="true"])) .bar { opacity: 0; pointer-events: none; }
+  .player.idle:not(:has(:focus-visible)):not(:has([aria-expanded="true"])) .stage { cursor: none; }
+}
+
+/* Narrow: the bar sits under the video, scrubber on its own row. */
+@container player (max-width: 639px) {
+  .stage { border-radius: 12px 12px 0 0; }
+  .bar {
+    position: relative; padding: 0 4px 4px; background: var(--bar-solid);
+    grid-template-columns: auto auto 1fr auto auto auto auto;
+    grid-template-areas: "scrub scrub scrub scrub scrub scrub scrub" "play time . chap spd snd full";
+  }
+  .bigplay { width: 56px; height: 56px; }
+  .bigplay svg { width: 28px; height: 28px; }
+}
+@container player (max-width: 299px) { .time .of { display: none; } }
+
+/* ---- Buttons ---- */
+.ic {
+  width: 40px; height: 40px; padding: 0; border: 0; border-radius: 8px;
+  display: grid; place-items: center;
+  background: transparent; color: inherit; cursor: pointer;
+}
+.ic:hover { background: var(--hover); }
+.ic svg { width: 24px; height: 24px; }
+.speed { width: auto; min-width: 48px; padding: 0 8px; font: 600 15px var(--display); }
+.time { padding: 0 8px; font: 600 14px var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.time .of { opacity: 0.7; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---- Scrubber: range input over a chapter-segmented track ---- */
+.scrub { position: relative; height: 32px; margin: 0 8px; min-width: 0; }
+.track { position: absolute; left: 7px; right: 7px; top: 50%; height: 4px; transform: translateY(-50%); transition: height 0.12s; }
+.scrub:hover .track, .scrub:focus-within .track { height: 6px; }
+.seg { position: absolute; top: 0; bottom: 0; background: var(--rail); border-radius: 2px; overflow: hidden; }
+.fill { position: absolute; inset: 0; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+
+.scrub input {
+  position: relative; display: block; width: 100%; height: 32px; margin: 0;
+  -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; border-radius: 4px;
+}
+.scrub input::-webkit-slider-runnable-track { height: 32px; background: transparent; }
+.scrub input::-moz-range-track { height: 32px; background: transparent; }
+.scrub input::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 14px; height: 14px; margin-top: 9px;
+  border: 0; border-radius: 50%; background: var(--accent); transition: transform 0.12s;
+}
+.scrub input::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--accent); }
+.scrub:hover input::-webkit-slider-thumb { transform: scale(1.2); }
+
+.tip {
+  position: absolute; bottom: calc(100% + 2px); transform: translateX(-50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 6px 10px; border-radius: 6px; background: var(--menu-bg);
+  font: 600 13px/1.25 var(--display); white-space: nowrap; pointer-events: none;
+}
+.tip span:last-child { font-weight: 500; opacity: 0.75; font-variant-numeric: tabular-nums; }
+
+/* ---- Popover menus, anchored to the bar's right edge ---- */
+.menu {
+  position: absolute; right: 8px; bottom: calc(100% + 4px); z-index: 4;
+  display: flex; flex-direction: column; min-width: 120px; padding: 6px;
+  max-height: min(60vh, 360px); overflow-y: auto;
+  border-radius: 10px; background: var(--menu-bg); box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+.menu.chapters { width: min(340px, calc(100cqw - 16px)); }
+.menu button {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  width: 100%; padding: 9px 12px; border: 0; border-radius: 6px;
+  background: transparent; color: inherit; text-align: left; cursor: pointer;
+  font: 500 15px/1.25 var(--display);
+}
+.menu button:hover, .menu button:focus-visible { background: var(--hover); }
+.menu button:focus-visible { outline-offset: -2px; }
+.menu button[aria-current="true"], .menu button[aria-checked="true"] { color: var(--accent); font-weight: 600; }
+.menu .at { flex: none; opacity: 0.7; font-variant-numeric: tabular-nums; }

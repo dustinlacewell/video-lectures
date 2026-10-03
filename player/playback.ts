@@ -9,8 +9,17 @@ import { H, W } from '../engine/math';
 import { renderFrame, type SceneMap } from '../engine/render';
 import { clearWrapCache } from '../engine/text';
 import { chapterAt, firstCueAt, type TimedChapter, type Timeline } from '../engine/timeline';
-import type { PlayerEls } from './dom';
-import { markChip } from './scriptText';
+
+/** What the page shows about playback after each frame. */
+export interface PlayState {
+  T: number;
+  total: number;
+  playing: boolean;
+  rate: number;
+  soundOn: boolean;
+  /** Index of the chapter at T. */
+  chapter: number;
+}
 
 export interface Playback {
   render(): void;
@@ -20,31 +29,30 @@ export interface Playback {
   seek(T: number): void;
   jumpTo(ch: TimedChapter): void;
   fit(): void;
-  cycleSpeed(): number;
+  setSpeed(rate: number): void;
   toggleSound(): boolean;
   fontsLoaded(): void;
   start(): void;
+  /** Call fn after every drawn frame and every state change. */
+  onFrame(fn: (s: PlayState) => void): void;
 }
 
 const MAX_CANVAS_W = 1920;
-const SPEEDS: Record<number, number> = { 1: 1.25, 1.25: 1.5, 1.5: 1 };
 
-export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls, voice: VoiceTrack): Playback {
-  let T = 0, playing = false, lastTs = 0, cueI = 0, curCh = -1, RATE = 1;
-  els.seek.max = tl.total.toFixed(1);
+export function createPlayback(tl: Timeline, scenes: SceneMap, cv: HTMLCanvasElement, voice: VoiceTrack): Playback {
+  let T = 0, playing = false, lastTs = 0, cueI = 0, RATE = 1;
+  const listeners: ((s: PlayState) => void)[] = [];
 
   function render(): void {
     if (T >= tl.total) { T = tl.total - 0.001; setPlaying(false); }
     if (T < 0) T = 0;
-    renderFrame(tl, scenes, T, els.cv.width / W);
-    syncUi(chapterAt(tl, T).ci);
+    renderFrame(tl, scenes, T, cv.width / W);
+    notify();
   }
 
-  function syncUi(ci: number): void {
-    if (curCh !== ci) { curCh = ci; markChip(els.chips, ci); }
-    if (document.activeElement !== els.seek || playing) els.seek.value = T.toFixed(1);
-    els.time.textContent = fmt(T) + ' / ' + fmt(tl.total);
-    els.play.textContent = playing ? 'Pause' : (T > 0.05 ? 'Resume' : 'Play');
+  function notify(): void {
+    const s: PlayState = { T: T, total: tl.total, playing: playing, rate: RATE, soundOn: AU.on, chapter: chapterAt(tl, T).ci };
+    listeners.forEach(function (fn) { fn(s); });
   }
 
   /** Skip cues before T so seeking does not replay them. A cue exactly at T still plays. */
@@ -81,15 +89,14 @@ export function createPlayback(tl: Timeline, scenes: SceneMap, els: PlayerEls, v
     seek: jump,
     jumpTo: function (ch) { jump(ch.start + 0.01); },
     fit: function () {
-      const w = els.cv.clientWidth || 640, d = window.devicePixelRatio || 1;
-      els.cv.width = Math.min(MAX_CANVAS_W, Math.round(w * d)); els.cv.height = Math.round(els.cv.width * H / W);
+      const w = cv.clientWidth || 640, d = window.devicePixelRatio || 1;
+      cv.width = Math.min(MAX_CANVAS_W, Math.round(w * d)); cv.height = Math.round(cv.width * H / W);
       resetGrain(); render();
     },
-    cycleSpeed: function () { RATE = SPEEDS[RATE]; return RATE; },
-    toggleSound: function () { setSound(!AU.on, playing); return AU.on; },
+    setSpeed: function (rate) { RATE = rate; notify(); },
+    toggleSound: function () { setSound(!AU.on, playing); notify(); return AU.on; },
     fontsLoaded: function () { clearWrapCache(); render(); },
-    start: function () { requestAnimationFrame(tick); }
+    start: function () { requestAnimationFrame(tick); },
+    onFrame: function (fn) { listeners.push(fn); }
   };
 }
-
-function fmt(s: number): string { s = Math.floor(s); return Math.floor(s / 60) + ':' + ('0' + (s % 60)).slice(-2); }

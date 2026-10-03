@@ -7,11 +7,15 @@ import { buildTimeline, voiceDurations } from '../engine/timeline';
 import { SCENES } from '../scenes';
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';
-import { onFontsLoaded, wireControls } from './controls';
 import { exposeDebug } from './debug';
 import { findElements } from './dom';
-import { createPlayback } from './playback';
-import { buildChapterChips, buildScriptText } from './scriptText';
+import { onFontsLoaded } from './fonts';
+import { createPlayback, type Playback } from './playback';
+import { createAutoHide } from './ui/autoHide';
+import { createControlBar } from './ui/controlBar';
+import { toggleFullscreen } from './ui/fullscreen';
+import { bindKeyboard } from './ui/keyboard';
+import type { KeyAction } from './ui/keymap';
 
 /** Voice clips and their lengths are served next to the page (Vite publicDir = voice/clips). */
 const clipUrl = (clip: string) => './' + encodeURIComponent(clip) + '.wav';
@@ -24,15 +28,26 @@ function boot(clips: ClipLengths): void {
   setContext(els.cv.getContext('2d')!);
 
   const voice = createVoiceTrack(tl, clips, clipUrl);
-  const player = createPlayback(tl, SCENES, els, voice);
-  buildChapterChips(tl, els.chips, player.jumpTo);
-  buildScriptText(tl, els.script, CAST);
-  wireControls(els, player);
+  const player = createPlayback(tl, SCENES, els.cv, voice);
+  const updateBar = createControlBar(els, tl, player);
+  const autoHide = createAutoHide(els.player);
+  player.onFrame(function (s) { updateBar(s); autoHide.setPlaying(s.playing); });
+  bindKeyboard(function (a) { runKey(a, player, tl.total, els.player); });
   exposeDebug(tl, player, voice);
 
-  player.fit();
+  new ResizeObserver(player.fit).observe(els.cv);
   onFontsLoaded(player.fontsLoaded);
   player.start();
+}
+
+function runKey(a: KeyAction, player: Playback, total: number, box: HTMLElement): void {
+  switch (a.kind) {
+    case 'toggle': player.toggle(); break;
+    case 'seekBy': player.seek(Math.min(total, Math.max(0, player.time() + a.by))); break;
+    case 'seekTo': player.seek(a.to === 'start' ? 0 : total); break;
+    case 'mute': player.toggleSound(); break;
+    case 'fullscreen': toggleFullscreen(box); break;
+  }
 }
 
 /** Clip lengths from durations.json, or none: then every beat falls back to its scripted timing. */
