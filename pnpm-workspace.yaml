@@ -1,0 +1,4 @@
+packages:
+  - videos/*
+  - site
+  - studio/tools
