@@ -67,7 +67,8 @@ function person(S: BeatState, T: number, f: Feelings, x: number, isTwin: boolean
     look: f.hurt || f.grudge ? [isTwin ? -0.2 : 0.2, 0.9] : S.is('sure') ? [isTwin ? -0.8 : 0.8, 0] : S.has('ask') && !S.has('must') ? [-0.7, 0.2] : [isTwin ? -0.5 : 0.5, 0],
     mouth: f.hurt ? 'yell' : f.grudge ? 'frown' : mouthTalk ? 'talk' : 'smile', brow: f.grudge || S.is('sure') ? 1 : 0,
     armR: f.wave ? 2.5 + Math.sin(T * 5) * 0.25 : f.hurt ? 2.6 : 0.14, armL: f.hurt ? 2.6 : 0.14 };
-  if (f.sure > 0) o.reachR = [x + lerp(84, 14, f.sure), GY - lerp(70, 150, f.sure)];
+  /* Hand to chest, below the mouth: arms draw over the face. */
+  if (f.sure > 0) o.reachR = [x + lerp(84, 14, f.sure), GY - lerp(70, 92, f.sure)];
   bean(o);
 }
 

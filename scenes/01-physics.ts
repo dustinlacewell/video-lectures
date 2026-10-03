@@ -153,8 +153,10 @@ function visitor(kind: VisitorKind, S: BeatState, T: number): void {
   }
 }
 
-function basePose(u: number, to: number): Pose {
-  return { x: lerp(2000, to, easeOut(u / 1.2)), y: GY - 150, a: 1, mood: '', shake: 0, sc: 1, flip: false };
+/** Fly in from the right and arrive at (toX, toY) at u = 1.2, where the visitor's own move begins. */
+function basePose(u: number, toX: number, toY: number): Pose {
+  const e = easeOut(u / 1.2);
+  return { x: lerp(2000, toX, e), y: lerp(GY - 150, toY, e), a: 1, mood: '', shake: 0, sc: 1, flip: false };
 }
 
 /** Sulk home: drift to the side, shrink, look sad. */
@@ -164,7 +166,7 @@ function sulk(p: Pose, fromX: number, fromY: number, q: number, home: number): v
 
 /** The ghost passes straight through. */
 function ghostPose(u: number): Pose {
-  const p = basePose(u, 1570);
+  const p = basePose(u, 1570, GY - 150);
   if (u < 1.2) return p;
   if (u < 1.8) { p.x = 1570 + ease((u - 1.2) / 0.6) * 30; return p; }
   if (u < 2.6) { const e = ease((u - 1.8) / 0.8); p.x = lerp(1600, 1310, e); p.a = 1 - 0.5 * Math.sin(e * PI); return p; }
@@ -176,16 +178,16 @@ function ghostPose(u: number): Pose {
 
 /** The spirit circles the domino twice. */
 function spiritPose(u: number): Pose {
-  const p = basePose(u, 1560);
+  const p = basePose(u, 1560, GY - 80);
   if (u < 1.2) return p;
-  if (u < 3.4) { const ang = (u - 1.2) / 2.2 * TAU * 2; p.x = 1432 + Math.cos(ang) * 128; p.y = GY - 80 + Math.sin(ang) * 86; return p; }
+  if (u < 3.4) { const ang = ease((u - 1.2) / 2.2) * TAU * 2; p.x = 1432 + Math.cos(ang) * 128; p.y = GY - 80 + Math.sin(ang) * 86; return p; }
   sulk(p, 1560, GY - 80, ease((u - 3.4) / 0.9), SULK.spirit);
   return p;
 }
 
 /** The thought strains at it. */
 function thoughtPose(u: number): Pose {
-  const p = basePose(u, 1512);
+  const p = basePose(u, 1508, GY - 96);
   if (u < 1.2) return p;
   if (u < 3.3) { p.x = 1508; p.y = GY - 96; p.shake = 1; return p; }
   sulk(p, 1508, GY - 96, ease((u - 3.3) / 0.9), SULK.thought);

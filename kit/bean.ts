@@ -27,24 +27,28 @@ export function bean(o: BeanOpts): void {
     c.translate(0, -lift); if (o.tilt) c.rotate(o.tilt);
     c.scale(1 + sq * 0.14, 1 - sq * 0.14);
     body(col, bob);
-    arms(o, s, col, bob, lift);
     const ey = -130 + bob;
     eyes(o, t, ph, look, ey);
     brows(o.brow, ey);
     mouth(o.mouth || 'smile', -94 + bob, t, ph);
+    arms(o, s, col, bob, lift);
     c.restore();
   });
 }
 
+/** Flat body with one shading mark: a thin shadow rim that follows the right edge. */
 function body(col: string, bob: number): void {
   fillRR(-48, -16, 38, 20, 10, col); fillRR(-48, -16, 38, 20, 10, DK);
   fillRR(10, -16, 38, 20, 10, col); fillRR(10, -16, 38, 20, 10, DK);
   rr(-60, -182 + bob, 120, 174, 58); c.fillStyle = col; c.fill();
-  c.save(); rr(-60, -182 + bob, 120, 174, 58); c.clip();
-  c.fillStyle = 'rgba(21,15,51,0.14)'; c.fillRect(18, -200, 60, 220);
-  ell(-24, -156 + bob, 24, 13, 'rgba(255,255,255,0.13)', -0.5);
+  c.save(); c.clip();
+  c.fillStyle = 'rgba(21,15,51,0.12)'; c.fillRect(-60, -182 + bob, 120, 174);
+  fillRR(-60 - RIM, -182 + bob - RIM / 2, 120, 174, 58, col);
   c.restore();
 }
+
+/** Width of the body's shadow rim. */
+const RIM = 12;
 
 function arms(o: BeanOpts, s: number, col: string, bob: number, lift: number): void {
   ([[-1, o.armL, o.reachL], [1, o.armR, o.reachR]] as [number, number | undefined, number[] | undefined][]).forEach(function (q) {

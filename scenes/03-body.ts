@@ -104,11 +104,11 @@ function insideBrain(S: BeatState, cam: Cam, T: number, bob: number): void {
     SOURCES.forEach(function (q) {
       const p = S.pop('trace', q[4]);
       if (p <= 0) return;
-      A(net * cl(p)); line([q[1] + 6, q[2], PATH[0][0], PATH[0][1]], C.yellow, 0.8, [2, 2]); A(net);
+      A(p); line([q[1] + 6, q[2], PATH[0][0], PATH[0][1]], C.yellow, 0.8, [2, 2]); A(1);
       badge(q[0], q[1], q[2], 7.5, q[3], { scale: p });
     });
     c.restore();
-    ghostTriesToReachIn(S, T, bob, net);
+    ghostTriesToReachIn(S, T, bob);
   });
 }
 
@@ -126,7 +126,8 @@ function network(S: BeatState, T: number): void {
   if (lt >= 0 && lt < 1.75) { const pp = along(([] as number[]).concat(...PATH), lt / 1.75); circ(pp[0], pp[1], 1.7, C.white); }
 }
 
-function ghostTriesToReachIn(S: BeatState, T: number, bob: number, net: number): void {
+/** Drawn inside the network's fade; its own alphas are relative to it. */
+function ghostTriesToReachIn(S: BeatState, T: number, bob: number): void {
   const g = S.since('nogap');
   if (g > 0) {
     let gx2: number, gy2: number, ga = 1, mood = '';
@@ -136,7 +137,7 @@ function ghostTriesToReachIn(S: BeatState, T: number, bob: number, net: number):
     ghost(gx2, gy2 + bob, 0.13, { t: T, alpha: ga, mood: mood, flip: true });
     const q = g - 2.6;
     if (q > 0 && q < 2.4) {
-      A(net * (1 - cl((q - 1.8) / 0.5)));
+      A(1 - cl((q - 1.8) / 0.5));
       tf(659, 276 + bob, back(q / 0.4) * 0.16, 0, function () { circ(0, 0, 26, C.red); cross(0, 0, 10, C.white, 6); });
       A(1);
     }

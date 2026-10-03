@@ -35,7 +35,8 @@ function speakers(S: BeatState, T: number): void {
   bean({ x: 470, y: GY, s: 1.5, t: T, color: C.orange, look: weighingNow ? [0.6, -0.7] : S.has('ask1') ? [-0.7, 0.1] : [0.2, 0], mouth: talkYou ? 'talk' : weighingNow ? 'flat' : 'smile', armR: weighingNow ? 2.9 : 0.14 });
 }
 
-const REJECTED: [string, number, number, number][] = [['that', 660, 230, 1.4], ['those', 700, 300, 2.0], ['these', 640, 160, 2.6]];
+/** Rejected words: [word, x, y, seconds into "which"]. All sit inside the speak camera's frame (y >= 167 at z 1.5). */
+const REJECTED: [string, number, number, number][] = [['that', 660, 230, 1.4], ['those', 700, 300, 2.0], ['these', 790, 226, 2.6]];
 
 /** The moving mouth, then the choice of words. */
 function mouthThenChoice(S: BeatState): void {
@@ -49,8 +50,8 @@ function mouthThenChoice(S: BeatState): void {
       if (p <= 0) return;
       A(b1 * lerp(0.9, 0.4, x));
       tf(q[1], q[2], p, 0, function () {
-        const w = tag(q[0], 0, 0, 30, 'rgba(255,255,255,0.85)', C.ink);
-        if (x > 0) line([-w / 2 + 6, 0, -w / 2 + 6 + (w - 12) * x, 0], C.red, 5);
+        const b = tag(q[0], 0, 0, 30, 'rgba(255,255,255,0.85)', C.ink), my = b.y + b.h / 2;
+        if (x > 0) line([b.x + 6, my, b.x + 6 + (b.w - 12) * x, my], C.red, 5);
       });
       A(1);
     });
@@ -60,7 +61,7 @@ function mouthThenChoice(S: BeatState): void {
 function questions(S: BeatState): void {
   const q1 = S.pop('ask1', 0.3) * (1 - S.on('ans1', 0, 0.3));
   if (q1 > 0) bubble('Coffee or tea?', 212, 372, 30, { scale: q1, tail: -8, bg: C.cyan });
-  const q2 = S.pop('ask2', 0.4) * (1 - S.on('same', 0, 0.4));
+  const q2 = S.pop('ask2', 0.4) * (1 - S.on('ans2', 0, 0.3));
   if (q2 > 0) bubble('Are you conscious?', 212, 372, 30, { scale: q2, tail: -8, bg: C.cyan, maxW: 300 });
 }
 
@@ -90,12 +91,12 @@ function panel(a: number, rows: string[], vals: number[], win: number): void {
     tag('cognition', 836, 122, 30, C.orange, C.ink, 700);
     rows.forEach(function (r, i) {
       const y = 218 + i * 126, w = win > 0 && i === 0, lose = win > 0 && i === 1;
-      A(a * (lose ? lerp(1, 0.45, win) : 1));
+      A(lose ? lerp(1, 0.45, win) : 1);
       txt(r, 766, y, 40, w ? C.yellow : C.cream, 'left', 600);
       fillRR(766, y + 34, 408, 22, 11, 'rgba(255,255,255,0.13)');
       fillRR(766, y + 34, Math.max(22, 408 * vals[i]), 22, 11, w ? C.yellow : C.teal);
     });
-    A(a);
+    A(1);
     if (win > 0) tf(1160, 218, back(win), 0, function () { circ(0, 0, 24, C.green); check(0, 0, 22, C.white, 6); });
   });
 }
