@@ -1,6 +1,6 @@
 /* Imperative shell: open the player and join its timeline with the script. Every tool starts here. */
 
-import type { Common } from './args.ts';
+import { EXIT, UsageError, type Common } from './args.ts';
 import { chaptersOf, onlyChapters, timedBeats, type Beat, type Chapter } from './beats.ts';
 import type { ScriptChapter } from './contract.ts';
 import { openSession, type Session, type SessionOptions } from './session.ts';
@@ -14,12 +14,17 @@ export async function openVideo(common: Common, opts: SessionOptions = {}): Prom
   try {
     const script = await loadScript(session, common);
     const all = { chapters: chaptersOf(session.info, script), beats: timedBeats(session.info, script) };
-    const picked = onlyChapters(all.chapters, all.beats, common.chapters);
+    const picked = asUsage(function () { return onlyChapters(all.chapters, all.beats, common.chapters); });
     return { session: session, script: script, chapters: picked.chapters, beats: picked.beats, allBeats: all.beats, total: session.info.total };
   } catch (e) {
     await session.close();
     throw e;
   }
+}
+
+/** Run `f`; an error it throws is the caller's to fix with options. */
+function asUsage<T>(f: () => T): T {
+  try { return f(); } catch (e) { throw new UsageError(e instanceof Error ? e.message : String(e)); }
 }
 
 /** Run a tool body and always close the browser and server. Sets a failing exit code on error. */
@@ -30,7 +35,7 @@ export async function withVideo(common: Common, opts: SessionOptions, body: (v: 
     await body(v);
   } catch (e) {
     console.error(e instanceof Error ? e.message : e);
-    process.exitCode = 1;
+    process.exitCode = e instanceof UsageError ? EXIT.USAGE : EXIT.RUN_FAILED;
   } finally {
     if (v) await v.session.close();
   }

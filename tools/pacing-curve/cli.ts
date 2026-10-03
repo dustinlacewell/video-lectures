@@ -9,6 +9,8 @@ import { withVideo } from '../shared/video.ts';
 import { chartHtml } from './chart.ts';
 import { beatsCsv, chaptersCsv, visualCsv } from './csv.ts';
 import { beatRows, chapterRows } from './metrics.ts';
+import { speakerRates, videoRate } from './rates.ts';
+import { num } from '../shared/format.ts';
 import { summary } from './summary.ts';
 import { DEFAULT_RULE, visualCurve, type ChangeRule, type VisualSample } from './visual.ts';
 
@@ -28,12 +30,15 @@ await withVideo(common, {}, async function (v) {
   const clips = await loadClipLengths(v.session, common);
   const visual = await sampleVisual(v.session, v.chapters);
   const rows = beatRows(v.beats, clips, visual, rule.share), chapters = chapterRows(v.chapters, rows);
+  const runtime = v.chapters.reduce(function (s, c) { return s + c.dur; }, 0);
+  const rates = { video: videoRate(v.beats, runtime), speakers: speakerRates(v.beats, clips, runtime) };
   writeOut(common.out, 'beats.csv', beatsCsv(rows));
   writeOut(common.out, 'chapters.csv', chaptersCsv(chapters));
   writeOut(common.out, 'visual.csv', visualCsv(visual));
-  writeOut(common.out, 'pacing.md', summary(chapters, rows));
-  const html = writeOut(common.out, 'pacing.html', chartHtml((own.title as string) ?? 'Pacing curve', chapters, rows, visual));
-  console.log(rows.length + ' beats, ' + visual.length + ' visual samples, ' + Object.keys(clips).length + ' clip lengths. ' + html);
+  const md = writeOut(common.out, 'pacing.md', summary(chapters, rows, rates));
+  writeOut(common.out, 'pacing.html', chartHtml((own.title as string) ?? 'Pacing curve', chapters, rows, visual));
+  console.log(rows.length + ' beats, ' + visual.length + ' visual samples, ' + Object.keys(clips).length + ' clip lengths. ' +
+    num(rates.video.perRuntime) + ' spoken words per second of runtime. ' + md);
 });
 
 /** Small grey frames every `vstep` seconds, one curve per chapter (a chapter start counts as a change). */

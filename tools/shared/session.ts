@@ -18,6 +18,9 @@ export interface Session {
   frame(T: number, width: number): Promise<string>;
   /** Draw T and return grey levels (0-255) of the canvas scaled to w x h. */
   grey(T: number, w: number, h: number): Promise<number[]>;
+  /** Draw T, draw `away`, let the page run two animation frames, draw T again, and count the canvas pixels
+      that differ between the two draws of T. A pure function of T gives 0. */
+  redraw(T: number, away: number): Promise<{ changed: number; pixels: number }>;
   close(): Promise<void>;
 }
 
@@ -25,6 +28,8 @@ export interface SessionOptions {
   /** Scripts to run in the page before its own code (e.g. canvas instrumentation). */
   initScripts?: string[];
   viewport?: { width: number; height: number };
+  /** Rewrite the page URL before loading it (e.g. add or strip a flag). */
+  pageUrl?: (url: string) => string;
 }
 
 /** Attribute put on the video canvas once it is found. Page-side helpers find the canvas by it. */
@@ -32,7 +37,8 @@ export const CANVAS_MARK = 'data-vs-canvas';
 
 export async function openSession(common: Common, opts: SessionOptions = {}): Promise<Session> {
   const served: Served | undefined = common.build ? await serveDir(common.build) : undefined;
-  const url = served ? served.url : common.url!;
+  const base = served ? served.url : common.url!;
+  const url = opts.pageUrl ? opts.pageUrl(base) : base;
   const browser = await chromium.launch({ headless: true });
   try {
     const page = await openPage(browser, url, opts);
@@ -43,6 +49,12 @@ export async function openSession(common: Common, opts: SessionOptions = {}): Pr
       seek: function (T) { return page.evaluate(function (t) { (window as any).__seek(t); }, T); },
       frame: function (T, width) { return page.evaluate(drawScaledPng, { t: T, w: width, sel: '[' + CANVAS_MARK + ']' }); },
       grey: function (T, w, h) { return page.evaluate(drawScaledGrey, { t: T, w: w, h: h, sel: '[' + CANVAS_MARK + ']' }); },
+      redraw: async function (T, away) {
+        const sel = '[' + CANVAS_MARK + ']';
+        await page.evaluate(keepPixels, { t: T, sel: sel });
+        await page.evaluate(seekAndSettle, away);
+        return page.evaluate(countChanged, { t: T, sel: sel });
+      },
       close: async function () { await browser.close(); if (served) await served.close(); }
     };
   } catch (e) {
@@ -79,7 +91,29 @@ async function markCanvas(page: Page, selector: string | undefined): Promise<{ w
   return size;
 }
 
-/* The two functions below run in the page. */
+/* The functions below run in the page. */
+
+function keepPixels(a: { t: number; sel: string }): void {
+  (window as any).__seek(a.t);
+  const c = document.querySelector(a.sel) as HTMLCanvasElement;
+  (window as any).__vsKept = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data;
+}
+
+async function seekAndSettle(t: number): Promise<void> {
+  (window as any).__seek(t);
+  await new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); });
+}
+
+function countChanged(a: { t: number; sel: string }): { changed: number; pixels: number } {
+  (window as any).__seek(a.t);
+  const c = document.querySelector(a.sel) as HTMLCanvasElement;
+  const now = c.getContext('2d')!.getImageData(0, 0, c.width, c.height).data, kept = (window as any).__vsKept as Uint8ClampedArray;
+  let changed = 0;
+  for (let i = 0; i < now.length; i += 4) {
+    if (now[i] !== kept[i] || now[i + 1] !== kept[i + 1] || now[i + 2] !== kept[i + 2] || now[i + 3] !== kept[i + 3]) changed++;
+  }
+  return { changed: changed, pixels: now.length / 4 };
+}
 
 function drawScaledPng(a: { t: number; w: number; sel: string }): string {
   (window as any).__seek(a.t);

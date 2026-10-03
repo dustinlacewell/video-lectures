@@ -23,14 +23,36 @@ Compares the timeline the player actually built with the voice clips. It catches
 ## Usage
 
 ```
-pnpm clip-check --build <dir> [--script <project>/script/index.ts] --out <dir> [options]
-  --manifest <project>/voice/manifest.json
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check (--url <url> | --build <dist>) [--script <path>] --out <dir> [options]
+  --manifest <project>\voice\manifest.json
   --dead-air 2        ratio of beat length to speech
   --pad 0.6           quiet the engine adds after a line (the contract default)
-  --chapter <id>      one chapter only (orphans are still judged against the whole video)
+  --chapter <id>      one chapter only; repeatable (orphans are still judged against the whole video)
 ```
 
 Takes a few seconds.
+
+## Examples
+
+Animator, before animating a chapter: its clips exist and fit:
+
+```
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build <scratch>\build --script <project>\script\index.ts --out <scratch>\clips-physics --chapter physics
+```
+
+Critic (QA or sound engineer), the whole video against the voice manifest:
+
+```
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build <scratch>\build --script <project>\script\index.ts --out <scratch>\clips --manifest <project>\voice\manifest.json
+```
+
+Producer, before the animatic gate: run the critic's command. Missing, runs-past and orphan lines in `clips.md` block the gate.
+
+Leave out `--script` when the page has `__script()`.
+
+## Exit codes
+
+`0` done. `1` the run failed, or no clip lengths were found. `2` bad options or no script source. Findings never change the exit code: read `clips.md`.
 
 ## Output
 

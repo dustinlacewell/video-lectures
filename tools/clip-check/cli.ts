@@ -1,8 +1,7 @@
 /* clip-check: every spoken beat has its clips, clips fit their beats, no dead air, no orphans. */
 
 import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-import { parseCli } from '../shared/args.ts';
+import { callerPath, parseCli } from '../shared/args.ts';
 import { writeOut } from '../shared/output.ts';
 import { loadClipLengths } from '../shared/sources.ts';
 import { withVideo } from '../shared/video.ts';
@@ -16,12 +15,12 @@ const USAGE = `clip-check: compare timeline beats with voice clip lengths.
 
 const { common, own } = parseCli(USAGE, { manifest: { type: 'string' }, 'dead-air': { type: 'string' }, pad: { type: 'string' } });
 const rules: CheckRules = { ...DEFAULT_RULES, deadAirRatio: Number(own['dead-air'] ?? DEFAULT_RULES.deadAirRatio), pad: Number(own.pad ?? DEFAULT_RULES.pad) };
-const manifestPath = own.manifest as string | undefined;
+const manifestPath = callerPath(own.manifest as string | undefined);
 
 await withVideo(common, {}, async function (v) {
   const clips = await loadClipLengths(v.session, common);
   if (!Object.keys(clips).length) throw new Error('no clip lengths found (durations.json next to the page, or --durations)');
-  const ids = manifestPath ? (JSON.parse(readFileSync(resolve(manifestPath), 'utf8')) as { id: string }[]).map(function (e) { return e.id; }) : undefined;
+  const ids = manifestPath ? (JSON.parse(readFileSync(manifestPath, 'utf8')) as { id: string }[]).map(function (e) { return e.id; }) : undefined;
   const report = checkClips(v.beats, v.allBeats, clips, ids, rules);
   const source = common.durations ? common.durations : 'durations.json next to the page';
   writeOut(common.out, 'clips.json', JSON.stringify(report, null, 2) + '\n');

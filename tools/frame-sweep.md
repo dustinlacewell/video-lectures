@@ -16,17 +16,43 @@ Steps through the video at a fixed time step and finds drawn text and images tha
 ## Usage
 
 ```
-pnpm frame-sweep --build <dir> [--script <project>/script/index.ts] --out <dir> [options]
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep (--url <url> | --build <dist>) [--script <path>] --out <dir> [options]
   --step 0.1              seconds between samples
   --chapter-step id=0.05  a finer step for one chapter; repeatable
   --margin 16             safe margin, in pixels of the reference frame
   --ref-width 1280        width of the reference frame (the project's virtual width)
   --min 0.4               shorter ranges are ignored as slides
   --max-shots 60          marked frames to write, worst first
-  --chapter <id>          one chapter only
+  --chapter <id>          one chapter only; repeatable
 ```
 
 About 1 minute for a 7-minute video at 0.1 s.
+
+## Examples
+
+Animator, self-check of one chapter at a finer step:
+
+```
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build <scratch>\build --script <project>\script\index.ts --out <scratch>\sweep-physics --chapter physics --step 0.05
+```
+
+Critic (QA), the whole video:
+
+```
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build <scratch>\build --script <project>\script\index.ts --out <scratch>\sweep
+```
+
+Producer, proof the sweep can fail before trusting a clean result. This run must report margin ranges:
+
+```
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build <scratch>\build --script <project>\script\index.ts --out <scratch>\sweep-control --margin 120
+```
+
+Leave out `--script` when the page has `__script()`.
+
+## Exit codes
+
+`0` done. `1` the run failed. `2` bad options or no script source. Findings never change the exit code: read `sweep.md`.
 
 ## Output
 

@@ -6,9 +6,11 @@ import type { Sheet } from './plan.ts';
 /** A captured frame: its time and a PNG data URL. */
 export interface Frame { t: number; src: string }
 
-export interface SheetLayout { thumbWidth: number; perRow: number }
+/** `banner`: a warning line under the title, e.g. that the sheet shows the purpose band. */
+export interface SheetLayout { thumbWidth: number; perRow: number; banner?: string }
 
 export function sheetHtml(sheet: Sheet, frames: Frame[][], layout: SheetLayout): string {
+  const banner = layout.banner ? '<p class="banner">' + esc(layout.banner) + '</p>' : '';
   const ch = sheet.chapter;
   const title = (ch.index + 1) + '. ' + ch.id + (ch.title ? ' - ' + ch.title : '') + ' (part ' + sheet.part + ')';
   const rows = sheet.beats.map(function (b, i) {
@@ -16,7 +18,7 @@ export function sheetHtml(sheet: Sheet, frames: Frame[][], layout: SheetLayout):
     const cells = frames[i].map(function (f) { return '<figure><img src="' + f.src + '"><figcaption>' + clock(f.t) + '</figcaption></figure>'; }).join('');
     return '<section><h2>' + head + '</h2><div class="row">' + cells + '</div></section>';
   }).join('');
-  return '<!doctype html><html><head><meta charset="utf-8"><style>' + css(layout) + '</style></head><body><h1>' + esc(title) + '</h1>' + rows + '</body></html>';
+  return '<!doctype html><html><head><meta charset="utf-8"><style>' + css(layout) + '</style></head><body><h1>' + esc(title) + '</h1>' + banner + rows + '</body></html>';
 }
 
 function css(l: SheetLayout): string {
@@ -24,6 +26,7 @@ function css(l: SheetLayout): string {
   return [
     'body{margin:0;padding:16px;background:#111;color:#eee;font:16px/1.3 system-ui,sans-serif;width:' + width + 'px}',
     'h1{font-size:22px;margin:0 0 12px}',
+    '.banner{margin:0 0 12px;padding:6px 10px;background:#a00;color:#fff;font-weight:700}',
     'section{margin:0 0 14px}',
     'h2{font-size:18px;margin:0 0 6px;font-weight:600}',
     'h2 span{font-weight:400;color:#aaa;margin-left:10px}',

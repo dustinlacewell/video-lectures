@@ -4,9 +4,10 @@ import type { Beat, Chapter } from '../shared/beats.ts';
 import { clock } from '../shared/format.ts';
 import type { Sheet } from './plan.ts';
 
-export function transcript(chapters: Chapter[], beats: Beat[], sheets: Sheet[], fractions: number[], total: number): string {
+/** `banner`: a warning line under the heading, e.g. that the sheets show the purpose band. */
+export function transcript(chapters: Chapter[], beats: Beat[], sheets: Sheet[], fractions: number[], total: number, banner?: string): string {
   const head = [
-    '# Transcript', '',
+    '# Transcript', '', ...(banner ? ['**' + banner + '**', ''] : []),
     'Runtime ' + clock(total) + '. ' + chapters.length + ' chapters, ' + beats.length + ' beats. Times count from the start of the video.',
     'Each beat appears on a contact sheet as frames at ' + fractions.map(function (f) { return Math.round(f * 100) + '%'; }).join(', ') + ' of the beat.', ''
   ];
