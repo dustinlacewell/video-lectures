@@ -13,9 +13,14 @@ export function speakersOf(b: BeatScript): SpeakerId[] {
   return Array.isArray(b.speaker) ? b.speaker : [b.speaker];
 }
 
-/** A beat with a line has one clip per speaker, speaker k starting k * stagger in. */
+/** The words a beat speaks: its line, else its card text, which the narrator reads aloud. */
+export function lineOf(b: BeatScript): string | undefined {
+  return b.say ?? b.card;
+}
+
+/** A beat with a line or a card has one clip per speaker, speaker k starting k * stagger in. */
 export function voiceLines(b: BeatScript): VoiceLine[] {
-  if (!b.say) return [];
+  if (!lineOf(b)) return [];
   const speakers = speakersOf(b), stagger = b.stagger ?? DEFAULT_STAGGER;
   return speakers.map(function (s, k) { return { clip: clipId(b.id, s, speakers.length > 1), speaker: s, at: k * stagger }; });
 }

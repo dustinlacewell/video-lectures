@@ -1,8 +1,8 @@
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { captionOf, spokenText, voiceLines } from '../engine/audio/voiceLines';
+import { captionOf, lineOf, spokenText, voiceLines } from '../engine/audio/voiceLines';
 import { activeClips } from '../engine/audio/voiceTrack';
-import { DEFAULT_PAD, buildTimeline, firstCueAt, voiceDurations } from '../engine/timeline';
+import { DEFAULT_PAD, beatDuration, buildTimeline, firstCueAt, voiceDurations } from '../engine/timeline';
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';
 import type { Cast, ChapterScript } from '../script/types';
@@ -21,6 +21,13 @@ const DUET: ChapterScript[] = [{
     { id: 'z.slow', say: 'Yes.', speaker: ['you', 'zombie'], stagger: 0.5 }
   ]
 }];
+
+/** A one-chapter script with a single card. */
+const CARD: ChapterScript[] = [{ id: 'c', short: 'c', root: 220, scale: [0], beats: [{ id: 'c.claim', card: 'Form *is* function.' }] }];
+
+/** Fake reference clips: an audio hash and transcript per cast ref. */
+const refsOf = (cast: Cast, hash = 'h'): Refs =>
+  Object.fromEntries(Object.values(cast).map(m => [m.ref, { hash: hash + m.ref, text: 'transcript of ' + m.ref }]));
 
 describe('voice durations', () => {
   it('times a voiced beat as clip length + pad', () => {
@@ -49,6 +56,30 @@ describe('voice durations', () => {
 
   it('falls back when any speaker of a line has no clip', () => {
     expect(voiceDurations(DUET, { 'z.yes.you': 2.5 }, CAST)['z.yes']).toBeUndefined();
+  });
+
+  it('times a read-out card by its clip, but never shorter than its reading time', () => {
+    const reading = beatDuration(CARD[0].beats[0], {});
+    expect(voiceDurations(CARD, { 'c.claim': 1 }, CAST)['c.claim']).toBe(reading);
+    expect(voiceDurations(CARD, { 'c.claim': reading }, CAST)['c.claim']).toBeCloseTo(reading + DEFAULT_PAD, 9);
+  });
+});
+
+describe('read-out cards', () => {
+  it('gives a card beat one narrator clip that reads the card without formatting', () => {
+    expect(voiceLines(CARD[0].beats[0])).toEqual([{ clip: 'c.claim', speaker: 'narrator', at: 0 }]);
+    expect(lineOf(CARD[0].beats[0])).toBe('Form *is* function.');
+    expect(buildManifest(CARD, CAST, refsOf(CAST))[0].text).toBe('Form is function.');
+  });
+
+  it('does not caption a card: the card is already on screen', () => {
+    expect(captionOf(CARD[0].beats[0])).toBeUndefined();
+  });
+
+  it('reads every card in the script', () => {
+    const cards = SCRIPT.flatMap(ch => ch.beats).filter(b => b.card);
+    expect(cards.length).toBeGreaterThan(0);
+    cards.forEach(b => expect(voiceLines(b).map(l => l.clip)).toEqual([b.id]));
   });
 });
 
@@ -85,10 +116,6 @@ describe('voice lines', () => {
 });
 
 describe('cast and manifest', () => {
-  /** Fake reference clips: an audio hash and transcript per cast ref. */
-  const refsOf = (cast: Cast, hash = 'h'): Refs =>
-    Object.fromEntries(Object.values(cast).map(m => [m.ref, { hash: hash + m.ref, text: 'transcript of ' + m.ref }]));
-
   it('gives the zombie exactly your voice', () => {
     const { name: _y, ...you } = CAST.you, { name: _z, ...zombie } = CAST.zombie;
     expect(zombie).toEqual(you);

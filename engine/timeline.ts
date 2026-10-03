@@ -100,6 +100,7 @@ export const DEFAULT_PAD = 0.6;
  * Beat durations from voice clip lengths (clip id -> seconds).
  * A voiced beat lasts until its last clip ends (start offset + length), plus the largest pad of its speakers.
  * An explicit `dur` wins only when it is longer: a visual beat may need more time than its line.
+ * A card keeps at least its reading time, so a quick read-out does not take the card away early.
  * A beat with any clip missing gets no entry, so it falls back to `dur` or the word-count estimate.
  */
 export function voiceDurations(chapters: ChapterScript[], clips: Durations, cast: Cast): Durations {
@@ -107,10 +108,16 @@ export function voiceDurations(chapters: ChapterScript[], clips: Durations, cast
   chapters.forEach(function (ch) {
     ch.beats.forEach(function (b) {
       const voiced = voicedDuration(b, clips, cast);
-      if (voiced !== undefined) out[b.id] = b.dur && b.dur > voiced ? b.dur : voiced;
+      if (voiced !== undefined) out[b.id] = Math.max(voiced, minDuration(b));
     });
   });
   return out;
+}
+
+/** The least a voiced beat may last: its explicit `dur`, else a card's reading time, else nothing. */
+function minDuration(b: BeatScript): number {
+  if (b.dur) return b.dur;
+  return b.card ? beatDuration(b, {}) : 0;
 }
 
 function voicedDuration(b: BeatScript, clips: Durations, cast: Cast): number | undefined {
