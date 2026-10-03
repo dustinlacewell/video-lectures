@@ -1,0 +1,28 @@
+[project]
+name = "voice"
+version = "0.1.0"
+description = "Local narration with Breeze TTS 2"
+requires-python = ">=3.12,<3.13"
+# Pins follow vendor/breeze-tts/requirements.txt (commit 58ec70c).
+dependencies = [
+    "torch==2.9.1",
+    "torchaudio==2.9.1",
+    "qwen-tts==0.1.1",
+    "transformers==4.57.3",
+    "numpy>=2.0",
+    "soundfile>=0.13",
+    "huggingface-hub",
+    "triton-windows<3.6",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+out/
+.venv/
+__pycache__/
+*.wav
+!voice/refs/*.wav
+*.mp4
+voice/models/
+voice/vendor/
+.claude/worktrees/
+.scratch/
