@@ -1,4 +1,4 @@
-/* Debug globals for tools (exporter, parity check). Shapes match the original single-file player. */
+/* Debug globals for headless tools (exporter, review screenshots). */
 
 import type { VoiceTrack } from '../engine/audio/voice';
 import { mkS } from '../engine/beatState';

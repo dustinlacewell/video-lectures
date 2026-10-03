@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { beatDuration, buildTimeline, keyOf } from '../engine/timeline';
 import { SCRIPT } from '../script';
 
-/** Timeline and sound cues captured from the original single-file HTML (tools/parity.ts --write-fixture). */
+/** Timeline and sound cues captured from the original single-file HTML. */
 const ORIGINAL = JSON.parse(readFileSync(new URL('./fixtures/original-timeline.json', import.meta.url), 'utf8')) as {
   total: number;
   chapters: { start: number; dur: number; beats: [string, number, number][] }[];
