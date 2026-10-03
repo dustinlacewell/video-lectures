@@ -1,0 +1,129 @@
+# Cold-viewer review
+
+Fresh agents that never saw the script consume the whole video in order
+and say what they now believe. The producer compares that against the
+[spine](../documents/spine.md). The gap between what the video was meant
+to argue and what a viewer took away is the finding.
+
+Real-studio counterpart: a test screening with a recruited audience,
+followed by a structured questionnaire.
+
+## Why it exists
+
+Chapter teams see one chapter. Nobody on a chapter team can see that
+three chapters make the same point. On the reference production, the
+original video made one point three times across chapters 4–6. Only a
+reader of the whole video, in order, notices that.
+
+A cold viewer also shows which objections the video fails to answer. The
+producer of the reference production raised "the zombie loses the part
+that hurts" as an objection. The video already answered it ("the ouch,
+the recoil, the lingering dread: all of that is cognition"). If a skeptic
+raises an objection the video answers, the answer did not land.
+
+## When it runs
+
+1. **At the animatic.** Before the human's main sign-off. Fixes are cheap here.
+2. **At the final cut.** Before delivery.
+
+Each run uses three new agents. Never reuse a cold viewer from an earlier
+run. Never show a cold viewer the spine, the script, the bible, or any
+production document. Once it has seen them, it is no longer cold.
+
+## Inputs
+
+Both come from [contact-sheet](../tools/contact-sheet.md), run on the
+current build:
+
+- **Contact sheet.** Keyframe images in time order, with time and chapter
+  on each.
+- **Timestamped transcript.** Every spoken line and card, with its start
+  time and speaker, in order.
+
+The agents get file paths, nothing else. No summary, no title card
+explanation, no "this video argues that...".
+
+## Personas
+
+| Persona | Who they are | What they watch for |
+|---|---|---|
+| Newcomer | Smart, curious, no philosophy or neuroscience background | Jargon used before it is explained; symbols they cannot read; steps that skip; where they stop following |
+| Skeptic | Disagrees with the thesis and wants to find the weak step | The step where the argument does not follow; objections the video should answer; claims stated stronger than shown |
+| Domain expert | Knows the field (for the reference video: philosophy of mind and cognitive science) | Wrong facts; misattributed positions; terms used in a non-standard sense; pictures that encode false claims (e.g. showing animals as unsure self-modelers) |
+
+Pick the domain for the expert from the bible's thesis. Use
+[cold-viewer](../roles/cold-viewer.md) for the brief.
+
+## The questions
+
+Each cold viewer first reads in order and writes a running log: one line
+per chapter, with a timestamp, saying what it thinks is going on and how
+it feels (following, bored, lost, unconvinced). It writes the log before
+it answers anything below. It does not go back to edit the log.
+
+Then it answers, in this order:
+
+1. **What do you now believe** that you did not believe, or had not
+   thought about, before? List each belief as one sentence.
+2. **State the argument in your own words.** Number the steps. Keep each
+   step one sentence.
+3. **Where were you bored, lost, or unconvinced?** Give the timestamp and
+   one line of why for each.
+4. **What felt repeated?** Give both timestamps for each repeat.
+5. **Which symbol or picture confused you?** Give the timestamp, what you
+   thought it meant, and why.
+6. (Skeptic only) **What is your strongest objection, and did the video
+   answer it?** If yes, give the timestamp of the answer.
+7. (Expert only) **What is wrong or non-standard?** Quote the line or
+   name the frame.
+
+## Comparing answers against the spine
+
+The producer spawns one Fable synthesis agent for this step. Its explicit
+inputs: the spine, the bible, the visual vocabulary, the three cold-viewer
+reports, and `__info()` output (beats with start times and ids). It does
+not read code.
+
+It produces:
+
+- **Argument match.** For each spine chapter job, does each persona's
+  step list contain it? Mark *present*, *missing*, or *distorted* (stated
+  wrongly). A step that only repeats a card's words, with no reason
+  behind it, counts as *distorted*: cards state each conclusion, so a
+  viewer can list them without following the argument. Also list
+  *extra* beliefs: things a viewer took away that no spine job intends.
+- **Belief match.** Compare answer 1 against the spine's thesis. A viewer
+  who cannot state the thesis is a blocking finding.
+- **Hot spots.** Map every bored, lost, unconvinced, repeated, or confused
+  timestamp to a beat id. A beat flagged by two or more personas is
+  blocking. A beat flagged by one is a note for the human.
+- **Unlanded answers.** A skeptic objection the script answers (cite the
+  beat id), where the skeptic said it was not answered, is blocking.
+- **Symbol confusion.** Each confused symbol, with its visual-vocabulary
+  row (or "no row": an unlisted symbol).
+
+Skeptic disagreement alone is not a defect. The skeptic may stay
+unconvinced. The defect is a step the skeptic could not follow, or an
+answer the skeptic did not see.
+
+## From findings to notes
+
+Every blocking finding and every note goes into the
+[notes ledger](../documents/notes-ledger.md) as a row, its Note column
+prefixed `cold-viewer/<persona>:`. Then each one runs through
+[notes-to-checks](notes-to-checks.md), the same as a human note.
+
+The producer shows the human a short summary at the gate: the thesis
+match, the top three hot spots, and one recommendation. Not the raw reports.
+
+Typical fixes by finding:
+
+- Missing or distorted chapter job → script fix in that chapter, or a
+  spine change (director, then human).
+- Repeat across chapters → cut one instance; the spine records which
+  chapter owns the point.
+- Lost at a term → define the term at first use; terminology table entry.
+- Confused symbol → visual-vocabulary entry or a different symbol (art
+  director, then human).
+- Bored → check the [pacing curve](../tools/pacing-curve.md) at that
+  beat; trim or add a visual change.

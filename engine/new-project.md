@@ -1,0 +1,113 @@
+# Starting a new video project
+
+A new video starts as a copy of the reference repo, `D:\code\ai\cognition`, with its content removed. The engine, player, voice pipeline and commands carry over. The script, scenes and voices do not.
+
+Do this in the preproduction phase, after the spine and style guide exist (`phases/preproduction.md`). The sound engineer owns the voice steps. One agent (Sonnet) can do the rest from this file.
+
+## 1. Check disk first
+
+The voice stack needs about 15 GB: a 5 GB venv and 8.7 GB of model weights (`engine/voice-pipeline.md`). Export needs about 5 GB more. The D: drive filled up during the reference project.
+
+```powershell
+Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{n='FreeGB';e={[int]($_.Free/1GB)}}
+```
+
+Under 25 GB free: stop and ask the human where to put the project.
+
+## 2. Make the repo, line endings first
+
+```bash
+mkdir D:/code/<area>/<project> && cd D:/code/<area>/<project>
+git init
+printf '* text=auto eol=lf\n' > .gitattributes
+git add .gitattributes && git commit -m "Pin line endings to LF"
+```
+
+`.gitattributes` MUST be the first commit. Files added before it can land with CRLF, and a later pin rewrites every line in the diff.
+
+## 3. Copy what carries over
+
+Copy from the reference repo's tracked files (`git -C D:/code/ai/cognition ls-files`), not from its working folder. The working folder holds gitignored weights, venvs and clips.
+
+| Copy | Notes |
+|---|---|
+| `engine/**` | All of it. `palette.ts` is the old look; the art director re-tunes it. |
+| `player/**` | All of it. Change the page title in `player/index.html`. |
+| `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the storyboard uses them: they carry the old video's symbols. |
+| `scenes/types.ts`, `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts` | Shared scene services. Not `thoughtTag.ts` or `titleArt.ts`: they belong to the old video. |
+| `script/types.ts` | Then edit `SpeakerId` to the new cast. Edit `SfxName` only if sounds change. |
+| `voice/breeze.py`, `render.py`, `verify.py`, `transcribe.py`, `speak.py`, `manifest.ts`, `refs.ts`, `pyproject.toml`, `uv.lock` | The voice pipeline. |
+| `test/text.test.ts`, `test/voiceCoverage.test.ts` | Generic. The other tests assert on the old script's chapters; rewrite them against a small fixture script. |
+| `.wm/traits/video.ts`, `.wm/commands/**`, `wm.ts` | Workmark commands. |
+| `vite.config.ts`, `tsconfig.json`, `package.json`, `.gitignore` | Config. |
+
+## 4. Clear and rename
+
+- `script/`: one stub chapter, `script/00-title.ts`, with one beat. `script/index.ts` lists it. The timeline needs at least one chapter.
+- `script/cast.ts`: only `narrator` until casting is done.
+- `scenes/00-title.ts`: a stub `Scene` with `bg`, `accent` and an empty `draw`. `scenes/index.ts` maps `title` to it.
+- `voice/refs/`, `voice/clips/`, `voice/samples/`, `voice/manifest.json`: do not copy. They are made fresh.
+- `package.json`: set `"name"`.
+- `wm.ts`: `defineProject({ name: "<project>", has: { video: true } })`.
+- `.wm/commands/**`: every command has `for: "cognition"`. Change it to the new name in all five files. This is the same edit in each file, so a scoped `sed -i` is fine; check with `git diff --stat` that each file changes by one line.
+
+The `.gitignore` to keep:
+
+```
+node_modules/
+dist/
+out/
+.venv/
+__pycache__/
+*.wav
+!voice/refs/*.wav
+*.mp4
+voice/models/
+voice/vendor/
+.claude/worktrees/
+```
+
+Reference clips are tracked. Rendered clips are not. `voice/clips/durations.json` is tracked, so a fresh checkout or a worktree has correct timing without audio.
+
+## 5. Install
+
+```bash
+pnpm install
+pnpm add -D @ldlework/workmark zod
+```
+
+Add `zod` explicitly. Under pnpm it is otherwise only a transitive dependency. The `wm` CLI still works, but the VS Code extension's bundled CLI fails to load `.wm/traits/*.ts` with `Cannot find module 'zod'`. Plain `wm` passes either way, so check with the extension's own CLI:
+
+```bash
+node "<vscode extensions>/ldlework.workmark-vsc-<ver>/dist/wm/node_modules/@ldlework/workmark/dist/cli.js" --introspect
+```
+
+Then the voice stack: `engine/voice-pipeline.md`, section "Install".
+
+## 6. Verify
+
+```bash
+wm --help        # lists build, dev, test, voice:manifest, voice:render
+wm test
+wm build
+wm voice:manifest
+```
+
+All four MUST succeed before the first commit of copied code. Report the real output. Then commit, staging by path.
+
+The human opens `wm dev` and checks the stub page loads. Agents do not drive the window.
+
+## Worktrees on Windows
+
+Parallel agents each work in a git worktree under `.claude/worktrees/`. Known friction:
+
+- **Locked while the agent lives.** A worktree cannot be removed while the agent process that made it is still running. Wait for the agent to finish. Then `git worktree remove <path>` and `git worktree prune`.
+- **Servers hold folders.** A Vite dev or preview server started in a worktree holds its folder open. Stop it before removing the worktree. Find it:
+  ```powershell
+  Get-CimInstance Win32_Process -Filter "name='node.exe'" | Select-Object ProcessId, CommandLine
+  ```
+  Agents SHOULD NOT start background servers in worktrees. Headless tools start and stop their own.
+- **No audio in a worktree.** Clips are gitignored. Timing is correct (`durations.json` is tracked), but nothing plays. Copy `voice/clips/*.wav` in if the agent needs sound.
+- **No voice stack in a worktree.** `voice/.venv`, `voice/models` and `voice/vendor` are gitignored. Render voice only in the main checkout.
+- **Merge order.** Merge the shared-kit worktree first, then the chapter worktrees. Disjoint ownership (`engine/contract.md` section 10) keeps merges clean.
+- **Clean up after each round.** `git worktree list` MUST show only the main checkout before the next round starts.
