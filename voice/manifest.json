@@ -90,6 +90,16 @@
     "hash": "293c07289fec8ad8"
   },
   {
+    "id": "physics.claim",
+    "beat": "physics.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "If it happened, something physical made it happen.",
+    "hash": "260ca9d52891a50d"
+  },
+  {
     "id": "form.thesis",
     "beat": "form.thesis",
     "speaker": "narrator",
@@ -170,6 +180,16 @@
     "hash": "ada033e44f5ae0d7"
   },
   {
+    "id": "form.claim",
+    "beat": "form.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "What a thing is shaped like is what it does. Form is function.",
+    "hash": "05c77f06d260343b"
+  },
+  {
     "id": "body.you",
     "beat": "body.you",
     "speaker": "narrator",
@@ -228,6 +248,16 @@
     "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
     "text": "Nowhere does the chain break so that something non-physical can reach in.",
     "hash": "929fbe9457eec465"
+  },
+  {
+    "id": "body.name",
+    "beat": "body.name",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "This machinery has a name: cognition.",
+    "hash": "7050a9e58b01daa2"
   },
   {
     "id": "body.list",
@@ -338,6 +368,16 @@
     "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
     "text": "That sentence was selected the same way. Cognition produced it, word by word.",
     "hash": "e4c138acbb6179b8"
+  },
+  {
+    "id": "words.claim",
+    "beat": "words.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "“I am conscious” is an output of cognition.",
+    "hash": "46f7343695dc61a7"
   },
   {
     "id": "words.cause",
@@ -468,6 +508,16 @@
     "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
     "text": "It is exactly as sure as you are that it is the conscious one.",
     "hash": "c4b0db6e463e31cf"
+  },
+  {
+    "id": "zombie.claim",
+    "beat": "zombie.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "Inner experience cannot be responsible for what you say or do.",
+    "hash": "3fadb318f05f9873"
   },
   {
     "id": "inventory.you",
@@ -620,6 +670,16 @@
     "hash": "8ecf9cef6cb9a2ef"
   },
   {
+    "id": "subtract.claim",
+    "beat": "subtract.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "You are not your consciousness. You are your cognition.",
+    "hash": "0c9c97c9390c9a0b"
+  },
+  {
     "id": "animals.animals",
     "beat": "animals.animals",
     "speaker": "narrator",
@@ -698,5 +758,15 @@
     "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
     "text": "What matters is how sophisticated its cognition is, and how richly it models itself.",
     "hash": "aebb1a6f23c8da81"
+  },
+  {
+    "id": "animals.claim",
+    "beat": "animals.claim",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "ref": "refs/narrator.wav",
+    "refText": "Now, a stranger question. Are you conscious? Yes. Obviously. I'm experiencing this right now. That sentence was selected the same way. Cognition produced it, word by word.",
+    "text": "For the purposes of ethics, a mind is its cognition.",
+    "hash": "7389d97e1b81cc3b"
   }
 ]
