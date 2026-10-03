@@ -18,6 +18,22 @@ export function activeClips(tl: Timeline, T: number, clips: ClipLengths): Active
   return out;
 }
 
+/** How the clock moved since the last sync. */
+export interface ClockMove {
+  playing: boolean;
+  /** T moved by a seek or jump. */
+  jumped: boolean;
+}
+
+/**
+ * Whether a sounding clip stops now. A pause or a seek stops every clip the clock has left.
+ * In plain playback a clip plays to its own end: the audio runs a little behind the clock,
+ * so stopping it when the clock says it is done would cut off its last syllable.
+ */
+export function stopsNow(wanted: boolean, finished: boolean, move: ClockMove): boolean {
+  return !wanted && (finished || !move.playing || move.jumped);
+}
+
 /** The clips of the beat after the one at T: worth loading ahead. */
 export function upcomingClips(tl: Timeline, T: number): string[] {
   const ch = chapterAt(tl, T), b = beatAt(ch.beats, T - ch.start);

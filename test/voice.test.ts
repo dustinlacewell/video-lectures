@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { captionOf, lineOf, spokenText, voiceLines } from '../engine/audio/voiceLines';
-import { activeClips } from '../engine/audio/voiceTrack';
+import { activeClips, stopsNow } from '../engine/audio/voiceTrack';
 import { DEFAULT_PAD, beatDuration, buildTimeline, firstCueAt, voiceDurations } from '../engine/timeline';
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';
@@ -80,6 +80,24 @@ describe('read-out cards', () => {
     const cards = SCRIPT.flatMap(ch => ch.beats).filter(b => b.card);
     expect(cards.length).toBeGreaterThan(0);
     cards.forEach(b => expect(voiceLines(b).map(l => l.clip)).toEqual([b.id]));
+  });
+});
+
+describe('clip stopping', () => {
+  const play = { playing: true, jumped: false };
+
+  it('lets a clip the clock has passed play to its own end', () => {
+    expect(stopsNow(false, false, play)).toBe(false);
+    expect(stopsNow(false, true, play)).toBe(true);
+  });
+
+  it('stops a clip the clock has left on a pause or a seek', () => {
+    expect(stopsNow(false, false, { playing: false, jumped: false })).toBe(true);
+    expect(stopsNow(false, false, { playing: true, jumped: true })).toBe(true);
+  });
+
+  it('never stops a clip the clock still wants', () => {
+    expect(stopsNow(true, false, { playing: true, jumped: true })).toBe(false);
   });
 });
 

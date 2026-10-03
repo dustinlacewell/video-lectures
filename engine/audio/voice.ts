@@ -3,13 +3,11 @@
 import type { Timeline } from '../timeline';
 import { duckMusic } from './music';
 import { AU } from './synth';
-import { activeClips, upcomingClips, type ClipLengths } from './voiceTrack';
+import { activeClips, stopsNow, upcomingClips, type ClipLengths, type ClockMove } from './voiceTrack';
 
-export interface VoiceSync {
-  playing: boolean;
+/** On a jump, every clip goes to its exact offset. */
+export interface VoiceSync extends ClockMove {
   rate: number;
-  /** T moved by a seek or jump: put every clip at its exact offset. */
-  jumped: boolean;
 }
 
 export interface VoiceTrack {
@@ -39,8 +37,10 @@ export function createVoiceTrack(tl: Timeline, clips: ClipLengths, urlOf: (clip:
     return a;
   }
 
-  function stopStale(want: Set<string>): void {
-    live.forEach(function (a, clip) { if (!want.has(clip)) { a.pause(); live.delete(clip); } });
+  function stopStale(want: Set<string>, s: VoiceSync): void {
+    live.forEach(function (a, clip) {
+      if (stopsNow(want.has(clip), a.ended || a.paused, s)) { a.pause(); live.delete(clip); }
+    });
   }
 
   function keepInStep(clip: string, offset: number, s: VoiceSync): void {
@@ -60,10 +60,10 @@ export function createVoiceTrack(tl: Timeline, clips: ClipLengths, urlOf: (clip:
   return {
     sync: function (T, s) {
       const want = s.playing ? activeClips(tl, T, clips) : [];
-      stopStale(new Set(want.map(function (w) { return w.clip; })));
+      stopStale(new Set(want.map(function (w) { return w.clip; })), s);
       want.forEach(function (w) { keepInStep(w.clip, w.offset, s); });
       if (s.playing) upcomingClips(tl, T).forEach(el);
-      duck(want.length > 0);
+      duck(live.size > 0);
     },
     now: function () {
       const out: { id: string; offset: number; paused: boolean }[] = [];
