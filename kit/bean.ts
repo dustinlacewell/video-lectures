@@ -16,6 +16,15 @@ export interface BeanOpts {
   reachL?: number[]; reachR?: number[];
   squash?: number; lift?: number; tilt?: number; blank?: boolean; closed?: boolean;
   brow?: number; alpha?: number | null; phase?: number; still?: boolean;
+  /** Seconds into a line this bean is speaking. When set, the mouth flaps and `mouth` is ignored. */
+  talk?: number;
+}
+
+/** Pure: how far a speaking mouth is open (0..1), `lt` seconds into the line. Uneven syllables, closed at the start. */
+export function mouthOpen(lt: number): number {
+  if (lt <= 0) return 0;
+  const syllable = Math.abs(Math.sin(lt * PI * 4.3)), accent = 0.55 + 0.45 * Math.abs(Math.sin(lt * 2.7 + 1.1));
+  return cl(lt / 0.08) * syllable * accent;
 }
 
 export function bean(o: BeanOpts): void {
@@ -30,7 +39,8 @@ export function bean(o: BeanOpts): void {
     const ey = -130 + bob;
     eyes(o, t, ph, look, ey);
     brows(o.brow, ey);
-    mouth(o.mouth || 'smile', -94 + bob, t, ph);
+    if (o.talk != null) speakingMouth(mouthOpen(o.talk), -94 + bob);
+    else mouth(o.mouth || 'smile', -94 + bob, t, ph);
     arms(o, s, col, bob, lift);
     c.restore();
   });
@@ -72,6 +82,12 @@ function eyes(o: BeanOpts, t: number, ph: number, look: number[], ey: number): v
 function brows(brow: number | undefined, ey: number): void {
   if (brow! > 0) { line([-40, ey - 28, -12, ey - 19], C.ink, 6); line([40, ey - 28, 12, ey - 19], C.ink, 6); }
   if (brow! < 0) { line([-40, ey - 20, -14, ey - 28], C.ink, 5); line([40, ey - 20, 14, ey - 28], C.ink, 5); }
+}
+
+/** A mouth open by `open` (0..1): a closed line widening into a dark oval. */
+function speakingMouth(open: number, my: number): void {
+  if (open < 0.08) { line([-11, my + 2, 11, my + 2], C.ink, 5); return; }
+  ell(0, my + 2, 11 + 3 * open, 3 + 10 * open, C.ink);
 }
 
 function mouth(m: Mouth, my: number, t: number, ph: number): void {

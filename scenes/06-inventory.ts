@@ -11,6 +11,7 @@ import { badge } from '../kit/icons';
 import { floaters, ground, stars } from '../kit/scenery';
 import { spark } from '../kit/spark';
 import { GY, INV, ZC, invPos } from './06-inventory.layout';
+import { thoughtTag } from './shared/thoughtTag';
 import type { Scene } from './types';
 
 /** When each of your items pops in: [beat, seconds]. */
@@ -26,7 +27,8 @@ export const inventory: Scene = {
     cognitionLabel(S, T, cg);
     whyZombieHasItAll(S);
     nameTags(S);
-  }
+  },
+  over: function (S) { thoughtTag(S); }
 };
 
 function figureWithItems(S: BeatState, T: number, cx: number, cg: number): void {
