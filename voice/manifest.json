@@ -5,8 +5,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Everything around you is made of the same few kinds of particle, pushed by the same few forces.",
-    "hash": "279252a33f3d7e8c"
+    "text": "Everything around you is made of the same few kinds of particles, pushed by the same few forces.",
+    "hash": "6187aa7bc476dd49"
   },
   {
     "id": "physics.laws",
@@ -81,13 +81,31 @@
     "hash": "7ca06f3768be1258"
   },
   {
+    "id": "form.thesis",
+    "beat": "form.thesis",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "In a physical world, form and function are the same thing.",
+    "hash": "fd30283f5ac728cd"
+  },
+  {
+    "id": "form.betray",
+    "beat": "form.betray",
+    "speaker": "narrator",
+    "voiceKey": "narrator",
+    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
+    "text": "The shape a thing has decides what it can do. And what it does betrays its shape.",
+    "hash": "8702b14b6c0bdf19"
+  },
+  {
     "id": "form.lever1",
     "beat": "form.lever1",
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Now look at what physical things do. Start with a lever.",
-    "hash": "8b513fe8921c4bc9"
+    "text": "Take a lever.",
+    "hash": "711a50c9ccab97e3"
   },
   {
     "id": "form.lever2",
@@ -135,40 +153,13 @@
     "hash": "18462ac6f94e1a24"
   },
   {
-    "id": "form.marble",
-    "beat": "form.marble",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "Marbles and a rocker can add too. The same play, in a different performance.",
-    "hash": "9a69363b1270a34d"
-  },
-  {
-    "id": "form.only",
-    "beat": "form.only",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "And each machine can only give the one performance its form allows.",
-    "hash": "daa258a5a2caa228"
-  },
-  {
-    "id": "form.back",
-    "beat": "form.back",
-    "speaker": "narrator",
-    "voiceKey": "narrator",
-    "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "It runs backwards too. Catch a thing doing something, and you have learned something about its form.",
-    "hash": "c2e6917856d18243"
-  },
-  {
     "id": "body.you",
     "beat": "body.you",
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "You are made of the same particles. So the same rule applies to you.",
-    "hash": "303ac90a611232e7"
+    "text": "You are made of the same particles. So the same rules apply to you.",
+    "hash": "2d3b289e10003430"
   },
   {
     "id": "body.lift",
@@ -608,8 +599,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "People ask whether it is conscious, as if the answer would settle how to treat it.",
-    "hash": "889ef2c6111f9d1e"
+    "text": "People ask whether they are conscious, as if the answer settles how we ought to treat them.",
+    "hash": "86f013153f68366b"
   },
   {
     "id": "animals.trivia",
@@ -617,8 +608,8 @@
     "speaker": "narrator",
     "voiceKey": "narrator",
     "voice": "A woman in her mid thirties with a crisp, posh English accent, received pronunciation. Dry, wry and quietly amused, as if sharing a clever point. Unhurried.",
-    "text": "It is trivia. The answer has no moral or ethical import whatsoever.",
-    "hash": "a13c9ee0ed5a155a"
+    "text": "Whether a being is conscious is tantamount to trivia. It has no moral or ethical import.",
+    "hash": "5432712fa41866e4"
   },
   {
     "id": "animals.why",
