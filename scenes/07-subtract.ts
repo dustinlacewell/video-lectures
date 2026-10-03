@@ -12,6 +12,7 @@ import { floaters, ground, stars } from '../kit/scenery';
 import { spark } from '../kit/spark';
 import { GY, INV, ZC, invPos } from './06-inventory.layout';
 import { CHECK_STEP, REM } from './07-subtract.layout';
+import { thoughtTag } from './shared/thoughtTag';
 import type { Scene } from './types';
 
 const GREY = '#8D89A8';
@@ -23,7 +24,8 @@ export const subtract: Scene = {
     ground(GY, -900, 3600, '#B5516A', '#4E1E46');
     minusExperience(S, T);
     minusCognition(S, T);
-  }
+  },
+  over: function (S) { thoughtTag(S); }
 };
 
 /** Subtraction 1: remove the spark; every item stays and gets a check. */
