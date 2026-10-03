@@ -21,7 +21,7 @@ export const body: ChapterScript = {
     { id: 'body.lift', say: 'Lift your arm.', dur: 4.6, cam: { x: 640, y: 400, z: 1.15 }, sfx: [[1.2, 'rise']] },
     { id: 'body.muscle', say: 'It rose because a muscle shortened. The muscle shortened because a nerve fired.', cam: { x: 790, y: 400, z: 2.0 }, sfx: [[0.3, 'fall'], [1.8, 'rise'], [1.8, 'pop'], [4.4, 'zap'], [4.6, 'zap', 1], [4.8, 'zap', 2]] },
     { id: 'body.brain', say: 'The nerve fired because cells in your brain fired. And those fired because others fired first.', cam: { x: 640, y: 296, z: 6.0 } },
-    { id: 'body.trace', say: 'Follow it back as far as you like. Through what you saw, what you learned, what you wanted.', cam: { x: 628, y: 296, z: 6.0 }, sfx: [[0.6, 'pop'], [2.0, 'pop', 1], [3.4, 'pop', 2]] },
+    { id: 'body.trace', say: 'Follow it back as far as you like. Through what you saw, what you learned, what you wanted.', cam: { x: 628, y: 300, z: 6.0 }, sfx: [[0.6, 'pop'], [2.0, 'pop', 1], [3.4, 'pop', 2]] },
     { id: 'body.nogap', say: 'Nowhere does the chain break so that something non-physical can reach in.', sfx: [[0.2, 'boo'], [1.6, 'whoosh'], [2.6, 'fail']] },
     { id: 'body.name', card: 'This machinery has a name: cognition.' },
     { id: 'body.list', say: 'Perceiving. Remembering. Wanting. Deciding. All of it is form doing what form does.', cam: { x: 640, y: 420, z: 1.42 }, sfx: [[0.5, 'pop'], [1.5, 'pop', 1], [2.5, 'pop', 2], [3.5, 'pop', 3]] }
