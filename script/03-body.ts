@@ -17,7 +17,7 @@ function chainZaps(): ChapterCue[] {
 export const body: ChapterScript = {
   id: 'body', title: 'Your body is this kind of machine', short: 'Body', root: 220, scale: [0, 3, 5, 7, 10, 12],
   beats: [
-    { id: 'body.you', say: 'You are made of the same particles. So the same rule applies to you.', cam: pullBack, camT: 0.01 },
+    { id: 'body.you', say: 'You are made of the same particles. So the same rules apply to you.', cam: pullBack, camT: 0.01 },
     { id: 'body.lift', say: 'Lift your arm.', dur: 4.6, cam: { x: 640, y: 400, z: 1.15 }, sfx: [[1.2, 'rise']] },
     { id: 'body.muscle', say: 'It rose because a muscle shortened. The muscle shortened because a nerve fired.', cam: { x: 790, y: 400, z: 2.0 }, sfx: [[0.3, 'fall'], [1.8, 'rise'], [1.8, 'pop'], [4.4, 'zap'], [4.6, 'zap', 1], [4.8, 'zap', 2]] },
     { id: 'body.brain', say: 'The nerve fired because cells in your brain fired. And those fired because others fired first.', cam: { x: 640, y: 296, z: 6.0 } },
