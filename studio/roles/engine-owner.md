@@ -75,7 +75,7 @@ each negative control, and the producer checks the exit codes.
 
 - [ ] **Test cannot fail.** A new test passes on a deliberately broken
   input. Evidence: the probe edit and the test output.
-- [ ] **Readiness needs boards.** `wm test` fails on a project with no
+- [ ] **Readiness needs boards.** `wm test {SLUG}` fails on a project with no
   `production/` folder. Evidence: the failing test.
 - [ ] **Purpose shows by default.** A default build's contact sheet shows
   purpose text. Evidence: sheet path and frame time.
@@ -99,7 +99,7 @@ SCRATCH: {PROJECT_ROOT}\.scratch\engine-owner-r{N}   (gitignored; builds, sheets
 
 GOAL
 {Readiness: make the five readiness items exist and pass on a project with zero boards and no production documents.}
-{New project: create {PROJECT_ROOT} from the reference repo per new-project.md, so wm --help, wm test and wm build pass.}
+{New project: create {PROJECT_ROOT} from the reference repo per new-project.md, so wm --help, wm test {SLUG} and wm build {SLUG} pass.}
 {Port: split {prototype path} into the contract layers with zero visual change.}
 {Export: build wm export to the spec and pass its verification on the animatic build.}
 {Fix: {defect, with the evidence}. If the cause is not known, find it first.}
@@ -136,8 +136,8 @@ RULES
 - New project: .gitattributes (* text=auto eol=lf) is the first commit, alone. Commit by explicit path.
 
 VERIFY (run each; report the result line)
-cd {PROJECT_ROOT}; wm build                    # 0 type errors
-cd {PROJECT_ROOT}; wm test                     # all pass
+cd {PROJECT_ROOT}; wm build {SLUG}                    # 0 type errors
+cd {PROJECT_ROOT}; wm test {SLUG}                     # all pass
 {Readiness:}
 cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build
 pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build {SCRATCH}\build --out {SCRATCH}\clips

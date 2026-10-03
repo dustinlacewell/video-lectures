@@ -88,16 +88,16 @@ RULES
 
 VERIFY (PowerShell)
 {Render:}
-cd {PROJECT_ROOT}; wm voice:render     # report its summary line: clips, seconds of audio, still flawed
+cd {PROJECT_ROOT}; wm voice:render {SLUG}     # report its summary line: clips, seconds of audio, still flawed
 cd {PROJECT_ROOT}\voice; uv run verify.py
-cd {PROJECT_ROOT}; wm test             # voice coverage passes
-cd {PROJECT_ROOT}; wm build
+cd {PROJECT_ROOT}; wm test {SLUG}             # voice coverage passes
+cd {PROJECT_ROOT}; wm build {SLUG}
 cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build
 pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --manifest {PROJECT_ROOT}\voice\manifest.json --out {SCRATCH}\clips
 pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools pacing-curve --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\pacing
   # runtime = sum of dur in chapters.csv; narrator rate = narration words / their beats' dur in beats.csv
 {Sounds or mix:}
-cd {PROJECT_ROOT}; wm build; wm test
+cd {PROJECT_ROOT}; wm build {SLUG}; wm test {SLUG}
 
 {REPORT — paste the standard block, N = 150}
 Also list: clip ids still flawed, with the flaw; runtime before and after; the measured narrator rate.

@@ -17,7 +17,7 @@ check.
    card stays at least its reading time). A hold change goes to the
    chapter's animator, who owns `dur`.
 2. **Sweep.** [frame-sweep](../tools/frame-sweep.md) every 0.1 s,
-   [clip-check](../tools/clip-check.md), `wm test`, and a determinism
+   [clip-check](../tools/clip-check.md), `wm test {SLUG}`, and a determinism
    check ([contact-sheet](../tools/contact-sheet.md) `--twice`). Lean:
    the producer runs them. Full: [QA](../roles/qa.md).
 3. **Pacing.** Run [pacing-curve](../tools/pacing-curve.md) on the full

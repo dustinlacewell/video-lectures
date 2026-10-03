@@ -5,8 +5,8 @@ How lines in the script become WAV clips that set the video's timing. Built and 
 ## The flow
 
 1. **Cast.** Each speaker has one frozen reference clip and its exact transcript.
-2. **Manifest.** `wm voice:manifest` turns script + cast into one job per clip, each with a content hash.
-3. **Render.** `wm voice:render` synthesizes every missing or stale clip. The model loads once.
+2. **Manifest.** `wm voice:manifest {SLUG}` turns script + cast into one job per clip, each with a content hash.
+3. **Render.** `wm voice:render {SLUG}` synthesizes every missing or stale clip. The model loads once.
 4. **Verify.** Each new take is checked by speech-to-text and by its ending. A bad take is re-rolled.
 5. **Trim.** Silence is cut with a margin, and both ends fade.
 6. **Measure.** `durations.json` records each clip's length. The timeline reads it.
@@ -61,7 +61,7 @@ Rules:
 
 ## 3. Render
 
-`voice/render.py`. Run through `wm voice:render`, which writes the manifest first.
+`voice/render.py`. Run through `wm voice:render {SLUG}`, which writes the manifest first.
 
 - A clip is stale when its WAV is missing, or `index.json[id] != "<hash>.r<RENDER_VERSION>"`.
 - Bump `RENDER_VERSION` when rendering or trimming changes. Every clip then re-renders.
@@ -97,7 +97,7 @@ After rendering, `measure` reads every clip's length into `voice/clips/durations
 
 After any re-render:
 
-- Run `wm test`. `test/voiceCoverage.test.ts` fails on a missing clip or a beat shorter than its clips.
+- Run `wm test {SLUG}`. `test/voiceCoverage.test.ts` fails on a missing clip or a beat shorter than its clips.
 - Run the clip check (`tools/clip-check`). Report runtime change per chapter to the director. A changed runtime is a pacing change; the director decides, not the render.
 
 ## 7. Playback
@@ -182,5 +182,5 @@ Steps:
 1. Write `voice/<model>.py` with the four functions. Point the imports in `render.py` and `speak.py` at it.
 2. Bump `RENDER_VERSION`.
 3. Keep the frozen reference clips; they are plain audio and do not depend on the model. Render one sample line per speaker with the new model. The human listens and signs off on each voice again.
-4. `wm voice:render`, then `uv run verify.py`, then `wm test`.
+4. `wm voice:render {SLUG}`, then `uv run verify.py`, then `wm test {SLUG}`.
 5. Every clip length changes. Re-run the clip check and the pacing curve. Animation timed with `S.since`/`S.on` follows; anything keyed to fixed seconds inside a beat needs an animator's check.

@@ -94,8 +94,8 @@ RULES
 - Never rename a beat id. Replace = delete + new id.
 
 VERIFY (PowerShell)
-cd {PROJECT_ROOT}; wm build    # 0 type errors
-cd {PROJECT_ROOT}; wm test     # all pass, including card-last
+cd {PROJECT_ROOT}; wm build {SLUG}    # 0 type errors
+cd {PROJECT_ROOT}; wm test {SLUG}     # all pass, including card-last
 
 {REPORT — paste the standard block, N = 200 (whole script: 300)}
 Also list: per chapter, words written vs budget; beat ids added / changed / removed; any line you could not write

@@ -159,7 +159,7 @@ RULES
 VERIFY
 {Development or structure pass: every chapter in script\index.ts has a spine row; weights sum to 100%.}
 {Development: every term in a spine card has a terminology row; lean: every spine motif has a vocabulary row.}
-{Boards: cd {PROJECT_ROOT}; wm test   (the storyboard test passes)}
+{Boards: cd {PROJECT_ROOT}; wm test {SLUG}   (the storyboard test passes)}
 
 {REPORT — paste the standard block, N = 250}
 Also list: each PROPOSED item, one line, with a recommendation. Development: the gate decisions in order, each with two

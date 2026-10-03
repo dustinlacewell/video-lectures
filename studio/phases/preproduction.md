@@ -34,7 +34,7 @@ itself on a fixture, so nothing here waits for a board or a document.
 Deterministic audio is part of the exporter job in
 [animation](animation.md), not this step.
 
-When readiness merges, the producer runs `wm test` on the current
+When readiness merges, the producer runs `wm test {SLUG}` on the current
 script and boards.
 
 ## Steps, lean
@@ -70,7 +70,7 @@ script and boards.
    never reviews its own boards.
 5. **Fix, one round at most.** The writer and the director fix their
    findings in parallel, one SendMessage each. The producer runs
-   `wm test`. A finding still in dispute goes to the human at the gate.
+   `wm test {SLUG}`. A finding still in dispute goes to the human at the gate.
 
 ## Steps, full
 
@@ -123,7 +123,7 @@ mid-round follows [change-orders](../loops/change-orders.md).
 
 ## Exit criteria
 
-- `wm test` passes: beat ids unique, every chapter ends on its card (or
+- `wm test {SLUG}` passes: beat ids unique, every chapter ends on its card (or
   the bible lists the exception), storyboard test green.
 - `script/cast.ts` points every speaker at a frozen reference clip. The
   bible's Locks records the clip hashes.

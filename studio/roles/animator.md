@@ -90,8 +90,8 @@ pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build
 (Kit owner: run both without --chapter. The sweep measures text and images only; check props at the frame edge by eye.)
 
 VERIFY
-cd {PROJECT_ROOT}; wm build    # 0 type errors
-cd {PROJECT_ROOT}; wm test     # all pass
+cd {PROJECT_ROOT}; wm build {SLUG}    # 0 type errors
+cd {PROJECT_ROOT}; wm test {SLUG}     # all pass
 frame sweep: {SCRATCH}\sweep\sweep.md shows 0 cut ranges and a non-zero text-draw count, or each range is in your report
 
 {REPORT — paste the standard block, N = 200 (group: 300)}

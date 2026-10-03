@@ -29,7 +29,7 @@ The first production that delivers an MP4 builds the exporter. Later productions
 
 Functional core, imperative shell:
 
-- **Pure (Node, no browser):** frame times; voice-line placement; ducking windows; the music and sfx score; chapters text; captions text. All come from `SCRIPT`, `CAST` and `durations.json` through `buildTimeline` and `voiceLines`, the same way `wm voice:manifest` imports the script.
+- **Pure (Node, no browser):** frame times; voice-line placement; ducking windows; the music and sfx score; chapters text; captions text. All come from `SCRIPT`, `CAST` and `durations.json` through `buildTimeline` and `voiceLines`, the same way `wm voice:manifest {SLUG}` imports the script.
 - **Shell:** headless Chromium (Playwright) for pixels and for `OfflineAudioContext`; ffmpeg for encode, loudness and mux.
 
 ## 2. Video

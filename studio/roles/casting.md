@@ -110,12 +110,12 @@ RULES
 - A shared voice is one ref, referenced twice in cast.ts. Never two files.
 
 VERIFY (PowerShell)
-cd {PROJECT_ROOT}; wm build            # 0 type errors
+cd {PROJECT_ROOT}; wm build {SLUG}            # 0 type errors
 {Freeze, per new ref:}
 cd {PROJECT_ROOT}\voice; uv run transcribe.py refs/{speaker}.wav     # must equal refs\{speaker}.txt
 ffprobe -v error -show_entries format=duration -of csv=p=0 {PROJECT_ROOT}\voice\refs\{speaker}.wav   # 8 to 15
 ffmpeg -hide_banner -nostats -i {PROJECT_ROOT}\voice\refs\{speaker}.wav -af silencedetect=noise=-40dB:d=0.7 -f null - 2>&1 | Select-String silence_duration   # no output
-cd {PROJECT_ROOT}; wm voice:manifest   # does not throw
+cd {PROJECT_ROOT}; wm voice:manifest {SLUG}   # does not throw
 
 {REPORT — paste the standard block, N = 150}
 Also list: {Declare: each id and its character.} {Auditions: each sample path with its description, for the human.}

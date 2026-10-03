@@ -93,7 +93,7 @@ RULES
 - A kit spec names the function, its options, what it draws, and every beat that uses it.
 
 VERIFY
-- cd {PROJECT_ROOT}; wm test   (boards: the storyboard test passes)
+- cd {PROJECT_ROOT}; wm test {SLUG}   (boards: the storyboard test passes)
 - No meaning appears in two rows.
 
 {REPORT — paste the standard block, N = 250}

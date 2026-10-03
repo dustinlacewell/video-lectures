@@ -81,7 +81,7 @@ pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build 
 Runtime = the sum of dur in chapters.csv. Share = share_pct in chapters.csv.
 
 VERIFY
-cd {PROJECT_ROOT}; wm test   # all pass
+cd {PROJECT_ROOT}; wm test {SLUG}   # all pass
 {Export: cd {PROJECT_ROOT}; wm export, then every check in engine\export.md section 6, results in out\export.json}
 
 {REPORT — paste the standard block, N = 200}

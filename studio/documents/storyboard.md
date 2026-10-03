@@ -56,7 +56,7 @@ animated.
 - Parallel art-director agents may each own one chapter file. The types
   file has one owner.
 
-`tsconfig.json` MUST include `production`, so `wm build` type-checks the
+`tsconfig.json` MUST include `production`, so `wm build {SLUG}` type-checks the
 boards ([engine contract](../engine/contract.md) section 11).
 
 The spoken line is not copied into the board. The renderer reads it from
@@ -106,7 +106,7 @@ Rules:
 ## How it is checked
 
 **The storyboard test**, `test/storyboard.test.ts`. Cheap, exact, runs
-on every `wm test`. It parses the Symbols and Sounds tables of
+on every `wm test {SLUG}`. It parses the Symbols and Sounds tables of
 `production/style-guide/visual-vocabulary.md` (format in
 [visual vocabulary](style-guide/visual-vocabulary.md)) and fails when:
 

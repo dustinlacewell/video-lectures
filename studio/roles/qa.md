@@ -30,9 +30,9 @@ tool.
 Build set (every round, every maker):
 
 ```
-B0  cd {PROJECT_ROOT}; wm build
+B0  cd {PROJECT_ROOT}; wm build {SLUG}
     cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build      # the build every tool below reads
-B1  cd {PROJECT_ROOT}; wm test
+B1  cd {PROJECT_ROOT}; wm test {SLUG}
 B2  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\sweep
 B3  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --twice --out {SCRATCH}\det
 B4  Grep tool, pattern: Math\.random|Date\.now|performance\.now|new Date   paths: {PROJECT_ROOT}\scenes, {PROJECT_ROOT}\kit, {PROJECT_ROOT}\engine
@@ -53,7 +53,7 @@ A1  cd {PROJECT_ROOT}\voice; uv run verify.py
 A2  read {PROJECT_ROOT}\voice\clips\failures.json
 A3  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --manifest {PROJECT_ROOT}\voice\manifest.json --out {SCRATCH}\clips
 A4  cd {PROJECT_ROOT}; node -e "const m=require('./voice/manifest.json'),i=require('./voice/clips/index.json');for(const e of m)if(!(i[e.id]||'').startsWith(e.hash+'.'))console.log(e.id)"
-A5  cd {PROJECT_ROOT}; wm test
+A5  cd {PROJECT_ROOT}; wm test {SLUG}
 ```
 
 | Check | Cmd | Pass rule | Evidence on fail |

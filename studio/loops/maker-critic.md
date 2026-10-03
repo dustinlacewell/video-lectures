@@ -147,10 +147,10 @@ with the report block. Paste both, filled in.
 ```
 ENVIRONMENT
 - Windows 11. Shells: Git Bash and PowerShell. Use absolute paths. The working directory resets between calls.
-- Project root: {PROJECT_ROOT}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes, screenshots and report: {SCRATCH} ({PROJECT_ROOT}\.scratch\<role>-r<N>, gitignored).
+- Project root: {PROJECT_ROOT} (D:\code\ai\video-lectures\videos\{SLUG}). Video slug: {SLUG}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes, screenshots and report: {SCRATCH} ({PROJECT_ROOT}\.scratch\<role>-r<N>, gitignored).
 - The project honors the engine contract: C:\Users\dustin\.claude\skills\video-studio\engine\contract.md
   (script is pure data with stable beat ids; every frame is a pure function of time; page globals __seek(t), __info(), __cam(), __voice()).
-- Workspace commands: `wm build` (type-check and build), `wm test` (unit tests), `wm voice:manifest`, `wm voice:render`.
+- Workspace commands: `wm build {SLUG}` (type-check and build), `wm test {SLUG}` (unit tests), `wm voice:manifest {SLUG}`, `wm voice:render {SLUG}`.
 - Python only through the uv venv in {PROJECT_ROOT}/voice (Python 3.12). Never system Python.
 - Edit files with the Edit and Write tools. Do not rewrite files with sed, Python, or heredocs: that changes line endings. The one exception: a command this brief gives verbatim.
 - Do not open or drive GUI windows. Headless Playwright at exact times via __seek(t) is allowed and expected.

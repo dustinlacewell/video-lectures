@@ -87,7 +87,7 @@ only what changed.
    - Full: a [maker-critic loop](../loops/maker-critic.md), at most 3
      rounds; QA runs frame-sweep each round.
 8. **Merge.** The producer merges one worktree at a time. After each
-   merge: `wm test`, frame-sweep on the whole video. Each agent stops any
+   merge: `wm test {SLUG}`, frame-sweep on the whole video. Each agent stops any
    server it started before it reports.
 9. **Whole-video pass** (full). The director reads a contact sheet of
    every chapter: one symbol at a time across chapters, then motifs,
