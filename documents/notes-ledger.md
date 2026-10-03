@@ -85,57 +85,60 @@ Rules:
 
 ## Filled example: "What a Mind Is Made Of"
 
-The production kept no ledger. Rounds 1 and 2 are reconstructed from
-the human's real notes; timestamps were not recorded, beat ids are.
-Round 3 is real: the cold-viewer run in
-[cold-viewer review](../loops/cold-viewer-review.md) and the tool runs on
-the same cut, triaged in a notes-round dry run of this skill. Its human
-questions are not answered yet. A few of its 29 rows are shown.
+An excerpt, in this file's format. Round 3 is the real cold-viewer run
+in [cold-viewer review](../loops/cold-viewer-review.md) plus the tool
+runs on the same cut; its human questions are not answered yet. Rounds 1
+and 2 come from the human's real notes; timestamps were not recorded,
+beat ids were. Full real version:
+`D:\code\ai\cognition\production\notes-ledger.md` (29 rows in round 3).
+The real file predates the "Verified on frame" column and marks closed
+rows `verified`; the cells of that column below come from the same
+frames and transcript.
 
 ```markdown
 # Notes ledger: What a Mind Is Made Of
 
-## Round 3: cold viewers (newcomer, skeptic, expert) + tools — final cut, runtime 7:06
+## Round 3: cold viewers (newcomer, skeptic, expert) and tools on the cut — build 1b6be63, 2026-10-03
 
 | Id | Note (verbatim) | Atom | Where | Verified on frame (time, path) | Class | Outcome | Produces | Status |
 |---|---|---|---|---|---|---|---|---|
-| R3-1 | cold-viewer/all: "Inventory chapter (4:36–5:28) repeats the zombie chapter" | inventory restates zombie.pain's claim | inventory.* 4:36–5:28 | transcript: zombie.pain 4:18 and inventory make one claim | rhythm | document | spine row inventory (director, after Q2). Check never ran: roles/script-editor.md `Repeated claim` | human-decision: Q2 |
-| R3-4 | cold-viewer/all: "'No moral or ethical import' (6:35) arrives without any ethical argument" | chain claim C9 has no reason beat | animals.trivia 6:35 | transcript 6:35: the claim, no reason before it | precision | document | production/checks/script-editor.md #2 (after Q1) | human-decision: Q1 (attacks B2) |
-| R3-9 | cold-viewer/all: "'Yes. Obviously. I am experiencing this right now.' heard three times (3:13, 4:05, and once more)" | planted line and its payoff | words.ans2 3:13, zombie.yes 4:05 | transcript: two instances; the third has no time and is not there | rhythm | none | none | settled: B10, B11 |
-| R3-12 | cold-viewer/newcomer: "star over head (3:55) meaning only from the label" | the label carries the meaning, as designed | zombie.diff 3:55 | — | clarity | none | none | no-action: as designed |
-| R3-16 | cold-viewer/skeptic: "grey blob with a star at 5:55 reads as dead/empty though experience is kept" | picture says more than the line | subtract.s2c 5:55 | — | clarity | document | vocabulary `star` row, if approved | held: art-director proposal, then one human question |
-| R3-23 | tool: "'Thismachinery' missing space in the body.name card (2:27) — likely rich-text wrap bug" | card words overlap during the pop-in; not a wrap bug | body.name 2:27.2; all cards | 2:27.2 words overlap; 2:29.4 settled card correct, sheet 04-body-3.png | framing | structural | test/card.test.ts: no two words overlap at any time | open |
-| R3-27 | tool: "Beats after cards: body.list, words.cause" | beat after a chapter card | body.list 2:32, words.cause 3:29 | — | rhythm | structural | test/card-last.test.ts | human-decision: Q5 |
+| R3-1 | cold-viewer/all (3): "Inventory chapter (4:36–5:28) repeats the zombie chapter" | inventory restates zombie.pain's claim (the zombie keeps everything) [spine: inventory job; spine defect "Repetition"] | inventory.* @ 4:36–5:28 vs zombie.pain @ 4:18 | transcript: zombie.pain 4:18 and inventory make one claim | rhythm | document | spine row inventory (director, after Q2). Role check `Repeated claim` in roles/script-editor.md never ran on the whole script: check failed | human-decision: Q2 |
+| R3-4 | cold-viewer/all (3): "'No moral or ethical import' (6:35) arrives without any ethical argument" | chain claim C9 has no reason beat [B1, B2; spine defects "Compression", "Unannounced frame"] | animals.trivia @ 6:35 | transcript 6:35: the claim, no reason before it | precision | document | production/checks/script-editor.md #2 | human-decision: Q1 |
+| R3-9 | cold-viewer/all (3): "'Yes. Obviously. I am experiencing this right now.' heard three times (3:13, 4:05, and once more)" | planted line and its payoff. The third instance has no timestamp and is not in the transcript (likely the two-clip chorus counted twice) [spine setup/payoff; B10, B11] | words.ans2 @ 3:13, zombie.yes @ 4:05 | transcript: two instances; the third has no time and is not there | rhythm | none | none | settled: B10, B11 |
+| R3-12 | cold-viewer/newcomer (1): "star over head (3:55) meaning only from the label" | the label carries the meaning, as designed. Feeds the held star question | zombie.diff @ 3:55 | — | clarity | none | none | no-action: as designed |
+| R3-16 | cold-viewer/skeptic (1): "grey blob with a star at 5:55 reads as dead/empty though experience is kept" | picture says more than the line [vocabulary `star`; grey = absent] | subtract.s2c @ 5:55 | — | clarity | document | vocabulary row change, if approved. Art-director proposal, then one human question (shared kit look) | held: art-director proposal |
+| R3-23 | tool: "'Thismachinery' missing space in the body.name card (2:27) — likely rich-text wrap bug" | words touch during the card's word pop-in. Not a wrap bug: the settled frame at 2:29.4 is correct. Every card pops words the same way | body.name @ 2:27.2; all 7 cards | 2:27.2 words overlap; 2:29.4 settled card correct, sheet 04-body-3.png | framing | structural | test/card.test.ts: pure card word layout, no two words overlap at any time. Engine owner | open |
+| R3-27 | tool: "Beats after cards: body.list, words.cause" | beat after a chapter card [B13; bible Open] | body.list @ 2:32, words.cause @ 3:29 | — | rhythm | structural | test/card-last.test.ts (not in the repo yet) | human-decision: Q5 |
 
 ## Round 2: voiced build — after voice cloning, before export
 
 | Id | Note (verbatim) | Atom | Where | Verified on frame (time, path) | Class | Outcome | Produces | Status |
 |---|---|---|---|---|---|---|---|---|
 | R2-1 | each line sounds slightly different | voice design rerolls the speaker per call | every voiced beat | — | consistency | structural | script/cast.ts: one frozen ref per speaker; bible B12 | check-added |
-| R2-2 | lines cut off | player stops clips 20–80 ms early on its own clock | various | — | rhythm | structural + tool | player lets each clip end; render verify rejects mid-sound endings (engine/voice-pipeline.md) | check-added |
+| R2-2 | lines cut off | player stops clips 20–80 ms early on its own clock | various | — | rhythm | structural + tool | player lets each clip end; render verify rejects mid-sound endings | check-added |
 
 ## Round 1: first full watch of the ported page
 
 | Id | Note (verbatim) | Atom | Where | Verified on frame (time, path) | Class | Outcome | Produces | Status |
 |---|---|---|---|---|---|---|---|---|
-| R1-1 | "particle"→"particles" | wrong grammatical number in a claim | physics.atoms | — | precision | checklist | production/checks/script-editor.md: number and agreement; writing W2 | check-added |
-| R1-2 | close-up domino half off screen | prop crosses frame edge | physics.atoms | — | framing | checklist | production/checks/animation-supervisor.md: a prop crosses the frame edge (frame-sweep sees only text and images, not props drawn as paths) | check-added |
-| R1-3 | three green checkmarks while "searching for other forces" unclear | symbol with no fixed meaning | physics.laws | — | clarity | document | visual-vocabulary `check` | check-added (probe + label) |
+| R1-1 | "particle"→"particles" | wrong grammatical number in a claim | physics.atoms | — | precision | checklist | production/checks/script-editor.md #6; writing W2 | check-added |
+| R1-2 | close-up domino half off screen | prop crosses frame edge | physics.atoms | — | framing | checklist | production/checks/animation-supervisor.md #2 | check-added |
+| R1-3 | three green checkmarks while "searching for other forces" unclear | symbol with no fixed meaning | physics.laws | — | clarity | document | visual-vocabulary `check`, `probe` | check-added (probe + label) |
 | R1-4 | cut "same play, different performance" | decorative metaphor, second example | form.marble | — | taste | taste | writing W6 | fixed |
-| R1-5 | extra panel after a chapter's conclusion card breaks the standard of the video | beat after a card | form.back | — | rhythm | structural | test: no beat after a card; bible B13 | open: body.list, words.cause, animals.end follow a card; inventory has no card |
-| R1-6 | brain should show constant background neural activity | picture begs the question the line answers | body.brain | — | consistency | checklist | production/checks/animation-supervisor.md: picture contradicts or begs the line; bible B17 | check-added |
-| R1-7 | saw/learned/wanted shouldn't sit on one neuron | picture claims more than the line | body.trace | — | precision | checklist | production/checks/animation-supervisor.md; bible B18 | check-added |
+| R1-5 | extra panel after a chapter's conclusion card breaks the standard of the video | beat after a card | form.back | — | rhythm | structural | test: no beat after a card; bible B13 | human-decision: Q2, Q5 (form.back cut; body.list, words.cause, animals.end and the missing inventory card remain, R3-27 to R3-29) |
+| R1-6 | brain should show constant background neural activity | picture begs the question the line answers | body.brain | — | consistency | checklist | production/checks/animation-supervisor.md #3; bible B17 | check-added |
+| R1-7 | saw/learned/wanted shouldn't sit on one neuron | picture claims more than the line | body.trace | — | precision | checklist | production/checks/animation-supervisor.md #3; bible B18 | check-added |
 | R1-8 | arms render behind eyes/mouth | draw order in the shared bean | all beans | — | framing | structural | kit/bean.ts draws arms over the face | check-added |
 | R1-9 | use the spirit instead of the ghost | one character per concept | body.nogap | — | consistency | document | bible B16; visual-vocabulary `visitor` | check-added |
 | R1-10 | "nothing it is like" contradicts the zombie reporting experience | stipulation contradicted by a later line | zombie.diff | — | consistency | document + checklist | bible B4; writing W4 | check-added |
 | R1-11 | "Let's try a thought experiment" | appeal to authority | zombie.intro | — | taste | document | bible B5; writing W5 | check-added |
-| R1-12 | bean shading looks bad | — | all beans | — | taste | taste | kit/bean.ts new shading; bible entry so it does not come back | fixed |
+| R1-12 | bean shading looks bad | — | all beans | — | taste | taste | kit/bean.ts new shading | fixed |
 
 ### Pairs
 - R1-1: "Everything around you is made of the same few kinds of particle, pushed by the same few forces." → "...kinds of particles..."
 - R1-4: "Marbles and a rocker can add too. The same play, in a different performance." → (cut)
 - R1-10: "One difference. The zombie has no inner conscious experience." / "There is nothing it is like to be the zombie. No felt redness. No felt pain." → "For the sake of the experiment, give it one difference: no inner experience. No lights on inside."
-- R1-11: "Philosophers built a thought experiment for exactly this." → "Let's try a thought experiment."
+- R1-11: "Philosophers built a thought experiment for exactly this." → "Let’s try a thought experiment."
 ```
 
 ## Notes on the example

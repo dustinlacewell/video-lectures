@@ -59,9 +59,10 @@ agents (see [cold-viewer-review](cold-viewer-review.md)).
 
 ## Scratch and resume
 
-`{SCRATCH}` is `{PROJECT_ROOT}\.scratch\<brief-id>-r<N>`. The brief id
-is the role, plus the chapter when several run at once
-(`animator-zombie`, `supervisor-zombie`). `N` is the loop round. The
+`{SCRATCH}` is `{PROJECT_ROOT}\.scratch\<role>-r<N>`. `<role>` is the
+role's file name, plus the chapter or group when several run at once
+(`animator-zombie`, `animation-supervisor-zombie`). `N` is the loop
+round. The
 folder is in the main checkout, even when the agent works in a worktree,
 so the evidence outlives the worktree. `.scratch/` is gitignored
 ([new project](../engine/new-project.md) section 4).
@@ -146,7 +147,7 @@ with the report block. Paste both, filled in.
 ```
 ENVIRONMENT
 - Windows 11. Shells: Git Bash and PowerShell. Use absolute paths. The working directory resets between calls.
-- Project root: {PROJECT_ROOT}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes, screenshots and report: {SCRATCH} ({PROJECT_ROOT}\.scratch\<brief-id>-r<N>, gitignored).
+- Project root: {PROJECT_ROOT}. Production documents: {PROJECT_ROOT}\production. Scratch for your probes, screenshots and report: {SCRATCH} ({PROJECT_ROOT}\.scratch\<role>-r<N>, gitignored).
 - The project honors the engine contract: C:\Users\dustin\.claude\skills\video-studio\engine\contract.md
   (script is pure data with stable beat ids; every frame is a pure function of time; page globals __seek(t), __info(), __cam(), __voice()).
 - Workspace commands: `wm build` (type-check and build), `wm test` (unit tests), `wm voice:manifest`, `wm voice:render`.

@@ -111,7 +111,7 @@ RULES
 
 VERIFY (PowerShell)
 cd {PROJECT_ROOT}; wm build            # 0 type errors
-{Freeze, per ref:}
+{Freeze, per new ref:}
 cd {PROJECT_ROOT}\voice; uv run transcribe.py refs/{speaker}.wav     # must equal refs\{speaker}.txt
 ffprobe -v error -show_entries format=duration -of csv=p=0 {PROJECT_ROOT}\voice\refs\{speaker}.wav   # 8 to 15
 ffmpeg -hide_banner -nostats -i {PROJECT_ROOT}\voice\refs\{speaker}.wav -af silencedetect=noise=-40dB:d=0.7 -f null - 2>&1 | Select-String silence_duration   # no output

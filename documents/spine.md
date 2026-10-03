@@ -96,9 +96,11 @@ Rules for the format:
 
 ## Filled example: "What a Mind Is Made Of"
 
-The production had no spine. This is the spine rebuilt from the final
-script. Weights are what a director would have set; measured runtimes
-come from the real voice clips (7:06 total).
+An excerpt. The production had no spine while it was made. This one is
+rebuilt from the final script. Weights are what a director would have
+set; measured seconds come from the real voice clips (7:06.2 total).
+Full real version: `D:\code\ai\cognition\production\spine.md` (all
+eight chapters and every known defect).
 
 ```markdown
 # Spine: What a Mind Is Made Of
@@ -121,60 +123,38 @@ C5. A twin with your physics and no inner experience says and does the
     same; so inner experience cannot be responsible for what you say or do. (needs: C4)
 C6. Everything that makes you you is cognition. (needs: C3, C5)
 C7. Remove experience and you remain; remove cognition and no one does. (needs: C6)
-C8. The same holds for animals and AI.
-C9. Whether a being is conscious is trivia for ethics.
+C8. The same holds for animals and AI. (needs: C7)
+C9. Whether a being is conscious is trivia for ethics. (needs: C5, C8)
 C10. What matters is how sophisticated its cognition is and how richly
-     it models itself.
+     it models itself. (needs: C9)
 
 ## Chapters
 ### physics — Only physical things push
-- Job: the viewer believes nothing non-physical has ever moved matter.
-- Opening claim: everything is the same few particles and forces.
+- Job: when it ends, the viewer believes: nothing non-physical has ever moved matter.
+- Opening claim: "Everything around you is made of the same few kinds of particles, pushed by the same few forces." (physics.atoms)
 - Card: "If it happened, something physical made it happen."
-- Carries: C1   Weight: 12%   Measured: 58 s (14%)
-- Plants: particle lattice (paid: body); non-physical visitors fail (paid: body)
-
-### form — Form is function
-- Job: the viewer believes a machine does what its shape dictates.
-- Opening claim: in a physical world, form and function are the same thing.
-- Card: "What a thing is shaped like is what it does. Form *is* function."
-- Carries: C2   Weight: 10%   Measured: 49 s (12%)
-- Plants: "form doing what form does" (paid: body, inventory)
-
-### body — Your body is this kind of machine
-- Job: the viewer believes their own actions run on the same chain, and
-  that chain is named cognition.
-- Card: "This machinery has a name: cognition."
-- Carries: C3   Weight: 12%   Measured: 45 s (11%)
-- Pays: particle lattice, spirit fails
-
-### words — This word, and not that one
-- Job: the viewer believes "I am conscious" is an output of cognition.
-- Card: "“I am conscious” is an output of cognition."
-- Carries: C4   Weight: 12%   Measured: 55 s (13%)
-- Plants: the line "Yes. Obviously. I am experiencing this right now." (paid: zombie)
-
-### zombie — Meet your zombie twin
-- Job: the viewer believes inner experience does no causal work in
-  speech or action.
-- Card: "Inner experience cannot be responsible for what you say or do."
-- Carries: C5   Weight: 15%   Measured: 63 s (15%)
-- Pays: the "I am experiencing this" line, now said by both in one voice
+- Carries: C1
+- Weight: 12%  Measured: 58.3 s (14%)
+- Plants: particle lattice (paid: body.you); non-physical visitors fail (paid: body.nogap)
+- Pays: —
 
 ### inventory — What makes you you
-- Job: the viewer believes every item that makes them who they are is cognition.
+- Job: when it ends, the viewer believes: every item that makes them who they are is cognition.
+- Opening claim: "So what makes you you? Take inventory." (inventory.you)
 - Card: none (defect, see below)
-- Carries: C6   Weight: 10%   Measured: 52 s (12%)
-
-### subtract — Two subtractions
-- Job: the viewer believes they are their cognition, not their consciousness.
-- Card: "You are not your consciousness. You are your cognition."
-- Carries: C7   Weight: 9%   Measured: 38 s (9%)
+- Carries: C6
+- Weight: 10%  Measured: 51.9 s (12%)
+- Plants: the inventory badges (paid: subtract, animals, end title)
+- Pays: form is function (inventory.cog); the star (inventory)
 
 ### animals — Animals, and AI
-- Job: the viewer believes, for ethics, a mind is its cognition.
+- Job: when it ends, the viewer believes: for ethics, a mind is its cognition.
+- Opening claim: "The same is true of animals." (animals.animals)
 - Card: "For the purposes of ethics, a mind is its cognition."
-- Carries: C8, C9, C10   Weight: 20%   Measured: 60 s (14%)
+- Carries: C8, C9, C10
+- Weight: 20%  Measured: 60.1 s (14%)
+- Plants: —
+- Pays: the star (animals.ask, animals.trivia); the badges (animals.are, end title); self-model and ethics (both NOT PLANTED)
 
 ## Setups and payoffs
 | Setup | Planted | Paid | Status |
@@ -202,13 +182,14 @@ C10. What matters is how sophisticated its cognition is and how richly
 ## Known defects
 - Repetition. "The zombie keeps everything" is claimed in zombie.pain,
   in all of inventory, and again in subtract.s1b. Three chapters, one
-  belief. In the original, words–inventory made one point three times.
+  belief. All three cold viewers in notes round 3 said so (R3-1 to R3-3).
   → Give inventory a job the others do not have (C6 about YOU, with no
-  zombie), and let subtract do the zombie half once. (director, open)
+  zombie), and let subtract do the zombie half once. (director → human, Q2)
 - Compression. animals carries three claims (C8, C9, C10) in 60 s, less
   than zombie spends on one. C9 is the thesis's ethical half and gets two
-  lines. → Split into "animals and AI" and "trivia", or raise the weight
-  and give C9 its own card. (director → human)
+  lines and no reason beat. All three cold viewers stopped at
+  animals.trivia (R3-4 to R3-6). → Add a reason beat before
+  animals.trivia, or split the chapter. (director → human, Q1)
 - Unannounced term. "how richly it models itself" (animals.matters)
   arrives with no setup. The self icon already appears as a reason chip
   in words.ask2 and is never named. → Name it there: "your model of
@@ -217,7 +198,7 @@ C10. What matters is how sophisticated its cognition is and how richly
   no reason before minute six to think the video is about how we treat
   beings. → Plant it in the first minute or in the title subtitle. (human)
 - Missing card. inventory ends on a spoken beat, against "every chapter
-  ends on its card" (bible B13). Open defect in the bible. (human)
+  ends on its card" (bible B13). (human, Q2)
 ```
 
 The defects above are the payoff of the format. Each one is a line

@@ -86,7 +86,7 @@ Reference clips are tracked. Rendered clips are not. `voice/clips/durations.json
 
 Copy X's tracked `production/style-guide/*`: the writing guide, the terminology table and the visual vocabulary (with its Sounds table). Copy X's `voice/refs/**` too, by the voice rule below.
 
-If X has no tracked `production/style-guide/`, there is nothing to copy. Tell the human in one line. The reference repo (`D:\code\ai\cognition`) tracks none today; its style exists only as this skill's reconstructed examples.
+If X has no tracked `production/style-guide/`, there is nothing to copy. Tell the human in one line. The reference repo (`D:\code\ai\cognition`) tracks one.
 
 ### Voice references: reuse or fresh
 

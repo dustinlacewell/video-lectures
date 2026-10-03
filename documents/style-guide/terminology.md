@@ -64,8 +64,10 @@ defect.
 
 ## Filled example: "What a Mind Is Made Of"
 
-Reconstructed. The production had no terminology table. This one is
-built from the final script; the lines it quotes are real.
+The production had no terminology table while it was made. This one
+was built afterwards from the final script; the lines it quotes are
+real. Full real version:
+`D:\code\ai\cognition\production\style-guide\terminology.md`.
 
 ```markdown
 # Terminology: What a Mind Is Made Of
@@ -106,15 +108,17 @@ built from the final script; the lines it quotes are real.
   experience", or settle the equation above first. (human)
 - words.cause: "Whatever else is true of experience" — "experience"
   alone, before "inner experience" is defined. → "inner experience"
-  after the equation is planted. (writer)
+  after the equation is planted. The line may move or go (bible Open,
+  Q5). (writer, after Q5)
 - words.selected "A physical process selected that word.", physics.fall
   "physical reasons", words.cause "physical causes": three phrases for
   one idea. → "physical causes" in narration. (writer)
-- inventory.zwhy: "the same cognitive machinery" → "the same cognition". (writer)
+- inventory.zwhy: "the same cognitive machinery" → "the same cognition".
+  The line may go with Q2 (R3-3). (writer, after Q2)
 - animals.matters: "how richly it models itself" — a key term with no
   setup and no row. → See spine, known defects. (director)
-- Code and comments: kit/spark.ts calls the star "the marker for inner
-  experience"; scenes/08-animals.ts calls it "the consciousness star".
+- Code and comments: kit/spark.ts calls the star "The marker for inner
+  experience"; scenes/08-animals.ts calls it "The consciousness star".
   Agents read comments. One name: "the inner-experience star". (art-director)
 ```
 

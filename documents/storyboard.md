@@ -29,8 +29,10 @@ animated.
   track, the director. Fills in `frame`, `camera`, `symbols`, `figures`,
   `still`. Purpose and picture fields are written in turn on a chapter
   file, never at once, so each file has one writer at a time.
-- Critic: the director, with the board checklist below, in a
-  [maker-critic loop](../loops/maker-critic.md).
+- Critic: the [script-editor](../roles/script-editor.md), with the
+  [board checklist](../roles/director.md#board-checklist), in a [maker-critic loop](../loops/maker-critic.md):
+  boards mode on the full track, the combined pass on lean. The director
+  never critiques its own boards.
 - Readers: [animator](../roles/animator.md) (the board is the brief for
   the beat), [animation-supervisor](../roles/animation-supervisor.md)
   (checks the finished frame against the board's purpose). Never a
@@ -133,19 +135,15 @@ The test sees only marked ids. The mark rule is what makes an undefined
 symbol visible. In the dry run of this skill, boards passed a test that
 checked only `symbols`, while their frame text named an "arrow" with no
 vocabulary row. Under the mark rule the writer must write `{arrow}`,
-and the test fails; or leaves "arrow" bare, and the director's item 4
-below fails it.
+and the test fails; or leaves "arrow" bare, and the board checklist's
+"Unmarked or new word" item fails it.
 
 **The terminology grep** ([terminology](style-guide/terminology.md))
 also runs on quoted text in `frame`. A quoted label is on-screen text.
 
-**The director's board checklist**, per chapter. Each failure cites the
-beat id and quotes the field.
-
-1. A purpose that does not serve the chapter's [spine](spine.md) job.
-2. Two adjacent beats with the same purpose (one can probably go).
-3. A purpose the line does not support.
-4. A frame that names a drawn element in plain words, with no `{id}`.
+**The board checklist**, per chapter: four items in
+[director](../roles/director.md#board-checklist). The script-editor
+applies it. Each failure cites the board key and quotes the field.
 
 **[Animation-supervisor](../roles/animation-supervisor.md)**, after
 animation: the rendered frame at the beat's end does not show the
@@ -171,8 +169,8 @@ export const boards: Boards = {
 };
 ```
 
-The test passes it: both ids are in the vocabulary. The director's pass
-fails it on item 3: `check` does not mean "tested" in the vocabulary,
+The test passes it: both ids are in the vocabulary. The script-editor's
+board pass fails it on "Unsupported": `check` does not mean "tested" in the vocabulary,
 so the picture does not support the line. The fix is a new row,
 `probe` ("instruments looking for a push"), proposed to the
 art-director. The board becomes:

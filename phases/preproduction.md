@@ -27,7 +27,7 @@ itself on a fixture, so nothing here waits for a board or a document.
 | Item | Needed by | Contract §11 row |
 |---|---|---|
 | Card-last test `test/card-last.test.ts` | the script check | "No test that fails on a beat after a card" |
-| Storyboard test `test/storyboard.test.ts`, and `production` in tsconfig `include` | the board check | "No storyboard test", "No `production/` folder" |
+| Storyboard test `test/storyboard.test.ts`, and `production` in tsconfig `include` | the board check | "No storyboard test", "`tsconfig.json` does not include `production/`" |
 | Board renderer and scene-registry fallback | the animatic | "No board renderer" |
 | `__script()` global | the tools | "No `__script()` global" |
 
@@ -65,9 +65,9 @@ script and boards.
    the Sounds rows the boards actually use, and no others. The storyboard
    test passes.
 4. **Check both.** One [script-editor](../roles/script-editor.md) run,
-   with the script checklist and the four-item board checklist in
-   [storyboard](../documents/storyboard.md). The director never reviews
-   its own boards.
+   in its combined mode: the script checklist and the
+   [board checklist](../roles/director.md#board-checklist). The director
+   never reviews its own boards.
 5. **Fix, one round at most.** The writer and the director fix their
    findings in parallel, one SendMessage each. The producer runs
    `wm test`. A finding still in dispute goes to the human at the gate.
@@ -96,8 +96,8 @@ script and boards.
    spine: each chapter does its job; no two chapters make one point;
    each chapter's word count against its budget.
 5. **Board.** The director writes each beat's purpose; the art-director
-   fills in the picture fields. A fresh director agent critiques them
-   with the board checklist. The storyboard test passes.
+   fills in the picture fields. The script-editor critiques them in
+   boards mode, with the board checklist. The storyboard test passes.
 6. **Cast.** Casting makes 2–3 candidate voices per new speaker. After
    the human picks, casting freezes one reference clip per speaker with
    a verified transcript. Reused voices: as in lean step 1.

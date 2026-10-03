@@ -61,7 +61,8 @@ repeats the same class of error and the human pays for it again.
 ## Filled example: "What a Mind Is Made Of"
 
 The drafts are the lines as they stood before the notes round (the port
-of the original page). The fixes are the human's.
+of the original page). The fixes are the human's. Full real version:
+`D:\code\ai\cognition\production\style-guide\writing.md`.
 
 ```markdown
 # Writing guide: What a Mind Is Made Of
@@ -77,7 +78,7 @@ of the original page). The fixes are the human's.
   (a domino before causal closure, a lever before "form is function").
 - Lists are fragments: "Perceiving. Remembering. Wanting. Deciding."
 - Humor: understatement inside a plain claim. "A very determined
-  thought." "Tested to absurd precision." "It yelps, hops, and holds a grudge."
+  thought." "Physicists have tested those laws to absurd precision." "It yelps, hops, and holds a grudge."
 - Imperatives to the viewer: "Lift your arm." "Step on its toe." "Now
   check the zombie."
 - Characters: friend asks short questions. You and the zombie say the

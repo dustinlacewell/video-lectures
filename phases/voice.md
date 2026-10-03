@@ -77,7 +77,7 @@ changed lines ([sizing](sizing.md#re-voice)).
 ## Common failures
 
 - **Animation before voice.** On the reference the runtime went from
-  9:42 to 7:05 when real narration replaced the word-count estimate.
+  9:42 to 7:06 when real narration replaced the word-count estimate.
   Nobody chose it. Animators had timed motion to lengths that vanished.
 - **Lines cut off.** The human heard lines end early. The player
   stopped clips on its own clock 20–80 ms early. Check the playback

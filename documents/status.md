@@ -42,7 +42,7 @@ worktree.
 
 | Role | Round | Worktree | Branch | Evidence ({SCRATCH}) | Last report | Waiting on |
 |---|---|---|---|---|---|---|
-| <animator, zombie> | <2 of 3> | <absolute path or none> | <branch> | <{PROJECT_ROOT}\.scratch\animator-zombie-r2> | <{PROJECT_ROOT}\.scratch\supervisor-zombie-r1\report.md> | <supervisor re-check> |
+| <animator, zombie> | <2 of 3> | <absolute path or none> | <branch> | <{PROJECT_ROOT}\.scratch\animator-zombie-r2> | <{PROJECT_ROOT}\.scratch\animation-supervisor-zombie-r1\report.md> | <supervisor re-check> |
 
 "Last report" is the newest report in the loop: the critic's findings
 while the maker fixes, the maker's fix report while the critic

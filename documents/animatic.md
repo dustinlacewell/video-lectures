@@ -110,8 +110,8 @@ Owned by the director.
 ## Filled example: "What a Mind Is Made Of"
 
 The production had no animatic. This is the record it would have
-produced on the real clips, against the weights in the
-[spine](spine.md) example.
+produced on the real clips, against the spine's weights (full real
+spine: `D:\code\ai\cognition\production\spine.md`).
 
 ```markdown
 # Animatic review: What a Mind Is Made Of
@@ -134,9 +134,9 @@ Two decisions would have reached the human here, one at a time:
 
 1. The runtime on real voice, against the estimate
    ([voice phase](../phases/voice.md)): keep the new pace?
-2. "The animals chapter carries three claims in one minute. Split it
-   into two chapters, or give the trivia claim its own card? I recommend
-   splitting."
+2. "The animals chapter carries three claims in one minute, and the
+   trivia claim has no reason before it. Add a reason beat before it, or
+   split the chapter? I recommend the reason beat."
 
 Both are edits to script data and boards. After animation, either one
 would have meant reworking finished scenes.

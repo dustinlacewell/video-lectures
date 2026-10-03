@@ -56,7 +56,7 @@ script fixes, its animator loop).
 | Phase | Runs | What they are |
 |---|---|---|
 | Development | 5–7 | harvest; director (spine); spine loop: script-editor, fix, re-check, up to 3 rounds |
-| Preproduction | 22–28 | style guide 3 (director, art-director, director's approval); casting 3 (declare, audition, freeze); 5 writers; script loop 6–9; whole-script pass 1; boards 4–5 (director, art-director, fresh director as critic, fixes) |
+| Preproduction | 22–28 | style guide 3 (director, art-director, director's approval); casting 3 (declare, audition, freeze); 5 writers; script loop 6–9; whole-script pass 1; boards 4–5 (director, art-director, script-editor as critic, fixes) |
 | Voice | 4–8 | sound engineer, QA, editor, director; +4 for line fixes (writer, script-editor, re-render, QA) |
 | Animation | 36–46 | editor, 3 cold viewers, director record; 0–4 gate fixes; kit loop 3; per chapter 5 (animator, QA, supervisor, fix, re-check); director whole-video pass and its fixes 3 |
 | Post | 16–24 | sound engineer, editor, QA, director; 3 cold viewers and the director's record; notes round: director split, owners' fixes and critics 6–12, QA |
