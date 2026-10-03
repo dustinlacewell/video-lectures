@@ -28,6 +28,8 @@ export interface SessionOptions {
   /** Scripts to run in the page before its own code (e.g. canvas instrumentation). */
   initScripts?: string[];
   viewport?: { width: number; height: number };
+  /** Device pixels per CSS pixel. Default 1. */
+  deviceScaleFactor?: number;
   /** Rewrite the page URL before loading it (e.g. add or strip a flag). */
   pageUrl?: (url: string) => string;
 }
@@ -66,7 +68,7 @@ export async function openSession(common: Common, opts: SessionOptions = {}): Pr
 
 /** Load the page, wait for the contract globals, web fonts, and two settled frames. */
 async function openPage(browser: Browser, url: string, opts: SessionOptions): Promise<Page> {
-  const ctx = await browser.newContext({ viewport: opts.viewport ?? { width: 1280, height: 900 }, deviceScaleFactor: 1 });
+  const ctx = await browser.newContext({ viewport: opts.viewport ?? { width: 1280, height: 900 }, deviceScaleFactor: opts.deviceScaleFactor ?? 1 });
   const page = await ctx.newPage();
   for (const s of opts.initScripts ?? []) await page.addInitScript(s);
   await page.goto(url, { waitUntil: 'networkidle' });

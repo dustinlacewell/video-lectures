@@ -1,5 +1,8 @@
 /* Debug globals for headless tools (exporter, review screenshots). */
 
+import { auMusic, auPad, duckMusic } from '../engine/audio/music';
+import { sfx } from '../engine/audio/sfx';
+import { AU, auInit } from '../engine/audio/synth';
 import type { VoiceTrack } from '../engine/audio/voice';
 import { mkS } from '../engine/beatState';
 import { camAt } from '../engine/camera';
@@ -18,6 +21,9 @@ declare global {
     __voice(): { id: string; offset: number; paused: boolean }[];
     /** The clock T in seconds. */
     __t(): number;
+    /** The synth the player drives, for an offline render. `init` builds the graph on `new AudioContext()`;
+        the others are what playback calls: `music(T)` per frame, `pad(on)` on play, `duck(under)` while a voice clip sounds. */
+    __synth(): { init(): void; ctx(): BaseAudioContext | null; music(T: number): void; pad(on: boolean): void; duck(under: boolean): void; sfx(type: Cue['type'], arg?: number): void };
   }
 }
 
@@ -36,6 +42,12 @@ export function exposeDebug(tl: Timeline, player: Playback, voice: VoiceTrack): 
         return { id: ch.id, start: ch.start, dur: ch.dur, beats: ch.beats.map(function (b): [string, number, number, string] { return [b.key, b.start, b.dur, b.id]; }) };
       }),
       cues: tl.cues
+    };
+  };
+  window.__synth = function () {
+    return {
+      init: auInit, ctx: function () { return AU.ctx; }, pad: auPad, duck: duckMusic, sfx: sfx,
+      music: function (T) { auMusic(T, chapterAt(tl, T)); }
     };
   };
 }

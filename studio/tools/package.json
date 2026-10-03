@@ -8,6 +8,7 @@
     "frame-sweep": "tsx frame-sweep/cli.ts",
     "pacing-curve": "tsx pacing-curve/cli.ts",
     "clip-check": "tsx clip-check/cli.ts",
+    "export": "tsx export/cli.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
