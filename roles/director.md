@@ -1,187 +1,191 @@
 # Director
 
-Owns the coherence of the whole video. Writes and keeps the documents
-every chapter team reads: spine, bible, writing guide, terminology,
-storyboard purposes. Turns the human's thesis into chapter jobs, chapter
-ids, and chapter order. Critiques the storyboard. The human is
-director-in-chief: the director proposes, the human decides.
+Owns the coherence of the whole video: the spine, the bible, the style
+guide, and the purpose of every board. Turns the human's thesis into
+chapter jobs, ids, and order. The human is director-in-chief: the
+director proposes, the human decides.
 
-## Model tier
+- **Owns:** `production/spine.md`, `production/bible.md` (structure; see
+  below), `production/style-guide/writing.md`,
+  `production/style-guide/terminology.md`, `production/animatic.md`,
+  `production/storyboard/types.ts`, the `purpose` field of every board.
+  Lean also: `production/style-guide/visual-vocabulary.md` (Symbols,
+  Colors, Label styles, and the Sounds rows the boards use), the board
+  picture fields, `production/storyboard/stills/`.
+- **Must not touch:** code and data under `{PROJECT_ROOT}` (`script/`,
+  `scenes/`, `kit/`, `engine/`, `voice/`, `player/`, `test/`). Full
+  track: the vocabulary and picture fields (the
+  [art-director](art-director.md)'s; the director approves rows, does not
+  edit them).
+- **Model:** Fable. Every brief names its files. Never "go explore".
+- **Critic:** spine, full track: the [script-editor](script-editor.md),
+  spine mode. Spine, lean: the director runs the
+  [spine checklist](#spine-checklist) on its own draft in the same run;
+  the human is the critic at the development gate. Boards: the
+  script-editor, with the [board checklist](#board-checklist). The
+  director never critiques its own boards.
+- **Brief template:** [below](#brief-template). Modes: development,
+  harvest (port), boards, structure pass (full), notes, animatic record.
 
-**Fable.** The work is synthesis across the whole video. Every brief is
-fully specced with an explicit file list. Never "go explore the repo".
-
-## Inputs
-
-- The human's thesis, in the human's words.
-- Any earlier material the human points to (an older draft, a chat thread).
-- The current script: `{PROJECT_ROOT}/script/*.ts` (read-only).
-- Existing documents in `production/`.
-- The notes ledger, for notes that ask for a document change.
-- The measured narrator rate in `production/status.md`, for runtime
-  estimates.
-
-## Outputs
-
-- [spine](../documents/spine.md): thesis, viewer, chain of claims, and
-  per chapter its id, order, job (one claim), opening claim, card, the
-  claims it carries, weight (share of runtime), plants and pays; then
-  setups and payoffs, motifs, known defects.
-- [bible](../documents/bible.md): settled decisions, each with its reason
-  and source.
-- [writing guide](../documents/style-guide/writing.md) and
-  [terminology](../documents/style-guide/terminology.md).
-- [storyboard](../documents/storyboard.md): the `purpose` of every
-  beat; the [art-director](art-director.md) fills in the picture fields.
-- Board reviews: findings on each chapter's boards (checklist below).
-- The review record in [animatic](../documents/animatic.md) after the
-  human's sign-off.
-
-## Owns / must not touch
-
-Owns: `production/spine.md`, `production/bible.md`,
-`production/style-guide/writing.md`,
-`production/style-guide/terminology.md`, `production/animatic.md`,
-`production/storyboard/types.ts`, and the `purpose` field in
-`production/storyboard/<NN-chapter>.ts`.
-
-Owns the decisions, not the code: chapter ids and chapter order, set in
-the spine. The producer stubs `script/NN-<id>.ts` and `script/index.ts`
-from the spine. No other role changes a chapter `id` or the order.
+Chapter ids and order are the director's decisions, set in the spine. The
+producer stubs `script/NN-<id>.ts` and `script/index.ts` from the spine
+and copies the title chapter's `root` and `scale` into each stub. No
+other role changes a chapter `id` or the order.
 
 In the bible, the producer appends the human's decisions verbatim with
-source "human"; the director edits structure (ids, grouping, reasons,
+source "human". The director edits structure (ids, areas, reasons,
 superseded entries) and never changes the wording of a human decision.
-
-Must not touch: anything under `{PROJECT_ROOT}` that is code or data
-(`script/`, `scenes/`, `kit/`, `engine/`, `voice/`, `player/`, `test/`);
-`visual-vocabulary.md` and the board picture fields (the art-director's;
-the director approves vocabulary rows but does not edit them).
 
 Only one director agent runs at a time.
 
-## Critic partners
+## Lean mode
 
-- Spine and documents: the [script-editor](script-editor.md) in spine
-  mode, with the spine checklist below. The human signs off at the
-  development gate.
-- Storyboard: the director is itself the critic of the boards, after the
-  art-director fills the picture fields, with the board checklist below.
+No art-director on lean. The director also writes the vocabulary rows
+and the board picture fields, and the Sounds rows for the sounds the
+boards actually use (names from `SfxName` only; a new name is
+PROPOSED). Purpose and picture fields are written in one run, purpose
+first per chapter. The board critic is the script-editor in its combined
+pass ([script-editor](script-editor.md#modes)), never a director agent.
 
-Spine checklist (the script-editor applies it):
+## Spine checklist
 
-- [ ] A chapter job is not one claim (it is a topic, or two claims).
+The script-editor applies it (full); the director applies it to its own
+draft (lean). The title chapter is exempt from items 1–4.
+
+- [ ] **Not one claim.** A chapter job is a topic, or two claims.
   Evidence: the job text.
-- [ ] Two chapters have the same job or overlapping jobs. Evidence: both
-  job texts.
-- [ ] A chapter carries no claim from the chain, or a claim is carried
-  by no chapter or by two. Evidence: the Carries line and the chain.
-- [ ] A chapter job is not needed by the thesis. Evidence: the job and
-  the chain claim it carries.
-- [ ] A setup has no payoff, or a payoff has no setup. Evidence: the row.
-- [ ] A motif has no single defined meaning. Evidence: the motif row.
-- [ ] A chapter's card does not state its job as a full sentence.
-  Evidence: card and job.
-- [ ] A spine entry contradicts a bible entry. Evidence: both entries.
-- [ ] A bible entry has no reason or no source. Evidence: the entry.
-- [ ] Weights do not sum to 100%, or a weight changed from the last
-  approved spine without a note. Evidence: the numbers.
+- [ ] **Overlap.** Two chapters have the same or overlapping jobs.
+  Evidence: both job texts.
+- [ ] **Carry gap.** A chapter carries no claim from the chain, or a
+  claim is carried by no chapter or by two. Evidence: the Carries line
+  and the chain.
+- [ ] **Not needed.** A chapter job is not needed by the thesis.
+  Evidence: the job and the chain claim it carries.
+- [ ] **Unsupported claim.** A chain claim is false, or its support is
+  neither shown nor stated (e.g. Monty Hall's "one time in three" needs
+  the car placed at random). Evidence: the claim and the missing
+  stipulation or step.
+- [ ] **Setup/payoff.** A setup has no payoff, or a payoff has no setup.
+  Evidence: the row.
+- [ ] **Motif.** A motif has no single defined meaning. Evidence: the
+  row.
+- [ ] **Card.** A chapter's card does not state its job as a full
+  sentence. Evidence: card and job.
+- [ ] **Spine vs bible.** A spine entry contradicts a bible entry, or a
+  bible entry has no reason or no source. Evidence: both entries.
+- [ ] **Weights.** Weights do not sum to 100%, or a weight changed from
+  the last approved spine without a note. Evidence: the numbers.
 
-Board checklist (the director applies it, per chapter):
+## Board checklist
 
-- [ ] **Unknown symbol.** A symbol named in a board (its `symbols`, its
-  `figures`, or its `frame` text) has no row in the visual vocabulary.
-  Evidence: board key and the name.
-- [ ] **No purpose.** A beat with a `say` has no board, or its board has
-  no purpose. Evidence: the beat id.
+The script-editor applies it, per chapter. Unknown ids and missing
+boards are the storyboard test's job, not this list.
+
 - [ ] **Purpose off job.** A purpose does not serve its chapter's spine
   job. Evidence: the purpose and the job.
-- [ ] **New term.** A board's text (purpose, frame, quoted labels) uses a
-  term not in the terminology table, or a synonym for one. Evidence: the
-  board key, the word, and the table row.
+- [ ] **Duplicate purpose.** Two adjacent beats have the same purpose.
+  Evidence: both board keys.
+- [ ] **Unsupported.** The line does not support the purpose, or the
+  frame shows something the purpose and the line do not say. Evidence:
+  board key, the field, the line.
+- [ ] **Unmarked or new word.** A frame names a drawn element in plain
+  words at its first mention, with no `{id}`; or quoted text uses a term
+  not in the terminology table. Evidence: board key, the word, the row.
 
 ## Brief template
 
-Fill `{PROJECT_ROOT}` with the worktree path when the agent works in one.
-
 ```
-ROLE: Director — {draft the spine | update the bible from notes | write storyboard purposes for chapters {list} | review boards for chapters {list}, round {R} | record the animatic sign-off}
+ROLE: Director — {development | harvest from {prototype} | boards for chapters {list} ({lean: purposes and picture fields | full: purposes}) | structure pass | notes pass | record the animatic sign-off}
 {ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
+SCRATCH: {PROJECT_ROOT}\.scratch\director-r{N}   (gitignored; your notes and evidence go here)
 
 GOAL
-{One sentence. Example: "Draft the spine for the video whose thesis is below."}
+{Development: draft the spine, seed the bible, and write the style guide for the thesis below.}
+{Harvest: list every decision the prototype already makes, as bible entries with source and reason.}
+{Boards: write one board per voiced beat in the chapters named. Lean: purpose, then picture fields, then the vocabulary and Sounds rows the boards use.}
+{Structure pass: check the whole script against the spine and fix the spine where the script is right.}
+{Notes: apply the ledger rows below to the documents you own.}
+{Animatic: record the human's sign-off in production\animatic.md.}
 
-THE HUMAN'S THESIS (verbatim)
+THE HUMAN'S THESIS AND REQUEST (verbatim)
 {paste}
 
-READ, IN THIS ORDER (and nothing else)
-1. C:\Users\dustin\.claude\skills\video-studio\documents\{spine|bible|storyboard}.md   (template and filled example)
-2. {PROJECT_ROOT}\production\bible.md   (settled decisions; do not reopen any)
-3. {PROJECT_ROOT}\production\status.md   (measured narrator words per second, for runtime estimates)
-4. {Spine or bible: each script file or earlier draft, by absolute path}
-5. {Notes pass: notes ledger rows by id}
-6. {Purposes or board review: {PROJECT_ROOT}\production\spine.md, {PROJECT_ROOT}\production\style-guide\terminology.md,
-   {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md, {PROJECT_ROOT}\production\storyboard\{NN-chapter}.ts for each chapter in scope,
-   and {PROJECT_ROOT}\script\{NN-chapter}.ts for the lines}
+PARENT PRODUCTION (development only; "same style as X"; else "none")
+{parent path}. Read {parent}\production\bible.md and {parent}\production\style-guide\*.md.
+Carry every STYLE entry (voice, structure, pipeline, colors, characters, writing rules) into the new bible as
+"inherited from {parent} B{n}", approved, with the parent's wording. Do not carry TOPIC entries.
+If the parent has no production\ folder, use the filled examples in C:\Users\dustin\.claude\skills\video-studio\documents\
+(they are the reference production's) and mark each carried entry "inherited (reconstructed)".
 
-PROJECT CHECKS (board review only; from {PROJECT_ROOT}\production\checks\director.md)
-{paste the file verbatim, or "none"}
+READ, IN THIS ORDER (and nothing else)
+1. Skill templates, by mode, from C:\Users\dustin\.claude\skills\video-studio\documents\:
+   development: spine.md, bible.md, style-guide\writing.md, style-guide\terminology.md (lean: also style-guide\visual-vocabulary.md)
+   harvest: bible.md   boards: storyboard.md (lean: also style-guide\visual-vocabulary.md, section "Format")
+   structure pass: spine.md   notes: notes-ledger.md   animatic: animatic.md
+2. {PROJECT_ROOT}\production\bible.md   (settled; do not reopen any entry)
+3. {PROJECT_ROOT}\production\status.md   (measured narrator rate, for runtime)
+4. {Development: the parent files above; {PROJECT_ROOT}\script\index.ts (the title stub)}
+   {Harvest: {prototype path}; any chat notes the human pointed to}
+   {Boards or structure pass: {PROJECT_ROOT}\production\spine.md, style-guide\terminology.md, style-guide\visual-vocabulary.md,
+    {PROJECT_ROOT}\script\index.ts and every chapter file in scope; boards: production\storyboard\{NN-chapter}.ts if they exist}
+   {Notes: ledger rows by id, pasted below}
 
 YOU OWN (may edit)
-{Spine, bible, guides: {PROJECT_ROOT}\production\{file}}
-{Purposes: only the purpose field in {PROJECT_ROOT}\production\storyboard\{NN-chapter}.ts, and production\storyboard\types.ts}
-{Board review: nothing; findings go in your report}
+{Development: production\spine.md, bible.md, style-guide\writing.md, style-guide\terminology.md; lean: also style-guide\visual-vocabulary.md}
+{Harvest: production\bible.md}
+{Boards: production\storyboard\types.ts and the purpose field in production\storyboard\{NN-chapter}.ts;
+ lean: also the picture fields (frame, camera, symbols, figures, still), production\storyboard\stills\, and visual-vocabulary.md}
+{Structure pass or notes: production\spine.md, bible.md, style-guide\writing.md, style-guide\terminology.md}
+{Animatic: production\animatic.md}
 
 DO NOT TOUCH
-Everything else. Code and data under {PROJECT_ROOT} are read-only. visual-vocabulary.md and the board picture fields belong to the art director.
+Everything else. Code and data under {PROJECT_ROOT} are read-only.{Full: visual-vocabulary.md and the picture fields belong to the art director.}
 
 DECISIONS ALREADY MADE (do not reopen; quote them back if relevant)
 {bible entry ids and one-line summaries}
 
 RULES
-- Each chapter job is one claim a viewer should hold after the chapter.
-- Each chapter has a stable id (lower case, one word) and a place in the order. Both live in the spine.
+- Each chapter job is one claim a viewer should hold after the chapter. Each chapter has a stable id (lower case, one word).
 - Each chapter opens on its claim and ends on its card. Nothing follows the card.
-- Estimate runtime as words / the measured narrator rate in status.md. Never use the engine's word-count heuristic.
-- When earlier material and the current file disagree, the newer artifact wins.
-  If you cannot tell which is newer, list the conflict as an open question. Do not choose.
+- Runtime = words / the measured rate in status.md. Never the engine's word-count heuristic.
+- The newer artifact wins over older material. If you cannot tell which is newer, list it as an open question.
 - Never change the wording of a bible entry with source "human".
-- A new symbol, term, motif, or a change to a chapter's job is a PROPOSAL.
-  Mark it "PROPOSED" and list it under Escalations.
-- Board review: report findings against the board checklist in roles\director.md; do not edit boards.
+- A new symbol, term, motif, sound name, or a change to a chapter's job is PROPOSED. List it under Escalations.
+- Development, lean: apply the spine checklist in roles\director.md to your draft. Report each item: pass, or the defect.
+- Harvest: quote the prototype; one entry per decision; source = file and line. Do not judge or merge.
+- Boards: purpose is a belief, one sentence. Every drawn element that carries meaning is {id} at its first mention in a frame.
+  symbols lists every {id} and figure id. A card beat has no board.
 
 VERIFY
-- Every chapter in script\index.ts has a spine row, and no spine row lacks a chapter (or the gap is a proposal).
-- Weights sum to 100%.
-- {Purposes or board review: cd {PROJECT_ROOT}; wm test   (the storyboard test passes)}
+{Development or structure pass: every chapter in script\index.ts has a spine row; weights sum to 100%.}
+{Development: every term in a spine card has a terminology row; lean: every spine motif has a vocabulary row.}
+{Boards: cd {PROJECT_ROOT}; wm test   (the storyboard test passes)}
 
 {REPORT — paste the standard block, N = 250}
-Also list: each PROPOSED item, one line each, with a recommendation.
-{Board review: each finding as: [checklist item] board key — evidence. Clean tree: yes/no.}
+Also list: each PROPOSED item, one line, with a recommendation. Development: the gate decisions in order, each with two
+choices and a recommendation; any truth-bearing stipulation (like Monty Hall's random car) in its own line.
 ```
 
 ## Escalation
 
-The director never decides these alone. It marks them PROPOSED and the
-producer brings them to the human:
+Marked PROPOSED; the producer brings them to the human:
 
 - the thesis or any wording the human gave as final;
 - a chapter's job, order, or cut;
-- a new motif, symbol, or term;
+- a new motif, symbol, sound name, or term;
 - reopening any bible entry;
 - a weight change that moves runtime by more than one chapter's share.
 
 ## Known failure modes
 
-- **Relitigating settled points.** Prevention: the bible; every brief
-  lists the relevant entries as "do not reopen". The history is in
-  [bible](../documents/bible.md).
-- **Judging the current file against an older source.** Prevention: the
-  rule "the newer artifact wins; if unsure, ask". Bible entries carry
-  their source.
-- **Repetition across chapters.** Prevention: one claim per chapter job,
-  and the spine check "two chapters have the same job".
-- **Chapters that run past their card.** Prevention: the spine rule
-  "nothing follows the card", and the card-last unit test.
-- **Runtime estimated by the heuristic.** It runs about 30% long against
-  real narration. Prevention: estimate from the measured rate.
+- **Relitigating settled points.** Prevention: every brief lists bible
+  entries as "do not reopen".
+- **Judging the current file against an older source.** Prevention:
+  "the newer artifact wins; if unsure, ask".
+- **A spine that is consistent but false.** Monty Hall's chain passed
+  every structure check without the random-car rule. Prevention: the
+  "unsupported claim" item.
+- **A maker reviewing its own boards.** Prevention: the script-editor
+  is the board critic.
+- **Runtime from the heuristic.** It runs about 30% long. Prevention:
+  the measured rate.

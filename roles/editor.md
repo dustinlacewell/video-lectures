@@ -1,74 +1,42 @@
 # Editor
 
 Owns the video's timing as a whole. Assembles the animatic from the real
-voice clips and the boards, tunes holds and pauses, reads the pacing
-curve, and at delivery runs the export.
+voice clips and the boards, tunes pauses, reads the pacing curve, and at
+delivery runs the export.
 
-## Model tier
+- **Owns:** the `pad` field of each cast entry, from cast lock on (it
+  passes from [casting](casting.md); they never work in the same
+  round); `out/` at delivery.
+- **Must not touch:** every field in the chapter script files; scene
+  code; `scenes/shared/board.ts` and the board fallback (the
+  [engine owner](engine-owner.md)); `voice/`, `kit/`, `engine/`,
+  `player/`; documents. A `dur` change goes to the chapter's
+  [animator](animator.md), a `stagger` or text change to the
+  [writer](writer.md), a weight or order change to the
+  [director](director.md): each by note.
+- **Model:** Opus. Pacing judgments are measured, not felt.
+- **Critic:** full track: [qa](qa.md), pacing set, with the checklist
+  below. Lean: the producer runs pacing-curve and clip-check. Then fresh
+  [cold viewers](cold-viewer.md) judge the animatic, and the human signs
+  it.
+- **Brief template:** [below](#brief-template). Modes: animatic, timing
+  pass, export.
 
-**Opus.** Timing changes are implementation against the spine weights
-and the bible's pacing targets. The pacing judgment that goes to the
-human is measured, not felt.
+Thresholds (words-per-second ceiling, longest still, runtime target,
+weight tolerance) come from the bible, set at the animatic gate.
 
-## Inputs
-
-- Rendered voice clips and `voice/clips/durations.json`.
-- [spine](../documents/spine.md): chapter weights.
-- [storyboard](../documents/storyboard.md).
-- [bible](../documents/bible.md): pacing targets set at the animatic gate
-  (words per second ceiling, longest still, runtime target, weight
-  tolerance).
-- [pacing-curve](../tools/pacing-curve.md) and
-  [clip-check](../tools/clip-check.md) output.
-- [animatic](../documents/animatic.md) for the animatic's form.
-- At delivery: [export](../engine/export.md).
-
-## Outputs
-
-- The animatic cut: the build with every chapter on its boards, checked
-  with the tools. The editor does not build the board renderer; the
-  [engine owner](engine-owner.md) does.
-- Pad and timing judgments. The editor sets `pad` values in
-  `script/cast.ts`. Changes to `dur` (the chapter's
-  [animator](animator.md)) or `stagger` and text (the
-  [writer](writer.md)) go to their owners as notes.
-- A pacing report: runtime, per-chapter share vs weight, beats over a
-  target, each with its CSV row.
-- At delivery: `wm export` output in `out/`.
-
-## Owns / must not touch
-
-Owns: the `pad` field of each cast entry, from cast lock on; `out/` at
-delivery.
-
-Must not touch: every field in the chapter script files; scene code;
-`scenes/shared/board.ts` and the board fallback (engine owner; request
-changes); `voice/`; `kit/`, `engine/`, `player/`; documents (it proposes
-weight or order changes to the [director](director.md)).
-
-Ownership of `pad` passes from [casting](casting.md) to the editor at
-cast lock. They never work in the same round.
-
-## Critic partner
-
-[qa](qa.md), pacing set, applies the checklist below. Then fresh cold
-viewers judge the whole video
-([cold-viewer-review](../loops/cold-viewer-review.md)). The human signs
-the animatic.
-
-Pacing checklist (QA applies it; thresholds come from the bible):
+## Pacing checklist
 
 - [ ] **Silent runtime change.** Total runtime differs from the last
-  approved runtime and no ledger row or bible entry records why.
-  Evidence: both runtimes.
+  approved runtime and no ledger row or bible entry says why. Evidence:
+  both runtimes.
 - [ ] **Weight drift.** A chapter's `share_pct` in `chapters.csv` differs
-  from its spine weight by more than the bible's tolerance. Evidence:
-  chapter, share, weight.
+  from its spine weight by more than the tolerance. Evidence: chapter,
+  share, weight.
 - [ ] **Too fast.** A beat's `words_per_s` in `beats.csv` exceeds the
   ceiling. Evidence: beat id, the number.
-- [ ] **Still too long.** A beat's `max_still_s` in `beats.csv` exceeds
-  the limit and its board does not call for a hold. Evidence: beat id,
-  the number.
+- [ ] **Still too long.** A beat's `max_still_s` exceeds the limit and
+  its board does not call for a hold. Evidence: beat id, the number.
 - [ ] **Clip defect.** clip-check reports a missing clip, a clip that
   runs past its beat, or an orphan. Evidence: the `clips.md` line.
 - [ ] **Unconfirmed hold.** clip-check reports "script dur wins" or dead
@@ -77,17 +45,16 @@ Pacing checklist (QA applies it; thresholds come from the bible):
 
 ## Brief template
 
-Fill `{PROJECT_ROOT}` with the worktree path when the agent works in one.
-
 ```
 ROLE: Editor — {assemble the animatic | timing pass on chapters {list} | run the export}
 {ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
+SCRATCH: {PROJECT_ROOT}\.scratch\editor-r{N}   (gitignored; builds and measurements)
 
 GOAL
 {One sentence. Example: "Bring each chapter's runtime within tolerance of its spine weight without touching any text."}
 
 READ, IN THIS ORDER
-1. C:\Users\dustin\.claude\skills\video-studio\documents\animatic.md   {or C:\Users\dustin\.claude\skills\video-studio\engine\export.md for the export}
+1. C:\Users\dustin\.claude\skills\video-studio\documents\animatic.md   {or ...\engine\export.md for the export}
 2. {PROJECT_ROOT}\production\spine.md   (weights)
 3. {PROJECT_ROOT}\production\bible.md   (pacing targets; decisions)
 4. {PROJECT_ROOT}\script\cast.ts, then {PROJECT_ROOT}\script\{chapter files}   (read-only except pad)
@@ -124,20 +91,18 @@ Also list: runtime before -> after; each chapter's share vs weight; beats still 
 ## Escalation
 
 - Any runtime change outside the bible's target: the human decides.
-- A chapter far from its weight that holds cannot fix: the director
-  (spine weight) or the writer (text), by note.
+- A chapter far from its weight that pad cannot fix: the director
+  (weight) or the writer (text), by note.
 - Chapter order or a cut chapter: director, then human.
 - A pace problem in a beat whose animation is done: the producer weighs
-  re-animation cost before deciding.
+  re-animation cost first.
 
 ## Known failure modes
 
 - **Pacing set by accident.** Prevention: voice first, then animatic,
-  then animation; the human signs real timing. The history is in
-  [phases/voice.md](../phases/voice.md).
-- **Fixing pace in the wrong layer.** Trimming silence inside clips or
-  stopping clips early cuts words. Prevention: "hold by `dur`, never by
-  trimming audio".
+  then animation; the human signs real timing.
+- **Fixing pace in the wrong layer.** Trimming silence inside clips cuts
+  words. Prevention: hold by `dur`, never by trimming audio.
 - **Felt pacing.** An agent cannot watch at speed. Prevention: the
-  measured curve plus cold viewers' "bored" timestamps; the human
-  watches at the gate.
+  measured curve, cold viewers' "bored" timestamps, the human at the
+  gate.

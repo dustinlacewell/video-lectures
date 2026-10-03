@@ -1,53 +1,32 @@
 # Cold viewer (critic)
 
 A fresh agent that never saw the script, the storyboard, or any
-production document. It consumes the whole video in order, as contact
+production document. It reads the whole video in order, as contact
 sheets and a timestamped transcript, and reports what it now believes
-and where it was bored, lost, or unconvinced. This file is the persona
-checklist and the report format. The protocol, the questions, and how
-answers are compared with the spine live in
+and where it was bored, lost, or unconvinced. The protocol, the
+questions, and how answers are compared with the spine live in
 [cold-viewer-review](../loops/cold-viewer-review.md).
 
-## Model tier
+- **Owns:** nothing. Reads only the files named in its brief.
+- **Must not touch:** every file.
+- **Model:** Fable.
+- **Sense:** fresh whole-video context. The only critic that has never
+  seen what the video was meant to say. Never reuse one: fresh agents
+  every review.
+- **Staffing:** lean: newcomer and skeptic at the animatic. Full: see
+  [cold-viewer-review](../loops/cold-viewer-review.md).
+- **Brief template:** [below](#brief-template). Personas: newcomer,
+  skeptic, domain expert.
 
-**Fable.** It is a review of the whole video. Its inputs are the
-transcript and the sheets. It reads nothing else.
-
-## Sense
-
-Fresh whole-video context. It is the only critic that has never seen
-what the video was meant to say.
-
-## Inputs
-
-- Contact sheets: keyframes in time order with time and chapter.
-- Timestamped transcript: every line and card, with start time and
-  speaker.
-
-Both from [contact-sheet](../tools/contact-sheet.md), run on a default
-build. Nothing else: no spine, no script, no bible, no boards, no title
-explanation.
-
-**It never sees a board's purpose text.** The animatic draws the purpose
-band only when the URL has `?purpose`. contact-sheet strips that flag
-unless it is run with `--purpose`, and marks such sheets "DIRECTOR
+**It never sees a board's purpose text.** contact-sheet strips
+`?purpose` unless run with `--purpose`, and marks such sheets "DIRECTOR
 ONLY". Never pass `--purpose` for a cold viewer, and never send it a
-sheet with that banner. A purpose is the spine job in viewer-belief
-form; one glimpse of it contaminates the review.
-
-## Outputs
-
-One report in the format below.
-
-## Owns / must not touch
-
-Owns nothing. Reads only the files named in its brief. Never opens the
-project folder.
+sheet with that banner.
 
 ## Persona checklists
 
-Each persona reads with its own list. Each item it reports needs a
-timestamp and either a quoted line or a frame time.
+Each item it reports needs a timestamp and a quoted line or a frame
+time.
 
 Newcomer (smart, no background in the field):
 
@@ -94,11 +73,12 @@ At most 500 words. Plain words. Do not guess what the makers intended.
 
 ## Brief template
 
-The producer makes the inputs first, without `--purpose`:
+The producer makes the inputs first, without `--purpose`. One set serves
+every viewer in the review.
 
 ```
-cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build
-pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\cold-{R}
+cd {PROJECT_ROOT}; pnpm vite build --outDir {PROJECT_ROOT}\.scratch\cold-viewer-r{N}\build
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {PROJECT_ROOT}\.scratch\cold-viewer-r{N}\build --script {PROJECT_ROOT}\script\index.ts --out {PROJECT_ROOT}\.scratch\cold-viewer-r{N}\sheet
 ```
 
 ```
@@ -106,8 +86,8 @@ ROLE: Cold viewer — {newcomer | skeptic | domain expert in {field}}
 You are a viewer, not a reviewer of code or scripts. You have not seen this video before.
 
 READ ONLY THESE FILES, IN THIS ORDER, AND NOTHING ELSE
-1. Transcript: {SCRATCH}\cold-{R}\transcript.md
-2. Contact sheets: every image in {SCRATCH}\cold-{R}\sheets\, in file-name order
+1. Transcript: {PROJECT_ROOT}\.scratch\cold-viewer-r{N}\sheet\transcript.md
+2. Contact sheets: every image in {PROJECT_ROOT}\.scratch\cold-viewer-r{N}\sheet\sheets\, in file-name order
 Read them together, in time order: for each stretch of transcript, look at the frames for the same times.
 Do not open any other file or folder. Do not search.
 
@@ -135,23 +115,22 @@ REPORT
 {paste the report format from C:\Users\dustin\.claude\skills\video-studio\roles\cold-viewer.md}. At most 500 words.
 ```
 
-The cold viewer's brief has no environment block and no project paths
-beyond its inputs. It does nothing but read.
+The brief has no environment block and no project paths beyond its
+inputs. It does nothing but read.
 
 ## Escalation
 
-None. A cold viewer reports. The producer compares, classifies, and
-escalates (see [cold-viewer-review](../loops/cold-viewer-review.md)).
+None. The producer compares, classifies, and escalates (see
+[cold-viewer-review](../loops/cold-viewer-review.md)).
 
 ## Known failure modes
 
 - **Contamination.** A viewer who has read the spine, the script, a
-  board's purpose, or the maker's report can no longer tell what the
-  video says from what it meant to say. Prevention: transcript and
-  sheets only, from a default build; fresh agents every run; never
-  SendMessage a production document to a cold viewer.
+  purpose, or a maker's report cannot tell what the video says from what
+  it meant to say. Prevention: transcript and sheets only, from a default
+  build; fresh agents; never SendMessage a production document to one.
 - **A summary instead of a viewing.** Prevention: the running log,
   written in order, before any answer.
-- **Answers that echo the cards.** Prevention: question 2 asks for the
-  argument in the viewer's own words; a step that only restates a card
-  is marked *distorted* if its reasoning is missing.
+- **Answers that echo the cards.** Prevention: the argument in the
+  viewer's own words; a step that only restates a card is *distorted* if
+  its reasoning is missing.
