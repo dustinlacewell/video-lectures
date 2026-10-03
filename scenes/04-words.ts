@@ -9,30 +9,42 @@ import { bubble, tag, txt } from '../engine/text';
 import { bean } from '../kit/bean';
 import { badge, type IconKind } from '../kit/icons';
 import { floaters, ground, stars } from '../kit/scenery';
+import { speech, type Speech, type Spots } from './shared/speech';
+import type { Holds } from './shared/speechTiming';
 import type { Scene } from './types';
 
 const GY = 620, HEAD = [505, 350];
+
+/** Questions stay up while you weigh them; answers stay up while the narrator talks about them. */
+const HOLDS: Holds = { ask1: 'ans1', ans1: 'stranger', ask2: 'ans2', ans2: null };
+const SPOTS: Spots = {
+  friend: { x: 212, y: 372, tail: -8, bg: C.cyan, maxW: 300 },
+  you: { x: 520, y: 338, size: 32, tail: -10, maxW: 420, dx: -40 }
+};
+
+/** When the second weighing starts in "ask2", after the friend's question. */
+const ASK2_WEIGH = 0.9;
 
 export const words: Scene = {
   bg: ['#8A2F6B', '#32123F'], accent: C.orange,
   back: function (S, cam, T) { floaters(cam, T, 44, 16, [C.orange, C.pink, C.violet], 0.35); stars(cam, T, 14, 40, 0.15, '#FFD7C0'); },
   draw: function (S, cam, T) {
+    const sp = speech(S, HOLDS);
     ground(GY, -900, 2600, '#C0508F', '#5A1F5E');
-    speakers(S, T);
+    speakers(S, T, sp);
     mouthThenChoice(S);
-    questions(S);
     weighing(S);
-    answers(S);
+    sp.bubbles(SPOTS);
+    selected(S);
   }
 };
 
-function speakers(S: BeatState, T: number): void {
-  const talkYou = (S.is('speak')) || (S.is('which') && S.bt < 1.2) || (S.is('ans1') && S.bt < 1.4) || (S.is('ans2') && S.bt < 3.4);
-  const talkAsk = (S.is('ask1') && S.bt < 1.6) || (S.is('ask2') && S.bt < 1.8);
-  const weighingNow = S.is('weigh') || (S.is('ask2') && S.bt > 2.0);
-  const aa = S.on('ask1', -0.6, 0.6);
-  bean({ x: lerp(60, 190, aa), y: GY, s: 1.15, t: T, color: C.teal, phase: 3, look: [0.7, -0.1], mouth: talkAsk ? 'talk' : 'smile', armR: talkAsk ? 1.2 : 0.14, alpha: aa });
-  bean({ x: 470, y: GY, s: 1.5, t: T, color: C.orange, look: weighingNow ? [0.6, -0.7] : S.has('ask1') ? [-0.7, 0.1] : [0.2, 0], mouth: talkYou ? 'talk' : weighingNow ? 'flat' : 'smile', armR: weighingNow ? 2.9 : 0.14 });
+function speakers(S: BeatState, T: number, sp: Speech): void {
+  const narrating = S.is('speak') || (S.is('which') && S.bt < 1.2);
+  const weighingNow = S.is('weigh') || (S.is('ask2') && S.bt > ASK2_WEIGH);
+  const aa = S.on('ask1', -0.6, 0.6), asking = sp.talk('friend') !== undefined;
+  bean({ x: lerp(60, 190, aa), y: GY, s: 1.15, t: T, color: C.teal, phase: 3, look: [0.7, -0.1], talk: sp.talk('friend'), armR: asking ? 1.2 : 0.14, alpha: aa });
+  bean({ x: 470, y: GY, s: 1.5, t: T, color: C.orange, look: weighingNow ? [0.6, -0.7] : S.has('ask1') ? [-0.7, 0.1] : [0.2, 0], talk: sp.talk('you'), mouth: narrating ? 'talk' : weighingNow ? 'flat' : 'smile', armR: weighingNow ? 2.9 : 0.14 });
 }
 
 /** Rejected words: [word, x, y, seconds into "which"]. All sit inside the speak camera's frame (y >= 167 at z 1.5). */
@@ -58,28 +70,21 @@ function mouthThenChoice(S: BeatState): void {
   }
 }
 
-function questions(S: BeatState): void {
-  const q1 = S.pop('ask1', 0.3) * (1 - S.on('ans1', 0, 0.3));
-  if (q1 > 0) bubble('Coffee or tea?', 212, 372, 30, { scale: q1, tail: -8, bg: C.cyan });
-  const q2 = S.pop('ask2', 0.4) * (1 - S.on('ans2', 0, 0.3));
-  if (q2 > 0) bubble('Are you conscious?', 212, 372, 30, { scale: q2, tail: -8, bg: C.cyan, maxW: 300 });
-}
-
 /** Cognition weighing the candidates: first coffee/tea, then yes/no. */
 function weighing(S: BeatState): void {
   const pa = S.on('weigh', 0.2, 0.5);
   if (pa <= 0) return;
   [[560, 318, 9], [612, 286, 13], [672, 250, 17]].forEach(function (d, i) { A(S.on('weigh', 0.1 + i * 0.12, 0.3) * 0.9); circ(d[0], d[1], d[2], '#3D1657'); });
   A(1);
-  const second = S.has('ask2'), x2 = S.on('ask2', 1.2, 0.5);
+  const second = S.has('ask2'), x2 = S.on('ask2', ASK2_WEIGH, 0.5), w = ASK2_WEIGH;
   if (!second || x2 < 0.5) {
     const c1 = arr(S, 'weigh', 1.2), c2 = arr(S, 'weigh', 2.2), c3 = arr(S, 'weigh', 3.2);
     panel(pa * (second ? 1 - x2 * 2 : 1), ['coffee', 'tea'], [0.2 + 0.3 * c1 + 0.32 * c3, 0.2 + 0.28 * c2], S.on('weigh', 4.6, 0.4));
     chip(S, 'weigh', 1.2, 'memory', C.pink, 0, 0.35); chip(S, 'weigh', 2.2, 'cup', C.teal, 1, 0.35); chip(S, 'weigh', 3.2, 'clock', C.purple, 0, 0.6);
   } else {
-    const d1 = arr(S, 'ask2', 2.4), d2 = arr(S, 'ask2', 3.3), d3 = arr(S, 'ask2', 4.2);
-    panel((x2 - 0.5) * 2, ['Yes, obviously.', 'No.'], [0.16 + 0.26 * d1 + 0.26 * d2 + 0.26 * d3, 0.12], S.on('ask2', 5.7, 0.4));
-    chip(S, 'ask2', 2.4, 'self', C.cyan, 0, 0.3); chip(S, 'ask2', 3.3, 'memory', C.pink, 0, 0.5); chip(S, 'ask2', 4.2, 'language', C.green, 0, 0.75);
+    const d1 = arr(S, 'ask2', w + 0.3), d2 = arr(S, 'ask2', w + 1.2), d3 = arr(S, 'ask2', w + 2.1);
+    panel((x2 - 0.5) * 2, ['Yes, obviously.', 'No.'], [0.16 + 0.26 * d1 + 0.26 * d2 + 0.26 * d3, 0.12], S.on('ask2', w + 3.9, 0.4));
+    chip(S, 'ask2', w + 0.3, 'self', C.cyan, 0, 0.3); chip(S, 'ask2', w + 1.2, 'memory', C.pink, 0, 0.5); chip(S, 'ask2', w + 2.1, 'language', C.green, 0, 0.75);
   }
 }
 
@@ -112,11 +117,8 @@ function chip(S: BeatState, id: string, at: number, kind: IconKind, col: string,
 /** 0..1 once a chip launched at `at` has arrived. */
 function arr(S: BeatState, id: string, at: number): number { return ease((S.since(id) - at - 0.75) / 0.3); }
 
-function answers(S: BeatState): void {
-  const a1 = S.pop('ans1', 0.3) * (1 - S.on('ask2', 0, 0.3));
-  if (a1 > 0) bubble('Coffee.', 520, 338, 40, { scale: a1, tail: -10 });
-  const a2 = S.pop('ans2', 0.3);
-  if (a2 > 0) bubble('Yes. Obviously. I am experiencing this right now.', 520, 338, 32, { scale: a2, tail: -10, maxW: 330, dx: -40 });
+/** The answer was selected by cognition: an arrow from the panel to the answer bubble. */
+function selected(S: BeatState): void {
   const sm = S.on('same', 0.8, 0.7);
   if (sm > 0) {
     A(sm);
