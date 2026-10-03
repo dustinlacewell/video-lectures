@@ -15,8 +15,12 @@ export type SpeakerId = 'narrator' | 'you' | 'zombie' | 'friend' | 'aibot';
 export interface CastMember {
   /** Label in the script text and speech bubbles. */
   name: string;
-  /** Breeze TTS voice description. */
-  voice: string;
+  /** Reference clip the voice is cloned from, relative to voice/. Every line clones this one clip. */
+  ref: string;
+  /** Exact transcript of `ref`. Default: the text file beside it (refs/narrator.wav -> refs/narrator.txt). */
+  refText?: string;
+  /** Optional delivery direction (tone, pace, emotion). It steers the cloned voice; it does not change who speaks. */
+  style?: string;
   /** Seconds of quiet after this speaker's line before the next beat. Default in engine/timeline.ts. */
   pad?: number;
 }

@@ -1,5 +1,7 @@
 """Render every voice clip in manifest.json that is missing or stale. Loads the model once.
 
+Every line clones its speaker's reference clip (refs/<speaker>.wav + transcript); each clip is encoded once.
+
 uv run render.py [--no-fast]
 
 Writes clips/<id>.wav, clips/index.json {id: hash} and clips/durations.json {id: seconds}.
@@ -23,7 +25,9 @@ CLIPS = HERE / "clips"
 INDEX = CLIPS / "index.json"
 DURATIONS = CLIPS / "durations.json"
 
-CFG = 4.0
+# A plain clone has no negative prompt, so it runs without guidance. A style line uses guidance to follow the style.
+CLONE_CFG = 1.0
+STYLE_CFG = 4.0
 SILENCE_DB = -40.0
 KEEP_LEAD = 0.05
 KEEP_TAIL = 0.10
@@ -61,7 +65,7 @@ def render_all(todo: list[dict], index: dict, fast: bool) -> None:
 
     tts = breeze.load(fast)
     for n, entry in enumerate(todo, 1):
-        audio, seconds = breeze.synthesize(tts, breeze.request(entry["text"], entry["voice"]), CFG, seed_of(entry["id"]))
+        audio, seconds = breeze.synthesize(tts, request_of(entry), cfg_of(entry), seed_of(entry["id"]))
         raw = len(audio) / tts.sample_rate
         audio = trim(audio, tts.sample_rate)
         breeze.write_wav(clip_path(entry["id"]), audio, tts.sample_rate)
@@ -69,6 +73,17 @@ def render_all(todo: list[dict], index: dict, fast: bool) -> None:
         write_json(INDEX, index)
         warn = "  WARNING: hit the output cap" if raw >= OUTPUT_CAP - 1 else ""
         print(f"[{n}/{len(todo)}] {entry['id']}  {len(audio) / tts.sample_rate:.2f}s  synth {seconds:.1f}s{warn}", flush=True)
+
+
+def request_of(entry: dict):
+    """Clone the speaker's reference clip; the style, if any, steers delivery."""
+    import breeze
+
+    return breeze.request(entry["text"], entry.get("style"), HERE / entry["ref"], entry["refText"])
+
+
+def cfg_of(entry: dict) -> float:
+    return STYLE_CFG if entry.get("style") else CLONE_CFG
 
 
 def seed_of(clip_id: str) -> int:

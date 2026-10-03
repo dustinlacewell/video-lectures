@@ -16,6 +16,7 @@ os.environ.setdefault("HF_HOME", str(HERE / "models"))
 VENDOR = HERE / "vendor" / "breeze-tts"
 sys.path.insert(0, str(VENDOR))
 
+import hashlib  # noqa: E402
 import time  # noqa: E402
 from dataclasses import dataclass, replace  # noqa: E402
 
@@ -37,12 +38,30 @@ MODEL_REPO = "BreezeBlue/Breeze-TTS-2"
 MODEL_REVISION = "3e28c5151381a722f1d8661b4118c298caa77aa4"
 
 
+class PromptCodec:
+    """The audio tokenizer as the prompt builder sees it, encoding each distinct reference clip once.
+
+    Every line cloned from one clip then reuses the exact same reference codes.
+    """
+
+    def __init__(self, inner: object) -> None:
+        self._inner = inner
+        self._codes: dict[tuple[int, str], object] = {}
+
+    def encode(self, wav: np.ndarray, sr: int):
+        key = (sr, hashlib.sha256(np.ascontiguousarray(wav).tobytes()).hexdigest())
+        if key not in self._codes:
+            self._codes[key] = self._inner.encode(wav, sr=sr)
+        return self._codes[key]
+
+
 @dataclass
 class Breeze:
     runtime: object
     tokenizer: object
     audio_tokenizer: object
     model: object
+    prompt_codec: PromptCodec
 
     @property
     def sample_rate(self) -> int:
@@ -58,7 +77,7 @@ def load(fast: bool) -> Breeze:
     if runtime.fast_enabled:
         profile = load_warmup_profile(VENDOR / "configs" / "fast.json")
         runtime.warmup_from_profile(replace(profile, codec_chunk_frames=runtime.codec_chunk_frames))
-    return Breeze(runtime, tokenizer, audio_tokenizer, model)
+    return Breeze(runtime, tokenizer, audio_tokenizer, model, PromptCodec(audio_tokenizer))
 
 
 def request(text: str, voice: str | None = None, ref: Path | None = None, ref_text: str | None = None) -> dict:
@@ -76,7 +95,7 @@ def synthesize(tts: Breeze, req: dict, cfg: float, seed: int) -> tuple[np.ndarra
     set_all_seeds(seed)
     template = get_template(select_template_name(req))
     inputs = prepare_inputs(
-        tts.tokenizer, tts.audio_tokenizer, tts.model, [req], template,
+        tts.tokenizer, tts.prompt_codec, tts.model, [req], template,
         guidance_scale=cfg, guidance_scale_ref=None, guidance_scale_ins=None,
     )
     start = time.perf_counter()
