@@ -17,8 +17,9 @@ import { toggleFullscreen } from './ui/fullscreen';
 import { bindKeyboard } from './ui/keyboard';
 import type { KeyAction } from './ui/keymap';
 
-/** Voice clips and their lengths are served next to the page (Vite publicDir = voice/clips). */
-const clipUrl = (clip: string) => './' + encodeURIComponent(clip) + '.wav';
+/** Voice clips and their lengths are served at the base path (Vite publicDir = voice/clips). */
+const BASE = import.meta.env.BASE_URL;
+const clipUrl = (clip: string) => BASE + encodeURIComponent(clip) + '.wav';
 
 boot(await loadClipLengths());
 
@@ -53,7 +54,7 @@ function runKey(a: KeyAction, player: Playback, total: number, box: HTMLElement)
 /** Clip lengths from durations.json, or none: then every beat falls back to its scripted timing. */
 async function loadClipLengths(): Promise<ClipLengths> {
   try {
-    const r = await fetch('./durations.json');
+    const r = await fetch(BASE + 'durations.json');
     return r.ok ? await r.json() as ClipLengths : {};
   } catch {
     return {};
