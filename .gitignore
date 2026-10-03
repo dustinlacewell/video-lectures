@@ -9,3 +9,4 @@ __pycache__/
 voice/models/
 voice/vendor/
 .claude/worktrees/
+.scratch/
