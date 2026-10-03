@@ -90,12 +90,12 @@ function panel(a: number, rows: string[], vals: number[], win: number): void {
     tag('cognition', 836, 122, 30, C.orange, C.ink, 700);
     rows.forEach(function (r, i) {
       const y = 218 + i * 126, w = win > 0 && i === 0, lose = win > 0 && i === 1;
-      A(a * (lose ? lerp(1, 0.45, win) : 1));
+      A(lose ? lerp(1, 0.45, win) : 1);
       txt(r, 766, y, 40, w ? C.yellow : C.cream, 'left', 600);
       fillRR(766, y + 34, 408, 22, 11, 'rgba(255,255,255,0.13)');
       fillRR(766, y + 34, Math.max(22, 408 * vals[i]), 22, 11, w ? C.yellow : C.teal);
     });
-    A(a);
+    A(1);
     if (win > 0) tf(1160, 218, back(win), 0, function () { circ(0, 0, 24, C.green); check(0, 0, 22, C.white, 6); });
   });
 }

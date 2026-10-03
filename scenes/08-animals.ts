@@ -18,15 +18,15 @@ import type { Scene } from './types';
 
 const GY = 620;
 
-interface Being { x: number; fn: Creature | null; s: number; top: number; b: [IconKind, string][] }
+interface Being { x: number; fn: Creature | null; s: number; b: [IconKind, string][] }
 
 /** Crow, dog, octopus, a person (fn null), and an AI, each with its faculties. */
 const WHO: Being[] = [
-  { x: 300, fn: crow, s: 1.15, top: 250, b: [['tool', '#E8742A'], ['plan', '#7A55D6'], ['memory', '#FF5C8A']] },
-  { x: 600, fn: dog, s: 1.15, top: 250, b: [['love', '#F0435E'], ['memory', '#FF5C8A'], ['fear', '#9B5BD6']] },
-  { x: 900, fn: octopus, s: 1.15, top: 250, b: [['puzzle', '#12A99A'], ['eye', '#3E7BFA'], ['plan', '#7A55D6']] },
-  { x: 1210, fn: null, s: 1.3, top: 250, b: [['memory', '#FF5C8A'], ['love', '#F0435E'], ['plan', '#7A55D6'], ['talent', '#2FA85A'], ['belief', '#3E7BFA'], ['humor', '#E8742A']] },
-  { x: 1520, fn: aibot, s: 1.2, top: 250, b: [['language', '#2FA85A'], ['memory', '#FF5C8A'], ['plan', '#7A55D6']] }
+  { x: 300, fn: crow, s: 1.15, b: [['tool', '#E8742A'], ['plan', '#7A55D6'], ['memory', '#FF5C8A']] },
+  { x: 600, fn: dog, s: 1.15, b: [['love', '#F0435E'], ['memory', '#FF5C8A'], ['fear', '#9B5BD6']] },
+  { x: 900, fn: octopus, s: 1.15, b: [['puzzle', '#12A99A'], ['eye', '#3E7BFA'], ['plan', '#7A55D6']] },
+  { x: 1210, fn: null, s: 1.3, b: [['memory', '#FF5C8A'], ['love', '#F0435E'], ['plan', '#7A55D6'], ['talent', '#2FA85A'], ['belief', '#3E7BFA'], ['humor', '#E8742A']] },
+  { x: 1520, fn: aibot, s: 1.2, b: [['language', '#2FA85A'], ['memory', '#FF5C8A'], ['plan', '#7A55D6']] }
 ];
 const PERSON = 3;
 

@@ -198,8 +198,7 @@ function marbles(S: BeatState, T: number): void {
   if (u >= 0) { marble(firstMarble(t, onBeam)); marble(secondMarble(t, onBeam)); }
   tf(PX, PY, 1, th, function () { fillRR(-108, -6, 216, 12, 6, C.yellow); fillRR(-5, -54, 10, 52, 5, C.yellow); });
   circ(PX, PY, 9, C.cream); poly([PX - 16, PY + 34, PX + 16, PY + 34, PX, PY + 4], C.orange);
-  let label = u < 0 || t < 1.9 ? '…' : t < 4.2 ? '1' : t < 4.6 ? '1 + 1' : '1 + 1 = 2';
-  if (u >= 0 && t >= 2.6 && t < 4.6) label = '1 + 1';
+  const label = u < 0 || t < 1.9 ? '…' : t < 2.6 ? '1' : t < 4.6 ? '1 + 1' : '1 + 1 = 2';
   tag(label, 3800, 106, 52, C.cream, C.ink, 700);
 }
 
