@@ -1,9 +1,9 @@
-/* 2. Form is function: lever, pulley, circuit, marbles. Each machine sits at its own place in the world. */
+/* 2. Form is function: a rolling shape, then lever, pulley, circuit. Each sits at its own place in the world. */
 
 import type { BeatState } from '../engine/beatState';
 import { A, c, tf, withA } from '../engine/canvas';
 import { arrow, circ, fillRR, glow, line, poly, ring, strokeRR } from '../engine/draw';
-import { PI, TAU, back, cl, ease, easeIn, lerp } from '../engine/math';
+import { PI, TAU, back, cl, ease, lerp } from '../engine/math';
 import { C } from '../engine/palette';
 import { withCam } from '../engine/parallax';
 import { tag, txt } from '../engine/text';
@@ -20,15 +20,96 @@ export const form: Scene = {
     floaters(cam, T, 21, 12, [C.yellow, C.cyan], 0.4);
   },
   draw: function (S, cam, T) {
-    ground(GY, -900, 5200, '#35B8AE', '#167883');
-    lever(S, T); pulley(S, T); circuit(S, T); marbles(S, T);
+    ground(GY, -1600, 3600, '#35B8AE', '#167883');
+    opener(S); lever(S, T); pulley(S, T); circuit(S, T);
   }
 };
 
 function dotGrid(): void {
   c.fillStyle = 'rgba(255,255,255,0.07)';
-  for (let x = -200; x < 3000; x += 64) for (let y = 40; y < 470; y += 64) { c.beginPath(); c.arc(x, y, 5, 0, TAU); c.fill(); }
-  c.fillStyle = 'rgba(8,30,50,0.35)'; c.fillRect(-400, 500, 4000, 16);
+  for (let x = -1032; x < 3000; x += 64) for (let y = 40; y < 470; y += 64) { c.beginPath(); c.arc(x, y, 5, 0, TAU); c.fill(); }
+  c.fillStyle = 'rgba(8,30,50,0.35)'; c.fillRect(-1200, 500, 4800, 16);
+}
+
+/* ---------- opener: form decides what a thing does; what it does gives its form away ---------- */
+
+const OX = -640, R = 34, SHAPE = C.pink;
+/** The ramp runs from its top corner (RTX, RTY) down to the ground at RBX. */
+const RTX = OX - 300, RTY = GY - 170, RBX = OX + 80;
+const RL = Math.hypot(RBX - RTX, GY - RTY), RA = Math.atan2(GY - RTY, RBX - RTX), DX = Math.cos(RA), DY = Math.sin(RA);
+/** Path length of a roller's centre: start on the ramp, then where each roller comes to rest on the floor. */
+const S0 = R + 12, FLOOR = RL + R * RA, REST1 = FLOOR + 250, REST2 = FLOOR + 140;
+/** Seconds into "betray" when the shape starts to change, then to roll. */
+const MORPH = 0.3, ROLL = 1.1;
+
+function opener(S: BeatState): void {
+  const bt = S.since('betray'), half = secondHalf(S);
+  ramp();
+  shapeOnRamp(S, bt);
+  mysteryRoller(bt - half);
+  formFunctionTag(S, bt, half);
+}
+
+/** "And what it does betrays its shape" starts about here: proportional to the beat, never before the first roll ends. */
+function secondHalf(S: BeatState): number {
+  const k = S.ch.idx['betray'];
+  return k === undefined ? 1e9 : Math.max(ROLL + 2.1, 0.55 * S.ch.beats[k].dur);
+}
+
+function ramp(): void {
+  poly([RTX, GY, RTX, RTY, RBX, GY], WOOD);
+  poly([RTX, GY, RTX + 24, GY, RTX + 24, RTY + DY / DX * 24, RTX, RTY], WOODD);
+  line([RTX, RTY, RBX, GY], WOODD, 6);
+}
+
+/** Centre and spin of a roller `s` along its path: down the ramp, over the corner, along the floor. */
+function rollAt(s: number): [number, number, number] {
+  const spin = RA + (s - S0) / R;
+  if (s < RL) return [RTX + DX * s + DY * R, RTY + DY * s - DX * R, spin];
+  if (s < FLOOR) { const ph = RA - (s - RL) / R; return [RBX + Math.sin(ph) * R, GY - Math.cos(ph) * R, spin]; }
+  return [RBX + s - FLOOR, GY - R, spin];
+}
+
+/** A square block sits on the ramp. Round it off and it rolls away. */
+function shapeOnRamp(S: BeatState, bt: number): void {
+  const k = S.pop('thesis', 0.3);
+  if (k <= 0) return;
+  const round = ease((bt - MORPH) / 0.7), p = rollAt(lerp(S0, REST1, ease((bt - ROLL) / 2.0)));
+  tf(p[0], p[1], k, p[2], function () { roller(lerp(4, R, round)); });
+}
+
+function roller(corner: number): void {
+  fillRR(-R, -R, 2 * R, 2 * R, corner, SHAPE);
+  line([0, 0, R - 9, 0], 'rgba(21,15,51,0.3)', 7);
+  circ(0, 0, 7, C.cream);
+}
+
+/** Something unknown rolls down the same ramp. Because it rolls, it turns out round. */
+function mysteryRoller(u: number): void {
+  const k = back(u / 0.45);
+  if (k <= 0) return;
+  const p = rollAt(lerp(S0, REST2, ease((u - 0.4) / 1.6))), seen = ease((u - 2.1) / 0.35);
+  if (seen < 1) withA(1 - seen, function () {
+    glow(p[0], p[1], R * 2, C.cyan, 0.45);
+    tf(p[0], p[1], k, p[2] - RA, function () { txt('?', 0, 0, 88, C.cyan, 'center', 700); });
+  });
+  if (seen > 0) withA(seen, function () { tf(p[0], p[1], back((u - 2.1) / 0.45), p[2], function () { roller(R); }); });
+}
+
+/** "form" and "function", joined by = and then by an arrow each way. */
+function formFunctionTag(S: BeatState, bt: number, half: number): void {
+  const k = S.on('thesis', 1.0, 0.4);
+  if (k <= 0) return;
+  const y = GY - 290, lx = OX - 120, rx = OX + 190;
+  withA(k, function () {
+    tag('form', lx, y, 38, C.ink, C.cream, 700); tag('function', rx, y, 38, C.ink, C.cream, 700);
+    const link = bt < 0 ? 0 : bt < half ? 1 : 2, pop = link === 0 ? S.pop('thesis', 1.0) : link === 1 ? S.pop('betray', MORPH) : S.pop('betray', half);
+    tf((lx + rx) / 2 - 18, y, pop, 0, function () {
+      if (link === 0) txt('=', 0, 0, 56, C.yellow, 'center', 700);
+      else if (link === 1) arrow(-40, 0, 40, 0, C.yellow, 8);
+      else arrow(40, 0, -40, 0, C.yellow, 8);
+    });
+  });
 }
 
 /** Push, hold, release, rest: a repeating 0..1 effort cycle. */
@@ -102,10 +183,10 @@ function crate(ox: number, crateY: number): void {
 const OFF = '#2A6878', ON = C.yellow;
 
 function circuit(S: BeatState, T: number): void {
-  const uc = S.since('cut'), ub = S.since('back'), u = S.since('circuit');
-  const isCut = uc > 1.0 && ub < 0;
+  const uc = S.since('cut'), u = S.since('circuit');
+  const isCut = uc > 1.0;
   let pat: number[][], k: number;
-  if (uc >= 0 && ub < 0) { pat = [[1, 1], [1, 1], [0, 1], [1, 1]]; k = Math.floor(uc / 1.6) % 4; }
+  if (uc >= 0) { pat = [[1, 1], [1, 1], [0, 1], [1, 1]]; k = Math.floor(uc / 1.6) % 4; }
   else { pat = [[0, 0], [1, 0], [0, 1], [1, 1]]; k = u < 0.6 ? 0 : Math.floor((u - 0.6) / 1.6) % 4; }
   const Av = pat[k][0], Bv = pat[k][1], Bx = isCut ? 0 : Bv, ones = Av ^ Bx, twos = Av & Bv;
   function wire(pts: number[], v: number): void { line(pts, v ? ON : OFF, 7); if (v) flow(pts, T, 120, 46, 4, C.white); }
@@ -126,7 +207,6 @@ function circuit(S: BeatState, T: number): void {
   lamps(ones, twos);
   sumTag(Av, Bv, ones + 2 * twos, T);
   scissors(uc);
-  lid(ub);
 }
 
 function switches(Av: number, Bv: number): void {
@@ -165,59 +245,4 @@ function scissors(uc: number): void {
     });
     A(1);
   }
-}
-
-/** The lid: you can tell what is inside from what it does. */
-function lid(ub: number): void {
-  if (ub >= 0) {
-    const lidUp = ease((ub - 5.4) / 0.9), la = ease(ub / 0.4) * (1 - lidUp);
-    if (la > 0) withA(la, function () { fillRR(2508, 190 - lidUp * 120, 286, 288, 22, '#062430'); txt('?', 2651, 336 - lidUp * 120, 150, C.cyan, 'center', 700); });
-  }
-}
-
-/* ---------- marbles ---------- */
-
-const PX = 3800, PY = 360;
-
-function marbles(S: BeatState, T: number): void {
-  const u = S.since('marble') - 0.8, t = u < 0 ? 0 : u % 6.6;
-  line([3640, 510, 3640, GY], '#3B1F66', 16); line([3960, 510, 3960, GY], '#3B1F66', 16);
-  fillRR(3572, 158, 456, 360, 26, 'rgba(0,0,0,0.25)'); fillRR(3572, 150, 456, 360, 26, '#4A2A82'); strokeRR(3584, 162, 432, 336, 18, 'rgba(255,255,255,0.14)', 3);
-  line([3782, 166, 3782, 286], C.cream, 6); line([3818, 166, 3818, 286], C.cream, 6);
-  const th = 0.26 - 0.52 * ease((t - 1.1) / 0.4) + 0.52 * ease((t - 3.4) / 0.4);
-  function onBeam(lx: number): number[] { return [PX + lx * Math.cos(th) + 18 * Math.sin(th), PY + lx * Math.sin(th) - 18 * Math.cos(th)]; }
-  ([[3690, 'ones'], [3910, 'twos']] as [number, string][]).forEach(function (q) {
-    c.beginPath(); c.arc(q[0], 448, 30, 0, PI); c.strokeStyle = C.cream; c.lineWidth = 6; c.stroke();
-    txt(q[1], q[0], 492, 24, C.cream, 'center', 600);
-  });
-  const fade = 1 - ease((t - 6.1) / 0.4);
-  function marble(m: number[] | null): void {
-    if (!m) return;
-    A(m[2] * fade); circ(m[0], m[1], 13, C.cyan); circ(m[0] - 4, m[1] - 4, 4, 'rgba(255,255,255,0.7)'); A(1);
-  }
-  if (u >= 0) { marble(firstMarble(t, onBeam)); marble(secondMarble(t, onBeam)); }
-  tf(PX, PY, 1, th, function () { fillRR(-108, -6, 216, 12, 6, C.yellow); fillRR(-5, -54, 10, 52, 5, C.yellow); });
-  circ(PX, PY, 9, C.cream); poly([PX - 16, PY + 34, PX + 16, PY + 34, PX, PY + 4], C.orange);
-  const label = u < 0 || t < 1.9 ? '…' : t < 2.6 ? '1' : t < 4.6 ? '1 + 1' : '1 + 1 = 2';
-  tag(label, 3800, 106, 52, C.cream, C.ink, 700);
-}
-
-/** Drops, tips the rocker left, lands in "ones", later falls through. Returns [x, y, alpha]. */
-function firstMarble(t: number, onBeam: (lx: number) => number[]): number[] | null {
-  if (t < 0.3) return null;
-  if (t < 1.1) return [3793, lerp(176, 339, easeIn((t - 0.3) / 0.8)), 1];
-  if (t < 1.9) { const m = onBeam(lerp(-12, -104, ease((t - 1.1) / 0.8))); m[2] = 1; return m; }
-  if (t < 2.3) { const e1 = onBeam(-104), q1 = easeIn((t - 1.9) / 0.4); return [lerp(e1[0], 3690, q1), lerp(e1[1], 462, q1), 1]; }
-  if (t < 3.7) return [3690, 462, 1];
-  const d = cl((t - 3.7) / 0.5);
-  return [3690, 462 + d * 70, 1 - d];
-}
-
-/** Drops, tips the rocker right, lands in "twos". */
-function secondMarble(t: number, onBeam: (lx: number) => number[]): number[] | null {
-  if (t < 2.6) return null;
-  if (t < 3.4) return [3807, lerp(176, 339, easeIn((t - 2.6) / 0.8)), 1];
-  if (t < 4.2) { const n = onBeam(lerp(12, 104, ease((t - 3.4) / 0.8))); n[2] = 1; return n; }
-  if (t < 4.6) { const e2 = onBeam(104), q2 = easeIn((t - 4.2) / 0.4); return [lerp(e2[0], 3910, q2), lerp(e2[1], 462, q2), 1]; }
-  return [3910, 462, 1];
 }
