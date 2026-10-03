@@ -42,7 +42,9 @@ an upload package. The human uploads.
 
 ## Gate: release
 
-One decision per message, with a recommendation.
+One decision per message: two choices and a recommendation. Keep each
+message tiny. Lean and full use the same gate. Export task mode runs
+this phase alone.
 
 1. "Play the MP4 at <path> in your normal media player. Is it good to
    ship? I recommend yes; QA found <nothing | these items>."

@@ -26,11 +26,12 @@ cut, take the human's notes, and turn every note into a fix and a check.
 4. **Cold viewers.** Three new agents per
    [cold-viewer review](../loops/cold-viewer-review.md), on the final
    contact sheet and transcript. The comparison with the spine and the
-   ledger rows follow that loop.
+   ledger rows follow that loop. Lean: only if the topic is contested;
+   otherwise skip this step.
 5. **Human watch.** The human watches the full draft in the player.
    The producer copies every note into the
    [notes ledger](../documents/notes-ledger.md) verbatim, before doing
-   anything else.
+   anything else. A decision in a note goes into the bible verbatim too.
 6. **Notes to checks.** The director splits and classifies the notes
    per [notes-to-checks](../loops/notes-to-checks.md). Each atom goes to
    the owner of the file it touches. One-word text fixes are batched
@@ -39,7 +40,18 @@ cut, take the human's notes, and turn every note into a fix and a check.
 7. **Re-verify.** QA reruns the sweep and closes each ledger row only
    when the fix and its check both exist.
 
+Lean: the producer runs the step 2 and step 7 tools itself and reads
+only the summary lines.
+
+Notes round task mode runs steps 5–7 alone: the producer triages the
+notes, the owning makers fix, their critics check, then QA. A note that
+arrives while fixes are mid-round follows
+[change-orders](../loops/change-orders.md).
+
 ## Gate: the final cut
+
+Every message: one decision, two choices, a recommendation. Keep each
+tiny.
 
 1. "Watch the full draft once (<m:ss>). Send notes in any form."
 2. After fixes: "All <n> notes are fixed and checked. Watch only the

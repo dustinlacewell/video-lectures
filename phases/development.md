@@ -8,15 +8,21 @@ cheapest place to fix the argument.
 
 - The human has said, in their own words, what the video argues.
 - The output formats are known (web page, MP4, both) and a rough length.
+  The length picks the track ([SKILL.md](../SKILL.md), "Size the job").
 - Any earlier material is listed by path: drafts, older versions, chat
   exports. If there are several versions, the human has said which is
   newest.
 
 ## Steps
 
+0. **Make the repo.** A new video gets its repo now, per
+   [new-project](../engine/new-project.md), so the spine, the bible and
+   `production/status.md` land in `production/` from day one. A
+   single-file prototype is ported per
+   [porting](../engine/porting.md), in parallel with steps 1–5.
 1. **Record the thesis.** The producer copies the human's words
-   verbatim into a note for the director. It does not paraphrase and does
-   not critique.
+   verbatim into the bible as entry B1, `Source: human`. It does not
+   paraphrase and does not critique.
 2. **Harvest settled decisions.** If earlier material exists, a Sonnet
    agent lists every decision in it with a verbatim quote and its source
    (file, version, date). Newest version wins. The
@@ -36,9 +42,18 @@ cheapest place to fix the argument.
 ## Gate: the argument
 
 The human signs off the thesis, the chain of claims, and the bible seed.
-One decision per message. Plain words. A recommendation each time.
+One decision per message: two choices and a recommendation. Keep each
+message tiny.
 
-Order:
+**Lean: 3 messages at most.**
+
+1. The spine: chain of claims and chapter plan, one line each. Skip the
+   thesis check when B1 is the human's own words.
+2. All bible candidates in one list: approve all, or name the ones to
+   drop.
+3. The one spine defect that most needs the human, if any.
+
+**Full**, in this order:
 
 1. Thesis. "Here is the thesis in one sentence: <...>. Is this what the
    video argues? Yes, or change it. I recommend yes."
@@ -53,7 +68,11 @@ On rejection: the human's words go into the
 [notes ledger](../documents/notes-ledger.md) verbatim. The director
 revises only what was rejected. The producer re-asks only that item.
 
-Every answer goes into the bible with source "human, development gate".
+The producer appends every answer to the bible verbatim, with source
+"human, development gate". The director tidies the wording later.
+
+A thesis change after this gate is a change order: see
+[change-orders](../loops/change-orders.md).
 
 ## Exit criteria
 
@@ -62,15 +81,13 @@ Every answer goes into the bible with source "human, development gate".
 - `production/bible.md` exists. The thesis is entry B1, in the human's
   words. Candidates are approved or removed.
 - The "Open" list in the bible holds only items the human chose to defer.
+- `production/status.md` names the track and the budget.
 
 ## Common failures
 
-- **Relitigating.** In the reference production the producer raised
-  an objection the human had settled in an earlier thread ("the zombie
-  loses the part that hurts"). Search the bible before raising anything.
-- **Judging new against old.** The producer compared the current file
-  to an old snippet and claimed the file "didn't match the agreed
-  order". The file was the newer version. Ask which version is newest.
+- **Relitigating, and judging new against old.** Search the bible
+  before raising anything, and ask which version is newest. The
+  [bible](../documents/bible.md) says what went wrong without one.
 - **One point, three chapters.** Chapters 4–6 of the original made one
   point three times. The spine shows it as three job lines that say the
   same thing. Do not pass the gate with them.

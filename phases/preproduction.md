@@ -3,17 +3,29 @@
 Build the style guide, write the script as data, check it, board every
 beat, and lock the cast. At the end, everything needed to record voice
 and draw the animatic exists. The script locks after the table read in
-the [voice phase](voice.md).
+the [voice phase](voice.md) (lean: at the
+[animatic gate](animation.md)).
 
 ## Entry criteria
 
 - Development gate passed: `production/spine.md` and
   `production/bible.md` approved.
-- The project repo honors the [engine contract](../engine/contract.md),
-  or is created from the reference with
-  [new-project](../engine/new-project.md).
+- The repo exists (made in [development](development.md)).
 
 ## Steps
+
+0. **Engine readiness.** The [engine owner](../roles/engine-owner.md)
+   (Opus) builds what the reference repo lacks, in parallel with steps
+   1–4. Each item has a verify command; the commands live in
+   [contract §11](../engine/contract.md#11-reference-repo-gaps).
+
+   | Item | Needed by | Verify |
+   |---|---|---|
+   | Board renderer and scene-registry fallback | the animatic | `{VERIFY: contract §11, board renderer}` |
+   | Storyboard test (and `production` in tsconfig `include`) | step 5 | `{VERIFY: contract §11, storyboard test}` |
+   | Card-last test: no beat after a chapter's card | step 3 | `{VERIFY: contract §11, card test}` |
+   | `__script()` global | the tools | `{VERIFY: contract §11, __script}` |
+   | Deterministic audio: seeded noise, music a function of `T` | export | `{VERIFY: contract §11, audio}` |
 
 1. **Seed the style guide.** The [director](../roles/director.md) writes
    [writing](../documents/style-guide/writing.md) (voice profile, rules
@@ -21,23 +33,35 @@ the [voice phase](voice.md).
    [terminology](../documents/style-guide/terminology.md) with the
    spine's key terms. The [art-director](../roles/art-director.md)
    drafts the [visual vocabulary](../documents/style-guide/visual-vocabulary.md)
-   from the spine's motifs. The director approves each entry.
+   from the spine's motifs. The director approves each entry. Lean: the
+   director does the art-director's part too, in the same run.
 2. **Write.** [Writer](../roles/writer.md) agents draft
    `script/<NN-chapter>.ts`: beats with stable ids, `say`, `card`,
-   `speaker`. No camera or sound cues yet. Chapters may run in parallel;
-   each writer owns one chapter file. The producer owns `script/index.ts`;
-   the engine owner owns `script/types.ts`. [Casting](../roles/casting.md)
-   owns `script/cast.ts`.
-3. **Edit.** [Script-editor](../roles/script-editor.md) per chapter, in
-   a [maker-critic loop](../loops/maker-critic.md), at most 3 rounds:
+   `speaker`. No camera or sound cues yet. Full: chapters may run in
+   parallel; each writer owns one chapter file. Lean: one writer writes
+   the whole script. The producer owns `script/index.ts`; the engine
+   owner owns `script/types.ts`. [Casting](../roles/casting.md) owns
+   `script/cast.ts`.
+
+   **Budget words, not seconds.** Each chapter's word budget is its
+   target seconds × the narrator's measured rate. The rate is in
+   `production/status.md`, from a previous production's
+   [pacing-curve](../tools/pacing-curve.md) run. The reference narrator
+   runs about 2.0 words per second, pads included. Never plan with the
+   engine's word-count heuristic: on the reference it overestimated
+   runtime by about 30%.
+3. **Edit.** [Script-editor](../roles/script-editor.md) in a
+   [maker-critic loop](../loops/maker-critic.md), at most 3 rounds:
    writing rules, terminology grep, bible conflicts, card is the last
-   beat.
+   beat. Run it once on the whole script, after all writers finish. Not
+   one loop per chapter.
 4. **Whole-script pass.** The director reads the full script against the
    spine: each chapter does its job; no two chapters make one point;
-   estimated runtime per chapter against weight. Estimated only; real
-   lengths come from voice.
+   each chapter's word count against its budget. Real lengths come from
+   voice.
 5. **Board.** The director writes each beat's `purpose`; the
-   art-director fills in the picture fields in `production/storyboard/<NN-chapter>.ts`.
+   art-director (lean: the director) fills in the picture fields in
+   `production/storyboard/<NN-chapter>.ts`.
    The [storyboard](../documents/storyboard.md) test must pass: every
    voiced beat has a board, every symbol id is in the vocabulary.
 6. **Cast.** [Casting](../roles/casting.md) makes 2–3 candidate voices
@@ -48,7 +72,8 @@ the [voice phase](voice.md).
 
 ## Gate: script and cast
 
-One decision per message, with a recommendation.
+One decision per message: two choices and a recommendation. Keep each
+message tiny. Lean and full use the same gate.
 
 1. Script. "The script is ready to record. Read it now (about <n>
    minutes), or hear it at the table read? I recommend the table read:
@@ -60,7 +85,9 @@ One decision per message, with a recommendation.
 
 On rejection: a rejected voice gets new candidates from a new brief that
 quotes the human's words. A rejected line goes to the writer, then the
-script-editor. Each answer goes into the bible.
+script-editor. The producer appends each answer to the bible verbatim.
+A note that arrives while writers or the critic are mid-round follows
+[change-orders](../loops/change-orders.md).
 
 ## Exit criteria
 
@@ -70,6 +97,7 @@ script-editor. Each answer goes into the bible.
   verified transcript. Bible "Locks" records the clip hashes.
 - The three style-guide files exist and are approved.
 - The storyboard test passes.
+- Every engine-readiness item passes its verify command.
 
 ## Common failures
 

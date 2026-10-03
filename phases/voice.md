@@ -37,9 +37,15 @@ timed to these clips, never to estimates.
    [script-editor](../roles/script-editor.md) (batch one-word fixes into
    one pass), then steps 1–3 for the changed hashes only.
 
+Lean: the producer runs clip-check and pacing-curve itself and reads
+only the summary lines. Skip step 5; the animatic is the listen.
+
 ## Gate: table read
 
-Agents cannot hear. The human is the only ear, so make the listen short
+**Lean: no gate here.** The listen and the script lock move into the
+[animatic gate](animation.md). Go on to the animatic after step 3.
+
+**Full:** agents cannot hear. The human is the only ear, so make the listen short
 and focused.
 
 1. "Listen once, start to end (<m:ss>). Note any line that sounds wrong:
@@ -53,6 +59,15 @@ and focused.
 
 On rejection: each noted line becomes a ledger row. Re-render only those.
 Give the human the list of their times to re-check, not the whole video.
+
+Re-voice task mode runs this phase alone: steps 1–3, then the human's
+listen of the changed lines.
+
+## Measure the narrator's rate
+
+After the voice locks, record the narrator's words per second (pads
+included) from the pacing curve in `production/status.md`. The next
+production with this narrator plans its word budget from it.
 
 ## Exit criteria
 

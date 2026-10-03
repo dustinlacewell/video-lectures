@@ -6,39 +6,46 @@ director checks the whole video for consistency across chapters.
 
 ## Entry criteria
 
-- Voice locked. `durations.json` committed. Clip-check green.
+- Voice locked (lean: rendered and clip-check green; the lock comes at
+  this phase's gate). `durations.json` committed.
 - Storyboard test green: every voiced beat has a board.
 - Visual vocabulary approved by the director.
+- The board renderer exists. The engine owner built it in
+  [preproduction](preproduction.md) step 0.
 
 ## Steps, part A: the animatic
 
-1. **Renderer.** If the project lacks it, the
-   [editor](../roles/editor.md) adds the board renderer and the
-   scene-registry fallback described in
-   [animatic](../documents/animatic.md).
-2. **Build and measure.** The [editor](../roles/editor.md) builds the
-   animatic and runs [clip-check](../tools/clip-check.md),
+1. **Build and measure.** The [editor](../roles/editor.md) builds the
+   animatic per [animatic](../documents/animatic.md) and runs
+   [clip-check](../tools/clip-check.md),
    [pacing-curve](../tools/pacing-curve.md), and
-   [contact-sheet](../tools/contact-sheet.md).
-3. **Cold viewers.** Three fresh agents (newcomer, skeptic, domain
-   expert) per [cold-viewer review](../loops/cold-viewer-review.md). They
-   get the contact sheet and transcript only.
-4. **Record.** The [director](../roles/director.md) writes
+   [contact-sheet](../tools/contact-sheet.md). The cold viewers' contact
+   sheet is captured without the boards' purpose band: the purpose is
+   the spine, and a cold viewer must not see it.
+2. **Cold viewers.** Fresh agents per
+   [cold-viewer review](../loops/cold-viewer-review.md). Full: newcomer,
+   skeptic and domain expert. Lean: newcomer and skeptic. They get the
+   contact sheet and transcript only.
+3. **Record.** The [director](../roles/director.md) writes
    `production/animatic.md`: runtimes against weights, pacing flags,
    what each cold viewer believes against each chapter's job. The
    director turns mismatches into decisions for the gate.
 
 ## Gate: the animatic
 
-This is the human's main sign-off. Fixes here are edits to data.
+This is the human's main sign-off. Fixes here are edits to data. Every
+message: one decision, two choices, a recommendation. Keep each tiny.
 
 1. "Watch the animatic once in the player (<m:ss>). It is boards timed
-   to the real voice. Send notes in any form."
+   to the real voice. Send notes in any form." Lean adds: "Also note any
+   line that sounds wrong: wrong word, odd stress, cut off, wrong voice.
+   Beat id or time is enough." This is the table read.
 2. Then the director's decisions, one per message, each with two
    choices and a recommendation. Example: "The last chapter carries
    three claims in one minute. Split it in two, or give the trivia claim
    its own card? I recommend splitting."
-3. "Sign the animatic? Animation starts from it. I recommend yes."
+3. "Sign the animatic? Animation starts from it. I recommend yes." Lean:
+   "Sign the animatic and lock the script and voice?"
 
 On rejection: notes go to the [notes ledger](../documents/notes-ledger.md)
 and through [notes-to-checks](../loops/notes-to-checks.md). Script
@@ -47,38 +54,46 @@ animatic and re-ask only what changed.
 
 ## Steps, part B: animation
 
-5. **Shared kit first.** One kit owner (an [animator](../roles/animator.md),
-   to the [art-director](../roles/art-director.md)'s spec) implements every
-   vocabulary symbol in `kit/` before any chapter starts. Structural
+4. **Shared kit first.** One kit owner (an [animator](../roles/animator.md),
+   to the [art-director](../roles/art-director.md)'s spec; lean: the
+   director's spec) implements every vocabulary symbol in `kit/` before
+   any chapter starts. Structural
    fixes go here: one color per badge icon, set in the kit; speech
    bubbles clamped into the safe area; face drawn over limbs. Nobody
    else edits `kit/` or `engine/` in this phase.
-6. **Chapter teams in parallel.** One [animator](../roles/animator.md)
-   (Opus) per chapter, each in its own worktree.
+5. **Chapter teams in parallel.** One [animator](../roles/animator.md)
+   (Opus) per chapter, each in its own worktree. Lean: one animator per
+   chapter group, 2–3 groups in all.
    - Owns: `scenes/<NN-chapter>*.ts`; the `cam`, `camT`, `still`, `dur`,
-     `sfx`, and `cues` fields of `script/<NN-chapter>.ts`.
+     `sfx`, and `cues` fields of `script/<NN-chapter>.ts`, for its
+     chapters only.
    - Must not touch: `say`, `card`, `speaker`, `stagger`, beat ids (a
      change breaks the voice manifest hash and clip-check fails); `kit/`,
      `engine/`, `player/`, `production/`, other chapters.
    - Needs a symbol or term that is not in the documents: stops and
      sends a proposal up.
-7. **Supervise each chapter.** [Animation-supervisor](../roles/animation-supervisor.md)
+6. **Supervise each chapter.** [Animation-supervisor](../roles/animation-supervisor.md)
    in a [maker-critic loop](../loops/maker-critic.md), at most 3 rounds.
-   The producer (or a Sonnet helper) renders headless frames at each
-   beat's midpoint and end (`__seek`); [QA](../roles/qa.md) runs
-   [frame-sweep](../tools/frame-sweep.md). The supervisor checks each
-   frame against the board's purpose, the vocabulary, and the bible.
-8. **Merge.** The producer merges one worktree at a time. After each
+   Lean: one loop per chapter group. The producer (or a Sonnet helper)
+   renders headless frames at each beat's midpoint and end (`__seek`);
+   [QA](../roles/qa.md) runs [frame-sweep](../tools/frame-sweep.md)
+   (lean: the producer runs it). The supervisor checks each frame
+   against the board's purpose, the vocabulary, and the bible.
+7. **Merge.** The producer merges one worktree at a time. After each
    merge: tests, frame-sweep on the whole video. Each agent stops any
    server it started before it reports.
-9. **Whole-video pass.** The director reads a contact sheet of every
+8. **Whole-video pass.** The director reads a contact sheet of every
    chapter, one symbol at a time across chapters, then motifs, then
    labels against terminology. Findings go to the owners, not into
    chapter files directly.
 
 Decisions the director cannot settle go to the human, one per message.
-There is no other human gate in this phase. The human's next watch is
-the full draft in [post](post.md).
+A human note that arrives while chapter loops run follows
+[change-orders](../loops/change-orders.md). There is no other human
+gate in this phase. The human's next watch is the full draft in
+[post](post.md).
+
+Polish task mode runs steps 6–7 alone, on the named chapters.
 
 ## Exit criteria
 
