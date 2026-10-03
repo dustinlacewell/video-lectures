@@ -2,7 +2,7 @@
 
 import type { BeatState } from '../engine/beatState';
 import { A, c, tf } from '../engine/canvas';
-import { bgGradient, circ, fillRR, glow, line, poly, ring, strokeRR } from '../engine/draw';
+import { bgGradient, check, circ, fillRR, glow, line, poly, ring, rr, strokeRR } from '../engine/draw';
 import { PI, cl, easeIn, easeOut, lerp } from '../engine/math';
 import { C } from '../engine/palette';
 import { withCam } from '../engine/parallax';
@@ -18,17 +18,24 @@ import type { Scene } from './types';
 
 const GY = 620;
 
-interface Being { x: number; fn: Creature | null; s: number; b: [IconKind, string][] }
+/** `knowsSelf`: the being clearly models itself (a dog knows its body, a crow grooms, an octopus never tangles itself). */
+interface Being { x: number; fn: Creature | null; s: number; b: [IconKind, string][]; knowsSelf: boolean }
 
 /** Crow, dog, octopus, a person (fn null), and an AI, each with its faculties. */
 const WHO: Being[] = [
-  { x: 300, fn: crow, s: 1.15, b: [['tool', '#E8742A'], ['plan', '#7A55D6'], ['memory', '#FF5C8A']] },
-  { x: 600, fn: dog, s: 1.15, b: [['love', '#F0435E'], ['memory', '#FF5C8A'], ['fear', '#9B5BD6']] },
-  { x: 900, fn: octopus, s: 1.15, b: [['puzzle', '#12A99A'], ['eye', '#3E7BFA'], ['plan', '#7A55D6']] },
-  { x: 1210, fn: null, s: 1.3, b: [['memory', '#FF5C8A'], ['love', '#F0435E'], ['plan', '#7A55D6'], ['talent', '#2FA85A'], ['belief', '#3E7BFA'], ['humor', '#E8742A']] },
-  { x: 1520, fn: aibot, s: 1.2, b: [['language', '#2FA85A'], ['memory', '#FF5C8A'], ['plan', '#7A55D6']] }
+  { x: 300, fn: crow, s: 1.15, b: [['tool', '#E8742A'], ['plan', '#7A55D6'], ['memory', '#FF5C8A']], knowsSelf: true },
+  { x: 600, fn: dog, s: 1.15, b: [['love', '#F0435E'], ['memory', '#FF5C8A'], ['fear', '#9B5BD6']], knowsSelf: true },
+  { x: 900, fn: octopus, s: 1.15, b: [['puzzle', '#12A99A'], ['eye', '#3E7BFA'], ['plan', '#7A55D6']], knowsSelf: true },
+  { x: 1210, fn: null, s: 1.3, b: [['memory', '#FF5C8A'], ['love', '#F0435E'], ['plan', '#7A55D6'], ['talent', '#2FA85A'], ['belief', '#3E7BFA'], ['humor', '#E8742A']], knowsSelf: true },
+  { x: 1520, fn: aibot, s: 1.2, b: [['language', '#2FA85A'], ['memory', '#FF5C8A'], ['plan', '#7A55D6']], knowsSelf: false }
 ];
 const PERSON = 3;
+/** When crow, dog and octopus are named in "three"; matches sfx in script/08-animals.ts. */
+const INTRO_AT = [0.4, 1.5, 2.6];
+/** Height of the consciousness star and the question bubbles. */
+const STAR_Y = 150;
+/** "trivia" lands about this far into its line; one stamp per being, left to right. */
+const STAMP_AT = 2.4, STAMP_GAP = 0.3;
 
 export const animals: Scene = {
   bg: ['#3A2E86', '#D9627A'], accent: C.yellow,
@@ -41,7 +48,7 @@ export const animals: Scene = {
   draw: function (S, cam, T) {
     if (S.has('end')) { titleScene(T, 'Cognition is what matters'); return; }
     ground(GY, -1200, 3400, '#F0906E', '#7A3060');
-    const hopT = [S.since('three') - 0.4, S.since('three') - 2.8, S.since('three') - 5.2, -1, S.since('ai') - 1.0];
+    const hopT = [S.since('three') - INTRO_AT[0], S.since('three') - INTRO_AT[1], S.since('three') - INTRO_AT[2], -1, S.since('ai') - 1.0];
     const why = S.since('why');
     WHO.forEach(function (w, i) {
       const lift = hop(hopT[i]) + (why > 0 ? hop(why - 0.6 - i * 0.5) : 0);
@@ -50,7 +57,7 @@ export const animals: Scene = {
       faculties(S, T, w, i, sl, web);
       if (w.fn) w.fn(w.x, GY, w.s, T, lift);
       else bean({ x: w.x, y: GY, s: w.s, t: T, color: C.orange, lift: lift, look: [0.5, -0.3], mouth: 'smile' });
-      if (i !== PERSON) consciousQuestion(S, T, w, i, why);
+      consciousStar(S, T, w, i, why);
       selfModel(S, w, i);
     });
   },
@@ -92,35 +99,51 @@ function facultyWeb(sl: number[][], web: number): void {
 function faculties(S: BeatState, T: number, w: Being, i: number, sl: number[][], web: number): void {
   w.b.forEach(function (bd, k) {
     let p: number;
-    if (i < PERSON) p = k === 0 ? S.pop('three', 0.4 + i * 2.4) : S.pop('are', 0.4 + (i * 2 + k - 1) * 0.3);
-    else if (i === PERSON) p = S.pop('are', 2.4 + k * 0.15);
+    if (i < PERSON) p = k === 0 ? S.pop('three', INTRO_AT[i]) :S.pop('are', 0.4 + (i * 2 + k - 1) * 0.3);
+    else if (i === PERSON) p = S.pop('ai', 0.9 + k * 0.12);
     else p = S.pop('ai', 1.6 + k * 0.6);
     if (p > 0) badge(bd[0], sl[k][0], sl[k][1], 34, bd[1], { scale: p * (1 + 0.08 * web * Math.sin(T * 4 + k)) });
   });
 }
 
-/** "Is it conscious?" bubble, stamped TRIVIA, then dropped. */
-function consciousQuestion(S: BeatState, T: number, w: Being, i: number, why: number): void {
-  const k2 = i > PERSON ? PERSON : i, qp = S.pop('ask', 0.9 + k2 * 0.4), drop = why > 0 ? easeIn(cl((why - 0.2 - k2 * 0.12) / 0.6)) : 0;
-  if (qp > 0 && drop < 1) {
-    A(1 - drop);
-    tf(w.x, 150 + drop * 220, qp, drop * 0.5, function () {
-      fillRR(-92, -48, 184, 96, 30, C.white); poly([-14, 46, 14, 46, 0, 70], C.white);
-      spark(-40, 0, 24, false, T); txt('?', 34, 4, 70, C.ink, 'center', 700);
-      const st = S.since('trivia') - 0.5 - k2 * 0.5;
-      if (st > 0) tf(0, 0, lerp(2.6, 1, easeOut(st / 0.18)), -0.2, function () {
-        A((1 - drop) * cl(st / 0.1)); strokeRR(-108, -34, 216, 68, 10, C.red, 8); fillRR(-100, -26, 200, 52, 6, 'rgba(255,255,255,0.86)'); txt('TRIVIA', 0, 3, 50, C.red, 'center', 700);
-      });
-    });
-    A(1);
-  }
+/** The consciousness star: lit over the person, asked about ("star?") over every other being. Stamped TRIVIA, then dropped. */
+function consciousStar(S: BeatState, T: number, w: Being, i: number, why: number): void {
+  const person = i === PERSON, order = i > PERSON ? PERSON : i;
+  const qp = person ? S.pop('ask', 0.5) : S.pop('ask', 1.0 + order * 0.35);
+  const drop = why > 0 ? easeIn(cl((why - 0.2 - i * 0.12) / 0.6)) : 0;
+  if (qp <= 0 || drop >= 1) return;
+  A(1 - drop);
+  tf(w.x, STAR_Y + drop * 220, qp, drop * 0.5, function () {
+    if (person) spark(0, 0, 30, true, T); else starQuestion(T);
+    triviaStamp(S.since('trivia') - STAMP_AT - i * STAMP_GAP, drop);
+  });
+  A(1);
 }
 
-/** How richly does it model itself? Only the person gets a full self-model badge. */
-function selfModel(S: BeatState, w: Being, i: number): void {
-  const sm = S.pop('matters', 3.0 + i * 0.22);
-  if (sm > 0) tf(w.x, 176, sm, 0, function () {
-    if (i === PERSON) badge('self', 0, 0, 40, '#12A99A');
-    else { ring(0, 0, 40, C.cream, 4, [9, 8]); A(0.75); c.save(); c.scale(40 / 54, 40 / 54); icon('self', '#12A99A'); c.restore(); A(1); }
+/** A bubble asking whether this being has the star. */
+function starQuestion(T: number): void {
+  fillRR(-92, -48, 184, 96, 30, C.navy); poly([-14, 46, 14, 46, 0, 70], C.navy);
+  c.save(); rr(-92, -48, 184, 96, 30); c.clip(); spark(-38, 0, 27, true, T); c.restore();
+  txt('?', 38, 4, 70, C.cream, 'center', 700);
+}
+
+function triviaStamp(st: number, drop: number): void {
+  if (st > 0) tf(0, 0, lerp(2.6, 1, easeOut(st / 0.18)), -0.2, function () {
+    A((1 - drop) * cl(st / 0.1)); strokeRR(-108, -34, 216, 68, 10, C.red, 8); fillRR(-100, -26, 200, 52, 6, 'rgba(255,255,255,0.86)'); txt('TRIVIA', 0, 3, 50, C.red, 'center', 700);
   });
+}
+
+/** How richly does it model itself? A check where it clearly does; a question mark where no one can say. */
+function selfModel(S: BeatState, w: Being, i: number): void {
+  const sm = S.pop('matters', 3.0 + i * 0.2), mark = S.pop('matters', 3.3 + i * 0.2);
+  if (sm > 0) tf(w.x, 176, sm, 0, function () {
+    if (w.knowsSelf) badge('self', 0, 0, 40, '#12A99A');
+    else { ring(0, 0, 40, C.cream, 4, [9, 8]); A(0.75); c.save(); c.scale(40 / 54, 40 / 54); icon('self', '#12A99A'); c.restore(); A(1); }
+    if (mark > 0) tf(30, -30, mark, 0, function () { selfMark(w.knowsSelf); });
+  });
+}
+
+function selfMark(knows: boolean): void {
+  if (knows) { circ(0, 0, 17, C.green); check(0, 0, 15, C.white, 4.5); }
+  else { circ(0, 0, 17, C.cream); txt('?', 0, 2, 26, C.ink, 'center', 700); }
 }
