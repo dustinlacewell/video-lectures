@@ -1,0 +1,89 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>What a Mind Is Made Of</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: a video player (fixed-look stage with its own captions) above the full script. */
+:root {
+  --ground: #F4F2FB;
+  --surface: #E6E1F6;
+  --ink: #1A1446;
+  --muted: #5E5A86;
+  --rule: #CDC7E8;
+  --accent: #C4285F;
+  --stage: #120E2E;
+  --display: "Fredoka", "Trebuchet MS", "Segoe UI", sans-serif;
+  --body: "Nunito", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0E0A26; --surface: #1D1746; --ink: #F1EEFF; --muted: #A6A2CE;
+    --rule: #322A66; --accent: #FF7AA2; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #0E0A26; --surface: #1D1746; --ink: #F1EEFF; --muted: #A6A2CE;
+  --rule: #322A66; --accent: #FF7AA2; color-scheme: dark;
+}
+body { background: var(--ground); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.6; }
+.page { max-width: 980px; margin-inline: auto; padding-inline: 20px; padding-block: 36px 80px; display: flex; flex-direction: column; gap: 48px; }
+header, section, .player { display: flex; flex-direction: column; min-width: 0; }
+header { gap: 10px; }
+h1, h2, h3, p { margin: 0; }
+.eyebrow { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(32px, 6.5vw, 54px); line-height: 1.02; letter-spacing: -0.01em; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 26px; line-height: 1.15; }
+h3 { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.lede { max-width: 62ch; color: var(--muted); }
+
+.player { gap: 12px; }
+.stage { position: relative; background: var(--stage); border-radius: 14px; overflow: hidden; cursor: pointer; }
+.stage canvas { display: block; width: 100%; aspect-ratio: 16 / 9; }
+.stage:fullscreen { border-radius: 0; display: flex; align-items: center; justify-content: center; }
+.stage:fullscreen canvas { width: 100vw; height: 100vh; object-fit: contain; aspect-ratio: auto; }
+.transport { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.transport input[type="range"] { flex: 1 1 200px; min-width: 0; accent-color: var(--accent); }
+.time { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+button { font-family: var(--display); font-weight: 500; font-size: 15px; color: var(--ink); background: var(--surface); border: 0; border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+button:hover { background: var(--rule); }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+#play { min-width: 92px; background: var(--accent); color: var(--ground); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { font-size: 13.5px; padding: 6px 12px; color: var(--muted); }
+.chips button[aria-current="true"] { background: var(--ink); color: var(--ground); }
+.hint { font-size: 14px; color: var(--muted); }
+
+.script { gap: 22px; }
+.script .scene { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--rule); padding-top: 14px; }
+.script p { max-width: 68ch; }
+</style>
+
+<div class="page">
+  <header>
+    <p class="eyebrow">A code video</p>
+    <h1>What a mind is made of</h1>
+    <p class="lede">An argument, built from physics up, that who you are and what you are owed lives in your cognition, and that whether a being is conscious settles nothing. It is one side of a live debate, made as strongly as it can be.</p>
+  </header>
+
+  <div class="player">
+    <div class="stage" id="stage">
+      <canvas id="cv" aria-label="Animated video. The full script is below the player."></canvas>
+    </div>
+    <div class="transport">
+      <button id="play" type="button">Play</button>
+      <input id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Position in the video">
+      <span class="time" id="time">0:00 / 0:00</span>
+      <button id="snd" type="button" aria-pressed="true">Sound on</button>
+      <button id="spd" type="button">Speed 1×</button>
+      <button id="full" type="button">Full screen</button>
+    </div>
+    <div class="chips" id="chips" aria-label="Jump to a chapter"></div>
+    <p class="hint">Sound starts when you press play. Space bar also plays and pauses.</p>
+  </div>
+
+  <section class="script" id="script">
+    <h2>Script</h2>
+  </section>
+</div>
+<script type="module" src="./main.ts"></script>
+
+</body></html>
