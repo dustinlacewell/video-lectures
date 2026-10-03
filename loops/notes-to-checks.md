@@ -4,9 +4,6 @@ Every human note is a defect that got past the team. This loop turns each
 note into a fix and, when a machine could have caught it, into a check so
 the same kind of defect does not reach the human again.
 
-Real-studio counterpart: the notes session after dailies, and the
-supervisor who adds "watch for X" to the review sheet after X slips twice.
-
 ## When it runs
 
 After every human review: the table read, the animatic gate, any draft
@@ -47,11 +44,15 @@ Ask these in order. Stop at the first yes.
    ([frame-sweep](../tools/frame-sweep.md)); clip vs beat length
    ([clip-check](../tools/clip-check.md)).
 3. **Checklist item.** Can a critic catch it by looking or reading? Add
-   one line to that critic's checklist in its role file. Write it as an
-   observable failure with the evidence it needs. Pick the critic by
-   sense: text → [script-editor](../roles/script-editor.md); frames →
-   [animation-supervisor](../roles/animation-supervisor.md); whole-video
-   meaning → [cold-viewer](../roles/cold-viewer.md).
+   one line to that critic's project checklist,
+   `production/checks/<role>.md` in the video repo. Do not edit the
+   skill's `roles/*.md` (see Step 6). Write the line as an observable
+   failure with the evidence it needs. Pick the critic by sense: text →
+   [script-editor](../roles/script-editor.md); frames →
+   [animation-supervisor](../roles/animation-supervisor.md); a
+   measurement → [qa](../roles/qa.md). A
+   [cold viewer](cold-viewer-review.md) never gets a project checklist:
+   it would stop being cold.
 4. **Document entry.** Is it a decision, not a defect? Add it to the
    [bible](../documents/bible.md), the
    [terminology table](../documents/style-guide/terminology.md), or the
@@ -61,7 +62,7 @@ Ask these in order. Stop at the first yes.
    (Step 5). No check.
 
 Most atoms get a fix plus one of 1–4. A taste atom that recurs becomes a
-style-guide rule and then a script-editor checklist item.
+style-guide rule and then a script-editor item in the project checks.
 
 ## Step 4. Record it
 
@@ -70,9 +71,12 @@ the note as the human said it, the atom, beat id and time, class, outcome,
 the check or document entry it produced (by path), and status. The
 ledger is how the producer proves a note became a check.
 
-Changes to a role's checklist, a tool, or a shared document flow through
-the owner of that file. The producer briefs the owner; it does not edit
-the file itself.
+Changes to a tool or a shared document flow through the owner of that
+file. The producer briefs the owner; it does not edit the file itself.
+
+The producer owns `production/checks/<role>.md`. It writes each new line
+there and pastes the whole file into every brief for that role, under
+"project checks".
 
 ## Step 5. Style learning from (draft, fix) pairs
 
@@ -83,7 +87,8 @@ When two or more pairs show the same move, the
 [director](../roles/director.md) writes one rule into
 [writing](../documents/style-guide/writing.md) with the pairs as its
 examples. One pair is enough when the human states the rule outright.
-Then the script-editor checklist gets a line that detects a breach of it.
+Then `production/checks/script-editor.md` gets a line that detects a
+breach of it.
 
 Pairs from the reference production, verbatim from the original page
 and the final script, and the [writing](../documents/style-guide/writing.md)
@@ -98,12 +103,33 @@ rules they support:
 | "Marbles and a rocker can add too. The same play, in a different performance." | (cut) | W6. Cut a metaphor that restates a claim. |
 | "...Form is function." | "...Form *is* function." | W11. Mark the word the voice must stress. |
 
+## Step 6. Promote a generic check into the skill
+
+The skill's `roles/*.md` checklists serve every production. A
+project's checks stay in its own repo. Most are about this video only
+("a hypothetical beat without the Thought experiment tag").
+
+The producer, and only the producer, promotes a line into a role file.
+All three must hold:
+
+- The line names no symbol, term, beat or character of one video.
+- A second production hit the same failure. The producer finds the
+  line, or its twin, in an earlier production's
+  `production/checks/<role>.md`.
+- The producer writes it in the role file's checklist format.
+
+Then it deletes the line from the current project's checks file, since
+the role file now carries it.
+
 ## Worked examples from the reference production
+
+In the reference production every checklist row below would have gone
+to `production/checks/<role>.md`. None had yet hit a second production.
 
 | Note (atom) | Class | Outcome |
 |---|---|---|
 | Arms render behind eyes and mouth | framing | Structural: the bean draws its face last, in the kit. Checklist (animation-supervisor): limb or prop drawn over or under the wrong body part. |
-| Close-up domino half off screen | framing | Tool: frame sweep extended to props, not only text. Checklist (animation-supervisor): any prop crossing the frame edge at a beat midpoint or end. |
+| Close-up domino half off screen | framing | Checklist (animation-supervisor): any prop crossing the frame edge at a beat midpoint or end. The [frame-sweep](../tools/frame-sweep.md) sees text and images only, not props drawn as paths. |
 | Several speech bubbles half off screen | framing | Structural: bubble placement clamps into the safe area in shared kit. Tool: frame sweep covers bubbles. |
 | Three green checkmarks during "searching for other forces" unclear | clarity | Document: visual-vocabulary entry for the checkmark, one meaning. Checklist (animation-supervisor): a symbol shown with a meaning not in the vocabulary. Later the checkmark meant "tested" in ch1 and "has it" in ch6 and ch8; the same entry would have caught that. |
 | Brain needs constant background activity, or "fired because others fired first" begs the question | consistency | Checklist (animation-supervisor): the picture shows a causal story the line denies or does not support. |
@@ -121,8 +147,7 @@ rules they support:
 | Lines cut off at the end | rhythm | Structural: the player lets each clip end on its own instead of stopping it on the timeline clock (the real cause was the player, 20–80 ms early). Tool: render-time verify rejects a clip that ends mid-sound. |
 | "tantamount to trivia" | taste | Fix. Bible entry: "trivia" stays. |
 
-Runtime went from 9:42 to 7:05 when real narration replaced estimated
-lengths, and nobody chose it. That was not a human note, but it is the
-same loop: rhythm, structural fix (voice before animation; the
-[voice phase](../phases/voice.md) comes first), tool
+The runtime change when real voice replaced estimates
+([voice phase](../phases/voice.md)) was not a human note, but it ran
+the same loop: rhythm; structural fix (voice before animation); tool
 ([pacing-curve](../tools/pacing-curve.md) at the animatic).

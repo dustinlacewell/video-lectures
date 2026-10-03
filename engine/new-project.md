@@ -1,18 +1,22 @@
 # Starting a new video project
 
-A new video starts as a copy of the reference repo, `D:\code\ai\cognition`, with its content removed. The engine, player, voice pipeline and commands carry over. The script, scenes and voices do not.
+A new video starts as a copy of the reference repo, `D:\code\ai\cognition`, with its content removed. The engine, player, voice pipeline and commands carry over. The script and scenes do not. Voices carry over only when the human asks for the same voices.
 
-Do this in the preproduction phase, after the spine and style guide exist (`phases/preproduction.md`). The sound engineer owns the voice steps. One agent (Sonnet) can do the rest from this file.
+**When:** at the start of development, before the first document is written. Every production document lives in the repo's `production/` folder from day one.
 
-## 1. Check disk first
+**Who:** the [engine owner](../roles/engine-owner.md). A Sonnet agent may do the copy steps (2–4 and 6) under its brief. If the human handed over a single-file prototype, follow [porting](porting.md) instead of steps 3–4: the port supplies the content.
 
-The voice stack needs about 15 GB: a 5 GB venv and 8.7 GB of model weights (`engine/voice-pipeline.md`). Export needs about 5 GB more. The D: drive filled up during the reference project.
+## 1. Name, place, disk
+
+The human names the project and its folder. Ask one question; default `D:\code\<area>\<project-slug>`.
+
+The voice stack needs about 15 GB later: a 5 GB venv and 8.7 GB of model weights ([voice pipeline](voice-pipeline.md)). Export needs about 5 GB more. The D: drive filled up during the reference project. Check now:
 
 ```powershell
 Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{n='FreeGB';e={[int]($_.Free/1GB)}}
 ```
 
-Under 25 GB free: stop and ask the human where to put the project.
+Under 25 GB free on the chosen drive: stop and ask the human where to put the project.
 
 ## 2. Make the repo, line endings first
 
@@ -31,22 +35,24 @@ Copy from the reference repo's tracked files (`git -C D:/code/ai/cognition ls-fi
 
 | Copy | Notes |
 |---|---|
-| `engine/**` | All of it. `palette.ts` is the old look; the art director re-tunes it. |
+| `engine/**` | All of it. `palette.ts` is the old look; the art-director specs a new one and the engine owner applies it. |
 | `player/**` | All of it. Change the page title in `player/index.html`. |
-| `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the storyboard uses them: they carry the old video's symbols. |
+| `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the visual vocabulary uses them: they carry the old video's symbols. |
 | `scenes/types.ts`, `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts` | Shared scene services. Not `thoughtTag.ts` or `titleArt.ts`: they belong to the old video. |
-| `script/types.ts` | Then edit `SpeakerId` to the new cast. Edit `SfxName` only if sounds change. |
+| `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting adds every other speaker. Keep `SfxName`; the sound engineer changes it. |
 | `voice/breeze.py`, `render.py`, `verify.py`, `transcribe.py`, `speak.py`, `manifest.ts`, `refs.ts`, `pyproject.toml`, `uv.lock` | The voice pipeline. |
 | `test/text.test.ts`, `test/voiceCoverage.test.ts` | Generic. The other tests assert on the old script's chapters; rewrite them against a small fixture script. |
 | `.wm/traits/video.ts`, `.wm/commands/**`, `wm.ts` | Workmark commands. |
 | `vite.config.ts`, `tsconfig.json`, `package.json`, `.gitignore` | Config. |
 
-## 4. Clear and rename
+## 4. Clear, rename, stub
 
-- `script/`: one stub chapter, `script/00-title.ts`, with one beat. `script/index.ts` lists it. The timeline needs at least one chapter.
-- `script/cast.ts`: only `narrator` until casting is done.
+- `script/`: one stub chapter, `script/00-title.ts`, with one beat. `script/index.ts` lists it. The timeline needs at least one chapter. Its `root` and `scale` are copied from the reference's title chapter; the sound engineer owns them.
+- `script/cast.ts`: only `narrator`.
 - `scenes/00-title.ts`: a stub `Scene` with `bg`, `accent` and an empty `draw`. `scenes/index.ts` maps `title` to it.
-- `voice/refs/`, `voice/clips/`, `voice/samples/`, `voice/manifest.json`: do not copy. They are made fresh.
+- `production/`: an empty folder with a `.gitkeep`. Add `"production"` to `include` in `tsconfig.json`, so `wm build` type-checks the storyboard files.
+- `voice/refs/`: see section 5.
+- `voice/clips/`, `voice/samples/`, `voice/manifest.json`: never copy. They are made fresh.
 - `package.json`: set `"name"`.
 - `wm.ts`: `defineProject({ name: "<project>", has: { video: true } })`.
 - `.wm/commands/**`: every command has `for: "cognition"`. Change it to the new name in all five files. This is the same edit in each file, so a scoped `sed -i` is fine; check with `git diff --stat` that each file changes by one line.
@@ -69,7 +75,16 @@ voice/vendor/
 
 Reference clips are tracked. Rendered clips are not. `voice/clips/durations.json` is tracked, so a fresh checkout or a worktree has correct timing without audio.
 
-## 5. Install
+## 5. Voice references: reuse or fresh
+
+The human says which. [Casting](../roles/casting.md) owns `voice/refs/**` and `script/cast.ts` in both cases.
+
+- **Same voices as an earlier production.** For each reused speaker, casting copies that project's `voice/refs/<speaker>.wav` and `voice/refs/<speaker>.txt` byte for byte and checks that the sha256 of each copy equals its source. It copies the speaker's cast entry (`style`, `pad`), adds the speaker id to `SpeakerId`, and records the hashes in the bible's Locks. The voices are not auditioned again. This needs no voice stack, so it can run at repo creation.
+- **New voices.** Leave `voice/refs/` empty. Casting makes each reference fresh ([voice pipeline](voice-pipeline.md) section 1).
+
+A production can mix the two: reused speakers copied, new speakers cast.
+
+## 6. Install
 
 ```bash
 pnpm install
@@ -82,18 +97,23 @@ Add `zod` explicitly. Under pnpm it is otherwise only a transitive dependency. T
 node "<vscode extensions>/ldlework.workmark-vsc-<ver>/dist/wm/node_modules/@ldlework/workmark/dist/cli.js" --introspect
 ```
 
-Then the voice stack: `engine/voice-pipeline.md`, section "Install".
+The voice stack is not installed here. The sound engineer installs it before casting needs it ([voice pipeline](voice-pipeline.md), "Install").
 
-## 6. Verify
+## 7. Close the reference gaps
+
+The reference repo does not meet the whole contract. The engine owner closes each gap in [contract](contract.md) section 11 now, each with its verify command. The documents and tools depend on them.
+
+## 8. Verify
 
 ```bash
 wm --help        # lists build, dev, test, voice:manifest, voice:render
 wm test
 wm build
-wm voice:manifest
 ```
 
-All four MUST succeed before the first commit of copied code. Report the real output. Then commit, staging by path.
+All three MUST succeed before the first commit of copied code. Report the real output. Then commit, staging by path.
+
+`wm voice:manifest` throws until every speaker has a reference clip and transcript. Run it after casting, not here.
 
 The human opens `wm dev` and checks the stub page loads. Agents do not drive the window.
 
@@ -109,5 +129,5 @@ Parallel agents each work in a git worktree under `.claude/worktrees/`. Known fr
   Agents SHOULD NOT start background servers in worktrees. Headless tools start and stop their own.
 - **No audio in a worktree.** Clips are gitignored. Timing is correct (`durations.json` is tracked), but nothing plays. Copy `voice/clips/*.wav` in if the agent needs sound.
 - **No voice stack in a worktree.** `voice/.venv`, `voice/models` and `voice/vendor` are gitignored. Render voice only in the main checkout.
-- **Merge order.** Merge the shared-kit worktree first, then the chapter worktrees. Disjoint ownership (`engine/contract.md` section 10) keeps merges clean.
+- **Merge order.** Merge the kit owner's worktree first, then the chapter worktrees. Disjoint ownership ([contract](contract.md) section 10) keeps merges clean.
 - **Clean up after each round.** `git worktree list` MUST show only the main checkout before the next round starts.

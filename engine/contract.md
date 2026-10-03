@@ -4,6 +4,8 @@ A video project MUST honor this contract. The roles, loops and tools in this ski
 
 "MUST" is a hard rule. A tool or role breaks without it. "SHOULD" is the default; break it only with a reason in the bible (`documents/bible.md`).
 
+A project that starts from a single-file prototype reaches this contract through [porting](porting.md).
+
 ## 1. Medium
 
 - The video is TypeScript drawing on one Canvas 2D element.
@@ -196,7 +198,7 @@ interface Window {
 }
 ```
 
-- `__script()` is one line in the player's debug globals: `window.__script = () => SCRIPT`. The [tools](../tools/setup.md) use it when the page has it. Without it, every tool needs `--script <path>/script/index.ts`.
+- `__script()` is one line in the player's debug globals: `window.__script = () => SCRIPT`. The [tools](../tools/setup.md) use it when the page has it. Without it, every tool needs `--script <path>/script/index.ts`. The reference repo lacks it (section 11).
 
 - The stage MUST be one `<canvas id="cv">`. Its backing width is `min(1920, clientWidth x devicePixelRatio)`; height follows 16:9. A tool sets the viewport to get the size it needs.
 - Clip lengths are served at `./durations.json`; clips at `./<clipId>.wav` (Vite `publicDir` is `voice/clips`).
@@ -206,7 +208,7 @@ interface Window {
 
 | Path | Content | Written by |
 |---|---|---|
-| `voice/refs/<speaker>.wav` + `.txt` | Frozen reference clip and its exact transcript | Casting, once |
+| `voice/refs/<speaker>.wav` + `.txt` | Frozen reference clip and its exact transcript | Casting, once: made fresh, or copied from an earlier production ([new project](new-project.md) section 5) |
 | `voice/manifest.json` | One synthesis job per clip | `wm voice:manifest` |
 | `voice/clips/<clipId>.wav` | Rendered clip (gitignored) | `wm voice:render` |
 | `voice/clips/durations.json` | `{ [clipId]: seconds }`, 3 decimals (tracked) | `wm voice:render` |
@@ -245,28 +247,32 @@ Parallel agents MUST own disjoint files. Each works in its own git worktree. In 
 
 | Files | Owner |
 |---|---|
-| `engine/**` (except `engine/audio/**` in post), `player/**`, `script/types.ts`, engine tests | One engine owner: an Opus agent on its own brief, never a chapter animator |
-| `engine/audio/**`, in post | Sound engineer |
-| `kit/**`, `scenes/shared/**` (except the board renderer) | One kit owner. Chapter teams request changes; they do not edit. |
-| `scenes/shared/board.ts`, the board fallback in `scenes/index.ts` | Editor (see `documents/animatic.md`) |
-| `script/NN-<id>.ts`: `say`, `card`, `speaker`, `stagger`, beat order and ids, `title`, `short` | Writer. These change voice or timing. |
+| `engine/**` (except `engine/audio/**` in post), `player/**`, `script/types.ts` (except `SpeakerId` and `SfxName`), `test/**` infrastructure (engine tests, the storyboard test, the card-last test), `tsconfig.json`, `vite.config.ts`, `.wm/**` | The [engine owner](../roles/engine-owner.md): one Opus agent on its own brief, never a chapter animator |
+| `SpeakerId` in `script/types.ts`, `script/cast.ts`, `voice/refs/**` | [Casting](../roles/casting.md). Frozen at cast lock; then `pad` passes to the editor. |
+| `root` and `scale` of every chapter; `SfxName`; `engine/audio/**` in post; `voice/*.py`, `voice/*.ts`, generated voice files | [Sound engineer](../roles/sound-engineer.md) |
+| `kit/**`, `scenes/shared/**` (except the board renderer) | The kit owner: one [animator](../roles/animator.md), named in the producer's brief for each round. It draws the characters and props the visual vocabulary defines. Chapter animators request changes; they do not edit. |
+| `scenes/shared/board.ts`, the board fallback in `scenes/index.ts` | [Editor](../roles/editor.md) (see [animatic](../documents/animatic.md)) |
+| Each chapter's `id`; chapter order in `script/index.ts` and `scenes/index.ts` (adding, removing, reordering chapters) | [Director](../roles/director.md) |
+| `script/NN-<id>.ts`: `say`, `card`, `speaker`, `stagger`, beat order and ids, `title`, `short` | [Writer](../roles/writer.md). These change voice or timing. |
 | `script/NN-<id>.ts`: `cam`, `camT`, `still`, `sfx`, `cues`, `dur` (a minimum) | That chapter's animator |
 | `scenes/NN-<id>.ts`, `scenes/NN-<id>.*.ts` | That chapter's animator |
-| `script/cast.ts`, `voice/refs/**` | Casting. Frozen at cast lock; then `pad` passes to the editor. |
-| `voice/*.py`, `voice/*.ts`, generated voice files | Sound engineer |
-| `script/index.ts`, `scenes/index.ts` (adding, removing, reordering chapters) | Producer, at integration |
-| `production/**` | Director, except `style-guide/visual-vocabulary.md` and the board picture fields (art-director) and `notes-ledger.md` (producer). See `documents/`. |
+| `production/**` | Director, except: the visual vocabulary's symbols and the board picture fields ([art-director](../roles/art-director.md); the director on the lean track); the vocabulary's Sounds table (sound engineer); `notes-ledger.md`, `status.md` and `checks/<role>.md` (producer; see [notes to checks](../loops/notes-to-checks.md)). The producer also appends the human's decisions to `bible.md` ([bible](../documents/bible.md)). |
 
 - A change to a shared file (kit, shared scenes, engine, types) goes to its owner as a request. The owner lands it first. Chapter work rebases on it.
-- A new symbol, term or motif goes up to the director before it is drawn (`documents/style-guide/visual-vocabulary.md`).
+- A new symbol or motif goes to the vocabulary owner before it is drawn ([visual vocabulary](../documents/style-guide/visual-vocabulary.md)). A new term goes to the director ([terminology](../documents/style-guide/terminology.md)).
 - Voice clips (`*.wav`) are gitignored. A worktree has `durations.json`, so its timing is right, but it has no audio. Copy `voice/clips/*.wav` into the worktree if the agent needs sound.
 
 ## 11. Reference repo gaps
 
-Where `D:\code\ai\cognition` does not yet meet this contract or the skill:
+Where `D:\code\ai\cognition` does not yet meet this contract or the skill. A new project copies these gaps. The engine owner closes each one in the new project ([new project](new-project.md) section 7) and reports the verify output. The board renderer is the exception: the editor builds it, before the animatic.
 
-- No `__script()` global. Tools need `--script` there.
-- No `production/` folder. The documents' filled examples were rebuilt after the fact.
-- No test that fails on a beat after a card. Three chapters break that rule (`documents/bible.md`, Open).
-- No board renderer, board fallback or storyboard test (`documents/animatic.md`, `documents/storyboard.md`).
-- Music and sound effects are not a pure function of `T`. MP4 export needs that first (`engine/export.md`).
+In the commands, `<scratch>` is the agent's scratch folder and `<tools>` is `~/.claude/skills/video-studio/tools` ([setup](../tools/setup.md)).
+
+| Gap | Close it | Verify |
+|---|---|---|
+| No `__script()` global. Tools need `--script`. | Add `window.__script = () => SCRIPT` to the player's debug globals (section 8). | `pnpm vite build --outDir <scratch>/build` in the project, then `pnpm clip-check --build <scratch>/build --out <scratch>/cc` in `<tools>`, with no `--script`. It MUST succeed. |
+| No `production/` folder, and `tsconfig.json` does not include it. Board files are never type-checked. | Make `production/`. Add `"production"` to `include`. | Put `const x: number = 'a';` in a file under `production/storyboard/`; `wm build` MUST fail. Remove it; `wm build` MUST pass. |
+| No test that fails on a beat after a card. Three chapters in the reference break that rule ([bible](../documents/bible.md) example, Open). | `test/cardLast.test.ts`: a pure check `beatsAfterCard(chapters)` over `SCRIPT`. Exceptions are beat ids listed in the test, each citing a bible entry. | `wm test` passes. The test file also runs the check on a fixture chapter with a beat after its card and expects one violation. |
+| No storyboard test and no vocabulary parser. | `test/storyboard.test.ts` with the failures in [storyboard](../documents/storyboard.md), "How it is checked". It parses the Symbols and Sounds tables of `production/style-guide/visual-vocabulary.md` ([visual vocabulary](../documents/style-guide/visual-vocabulary.md), "Format"). | `wm test` passes. Fixture cases MUST each fail: an unknown symbol id, a `{id}` in frame text not in the vocabulary, a missing `purpose`, an `SfxName` with no Sounds row. |
+| No board renderer, board fallback, `?boards` or `?purpose` flag. | `scenes/shared/board.ts` and the fallback in `scenes/index.ts`, as in [animatic](../documents/animatic.md). | `wm build` passes. `pnpm contact-sheet --url "<preview>/?boards&purpose" --out <scratch>/a` and `--url "<preview>/?boards" --out <scratch>/b`: QA looks at one sheet of each. The purpose band MUST show in `a` and MUST NOT show in `b`. |
+| Music and sound effects are not a pure function of `T`. MP4 export needs that first. | The pure `score()` in [export](export.md) section 3. | A unit test: `score()` twice on the same timeline gives equal output. Then the determinism precheck in [export](export.md) section 6. |

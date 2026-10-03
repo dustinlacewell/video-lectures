@@ -5,9 +5,6 @@ and say what they now believe. The producer compares that against the
 [spine](../documents/spine.md). The gap between what the video was meant
 to argue and what a viewer took away is the finding.
 
-Real-studio counterpart: a test screening with a recruited audience,
-followed by a structured questionnaire.
-
 ## Why it exists
 
 Chapter teams see one chapter. Nobody on a chapter team can see that
@@ -15,11 +12,9 @@ three chapters make the same point. On the reference production, the
 original video made one point three times across chapters 4–6. Only a
 reader of the whole video, in order, notices that.
 
-A cold viewer also shows which objections the video fails to answer. The
-producer of the reference production raised "the zombie loses the part
-that hurts" as an objection. The video already answered it ("the ouch,
-the recoil, the lingering dread: all of that is cognition"). If a skeptic
-raises an objection the video answers, the answer did not land.
+A cold viewer also shows which objections the video fails to answer. If
+a skeptic raises an objection the video answers, the answer did not
+land.
 
 ## When it runs
 
@@ -27,13 +22,25 @@ raises an objection the video answers, the answer did not land.
 2. **At the final cut.** Before delivery.
 
 Each run uses three new agents. Never reuse a cold viewer from an earlier
-run. Never show a cold viewer the spine, the script, the bible, or any
-production document. Once it has seen them, it is no longer cold.
+run.
+
+## The rule: cold viewers never read production documents
+
+A cold viewer reads nothing under `production/`: not the spine, bible,
+storyboard, style guide, terminology, visual vocabulary, notes ledger or
+project checks. Not the script source either. No document lists the
+cold viewer as a reader. Once it has seen any of them, it is no longer
+cold, and its run is void: spawn a new agent.
+
+The same holds for what is drawn on the frames. The board renderer's
+purpose band states each beat's intended belief, so cold-viewer contact
+sheets are captured without `?purpose`
+([animatic](../documents/animatic.md)).
 
 ## Inputs
 
 Both come from [contact-sheet](../tools/contact-sheet.md), run on the
-current build:
+current build (at the animatic: `?boards`, never `?purpose`):
 
 - **Contact sheet.** Keyframe images in time order, with time and chapter
   on each.
@@ -95,8 +102,7 @@ It produces:
 - **Belief match.** Compare answer 1 against the spine's thesis. A viewer
   who cannot state the thesis is a blocking finding.
 - **Hot spots.** Map every bored, lost, unconvinced, repeated, or confused
-  timestamp to a beat id. A beat flagged by two or more personas is
-  blocking. A beat flagged by one is a note for the human.
+  timestamp to a beat id. Rank them by the convergence rule below.
 - **Unlanded answers.** A skeptic objection the script answers (cite the
   beat id), where the skeptic said it was not answered, is blocking.
 - **Symbol confusion.** Each confused symbol, with its visual-vocabulary
@@ -105,6 +111,48 @@ It produces:
 Skeptic disagreement alone is not a defect. The skeptic may stay
 unconvinced. The defect is a step the skeptic could not follow, or an
 answer the skeptic did not see.
+
+## The convergence rule
+
+- **Two or more personas, independently.** A finding raised by two or
+  more personas about the same beats is a priority note. The personas
+  never saw each other's reports, so agreement is strong evidence.
+- **One persona.** Weigh the finding by that persona's job. A newcomer
+  lost at a term is a clarity defect. A skeptic's unanswered objection
+  is a step that did not follow. An expert's "non-standard" is a fact
+  or framing question for the human. A newcomer's view of the field, or
+  an expert's boredom, weighs little.
+
+The synthesis lists priority notes first. The producer brings them to
+the human. The skill does not judge the thesis: the human owns the
+argument, and the bible records it.
+
+## Worked example: the reference production
+
+Three cold viewers (newcomer, skeptic, expert in philosophy of mind) ran
+on a contact sheet and transcript of "What a Mind Is Made Of".
+
+Priority notes (two or more personas, independently):
+
+1. **Inventory repeats zombie.** All three personas flagged the
+   inventory chapter as a repeat of the zombie chapter.
+2. **The jump to "no moral or ethical import" is not argued.** The
+   skeptic: the video showed inner experience is causally idle; it did
+   not show it is worthless. The expert: sentientism (the view that
+   the capacity for experience grounds moral status) is a mainstream
+   position, and the video dismisses it without stating it.
+
+Single-persona notes, weighed by job (both from the expert, whose job
+is wrong or non-standard claims):
+
+3. "Form is function" reads against multiple realizability, the
+   standard view that one function can run on many different forms.
+4. The "?" icon on the AI's self-model reads as a ranking of the AI
+   below the animals, not as "unknown".
+
+All four go to the human as notes, one decision at a time. Whether
+the thesis is right is not the finding. The finding is where the video
+failed to carry these viewers, and what an expert will raise.
 
 ## From findings to notes
 

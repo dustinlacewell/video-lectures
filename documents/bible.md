@@ -4,9 +4,6 @@ The bible is the list of settled decisions. Each entry has the decision,
 the reason, and who decided it. Nothing in it is reopened without the
 human.
 
-Real-studio counterpart: the show bible, plus the decision log a
-showrunner keeps so the room does not re-argue last season.
-
 ## Why it exists
 
 In the reference production the producer relitigated settled points
@@ -16,13 +13,23 @@ judged the current file against an old snippet of that thread and claimed
 the file "didn't match the agreed order". The file was the newer version.
 There was no record of what was settled, so the agent could not know.
 
+This is the one place that story is told. Other files link here.
+
 ## Owner and flow
 
-- Owner: [director](../roles/director.md). The director writes entries.
+- Recorder: the producer. When the human states a decision, the producer
+  appends it under "Incoming" at once, in the human's words, with
+  `Source: human`. It does this before it acts on the decision. It does
+  not rephrase, merge or file it.
+- Structure: [director](../roles/director.md). Later, the director
+  files each incoming entry into its area, adds reason, scope and
+  rejected paths, and writes its own proposals. The human's words stay
+  in "Wording", verbatim. The entry keeps its id.
 - Approver: the human. An entry goes in only when the human said it, or
   approved it at a gate.
-- Readers: every role. The producer pastes the relevant entries into
-  every brief, under "decisions already made".
+- Readers: every role except [cold viewers](../loops/cold-viewer-review.md).
+  The producer pastes the relevant entries into every other brief,
+  under "decisions already made".
 - To challenge an entry, an agent writes one line to the producer: the
   entry id, and the new evidence. The producer asks the human one
   question. Agents never act against an entry while a challenge is open.
@@ -39,6 +46,10 @@ There was no record of what was settled, so the agent could not know.
 
 ```markdown
 # Bible: <video title>
+
+## Incoming
+### B<n>. <the human's words, verbatim>
+- Source: human, <session or gate>, <date>
 
 ## <area: Argument | Voice | Structure | Visuals | Pipeline>
 
@@ -59,7 +70,8 @@ There was no record of what was settled, so the agent could not know.
 ```
 
 Ids are stable. A replaced entry is marked `Superseded by B<m>`; it is
-not deleted, so the rejected path stays on record.
+not deleted, so the rejected path stays on record. "Incoming" is empty
+after each director pass.
 
 ## How it is checked
 

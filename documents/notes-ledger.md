@@ -6,10 +6,6 @@ document entry, or a taste fix. The ledger is how the producer proves
 each note became a check, so the same kind of defect does not reach the
 human twice.
 
-Real-studio counterpart: the notes log a production coordinator keeps
-after each dailies or review session, with who owns each note and when
-it closed.
-
 ## Why it exists
 
 The human's notes in the reference production came as one dense list
@@ -26,7 +22,7 @@ the [notes-to-checks loop](../loops/notes-to-checks.md).
 - Classifier: [director](../roles/director.md). Splits notes into atoms
   and picks class and outcome, as in the loop.
 - Each atom's outcome is carried out by the owner of the target file
-  (role checklist, tool, document). The producer briefs that owner; it
+  (project checklist, tool, document). The producer briefs that owner; it
   does not edit the target itself.
 - [QA](../roles/qa.md) closes a row only when the fix is verified and
   the check exists at the path given.
@@ -55,8 +51,9 @@ Rules:
 
 - One row per atom. A note with three defects is three rows sharing the
   note text.
-- "Produces" names a path: a checklist line in a role file, a tool file,
-  a test, or a document entry id. "Taste" rows name the writing rule
+- "Produces" names a path: a checklist line in
+  `production/checks/<role>.md`, a tool file, a test, or a document
+  entry id. "Taste" rows name the writing rule
   they fed, if any.
 - A note that matches an existing check is a failed check. Mark the
   outcome "check failed: <path>" and fix the checklist line, not only
@@ -87,13 +84,13 @@ From the real notes rounds. Timestamps were not recorded; beat ids are.
 
 | Id | Note (verbatim) | Atom | Where | Class | Outcome | Produces | Status |
 |---|---|---|---|---|---|---|---|
-| R1-1 | "particle"→"particles" | wrong grammatical number in a claim | physics.atoms | precision | checklist | roles/script-editor.md: number and agreement; writing W2 | verified |
-| R1-2 | close-up domino half off screen | prop crosses frame edge | physics.atoms | framing | tool | tools/frame-sweep.md: sweep props, not only text | verified |
+| R1-1 | "particle"→"particles" | wrong grammatical number in a claim | physics.atoms | precision | checklist | production/checks/script-editor.md: number and agreement; writing W2 | verified |
+| R1-2 | close-up domino half off screen | prop crosses frame edge | physics.atoms | framing | checklist | production/checks/animation-supervisor.md: a prop crosses the frame edge (frame-sweep sees only text and images, not props drawn as paths) | verified |
 | R1-3 | three green checkmarks while "searching for other forces" unclear | symbol with no fixed meaning | physics.laws | clarity | document | visual-vocabulary `check` | verified (probe + label) |
 | R1-4 | cut "same play, different performance" | decorative metaphor, second example | form.marble | taste | taste | writing W6 | verified |
 | R1-5 | extra panel after a chapter's conclusion card breaks the standard of the video | beat after a card | form.back | rhythm | structural | test: no beat after a card; bible B13 | open: body.name, words.claim, inventory still break it |
-| R1-6 | brain should show constant background neural activity | picture begs the question the line answers | body.brain | consistency | checklist | roles/animation-supervisor.md: picture contradicts or begs the line; bible B17 | verified |
-| R1-7 | saw/learned/wanted shouldn't sit on one neuron | picture claims more than the line | body.trace | precision | checklist | roles/animation-supervisor.md; bible B18 | verified |
+| R1-6 | brain should show constant background neural activity | picture begs the question the line answers | body.brain | consistency | checklist | production/checks/animation-supervisor.md: picture contradicts or begs the line; bible B17 | verified |
+| R1-7 | saw/learned/wanted shouldn't sit on one neuron | picture claims more than the line | body.trace | precision | checklist | production/checks/animation-supervisor.md; bible B18 | verified |
 | R1-8 | arms render behind eyes/mouth | draw order in the shared bean | all beans | framing | structural | kit/bean.ts draws arms over the face | verified |
 | R1-9 | use the spirit instead of the ghost | one character per concept | body.nogap | consistency | document | bible B16; visual-vocabulary `visitor` | verified |
 | R1-10 | "nothing it is like" contradicts the zombie reporting experience | stipulation contradicted by a later line | zombie.diff | consistency | document + checklist | bible B4; writing W4 | verified |

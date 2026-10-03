@@ -4,9 +4,6 @@ How the narration and the characters sound on the page. A voice profile
 you can measure, and rules. Each rule is backed by a pair: a draft line
 and the human's fix.
 
-Real-studio counterpart: the house style sheet a story editor keeps,
-plus the series' "voice" notes for each character.
-
 ## Why it exists
 
 Most of the human's notes in the reference production were about
@@ -19,13 +16,12 @@ repeats the same class of error and the human pays for it again.
 
 - Owner: [director](../../roles/director.md).
 - Readers: [writer](../../roles/writer.md),
-  [script-editor](../../roles/script-editor.md),
-  [cold-viewer](../../roles/cold-viewer.md) (only the profile, to judge
-  tone).
+  [script-editor](../../roles/script-editor.md). Never a
+  [cold viewer](../../loops/cold-viewer-review.md).
 - New rules come from the [notes-to-checks loop](../../loops/notes-to-checks.md):
   two pairs that show the same move, or one pair where the human states
-  the rule. The director writes the rule; the script-editor adds a
-  checklist line that detects a breach.
+  the rule. The director writes the rule; the producer adds a line that
+  detects a breach to `production/checks/script-editor.md`.
 - Writers may propose a rule. They may not change one.
 
 ## Where it lives
@@ -40,6 +36,7 @@ repeats the same class of error and the human pays for it again.
 ## Voice profile
 - Narrator: <who, in a phrase the casting brief can reuse>
 - Sentences: mean <n> words, max <n>; share of fragments <n>%
+- Pace: about <n> words per second of runtime (plan chapter lengths with it)
 - Person: <you / we / they>
 - Register: <plain, dry, ...>; humor: <where, how much>
 - Characters: <id>: <how they talk>
@@ -58,7 +55,8 @@ repeats the same class of error and the human pays for it again.
 - Sentence length and fragment share are measured by script, not
   judged: split `say` on sentence ends and count words.
 - The human's next notes round is the real test. A note that matches an
-  existing rule means the check failed; fix the checklist line.
+  existing rule means the check failed; fix the line in
+  `production/checks/script-editor.md`.
 
 ## Filled example: "What a Mind Is Made Of"
 
@@ -72,6 +70,8 @@ of the original page). The fixes are the human's.
 - Narrator: posh British woman, mid-30s, dry and wry.
 - Sentences: mean 6.5 words, max 18. 45 of 114 narrated sentences have
   four words or fewer ("A spirit." "Nothing." "Take a lever.").
+- Pace: about 2 words per second of runtime (826 words in 7:05 on the
+  real clips).
 - Person: "you" for the viewer. "Let's" when we do something together.
 - Register: plain and concrete. An object comes before the abstraction
   (a domino before causal closure, a lever before "form is function").

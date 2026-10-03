@@ -24,11 +24,13 @@ Each structure fixes a defect that reached the human.
 | Mid-sound ending check | Some takes stopped mid-syllable. |
 | Tail margin + fade on trim | A tight trim cut soft final consonants and breaths. |
 | Clip plays to its own end | The player stopped clips on its own clock, 20–80 ms early. The human heard lines cut off. |
-| Voice rendered before animation | Animation timed to a word-count guess. Real narration changed runtime from 9:42 to 7:05, and nobody chose that pacing. |
+| Voice rendered before animation | Animation timed to a word-count guess, and real narration changed the pacing with no one choosing it ([voice phase](../phases/voice.md)). |
 
 ## 1. Cast and reference clips
 
-Files: `script/cast.ts`, `voice/refs/<speaker>.wav`, `voice/refs/<speaker>.txt`.
+Files: `script/cast.ts`, `voice/refs/<speaker>.wav`, `voice/refs/<speaker>.txt`. [Casting](../roles/casting.md) owns them and the `SpeakerId` type.
+
+A speaker the human wants to keep from an earlier production is copied, not cast again ([new project](new-project.md) section 5). The steps below are for a new voice.
 
 How to pick a voice:
 
@@ -39,7 +41,7 @@ How to pick a voice:
 3. The human listens and picks one file. Agents MUST NOT pick a voice.
 4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav`. Aim for 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
 5. Transcribe it: `uv run transcribe.py refs/<speaker>.wav`. Correct the text against what is actually said, word for word, fillers included. Save it as `voice/refs/<speaker>.txt`.
-6. Add the speaker to `SpeakerId` in `script/types.ts` and to `CAST`.
+6. Casting adds the speaker to `SpeakerId` in `script/types.ts` and to `CAST`.
 
 Rules:
 

@@ -5,26 +5,20 @@ storyboard board, timed by the real voice clips, with captions. The human
 watches it in the normal player and signs off structure and pacing while
 changes are still cheap.
 
-Real-studio counterpart: the animatic (leica reel). Boards cut to the
-recorded dialogue track. Studios lock it before animation because a
-cut frame of animation costs days and a cut board costs nothing.
-
 ## Why it exists
 
-In the reference production, animation existed before voice. When real
-narration replaced the word-count estimate, the runtime went from 9:42
-to 7:05. Nobody chose that pacing change. It just happened, and every
-animator had already timed motion to beat lengths that no longer
-existed. An animatic makes pacing a decision the human takes, on the
-real clips, before anyone animates.
+In the reference production, animation existed before voice, and real
+narration changed the pacing with no one choosing it
+([voice phase](../phases/voice.md)). An animatic makes pacing a decision
+the human takes, on the real clips, before anyone animates.
 
 ## Owner and flow
 
 - Builder: [editor](../roles/editor.md). Builds the cut, owns the board
   renderer and the registry fallback (the placeholder scenes), and runs
   the tools on it. It uses the kit read-only.
-- Boards: the [art-director](../roles/art-director.md) supplies the
-  picture fields the renderer draws.
+- Boards: the [art-director](../roles/art-director.md) (the director on
+  the lean track) supplies the picture fields the renderer draws.
 - Review record owner: [director](../roles/director.md).
 - Sign-off: the human, at the gate in [animation](../phases/animation.md).
 - Changes found here go to their owners: script lines to the
@@ -40,9 +34,20 @@ needs three small additions.
 1. **Board renderer.** `scenes/shared/board.ts` is a normal scene. For
    the current beat it draws the chapter background, then the board's
    still if it has one, else its `figures` posed with the real kit (the
-   vocabulary id picks the kit function). On top: a thin band with the
-   beat id and the board's purpose. Captions come from the engine as
-   usual. It is a pure function of time like every other scene.
+   vocabulary id picks the kit function). A figure whose id has no kit
+   function yet (a PROPOSED row in the vocabulary) draws as a labelled
+   box with its id, so boards work before the kit round. Captions come
+   from the engine as usual. It is a pure function of time like every
+   other scene.
+
+   **The purpose band.** With `?purpose` in the URL, the renderer draws
+   a thin band with the beat id and the board's purpose. Without the
+   flag it draws no band. This is a contract rule:
+   - The band is for the human and the director.
+   - The purpose is the spine's chapter job in viewer-belief form. A
+     cold viewer who reads it is no longer cold. Contact sheets for
+     [cold viewers](../loops/cold-viewer-review.md) MUST be captured
+     without `?purpose`.
 2. **Fallback in the scene registry.** `scenes/index.ts` returns the
    board scene for any chapter that has no animated scene yet. A URL flag
    (`?boards`) forces boards for every chapter. As chapters are
@@ -62,10 +67,12 @@ runs on the animatic unchanged:
   static boards; ignore it here.)
 - [contact-sheet](../tools/contact-sheet.md): board frames plus the
   timestamped transcript, for [cold viewers](../loops/cold-viewer-review.md).
+  Captured with `?boards` and without `?purpose`.
 
 ## How the human reviews it
 
-In the normal player, with sound, start to finish, once. The scrubber's
+In the normal player, with sound, start to finish, once. The URL has
+`?purpose`, so the human sees what each board is meant to do. The scrubber's
 chapter ticks let them jump back. They do not read files. The producer
 then gives one decision at a time (see the gate in
 [animation](../phases/animation.md)). Notes go to the
@@ -108,7 +115,7 @@ produced on the real clips, against the weights in the
 # Animatic review: What a Mind Is Made Of
 
 - Build: (none; reconstructed)
-- Runtime: 7:06. Earlier estimate: 9:42.
+- Runtime: 7:05.
 - Chapters: physics 58 s (14%, weight 12%); form 49 s (12%, 10%);
   body 45 s (11%, 12%); words 55 s (13%, 12%); zombie 63 s (15%, 15%);
   inventory 52 s (12%, 10%); subtract 38 s (9%, 9%); animals 60 s (14%, 20%)
@@ -123,8 +130,8 @@ produced on the real clips, against the weights in the
 
 Two decisions would have reached the human here, one at a time:
 
-1. "Real voice runs 7:06, not 9:42. Keep the tighter pace? I recommend
-   yes; the extra time was estimate error, not content."
+1. The runtime on real voice, against the estimate
+   ([voice phase](../phases/voice.md)): keep the new pace?
 2. "The animals chapter carries three claims in one minute. Split it
    into two chapters, or give the trivia claim its own card? I recommend
    splitting."

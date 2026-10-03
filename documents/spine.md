@@ -5,9 +5,6 @@ gives each chapter one job: what the viewer believes when the chapter
 ends. It also lists setups and payoffs, motifs, and each chapter's share
 of the runtime.
 
-Real-studio counterpart: the beat sheet, or the story map on the wall of
-a writers' room.
-
 ## Why it exists
 
 Chapter teams see one chapter. They cannot see that two chapters make the
@@ -19,8 +16,8 @@ chapters with the same job are two identical lines.
 ## Owner and flow
 
 - Owner: [director](../roles/director.md). Only the director edits it.
-- Readers: every role. Writers and animators read their chapter's job
-  before they start.
+- Readers: every role except [cold viewers](../loops/cold-viewer-review.md).
+  Writers and animators read their chapter's job before they start.
 - Changes flow up. A writer or animator who thinks a chapter's job must
   change sends a proposal to the director. The director decides small
   changes. A change to the thesis, the chain of claims, or a chapter's
@@ -79,6 +76,9 @@ Rules for the format:
 - Every new term or symbol a claim needs is planted before the claim.
 - Weight is set before voice. After voice, write the measured seconds
   next to it. A gap of more than half the weight is a defect.
+- Before voice, estimate seconds from words at about 2 words per second
+  of runtime (the reference: 826 words in 7:05). The engine's word-count
+  heuristic runs about 30% long; do not plan with it.
 
 ## How it is checked
 
@@ -97,7 +97,7 @@ Rules for the format:
 
 The production had no spine. This is the spine rebuilt from the final
 script. Weights are what a director would have set; measured runtimes
-come from the real voice clips (7:06 total).
+come from the real voice clips (7:05 total).
 
 ```markdown
 # Spine: What a Mind Is Made Of

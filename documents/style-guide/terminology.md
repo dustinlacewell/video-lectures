@@ -4,9 +4,6 @@ One term for one thing. The table fixes each key term's single meaning,
 the exact words to use for it, the words not to use, and the beat where
 the viewer first meets it.
 
-Real-studio counterpart: the series glossary, and the house style sheet
-a copy editor checks every script against.
-
 ## Why it exists
 
 An argument video lives on its terms. If "inner experience",
@@ -22,8 +19,8 @@ agents also wrote on-screen labels with no shared list to check against.
 - Readers: [writer](../../roles/writer.md),
   [script-editor](../../roles/script-editor.md),
   [art-director](../../roles/art-director.md) and
-  [animator](../../roles/animator.md) (on-screen labels count),
-  [cold-viewer](../../roles/cold-viewer.md) (domain-expert persona).
+  [animator](../../roles/animator.md) (on-screen labels count).
+  Never a [cold viewer](../../loops/cold-viewer-review.md).
 - A new term, or a new meaning for an old one, goes up to the director.
   A writer never introduces a key term in a chapter's draft without a
   row here.
@@ -61,8 +58,9 @@ defect.
 - [Script-editor](../../roles/script-editor.md): a key term used before
   its "First met" beat; a term used with a second meaning. Evidence: the
   beat id and the quoted line.
-- [Cold-viewer](../../roles/cold-viewer.md), domain-expert persona:
-  reports any term it read as two things.
+- [Cold viewer](../../loops/cold-viewer-review.md), domain-expert
+  persona: reports any term it read as two things. It never reads this
+  table; the synthesis agent compares its report with the rows.
 
 ## Filled example: "What a Mind Is Made Of"
 

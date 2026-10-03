@@ -6,9 +6,6 @@ symbols it uses. In a code-animated project the boards are data, so the
 player can draw them as an [animatic](animatic.md) before any scene is
 animated.
 
-Real-studio counterpart: the storyboard, panel by panel, pinned up and
-pitched before layout and animation start.
-
 ## Why it exists
 
 - In the reference production, animators worked from the script line
@@ -18,7 +15,7 @@ pitched before layout and animation start.
   wanted drawn on one neuron; a brain with no background activity, which
   made "fired because others fired first" beg the question. A board with
   a stated purpose gives the critic something to check the frame against.
-- Chapter agents invented symbols locally. A board lists its symbols by
+- Chapter agents invented symbols locally. A board names its symbols by
   [visual vocabulary](style-guide/visual-vocabulary.md) id, so a new
   symbol shows up as an unknown id before anyone draws it.
 - Boards are what the animatic shows. Without them the first time
@@ -28,18 +25,23 @@ pitched before layout and animation start.
 
 - Owner: [director](../roles/director.md). Writes `purpose` for every
   beat first, from the spine.
-- Picture fields: [art-director](../roles/art-director.md). Fills in
-  `frame`, `camera`, `symbols`, `figures`, `still`. The two work in turn
-  on a chapter file, never at once, so each file has one writer at a time.
-- Critic: the director checks each chapter's boards against the
-  [spine](spine.md) and the vocabulary in a
+- Picture fields: [art-director](../roles/art-director.md); on the lean
+  track, the director. Fills in `frame`, `camera`, `symbols`, `figures`,
+  `still`. Purpose and picture fields are written in turn on a chapter
+  file, never at once, so each file has one writer at a time.
+- Critic: the director, with the board checklist below, in a
   [maker-critic loop](../loops/maker-critic.md).
 - Readers: [animator](../roles/animator.md) (the board is the brief for
   the beat), [animation-supervisor](../roles/animation-supervisor.md)
-  (checks the finished frame against the board's purpose).
+  (checks the finished frame against the board's purpose). Never a
+  [cold viewer](../loops/cold-viewer-review.md).
+- A picture needs a symbol that has no vocabulary row: the board's
+  writer stops and proposes the row to the vocabulary owner. The board
+  uses the id only after the row exists (it may be PROPOSED, not yet
+  drawn).
 - After animation starts, an animator who wants a different picture
   proposes it to the director. A purpose change goes to the director; a
-  new symbol goes to the art-director first.
+  new symbol goes to the vocabulary owner first.
 
 ## Where it lives
 
@@ -52,6 +54,9 @@ pitched before layout and animation start.
 - Parallel art-director agents may each own one chapter file. The types
   file has one owner.
 
+`tsconfig.json` MUST include `production`, so `wm build` type-checks the
+boards ([engine contract](../engine/contract.md) section 11).
+
 The spoken line is not copied into the board. The renderer reads it from
 the script by beat id, so a reworded line never makes a board stale.
 
@@ -63,11 +68,11 @@ the script by beat id, so a reworded line never makes a board stale.
 export interface Board {
   /** What the viewer must understand when this beat ends. One sentence. */
   purpose: string;
-  /** What is on screen, in words: who, where, doing what. */
+  /** What is on screen, in words. Every drawn element is written {id}. */
   frame: string;
   /** Framing and movement, in words. Once animated, the script's `cam` is the truth. */
   camera: string;
-  /** Ids from production/style-guide/visual-vocabulary.md. */
+  /** Every vocabulary id the frame and figures use. */
   symbols: string[];
   /** Rough placement, drawn by the board renderer with the real kit. */
   figures?: Figure[];
@@ -88,25 +93,55 @@ Rules:
 - `purpose` is a belief or an understanding, not an action. "The
   viewer sees the spark go out" is a frame. "The viewer understands the
   zombie lacks only inner experience" is a purpose.
+- **Symbols by id.** In `frame`, every drawn element that carries
+  meaning is written as its vocabulary id in braces: `{door}`,
+  `{host-hand}`. Plain words describe only position, motion and timing.
+  Text that appears on screen is quoted: `"no extra push found"`.
+- `symbols` lists every `{id}` in `frame` and every figure id.
 - `figures` uses vocabulary ids. The renderer maps each id to its kit
   function, so boards show the real characters, posed still.
 
 ## How it is checked
 
-- A unit test, `test/storyboard.test.ts`, fails when: a beat with a
-  `say` has no board; a board key is not a beat id; a symbol or figure id
-  is not in the vocabulary table. Cheap, exact, runs on every change.
-- [Director](../roles/director.md), per chapter: a purpose that does not
-  serve the chapter's spine job; two adjacent beats with the same
-  purpose (one can probably go); a purpose the line does not support.
-- [Animation-supervisor](../roles/animation-supervisor.md), after
-  animation: the rendered frame at the beat's end does not show the
-  purpose. Evidence: screenshot path and the purpose text.
+**The storyboard test**, `test/storyboard.test.ts`. Cheap, exact, runs
+on every `wm test`. It parses the Symbols table of
+`production/style-guide/visual-vocabulary.md` (format in
+[visual vocabulary](style-guide/visual-vocabulary.md)) and fails when:
+
+1. a beat with a `say` has no board;
+2. a board key is not a beat id;
+3. a board's `purpose` is missing or empty;
+4. a `{id}` in `frame`, a `symbols` id or a figure id is not in the
+   vocabulary;
+5. a `{id}` in `frame` is missing from `symbols`;
+6. a `frame` has no `{id}` at all.
+
+The test sees only marked ids. The mark rule is what makes an undefined
+symbol visible. In the dry run of this skill, boards passed a test that
+checked only `symbols`, while their frame text named an "arrow" with no
+vocabulary row. Under the mark rule the writer must write `{arrow}`,
+and the test fails; or leaves "arrow" bare, and the director's item 4
+below fails it.
+
+**The terminology grep** ([terminology](style-guide/terminology.md))
+also runs on quoted text in `frame`. A quoted label is on-screen text.
+
+**The director's board checklist**, per chapter. Each failure cites the
+beat id and quotes the field.
+
+1. A purpose that does not serve the chapter's [spine](spine.md) job.
+2. Two adjacent beats with the same purpose (one can probably go).
+3. A purpose the line does not support.
+4. A frame that names a drawn element in plain words, with no `{id}`.
+
+**[Animation-supervisor](../roles/animation-supervisor.md)**, after
+animation: the rendered frame at the beat's end does not show the
+purpose. Evidence: screenshot path and the purpose text.
 
 ## Filled example: "What a Mind Is Made Of"
 
 Boards the art-director would have written. The first is the beat where
-the real production went wrong.
+the real production went wrong. As first drafted:
 
 ```ts
 // production/storyboard/01-physics.ts
@@ -115,17 +150,26 @@ import type { Boards } from './types';
 export const boards: Boards = {
   'physics.laws': {
     purpose: 'Physicists searched matter for any other push and found none.',
-    frame: 'The domino close-up stays. A probe drifts across the particle lattice; a label pops: "no extra push found".',
+    frame: 'The {lattice} close-up stays. Three {check} marks pop over it, one per law.',
     camera: 'Close on the left domino, slow pull back.',
     symbols: ['lattice', 'check']
   }
 };
 ```
 
-The director's pass on this board fails it: `check` is not "tested" in
-the vocabulary. The fix (a probe and a label, no checkmark) is what the
-human asked for in the notes round. With a board, it happens before
-anyone animates it.
+The test passes it: both ids are in the vocabulary. The director's pass
+fails it on item 3: `check` does not mean "tested" in the vocabulary,
+so the picture does not support the line. The fix is a new row,
+`probe` ("instruments looking for a push"), proposed to the
+art-director. The board becomes:
+
+```ts
+frame: 'The {lattice} close-up stays. A {probe} drifts across it; a label pops: "no extra push found".',
+symbols: ['lattice', 'probe']
+```
+
+That is what the human asked for in the notes round. With a board, it
+happens before anyone animates it.
 
 ```ts
 // production/storyboard/05-zombie.ts
@@ -134,27 +178,27 @@ import type { Boards } from './types';
 export const boards: Boards = {
   'zombie.copy': {
     purpose: 'The zombie is an exact physical copy of you.',
-    frame: 'You stand left. A cyan scan line sweeps down you and, in step, builds an identical figure on the right. ZOMBIE tag pops.',
+    frame: '{you-bean} stands left. A {scan} sweeps down you and, in step, builds an identical {zombie-bean} on the right. A {name-tag} ZOMBIE pops. {thought-tag} top left.',
     camera: 'Two-shot, both figures full height.',
     symbols: ['you-bean', 'zombie-bean', 'scan', 'name-tag', 'thought-tag'],
     figures: [{ id: 'you-bean', x: 400, y: 600, s: 1.55 }, { id: 'zombie-bean', x: 880, y: 600, s: 1.55, note: 'half scanned' }]
   },
   'zombie.diff': {
     purpose: 'The zombie lacks one thing only: inner experience, by stipulation.',
-    frame: 'A lit star above each head. The zombie\'s flickers and goes out to a dashed outline. Labels: "inner experience", "no inner experience".',
+    frame: 'A lit {star} above each head. The {zombie-bean}\'s star flickers and goes out to the unlit form. Labels: "inner experience", "no inner experience". {thought-tag} stays.',
     camera: 'Same two-shot.',
     symbols: ['you-bean', 'zombie-bean', 'star', 'thought-tag'],
     figures: [{ id: 'you-bean', x: 400, y: 600 }, { id: 'zombie-bean', x: 880, y: 600 }, { id: 'star', x: 400, y: 236 }, { id: 'star', x: 880, y: 236, note: 'unlit' }]
   },
   'zombie.yes': {
     purpose: 'You and the zombie give the same answer, in the same voice.',
-    frame: 'Both mouths move together, a quarter second apart. Two identical bubbles.',
+    frame: '{you-bean} and {zombie-bean} speak together, a quarter second apart. Two identical {bubble}s. {thought-tag} stays.',
     camera: 'Same two-shot.',
     symbols: ['you-bean', 'zombie-bean', 'bubble', 'thought-tag']
   },
   'zombie.must': {
     purpose: 'The same answer has the same physical causes in both.',
-    frame: 'A small brain lights in each head with the same firing pattern. Between them: "same response", an arrow up from "same physics".',
+    frame: 'A small {brain} lights in each head with the same firing pattern. Between them: "same response", an {arrow} up from "same physics". {thought-tag} stays.',
     camera: 'Same two-shot.',
     symbols: ['brain', 'arrow', 'thought-tag']
   }
