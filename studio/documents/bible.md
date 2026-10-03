@@ -94,7 +94,7 @@ after each director pass.
 An excerpt. The production kept no bible while it was made; this one was
 written afterwards from the human's real decisions in the session and
 the notes rounds. Full real version:
-`D:\code\ai\cognition\production\bible.md` (B1–B22).
+`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\bible.md` (B1–B22).
 
 ```markdown
 # Bible: What a Mind Is Made Of

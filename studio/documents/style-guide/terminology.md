@@ -67,7 +67,7 @@ defect.
 The production had no terminology table while it was made. This one
 was built afterwards from the final script; the lines it quotes are
 real. Full real version:
-`D:\code\ai\cognition\production\style-guide\terminology.md`.
+`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\style-guide\terminology.md`.
 
 ```markdown
 # Terminology: What a Mind Is Made Of

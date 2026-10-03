@@ -1,6 +1,6 @@
 # MP4 export
 
-> **NOT BUILT. This is a proposal.** No exporter exists in the reference repo (`D:\code\ai\cognition`). The audio part needs an engine change first (section 3). Build it as its own job, with a design pass and an adversary.
+> **NOT BUILT. This is a proposal.** No exporter exists in the reference repo (`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of`). The audio part needs an engine change first (section 3). Build it as its own job, with a design pass and an adversary.
 
 Goal: one MP4 that matches the live player frame for frame and sample for sample, plus a chapters list and a captions file for YouTube.
 

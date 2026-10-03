@@ -99,7 +99,7 @@ Rules for the format:
 An excerpt. The production had no spine while it was made. This one is
 rebuilt from the final script. Weights are what a director would have
 set; measured seconds come from the real voice clips (7:06.2 total).
-Full real version: `D:\code\ai\cognition\production\spine.md` (all
+Full real version: `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\spine.md` (all
 eight chapters and every known defect).
 
 ```markdown

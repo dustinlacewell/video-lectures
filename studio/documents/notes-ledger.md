@@ -90,7 +90,7 @@ in [cold-viewer review](../loops/cold-viewer-review.md) plus the tool
 runs on the same cut; its human questions are not answered yet. Rounds 1
 and 2 come from the human's real notes; timestamps were not recorded,
 beat ids were. Full real version:
-`D:\code\ai\cognition\production\notes-ledger.md` (29 rows in round 3).
+`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\notes-ledger.md` (29 rows in round 3).
 The real file predates the "Verified on frame" column and marks closed
 rows `verified`; the cells of that column below come from the same
 frames and transcript.

@@ -122,7 +122,7 @@ does.
 
 An excerpt, inventoried from `scenes/`, `kit/`, `engine/` and `script/`
 in the final build. Full real version:
-`D:\code\ai\cognition\production\style-guide\visual-vocabulary.md`
+`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\style-guide\visual-vocabulary.md`
 (every symbol, sound, badge and conflict).
 
 ```markdown

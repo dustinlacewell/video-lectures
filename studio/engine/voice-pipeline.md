@@ -1,6 +1,6 @@
 # The voice pipeline
 
-How lines in the script become WAV clips that set the video's timing. Built and used in `D:\code\ai\cognition`. File shapes are in `engine/contract.md` sections 3, 4 and 9.
+How lines in the script become WAV clips that set the video's timing. Built and used in `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of`. File shapes are in `engine/contract.md` sections 3, 4 and 9.
 
 ## The flow
 

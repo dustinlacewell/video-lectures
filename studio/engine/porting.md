@@ -1,6 +1,6 @@
 # Porting a single-file prototype
 
-How to turn a prototype video (one HTML file with a canvas and inline script) into a project that honors the [engine contract](contract.md), with proof that nothing on screen changed. The reference video started this way: a 1,680-line HTML file, ported into `D:\code\ai\cognition` at commit `10736a2`.
+How to turn a prototype video (one HTML file with a canvas and inline script) into a project that honors the [engine contract](contract.md), with proof that nothing on screen changed. The reference video started this way: a 1,680-line HTML file, ported into `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` at commit `10736a2`.
 
 The port changes the code's shape only. Every intentional change waits until the port is proven and committed.
 
@@ -40,7 +40,7 @@ The harvest reads the prototype and the human's material. It writes only `produc
 
 ## The parity tool
 
-One temporary file in the video repo, `tools/parity.ts`, about 190 lines. Recover the reference version with `git -C D:\code\ai\cognition show 10736a2:tools/parity.ts` and adapt it. Its design:
+One temporary file in the video repo, `tools/parity.ts`, about 190 lines. Recover the reference version with `git -C D:\code\ai\video-lectures\videos\what-a-mind-is-made-of show 10736a2:tools/parity.ts` and adapt it. Its design:
 
 - **Command.** `.wm/commands/parity.ts` runs `pnpm vite build`, then `node tools/parity.ts`. Env: `ORIGINAL_HTML` (path to the prototype), `PARITY_DPR` (default 2).
 - **Pages.** Vite `preview` serves the build. The prototype opens from `file://`. Both open in one headless Chromium context: viewport 1280 x 900, `deviceScaleFactor` 2.

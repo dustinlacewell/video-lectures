@@ -111,7 +111,7 @@ Owned by the director.
 
 The production had no animatic. This is the record it would have
 produced on the real clips, against the spine's weights (full real
-spine: `D:\code\ai\cognition\production\spine.md`).
+spine: `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\spine.md`).
 
 ```markdown
 # Animatic review: What a Mind Is Made Of

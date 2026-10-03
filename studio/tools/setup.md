@@ -51,7 +51,7 @@ Web fonts load from the network. Offline runs fall back to system fonts, and tex
 1. `window.__script()` on the page ([engine contract](../engine/contract.md) section 8). The tools use it when the page has it.
 2. `--script <project>\script\index.ts`. The tools import it with tsx. It must export the chapter array as `SCRIPT` or `default`, and import nothing that needs a browser.
 
-With neither, the tool stops with exit 2 and a message naming both. A project made before `__script()` existed (the cognition reference is one) needs `--script`.
+With neither, the tool stops with exit 2 and a message naming both. A project made before `__script()` existed (the reference video, what-a-mind-is-made-of, is one) needs `--script`.
 
 ## What the tools read
 

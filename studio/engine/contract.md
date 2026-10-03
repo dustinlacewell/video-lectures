@@ -1,6 +1,6 @@
 # The engine contract
 
-A video project MUST honor this contract. The roles, loops and tools in this skill depend on it. The reference implementation is `D:\code\ai\cognition` (commit `1b6be63`). Type shapes below are copied from it.
+A video project MUST honor this contract. The roles, loops and tools in this skill depend on it. The reference implementation is `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` (commit `1b6be63`). Type shapes below are copied from it.
 
 "MUST" is a hard rule. A tool or role breaks without it. "SHOULD" is the default; break it only with a reason in the bible (`documents/bible.md`).
 
@@ -202,7 +202,7 @@ interface Window {
 - `__script()` is one line in the player's debug globals: `window.__script = () => SCRIPT`. The [tools](../tools/setup.md) use it when the page has it. Without it, every tool needs `--script <path>/script/index.ts`. The reference repo lacks it (section 11).
 
 - The stage MUST be one `<canvas id="cv">`. Its backing width is `min(1920, clientWidth x devicePixelRatio)`; height follows 16:9. A tool sets the viewport to get the size it needs.
-- Clip lengths are served at `./durations.json`; clips at `./<clipId>.wav` (Vite `publicDir` is `voice/clips`).
+- Clip lengths are served at `<base>durations.json`; clips at `<base><clipId>.wav`, where `<base>` is `import.meta.env.BASE_URL` (Vite `publicDir` is `voice/clips`). The site serves a video at `/<slug>/`, so a relative or root URL breaks there.
 - Global beat id `= chapterId + '.' + key`. Absolute beat start `= chapter.start + beat.start`.
 
 ## 9. Files and commands
@@ -211,7 +211,7 @@ interface Window {
 |---|---|---|
 | `voice/refs/<speaker>.wav` + `.txt` | Frozen reference clip and its exact transcript | Casting, once: made fresh, or copied from an earlier production ([new project](new-project.md) section 5) |
 | `voice/manifest.json` | One synthesis job per clip | `wm voice:manifest` |
-| `voice/clips/<clipId>.wav` | Rendered clip (gitignored) | `wm voice:render` |
+| `voice/clips/<clipId>.wav` | Rendered clip (tracked: the site build needs it) | `wm voice:render` |
 | `voice/clips/durations.json` | `{ [clipId]: seconds }`, 3 decimals (tracked) | `wm voice:render` |
 | `voice/clips/index.json` | `{ [clipId]: "<hash>.r<renderVersion>" }` | `wm voice:render` |
 | `voice/clips/failures.json` | `{ [clipId]: "what is still wrong" }` | `wm voice:render` |
@@ -232,13 +232,14 @@ interface ManifestEntry {
 }
 ```
 
-Workmark commands (each binds the project with `for: "<project>"`):
+Workmark commands live once, at the monorepo root (`D:\code\ai\video-lectures\.wm`). Each video command takes the video's slug as its project argument. Run them from anywhere in the repo. In this skill's docs, a bare `wm test` means `wm test <slug>`.
 
-- `wm dev` — Vite dev server (interactive).
-- `wm build` — `tsc --noEmit`, then `vite build` into `dist/`.
-- `wm test` — `vitest run`.
-- `wm voice:manifest` — write `voice/manifest.json`.
-- `wm voice:render` — manifest, then synthesize every missing or stale clip.
+- `wm dev <slug>` — Vite dev server (interactive).
+- `wm build <slug>` — `tsc --noEmit`, then `vite build` into the video's `dist/`.
+- `wm test <slug>` — `vitest run`.
+- `wm voice:manifest <slug>` — write `voice/manifest.json`.
+- `wm voice:render <slug>` — manifest, then synthesize every missing or stale clip.
+- `wm site:build` — every video at `dist/<slug>/` plus the series index, into the root `dist/`. `site:dev` and `site:preview` serve it.
 
 Generated files MUST NOT be edited by hand.
 
@@ -264,7 +265,7 @@ Parallel agents MUST own disjoint files. Each works in its own git worktree. In 
 
 ## 11. Reference repo gaps
 
-Where `D:\code\ai\cognition` does not yet meet this contract or the skill. A new project copies these gaps. The engine owner closes each one in [preproduction](../phases/preproduction.md) step 0, the only place they are scheduled, and reports the verify output.
+Where `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` does not yet meet this contract or the skill. A new project copies these gaps. The engine owner closes each one in [preproduction](../phases/preproduction.md) step 0, the only place they are scheduled, and reports the verify output.
 
 In the commands, `<scratch>` is the agent's scratch folder and `<preview>` is a running preview of the build. Tool commands use the one form in [setup](../tools/setup.md): `pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools <tool> ...`.
 

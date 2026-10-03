@@ -62,7 +62,7 @@ repeats the same class of error and the human pays for it again.
 
 The drafts are the lines as they stood before the notes round (the port
 of the original page). The fixes are the human's. Full real version:
-`D:\code\ai\cognition\production\style-guide\writing.md`.
+`D:\code\ai\video-lectures\videos\what-a-mind-is-made-of\production\style-guide\writing.md`.
 
 ```markdown
 # Writing guide: What a Mind Is Made Of
