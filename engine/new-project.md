@@ -39,7 +39,7 @@ Copy from the reference repo's tracked files (`git -C D:/code/ai/cognition ls-fi
 | `player/**` | All of it. Change the page title in `player/index.html`. |
 | `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the visual vocabulary uses them: they carry the old video's symbols. |
 | `scenes/types.ts`, `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts` | Shared scene services. Not `thoughtTag.ts` or `titleArt.ts`: they belong to the old video. |
-| `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting adds every other speaker. Keep `SfxName`; the sound engineer changes it. |
+| `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting declares every other speaker at the start of preproduction. Keep `SfxName`; the sound engineer changes it. |
 | `voice/breeze.py`, `render.py`, `verify.py`, `transcribe.py`, `speak.py`, `manifest.ts`, `refs.ts`, `pyproject.toml`, `uv.lock` | The voice pipeline. |
 | `test/text.test.ts`, `test/voiceCoverage.test.ts` | Generic. The other tests assert on the old script's chapters; rewrite them against a small fixture script. |
 | `.wm/traits/video.ts`, `.wm/commands/**`, `wm.ts` | Workmark commands. |

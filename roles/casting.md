@@ -11,6 +11,11 @@ write files. The human makes every choice.
 
 ## Modes
 
+- **Declare.** At the start of preproduction, before writers start:
+  write one speaker id per speaking character in the spine into the
+  `SpeakerId` union, and one entry per id in `script/cast.ts`. Types
+  only; a `ref` may point at a clip that does not exist yet. Later, a
+  writer who needs a new id requests it through the producer.
 - **Auditions.** Render candidate clips from the human's voice
   descriptions, for the human to pick.
 - **Freeze.** Turn the human's picks into refs and cast entries.
@@ -21,7 +26,8 @@ write files. The human makes every choice.
 
 ## Inputs
 
-- The speakers the spine and the writers need, from the producer.
+- The spine's list of speaking characters (declare); later id requests
+  from writers, through the producer.
 - [bible](../documents/bible.md) entries on voices.
 - The human's description of each voice, in the human's words (auditions).
 - The source refs folder (reuse).
@@ -35,9 +41,11 @@ write files. The human makes every choice.
   candidate. The picked sample then becomes the ref with no re-take.
 - Freeze or reuse: `voice/refs/{speaker}.wav` and
   `voice/refs/{speaker}.txt` (the exact transcript).
-- The `SpeakerId` union in `script/types.ts`: one id per speaker.
-- `script/cast.ts`: one entry per speaker pointing at its ref. A shared
-  voice is shared by reference (`zombie: { ...you, name: 'Zombie' }`).
+- Declare: the `SpeakerId` union in `script/types.ts`, one id per
+  speaker, and one `script/cast.ts` entry per id, refs pending.
+- Freeze or reuse: each `script/cast.ts` entry points at its ref. A
+  shared voice is shared by reference
+  (`zombie: { ...you, name: 'Zombie' }`).
 - A bible entry proposal per voice (sample or source, description,
   reason). In reuse mode: source path and sha256 of each ref.
 
@@ -67,8 +75,9 @@ Casting checklist (QA applies it):
 - [ ] **Ref out of shape.** The ref is shorter than 8 s or longer than
   15 s, or holds a silence longer than 0.7 s inside it. Evidence: the
   measurement.
-- [ ] **Missing ref.** A speaker in `SpeakerId` has no cast entry, or a
-  cast entry points at a missing file. Evidence: the speaker id.
+- [ ] **Missing ref.** A speaker in `SpeakerId` has no cast entry, or,
+  after freeze or reuse, a cast entry points at a missing file.
+  Evidence: the speaker id.
 - [ ] **Shared voice by copy.** Two speakers the bible says share a voice
   point at two different files. Evidence: both cast entries.
 - [ ] **Reuse not byte-exact.** A reused ref's sha256 differs from its
@@ -79,10 +88,11 @@ Casting checklist (QA applies it):
 ## Brief template
 
 ```
-ROLE: Casting — {auditions | freeze the human's picks | reuse voices from {source production}}
+ROLE: Casting — {declare speaker ids | auditions | freeze the human's picks | reuse voices from {source production}}
 {ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
 
 GOAL
+{Declare: add one speaker id per speaking character below to SpeakerId, and one cast.ts entry per id, refs pending.}
 {Auditions: render {K} candidate clips per speaker from the descriptions below, for the human to pick.}
 {Freeze: turn the human's picks into reference clips and cast entries.}
 {Reuse: copy the refs listed below byte for byte and make cast entries for them.}
@@ -94,6 +104,7 @@ READ, IN THIS ORDER
 4. {PROJECT_ROOT}\production\bible.md    (voice entries)
 
 SPEAKERS
+{Declare:   - {speaker id}: {character, from {PROJECT_ROOT}\production\spine.md}}
 {Auditions: - {speaker}: "{the human's description}"   {or: "same voice as {other speaker}"}}
 {Auditions: REFERENCE PASSAGE (every candidate reads it): "{8–15 s of text: statements and one question}"}
 {Freeze:    - {speaker}: {PROJECT_ROOT}\voice\samples\{file}.wav}

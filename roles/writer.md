@@ -44,7 +44,8 @@ spine); `root` and `scale` (the [sound engineer](sound-engineer.md));
 `script/index.ts`; `scenes/`, `kit/`, `engine/`, `voice/`, `player/`;
 any document.
 
-`speaker` takes only ids already in `SpeakerId`. A new speaker id is
+`speaker` takes only ids already in `SpeakerId`. Casting declares them
+at the start of preproduction, before writers start. A new speaker id is
 requested from [casting](casting.md) through the producer.
 
 After the voice lock, text changes come only from notes, through a

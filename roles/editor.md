@@ -26,10 +26,11 @@ human is measured, not felt.
 ## Outputs
 
 - The animatic cut: the build with every chapter on its boards, checked
-  with the tools. The board renderer itself is the
-  [engine owner](engine-owner.md)'s.
-- Timing changes: `pad` values in `script/cast.ts`. Changes to `dur`
-  (the chapter's [animator](animator.md)) or `stagger` and text (the
+  with the tools. The editor does not build the board renderer; the
+  [engine owner](engine-owner.md) does.
+- Pad and timing judgments. The editor sets `pad` values in
+  `script/cast.ts`. Changes to `dur` (the chapter's
+  [animator](animator.md)) or `stagger` and text (the
   [writer](writer.md)) go to their owners as notes.
 - A pacing report: runtime, per-chapter share vs weight, beats over a
   target, each with its CSV row.

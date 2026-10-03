@@ -33,7 +33,7 @@ worktree.
 - Phase: <development | preproduction | voice | animation | post | delivery>, step <n>: <step name>
 - Track: <lean | full | notes round | re-voice | polish | port | export>
 - Budget: <used> of <total> agent runs
-- Narrator rate: <words/sec, pads included>, from <production>, pacing-curve run <date>
+- Narrator rate: <spoken words per second of runtime>, <measured: pacing-curve run <date> | default 2.0, not yet measured>
 - Last gate: <gate>, <passed | rejected: one line>, <date>
 - Pending human question: <the question, verbatim | none>
 - Next action: <one line>
@@ -55,8 +55,12 @@ At the start of a session the producer compares "Open loops" with
 `git worktree list` and `git branch`. A worktree with no row, or a row
 with no worktree, is fixed before anything else.
 
-The narrator rate comes from a previous production's
-[pacing-curve](../tools/pacing-curve.md) run with the same narrator.
-The writer plans word counts with it (see
-[preproduction](../phases/preproduction.md)). The reference narrator
-runs about 2.0 words per second, pads included.
+The narrator rate is spoken words per second of runtime. The producer
+records it before any script is written. The writer plans word counts
+with it (see [preproduction](../phases/preproduction.md)).
+
+- Reference voices reused: 1.94, measured by
+  [pacing-curve](../tools/pacing-curve.md) on the reference (826 words
+  in 7:06).
+- A new narrator: start at 2.0. After the first render, replace it with
+  the measured value.

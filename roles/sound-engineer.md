@@ -3,17 +3,21 @@
 Renders every voice line from the frozen cast, verifies each clip, and
 writes the clip lengths the timeline uses. Owns the video's sound
 vocabulary: each sound-effect name has one meaning, and each chapter's
-music key. In post, tunes the music, the sound-effect synths, and
-ducking. The chapter's [animator](animator.md) places the sound cues.
+music key. Owns the music and sound-effect code (`engine/audio/music.ts`,
+`sfx.ts`, `synth.ts`) and tunes it in post. The chapter's
+[animator](animator.md) places the sound cues.
 
 ## Model tier
 
 - **Sonnet** for voice renders: manifest, render, verify, re-roll. The
   steps are fixed and documented.
-- **Opus** for the Sounds table and for tuning `engine/audio/` in post.
+- **Opus** for the Sounds table and for changes in
+  `engine/audio/music.ts`, `sfx.ts` and `synth.ts`.
 
-A defect in the voice pipeline code (`voice/*.py`, `voice/*.ts`) or in
-playback goes to the [engine owner](engine-owner.md).
+The sound engineer runs the voice renders but does not own the voice
+pipeline code. A defect in that code (`voice/*.py`, `voice/manifest.ts`,
+`voice/refs.ts`) or in voice playback (`engine/audio/voice*.ts`) goes to
+the [engine owner](engine-owner.md).
 
 ## Inputs
 
@@ -37,7 +41,9 @@ playback goes to the [engine owner](engine-owner.md).
   preproduction: one table, no loop.
 - The `SfxName` union in `script/types.ts`, matching the table.
 - The fields `root` and `scale` in each `script/NN-<id>.ts`.
-- In post: changes in `engine/audio/` (music, synths, levels, ducking).
+- Changes in `engine/audio/music.ts`, `sfx.ts`, `synth.ts`: the
+  engine owner's requests for deterministic audio before the animatic;
+  music, synths, levels and ducking in post.
 - A render report: clips rendered, clips still flawed, total audio
   seconds, runtime before and after, and the measured narrator rate
   (words per second of runtime) for `production/status.md`.
@@ -47,10 +53,12 @@ playback goes to the [engine owner](engine-owner.md).
 Owns: generated voice files (`voice/manifest.json`, `voice/clips/`); the
 Sounds table in `visual-vocabulary.md`; the `SfxName` union in
 `script/types.ts`; the `root` and `scale` fields of each chapter script
-file; in post, `engine/audio/**`.
+file; `engine/audio/music.ts`, `engine/audio/sfx.ts`,
+`engine/audio/synth.ts`.
 
-Must not touch: `voice/refs/` and `script/cast.ts` (casting);
-`voice/*.py`, `voice/*.ts` (engine owner); every other field in the
+Must not touch: `voice/refs/` and `script/cast.ts` (casting); the voice
+pipeline code `voice/*.py`, `voice/*.ts` and the rest of `engine/`,
+including `engine/audio/voice*.ts` (engine owner); every other field in the
 chapter script files (a cue change goes to the chapter's animator); the
 rest of `visual-vocabulary.md` (the [art-director](art-director.md));
 `scenes/`, `kit/`; other documents.
@@ -90,24 +98,24 @@ ROLE: Sound engineer — {render voice | write the Sounds table and music keys |
 GOAL
 {Render: make every voice clip current and verified, and write durations.json.}
 {Sounds: give each sound-effect name one meaning in the Sounds table, and set root and scale for every chapter.}
-{Mix: tune music, sound-effect synths, levels, and ducking in engine\audio\.}
+{Mix: tune music, sound-effect synths, levels, and ducking in engine\audio\music.ts, sfx.ts, synth.ts.}
 
 READ, IN THIS ORDER
 1. C:\Users\dustin\.claude\skills\video-studio\engine\voice-pipeline.md
 2. {PROJECT_ROOT}\script\cast.ts, {PROJECT_ROOT}\script\types.ts
-3. {Render: {PROJECT_ROOT}\voice\render.py   (verify rules: words, tail, re-roll attempts)}
-   {Sounds: {PROJECT_ROOT}\production\spine.md, {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md, {PROJECT_ROOT}\engine\audio\}
-   {Mix: {PROJECT_ROOT}\engine\audio\; the chapter script files, read-only}
+3. {Render: section 4, "Verify loop", of voice-pipeline.md above (words, tail, re-roll attempts). You run the pipeline; you do not edit its code.}
+   {Sounds: {PROJECT_ROOT}\production\spine.md, {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md, {PROJECT_ROOT}\engine\audio\music.ts, sfx.ts}
+   {Mix: {PROJECT_ROOT}\engine\audio\music.ts, sfx.ts, synth.ts; the chapter script files, read-only}
 
 YOU OWN (may edit)
 {Render: voice\manifest.json, voice\clips\ — only through the commands below}
 {Sounds: the Sounds table in {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md; the SfxName union in {PROJECT_ROOT}\script\types.ts;
  the root and scale fields in {PROJECT_ROOT}\script\NN-*.ts}
-{Mix: {PROJECT_ROOT}\engine\audio\}
+{Mix: {PROJECT_ROOT}\engine\audio\music.ts, sfx.ts, synth.ts}
 
 DO NOT TOUCH
-voice\refs\, script\cast.ts, voice\*.py, voice\*.ts, every other field in the chapter script files, scenes\, kit\,
-the rest of visual-vocabulary.md, other documents.
+voice\refs\, script\cast.ts, voice\*.py, voice\*.ts, the rest of engine\ (including engine\audio\voice*.ts),
+every other field in the chapter script files, scenes\, kit\, the rest of visual-vocabulary.md, other documents.
 
 DECISIONS ALREADY MADE (do not reopen)
 {bible ids, e.g. "cards are narrated"; "chorus = one clip per speaker, staggered"}

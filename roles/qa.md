@@ -102,7 +102,8 @@ P2  A3 above
 | Clip check | P2 | no missing, runs-past, or orphan line | `clips.md` line |
 
 Port set (when the brief names a port): `cd {PROJECT_ROOT}; wm parity`,
-with the negative control and pass rule in
+the parity tool the engine owner built for this port and removes after
+it, with the negative control and pass rule in
 [porting](../engine/porting.md), step 4: identical timelines and cues,
 0 differing pixels (or each diff image explained as antialias noise),
 and a negative control that reports differing pixels. Report the tool's
@@ -119,7 +120,9 @@ a false claim, a confusing symbol). Those belong to the
 [script-editor](script-editor.md), the
 [animation-supervisor](animation-supervisor.md), and cold viewers.
 Whether the player stops a clip early cannot be measured headless; the
-human listens for it.
+human listens for it at the table read
+([voice](../phases/voice.md#gate-table-read), step 1; lean: the
+animatic gate).
 
 ## Report format
 

@@ -36,7 +36,7 @@ repeats the same class of error and the human pays for it again.
 ## Voice profile
 - Narrator: <who, in a phrase the casting brief can reuse>
 - Sentences: mean <n> words, max <n>; share of fragments <n>%
-- Pace: about <n> words per second of runtime (plan chapter lengths with it)
+- Pace: <n> spoken words per second of runtime, the narrator rate in production/status.md (plan chapter lengths with it)
 - Person: <you / we / they>
 - Register: <plain, dry, ...>; humor: <where, how much>
 - Characters: <id>: <how they talk>
@@ -70,8 +70,8 @@ of the original page). The fixes are the human's.
 - Narrator: posh British woman, mid-30s, dry and wry.
 - Sentences: mean 6.5 words, max 18. 45 of 114 narrated sentences have
   four words or fewer ("A spirit." "Nothing." "Take a lever.").
-- Pace: about 2 words per second of runtime (826 words in 7:05 on the
-  real clips).
+- Pace: 1.94 spoken words per second of runtime (826 words in 7:06 on
+  the real clips).
 - Person: "you" for the viewer. "Let's" when we do something together.
 - Register: plain and concrete. An object comes before the abstraction
   (a domino before causal closure, a lever before "form is function").

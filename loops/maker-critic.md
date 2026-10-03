@@ -4,9 +4,6 @@ Every job is done by a maker and checked by a critic. The critic is a
 different agent with a different brief. The producer (the main session)
 runs the loop and breaks ties. The human settles what the producer cannot.
 
-Real-studio counterpart: an artist and a supervisor in dailies. The
-supervisor does not draw. The supervisor points at the frame.
-
 ## Why the critic must be a different agent
 
 A maker that checks its own work checks its intent, not its output. On

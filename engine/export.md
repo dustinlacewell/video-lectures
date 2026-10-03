@@ -154,13 +154,13 @@ Run all of these after every export. Record results in `out/export.json`.
 
 ## 7. Time and disk
 
-Estimates for the reference video (about 7:05, 425 s). Measure on the first export and replace these.
+Estimates for the reference video (7:06, 426.2 s). Measure on the first export and replace these.
 
 | Setting | Frames | Capture time | MP4 size |
 |---|---|---|---|
-| 1080p30 | 12,750 | 20–35 min | 300–600 MB |
-| 1080p60 | 25,500 | 40–70 min | 400–800 MB |
-| 2160p30 | 12,750 | 1.5–2.5 h | 1–2 GB |
+| 1080p30 | 12,786 | 20–35 min | 300–600 MB |
+| 1080p60 | 25,572 | 40–70 min | 400–800 MB |
+| 2160p30 | 12,786 | 1.5–2.5 h | 1–2 GB |
 
-- Frame files are not written, so disk use is the MP4s plus the mix: 425 s of 48 kHz stereo float is about 160 MB.
+- Frame files are not written, so disk use is the MP4s plus the mix: 426 s of 48 kHz stereo float is about 160 MB.
 - Keep 5 GB free on the output drive.

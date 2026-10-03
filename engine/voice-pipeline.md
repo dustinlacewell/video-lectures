@@ -41,7 +41,7 @@ How to pick a voice:
 3. The human listens and picks one file. Agents MUST NOT pick a voice.
 4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav`. Aim for 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
 5. Transcribe it: `uv run transcribe.py refs/<speaker>.wav`. Correct the text against what is actually said, word for word, fillers included. Save it as `voice/refs/<speaker>.txt`.
-6. Casting adds the speaker to `SpeakerId` in `script/types.ts` and to `CAST`.
+6. The speaker id and its `CAST` entry already exist: casting declared them at the start of preproduction ([contract](contract.md) section 3). Casting points the entry's `ref` at the frozen clip.
 
 Rules:
 

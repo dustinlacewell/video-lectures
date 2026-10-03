@@ -37,9 +37,9 @@ This is the human's main sign-off. Fixes here are edits to data. Every
 message: one decision, two choices, a recommendation. Keep each tiny.
 
 1. "Watch the animatic once in the player (<m:ss>). It is boards timed
-   to the real voice. Send notes in any form." Lean adds: "Also note any
-   line that sounds wrong: wrong word, odd stress, cut off, wrong voice.
-   Beat id or time is enough." This is the table read.
+   to the real voice. Send notes in any form." Lean adds the table-read
+   listen from the [voice gate](voice.md#gate-table-read), step 1,
+   including its "cut off" item. This is the table read.
 2. Then the director's decisions, one per message, each with two
    choices and a recommendation. Example: "The last chapter carries
    three claims in one minute. Split it in two, or give the trivia claim

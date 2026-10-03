@@ -16,16 +16,16 @@ the [voice phase](voice.md) (lean: at the
 
 0. **Engine readiness.** The [engine owner](../roles/engine-owner.md)
    (Opus) builds what the reference repo lacks, in parallel with steps
-   1–4. Each item has a verify command; the commands live in
+   1–4. Each item has a verify command in its row of
    [contract §11](../engine/contract.md#11-reference-repo-gaps).
 
-   | Item | Needed by | Verify |
+   | Item | Needed by | Contract §11 row |
    |---|---|---|
-   | Board renderer and scene-registry fallback | the animatic | `{VERIFY: contract §11, board renderer}` |
-   | Storyboard test (and `production` in tsconfig `include`) | step 5 | `{VERIFY: contract §11, storyboard test}` |
-   | Card-last test: no beat after a chapter's card | step 3 | `{VERIFY: contract §11, card test}` |
-   | `__script()` global | the tools | `{VERIFY: contract §11, __script}` |
-   | Deterministic audio: seeded noise, music a function of `T` | export | `{VERIFY: contract §11, audio}` |
+   | Board renderer and scene-registry fallback | the animatic | "No board renderer" |
+   | Storyboard test `test/storyboard.test.ts` (and `production` in tsconfig `include`) | step 5 | "No storyboard test", "No `production/` folder" |
+   | Card-last test `test/card-last.test.ts`: no beat after a chapter's card | step 3 | "No test that fails on a beat after a card" |
+   | `__script()` global | the tools | "No `__script()` global" |
+   | Deterministic audio: seeded noise, music a function of `T` | export | "Music and sound effects are not a pure function of `T`" |
 
 1. **Seed the style guide.** The [director](../roles/director.md) writes
    [writing](../documents/style-guide/writing.md) (voice profile, rules
@@ -35,21 +35,32 @@ the [voice phase](voice.md) (lean: at the
    drafts the [visual vocabulary](../documents/style-guide/visual-vocabulary.md)
    from the spine's motifs. The director approves each entry. Lean: the
    director does the art-director's part too, in the same run.
+
+   In the same step, before any writer starts:
+   - [Casting](../roles/casting.md) declares the speaker ids from the
+     spine's list of speaking characters: the `SpeakerId` union and one
+     entry per id in `script/cast.ts`. Types only; a `ref` may point at a
+     clip that does not exist yet. A writer who needs a new id requests
+     it through the producer.
+   - The producer records the narrator rate in `production/status.md`
+     ([status](../documents/status.md)). Reference voices reused: 1.94
+     spoken words per second of runtime, measured by
+     [pacing-curve](../tools/pacing-curve.md) on the reference (826 words
+     in 7:06). A new narrator: 2.0, replaced by the measured value after
+     the first render.
 2. **Write.** [Writer](../roles/writer.md) agents draft
    `script/<NN-chapter>.ts`: beats with stable ids, `say`, `card`,
    `speaker`. No camera or sound cues yet. Full: chapters may run in
    parallel; each writer owns one chapter file. Lean: one writer writes
    the whole script. The producer owns `script/index.ts`; the engine
-   owner owns `script/types.ts`. [Casting](../roles/casting.md) owns
-   `script/cast.ts`.
+   owner owns `script/types.ts` except `SpeakerId` and `SfxName`.
+   [Casting](../roles/casting.md) owns `SpeakerId` and `script/cast.ts`.
+   A writer uses only the declared speaker ids.
 
    **Budget words, not seconds.** Each chapter's word budget is its
-   target seconds × the narrator's measured rate. The rate is in
-   `production/status.md`, from a previous production's
-   [pacing-curve](../tools/pacing-curve.md) run. The reference narrator
-   runs about 2.0 words per second, pads included. Never plan with the
-   engine's word-count heuristic: on the reference it overestimated
-   runtime by about 30%.
+   target seconds × the narrator rate in `production/status.md` (step
+   1). Never plan with the engine's word-count heuristic: on the
+   reference it overestimated runtime by about 30%.
 3. **Edit.** [Script-editor](../roles/script-editor.md) in a
    [maker-critic loop](../loops/maker-critic.md), at most 3 rounds:
    writing rules, terminology grep, bible conflicts, card is the last
@@ -65,8 +76,9 @@ the [voice phase](voice.md) (lean: at the
    The [storyboard](../documents/storyboard.md) test must pass: every
    voiced beat has a board, every symbol id is in the vocabulary.
 6. **Cast.** [Casting](../roles/casting.md) makes 2–3 candidate voices
-   per speaker. After the human picks, casting freezes one reference clip
-   per speaker with a verified transcript, and writes the cast file.
+   per declared speaker. After the human picks, casting freezes one
+   reference clip per speaker with a verified transcript, and points
+   each cast entry's `ref` at it.
    Every later line clones that clip. See
    [voice pipeline](../engine/voice-pipeline.md).
 

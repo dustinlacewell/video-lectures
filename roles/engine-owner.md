@@ -40,15 +40,20 @@ By job:
      ([storyboard](../documents/storyboard.md), "How it is checked"), and
      `"production"` added to `include` in `tsconfig.json` so `wm build`
      type-checks the boards.
-  3. Card-last test: a unit test that fails when any beat follows a
-     chapter's card, unless the bible lists the exception.
+  3. Card-last test `test/card-last.test.ts`: fails when any beat
+     follows a chapter's card, unless the bible lists the exception.
   4. The `__script()` debug global: `window.__script = () => SCRIPT` in
      the player ([contract](../engine/contract.md) section 8).
-  5. Deterministic audio: noise filled from `rng(seed)`, not
-     `Math.random`; music and sound effects scheduled from a pure score
-     of `T` ([export](../engine/export.md) section 3).
+  5. Deterministic audio: the pure score of `T` and its unit test
+     ([export](../engine/export.md) section 3). The changes it needs in
+     `engine/audio/music.ts`, `sfx.ts` and `synth.ts` (noise from
+     `rng(seed)`, scheduling from the score) go to the
+     [sound engineer](sound-engineer.md) as a request.
 - **Port:** a prototype split into the contract's layers with no visual
-  change, proven by pixel parity ([porting](../engine/porting.md)).
+  change, proven by pixel parity ([porting](../engine/porting.md)). No
+  standing parity command exists: build the parity tool per
+  [porting](../engine/porting.md), expose it as `wm parity` for the
+  duration of the port, and delete it after.
 - **Export:** `wm export` and its verification
   ([export](../engine/export.md)).
 - **Fix:** an engine, player, or voice-code defect with a known cause.
@@ -57,14 +62,17 @@ By job:
 
 Owns:
 
-- `engine/**` (in post, `engine/audio/**` tuning passes to the
-  [sound engineer](sound-engineer.md));
+- `engine/**`, except `engine/audio/music.ts`, `sfx.ts` and `synth.ts`
+  (the [sound engineer](sound-engineer.md)); the voice playback files
+  `engine/audio/voice*.ts` are the engine owner's;
 - `player/**`;
 - kit primitives: files in `kit/` that draw no character and no
   vocabulary symbol; `scenes/shared/speech.ts`,
   `scenes/shared/speechTiming.ts`, `scenes/shared/board.ts`, and the board
   fallback in `scenes/index.ts`;
-- `test/**` infrastructure and engine tests;
+- `test/**` infrastructure and engine tests, including
+  `test/storyboard.test.ts` and `test/card-last.test.ts`;
+- the `__script()` debug global, and the MP4 exporter;
 - `tsconfig.json`, `vite.config.ts`, `package.json`, `wm.ts`, `.wm/**`;
 - voice pipeline code: `voice/*.py`, `voice/manifest.ts`, `voice/refs.ts`,
   `voice/pyproject.toml`, `voice/uv.lock`;
@@ -76,8 +84,10 @@ commit lands. After it, the ownership above applies.
 
 Must not touch: chapter script files `script/NN-*.ts`; chapter scenes
 `scenes/NN-*.ts`; kit files that draw characters or symbols (the kit
-owner, an [animator](animator.md) named per round); `voice/refs/`,
-`voice/clips/`, `voice/manifest.json`; `script/cast.ts`; `production/**`.
+owner, an [animator](animator.md) named per round);
+`engine/audio/music.ts`, `sfx.ts`, `synth.ts` (sound engineer);
+`voice/refs/`, `voice/clips/`, `voice/manifest.json`; `script/cast.ts`;
+`production/**`.
 
 Only one engine owner runs at a time. A chapter team that needs an engine
 change requests it through the producer.
@@ -134,8 +144,8 @@ YOU OWN (may edit)
 {exact files for this job, from the list in roles\engine-owner.md}
 
 DO NOT TOUCH
-script\NN-*.ts, scenes\NN-*.ts, kit files that draw characters or symbols, voice\refs\, voice\clips\,
-voice\manifest.json, script\cast.ts, production\.
+script\NN-*.ts, scenes\NN-*.ts, kit files that draw characters or symbols, engine\audio\music.ts,
+engine\audio\sfx.ts, engine\audio\synth.ts, voice\refs\, voice\clips\, voice\manifest.json, script\cast.ts, production\.
 
 DECISIONS ALREADY MADE (do not reopen)
 {bible ids and one-line summaries}
@@ -155,7 +165,8 @@ pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build 
                                                # readiness: exit 0 with no --script, so __script() works
 pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --out {SCRATCH}\sheet --twice
                                                # exit 0 (exit 3 = a frame differs); open one sheet: boards drawn, no purpose text
-{Port: cd {PROJECT_ROOT}; wm parity   (procedure and pass rule in engine\porting.md). Export: the checks in engine\export.md section 6.}
+{Port: build the parity tool per engine\porting.md and expose it as wm parity for the duration of the port;
+ then cd {PROJECT_ROOT}; wm parity   (pass rule in engine\porting.md step 4). Export: the checks in engine\export.md section 6.}
 
 {REPORT — paste the standard block, N = 200}
 Also list: each new test and its negative-control result; any contract change (none expected; a change is an escalation).

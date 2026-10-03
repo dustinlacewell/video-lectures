@@ -14,9 +14,11 @@ the human takes, on the real clips, before anyone animates.
 
 ## Owner and flow
 
-- Builder: [editor](../roles/editor.md). Builds the cut, owns the board
-  renderer and the registry fallback (the placeholder scenes), and runs
-  the tools on it. It uses the kit read-only.
+- Builder: [editor](../roles/editor.md). Assembles the cut, judges pad
+  and timing, and runs the tools on it.
+- Board renderer and registry fallback (the placeholder scenes): the
+  [engine owner](../roles/engine-owner.md), built in
+  [preproduction](../phases/preproduction.md) step 0.
 - Boards: the [art-director](../roles/art-director.md) (the director on
   the lean track) supplies the picture fields the renderer draws.
 - Review record owner: [director](../roles/director.md).
@@ -115,7 +117,7 @@ produced on the real clips, against the weights in the
 # Animatic review: What a Mind Is Made Of
 
 - Build: (none; reconstructed)
-- Runtime: 7:05.
+- Runtime: 7:06.
 - Chapters: physics 58 s (14%, weight 12%); form 49 s (12%, 10%);
   body 45 s (11%, 12%); words 55 s (13%, 12%); zombie 63 s (15%, 15%);
   inventory 52 s (12%, 10%); subtract 38 s (9%, 9%); animals 60 s (14%, 20%)

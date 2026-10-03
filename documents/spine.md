@@ -76,8 +76,9 @@ Rules for the format:
 - Every new term or symbol a claim needs is planted before the claim.
 - Weight is set before voice. After voice, write the measured seconds
   next to it. A gap of more than half the weight is a defect.
-- Before voice, estimate seconds from words at about 2 words per second
-  of runtime (the reference: 826 words in 7:05). The engine's word-count
+- Before voice, estimate seconds from words with the narrator rate in
+  `production/status.md` ([status](status.md); the reference voices:
+  1.94 spoken words per second of runtime, 826 words in 7:06). The engine's word-count
   heuristic runs about 30% long; do not plan with it.
 
 ## How it is checked
@@ -97,7 +98,7 @@ Rules for the format:
 
 The production had no spine. This is the spine rebuilt from the final
 script. Weights are what a director would have set; measured runtimes
-come from the real voice clips (7:05 total).
+come from the real voice clips (7:06 total).
 
 ```markdown
 # Spine: What a Mind Is Made Of
