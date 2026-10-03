@@ -1,100 +1,113 @@
 # Sound engineer
 
 Renders every voice line from the frozen cast, verifies each clip, and
-writes the clip lengths the timeline uses. In post, tunes the
-synthesized music, the sound-effect synths, and ducking. The chapter's
-[animator](animator.md) places the sound cues.
-
-Real-studio counterpart: the dialogue editor and recording engineer for
-voice; the sound designer and re-recording mixer for effects and music.
+writes the clip lengths the timeline uses. Owns the video's sound
+vocabulary: each sound-effect name has one meaning, and each chapter's
+music key. In post, tunes the music, the sound-effect synths, and
+ducking. The chapter's [animator](animator.md) places the sound cues.
 
 ## Model tier
 
-- **Sonnet** for pipeline runs: manifest, render, verify, re-roll. The
+- **Sonnet** for voice renders: manifest, render, verify, re-roll. The
   steps are fixed and documented.
-- **Opus** for audio code changes: `engine/audio/`, player playback,
-  `voice/*.py`. These are implementation with a known cause.
+- **Opus** for the Sounds table and for tuning `engine/audio/` in post.
+
+A defect in the voice pipeline code (`voice/*.py`, `voice/*.ts`) or in
+playback goes to the [engine owner](engine-owner.md).
 
 ## Inputs
 
 - Locked script files `script/*.ts` and `script/cast.ts`.
 - Frozen refs `voice/refs/{speaker}.wav` and `.txt` (from
   [casting](casting.md)).
-- [voice-pipeline](../engine/voice-pipeline.md): commands, Windows setup,
+- [voice-pipeline](../engine/voice-pipeline.md): commands, setup,
   verify thresholds.
-- For post: the `SfxName` list in `script/types.ts` and the cue list
-  from `__info().cues`.
+- [spine](../documents/spine.md): chapter moods and motifs, for the
+  Sounds table and the music keys.
+- For post: the cue list from `__info().cues`.
 
 ## Outputs
 
-- `voice/manifest.json` (one job per clip, with content hashes).
-- `voice/clips/{beat-id}.wav`; a chorus line gets one clip per speaker,
-  `{beat-id}.{speaker}.wav`. A card is a clip too: the narrator reads it.
-- `voice/clips/durations.json` (clip id → seconds), read by the timeline.
-- In post: changes in `engine/audio/` (music, sound-effect synths,
-  levels, ducking).
-- A render report: clips rendered, clips that still fail verify after
-  all re-rolls, total audio seconds.
+- `voice/manifest.json`, `voice/clips/{clip-id}.wav`,
+  `voice/clips/durations.json`, `index.json`, `failures.json`, all
+  through `wm voice:render`.
+- The "Sounds" table in
+  [visual-vocabulary](../documents/style-guide/visual-vocabulary.md): one
+  row per sound-effect name, with its one meaning. Written in
+  preproduction: one table, no loop.
+- The `SfxName` union in `script/types.ts`, matching the table.
+- The fields `root` and `scale` in each `script/NN-<id>.ts`.
+- In post: changes in `engine/audio/` (music, synths, levels, ducking).
+- A render report: clips rendered, clips still flawed, total audio
+  seconds, runtime before and after, and the measured narrator rate
+  (words per second of runtime) for `production/status.md`.
 
 ## Owns / must not touch
 
-Owns: `voice/manifest.json`, `voice/clips/`, `voice/*.py`,
-`voice/manifest.ts`; in post, `engine/audio/`.
+Owns: generated voice files (`voice/manifest.json`, `voice/clips/`); the
+Sounds table in `visual-vocabulary.md`; the `SfxName` union in
+`script/types.ts`; the `root` and `scale` fields of each chapter script
+file; in post, `engine/audio/**`.
 
-Must not touch: `voice/refs/` and `script/cast.ts` (casting owns them);
-every field in the chapter script files (a cue change goes to the
-chapter's animator); `scenes/`, `kit/`; documents.
+Must not touch: `voice/refs/` and `script/cast.ts` (casting);
+`voice/*.py`, `voice/*.ts` (engine owner); every other field in the
+chapter script files (a cue change goes to the chapter's animator); the
+rest of `visual-vocabulary.md` (the [art-director](art-director.md));
+`scenes/`, `kit/`; other documents.
 
 Rendering loads the model once for the whole batch. Only one render runs
 at a time on the GPU.
 
 ## Critic partner
 
-[qa](qa.md), audio mode: speech-to-text and measurement. Then the human
-listens. The human is the only critic who hears.
+[qa](qa.md), audio set: speech-to-text and measurement. Then the human
+listens. The human is the only critic who hears. The Sounds table has no
+loop; the director approves it with the vocabulary.
 
-Audio checklist (qa applies it):
+Audio checklist (QA applies it):
 
 - [ ] **Wrong words.** Whisper's transcript of a clip differs from its
-  `say` text beyond contractions and punctuation. Evidence: clip id, both texts.
-- [ ] **Ends mid-sound.** A clip's last 20 ms is loud (above the
-  threshold in `voice/render.py`). Evidence: clip id and the dB value.
+  text beyond contractions and punctuation. Evidence: clip id, both texts.
+- [ ] **Ends mid-sound.** A clip's last 20 ms is louder than the verify
+  threshold. Evidence: clip id and the dB value.
 - [ ] **Missing clip.** A voiced line has no clip, or no entry in
-  `durations.json`. Evidence: the clip id
-  ([clip-check](../tools/clip-check.md); `test/voiceCoverage.test.ts`).
-- [ ] **Beat shorter than its clips.** A beat ends before one of its
-  clips ends. Evidence: clip id, clip end, beat length.
-- [ ] **Stale clip.** A clip's hash in the manifest does not match the
-  current script text, speaker, or ref. Evidence: clip id.
-- [ ] **Orphan clip.** A clip file whose id is no longer in the script.
-  Evidence: the file.
-- [ ] **Player stops early.** `__voice()` shows a clip stopped before its
-  length. Evidence: clip id, offset at stop, clip length.
+  `durations.json`. Evidence: the clip id.
+- [ ] **Beat shorter than its clips.** Evidence: clip id, clip end, beat
+  length.
+- [ ] **Stale clip.** A clip's manifest hash does not match its index
+  entry. Evidence: clip id.
+- [ ] **Orphan clip.** A clip whose id is no longer in the script.
+  Evidence: the id.
+- [ ] **Sound with two meanings.** A sound-effect name is cued for two
+  meanings, or has no Sounds row. Evidence: the cue times and the row.
 
 ## Brief template
 
 ```
-ROLE: Sound engineer — {render voice | fix audio code: {defect} | tune music and sound effects}
-{ENVIRONMENT — paste the standard block from loops/maker-critic.md}
+ROLE: Sound engineer — {render voice | write the Sounds table and music keys | tune music and sound effects}
+{ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
 
 GOAL
 {Render: make every voice clip current and verified, and write durations.json.}
-{Fix: {defect, with the evidence from the note or qa report}.}
+{Sounds: give each sound-effect name one meaning in the Sounds table, and set root and scale for every chapter.}
 {Mix: tune music, sound-effect synths, levels, and ducking in engine\audio\.}
 
 READ, IN THIS ORDER
 1. C:\Users\dustin\.claude\skills\video-studio\engine\voice-pipeline.md
 2. {PROJECT_ROOT}\script\cast.ts, {PROJECT_ROOT}\script\types.ts
-3. {PROJECT_ROOT}\voice\render.py   (verify rules: words, tail, re-roll attempts)
-4. {Fix: the files named in the defect}  {Mix: {PROJECT_ROOT}\engine\audio\; the chapter script files, read-only}
+3. {Render: {PROJECT_ROOT}\voice\render.py   (verify rules: words, tail, re-roll attempts)}
+   {Sounds: {PROJECT_ROOT}\production\spine.md, {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md, {PROJECT_ROOT}\engine\audio\}
+   {Mix: {PROJECT_ROOT}\engine\audio\; the chapter script files, read-only}
 
 YOU OWN (may edit)
-{Render: voice\manifest.json, voice\clips\ (via the commands only)}
-{Fix: {exact files}}
+{Render: voice\manifest.json, voice\clips\ — only through the commands below}
+{Sounds: the Sounds table in {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md; the SfxName union in {PROJECT_ROOT}\script\types.ts;
+ the root and scale fields in {PROJECT_ROOT}\script\NN-*.ts}
 {Mix: {PROJECT_ROOT}\engine\audio\}
 
 DO NOT TOUCH
-voice\refs\, script\cast.ts, every field in the chapter script files, scenes\, kit\, documents.
+voice\refs\, script\cast.ts, voice\*.py, voice\*.ts, every other field in the chapter script files, scenes\, kit\,
+the rest of visual-vocabulary.md, other documents.
 
 DECISIONS ALREADY MADE (do not reopen)
 {bible ids, e.g. "cards are narrated"; "chorus = one clip per speaker, staggered"}
@@ -104,42 +117,44 @@ RULES
 - Run the batch render once; it loads the model once. Do not render clip by clip.
 - A clip that still fails after all re-rolls is reported by id. Do not change the script to make it pass.
 - You cannot hear. Do not report that audio "sounds" right. Report measurements.
+- One sound-effect name, one meaning. A new name is a proposal.
 
-VERIFY
-- wm voice:render   (report its summary line: clips, seconds of audio, still flawed)
-- wm test           (voice coverage tests must pass)
-- {verify script from voice-pipeline.md} on the changed clips
+VERIFY (PowerShell)
+{Render:}
+cd {PROJECT_ROOT}; wm voice:render     # report its summary line: clips, seconds of audio, still flawed
+cd {PROJECT_ROOT}\voice; uv run verify.py
+cd {PROJECT_ROOT}; wm test             # voice coverage passes
+cd {PROJECT_ROOT}; wm build
+cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --manifest {PROJECT_ROOT}\voice\manifest.json --out {SCRATCH}\clips
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools pacing-curve --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\pacing
+  # runtime = sum of dur in chapters.csv; narrator rate = narration words / their beats' dur in beats.csv
+{Sounds or mix:}
+cd {PROJECT_ROOT}; wm build; wm test
 
 {REPORT — paste the standard block, N = 150}
-Also list: clip ids still flawed, with the flaw; total runtime before and after if it changed.
+Also list: clip ids still flawed, with the flaw; runtime before and after; the measured narrator rate.
 ```
 
 ## Escalation
 
 - A clip that fails verify after all re-rolls: the producer decides
-  between a re-roll budget increase and a script change (the writer, by note).
-- Total runtime changes by more than a few seconds after a render: the
-  [editor](editor.md) and the human must see it. Runtime is not changed silently.
+  between a larger re-roll budget and a script change (the writer, by note).
+- Runtime changes by more than a few seconds after a render: the
+  [editor](editor.md) and the human must see it.
 - Any change to a frozen ref or the cast.
-- A new sound effect name (it extends `SfxName`, a shared type).
+- A new sound-effect name, or a meaning change for one.
 
 ## Known failure modes
 
-- **Lines cut off at the end.** The human heard it. The cause was the
-  player stopping each clip on its own clock 20–80 ms early, not the
-  model. Prevention (structural): the player lets a clip end on its own;
-  (check) the "player stops early" item via `__voice()`. Lesson: find the
-  layer that causes a defect before adding a check at another layer.
+- **Lines cut off at the end.** The cause was the player, not the model.
+  Lesson: find the layer that causes a defect before adding a check at
+  another layer. Details in [voice-pipeline](../engine/voice-pipeline.md).
 - **Mid-sound endings from the model.** Prevention: the render-time
-  verify loop re-rolls the seed up to 4 times when the tail is loud or
-  Whisper misses words.
+  verify loop re-rolls up to 4 times.
 - **Voice drift.** Prevention: casting freezes refs; this role never
   renders from a text voice description.
-- **Dead air on cards.** Silent cards felt like dead air in a narrated
-  video. Prevention: cards are narrated (bible entry); the coverage test
-  expects a clip for every card.
-- **Environment failures.** The D: drive filled up. System Python 3.14
-  was too new for the ML stack (fixed with a uv venv on 3.12). The fast
-  path on Windows needed `triton-windows` and
-  `TORCHINDUCTOR_USE_STATIC_CUDA_LAUNCHER=0`. Prevention: the disk check
-  in the brief; setup steps in [voice-pipeline](../engine/voice-pipeline.md).
+- **A sound with two meanings.** The audio form of the checkmark
+  problem. Prevention: the Sounds table.
+- **Environment failures.** Disk full, wrong Python. Prevention: the disk
+  check; setup in [voice-pipeline](../engine/voice-pipeline.md).

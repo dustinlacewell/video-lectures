@@ -4,33 +4,31 @@ Looks at rendered frames, not code, and reports what is wrong in the
 picture against the line, the storyboard, and the visual vocabulary.
 Does not fix. This file is the checklist and how to report.
 
-Real-studio counterpart: the animation supervisor in dailies, who
-reviews every shot frame by frame and sends notes back to the animator.
-
 ## Model tier
 
-**Fable.** It is review, by vision. The brief lists every frame path and
-the line playing at each. It never browses the repo.
+**Fable.** It is review, by vision. The brief lists the sheet paths and
+the transcript. It never browses the repo.
 
 ## Sense
 
 Vision on headless frames at exact times. It does not read the scene
-code. It sees what a viewer sees. The animator knows what the code meant;
-the supervisor only knows what the frame shows.
+code. The animator knows what the code meant; the supervisor only knows
+what the frame shows.
 
 ## Inputs
 
-- Frames for the chapter: every beat at its midpoint and at 0.05 s
-  before its end, taken with `__seek(t)`. The producer (or a Sonnet
-  helper) makes these with the [contact-sheet](../tools/contact-sheet.md)
-  tool or the animator's self-check set. Each frame comes with its time,
-  beat id, and the line being spoken.
+- Contact sheets of the chapter at each beat's midpoint and near its
+  end, plus `transcript.md` (the line at each time). The producer or a
+  Sonnet helper makes them with the command in the brief
+  ([contact-sheet](../tools/contact-sheet.md)).
 - The chapter's boards: `production/storyboard/{NN-chapter}.ts` (see
   [storyboard](../documents/storyboard.md)).
 - [visual-vocabulary](../documents/style-guide/visual-vocabulary.md).
 - [bible](../documents/bible.md).
 - The [frame-sweep](../tools/frame-sweep.md) output for the chapter, if
   [qa](qa.md) has run it.
+- Project checks: `production/checks/animation-supervisor.md`, pasted
+  into the brief.
 
 ## Outputs
 
@@ -38,105 +36,109 @@ A findings report. It edits no files.
 
 ## Owns / must not touch
 
-Owns nothing. May take extra frames at other times under `{SCRATCH}` to
-confirm a finding. Leaves `git status` clean.
+Owns nothing. May make extra sheets under `{SCRATCH}` to confirm a
+finding. Leaves `git status` clean.
 
 ## Checklist
 
-Each item is an observable failure. Each needs: time `t`, beat id,
-screenshot path, and the rule it breaks.
+Each item is an observable failure. Each needs: time `t`, beat id, sheet
+path, and the rule it breaks.
 
 Framing:
 
 - [ ] **Off screen.** Text, a speech bubble, a character, or a prop
-  crosses the frame edge or the safe-area margin. (Several bubbles and a
-  close-up domino sat half off screen.)
-- [ ] **Wrong layer.** A part draws over or under the wrong part. (The
-  bean's arms rendered behind its eyes and mouth.)
-- [ ] **Unfinished motion.** The end-of-beat frame shows a transition
-  half done, and the storyboard does not carry it into the next beat.
+  crosses the frame edge or the safe-area margin.
+- [ ] **Wrong layer.** A part draws over or under the wrong part (e.g. a
+  character's arms behind its face).
+- [ ] **Unfinished motion.** The near-end frame shows a transition half
+  done, and the storyboard does not carry it into the next beat.
 - [ ] **Overlap.** Two text items or bubbles overlap so a word is hidden.
 
 Vocabulary:
 
 - [ ] **Wrong meaning.** A symbol is used with a meaning other than its
-  vocabulary row. Quote the row. (Checkmarks meant "tested" in chapter 1
-  and "has it" in chapters 6 and 8.)
+  vocabulary row. Quote the row.
 - [ ] **Unlisted symbol.** A symbol, character, or motif with no
-  vocabulary row. (The chapter 2 opener: a square turning into a circle,
-  a "form = function" arrow flipping.)
+  vocabulary row.
 - [ ] **Look broken.** A symbol does not match its row's Look: restyled,
-  or drawn in two places as if it were two things. (The consciousness
-  star in two places at once; a restyled "?" bubble.)
+  or drawn in two places as if it were two things.
 - [ ] **Wrong character.** A character stands for a concept the
-  vocabulary gives to another. (Ghost where the bible says spirit.)
-- [ ] **Missing frame marker.** A hypothetical beat without the
-  persistent "Thought experiment" tag, or any other marker the
-  vocabulary says must stay on screen.
+  vocabulary gives to another.
+- [ ] **Missing marker.** A marker the vocabulary says must stay on
+  screen is absent.
 
 Picture vs line:
 
 - [ ] **Named but not shown.** The line names a thing that is not on
-  screen during its beat. (The consciousness star should show above the
-  bean when the line refers to it.)
-- [ ] **Picture overclaims.** The picture states more than the line. (Saw,
-  learned, and wanted drawn on one neuron implies one neuron per idea.)
+  screen during its beat.
+- [ ] **Picture overclaims.** The picture states more than the line.
 - [ ] **Picture contradicts the argument.** The picture shows a causal
   story the line or bible denies, or leaves out what the claim needs.
-  (A brain with no background activity makes "fired because others
-  fired first" beg the question.)
 - [ ] **Picture encodes a wrong fact.** An icon or chart states something
-  the bible or narration does not support. (Self-model icons showed
-  animals as uncertain; only the AI is uncertain.)
+  the bible or narration does not support.
 - [ ] **Storyboard mismatch.** The frame does not show the board's
   purpose or frame, and the animator's report does not flag it.
+
+Then apply the project checks pasted in the brief.
 
 ## Report format
 
 ```
 ANIMATION SUPERVISOR — chapter {NN} — round {R}
 Blocking ({count}):
-1. [{checklist item}] t={t} {beat id} — {screenshot path}
+1. [{checklist item}] t={t} {beat id} — {sheet path}
    Line: "{line}"
-   Rule: {vocabulary row | board | bible entry}: "{quote}"
+   Rule: {vocabulary row | board | bible entry | project check}: "{quote}"
    What the frame shows: {one sentence}
 ...
 Notes (at most 3):
 - ...
-Frames reviewed: {count} of {count}. Clean tree: yes/no
+Beats reviewed: {count} of {count}. Clean tree: yes/no
 ```
 
 At most 300 words plus the quoted rules.
 
 ## Brief template
 
+The producer (or a Sonnet helper) makes the sheets first:
+
+```
+cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --chapter {chapter-id} --at 0.5,0.95 --out {SCRATCH}\sheet-{chapter-id}-r{R}
+```
+
 ```
 ROLE: Animation supervisor (critic) — chapter {NN}, round {R}
-{ENVIRONMENT — paste the standard block from loops/maker-critic.md}
+{ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
 
 GOAL
-Look at every frame below and report checklist failures with evidence. Do not read scene code. Do not fix.
+Look at every frame on the sheets below and report checklist failures with evidence. Do not read scene code. Do not fix.
 
 READ, IN THIS ORDER (and nothing else)
 1. C:\Users\dustin\.claude\skills\video-studio\roles\animation-supervisor.md   (checklist and report format)
 2. {PROJECT_ROOT}\production\style-guide\visual-vocabulary.md
 3. {PROJECT_ROOT}\production\storyboard\{NN-chapter}.ts   (the chapter's boards)
 4. {PROJECT_ROOT}\production\bible.md
-5. Frame list (open each image):
-   {t} | {beat id} | "{line}" | {path}
-   ...
-6. Frame sweep output: {path or "not run"}
+5. {SCRATCH}\sheet-{chapter-id}-r{R}\transcript.md   (the line at each time)
+6. Every image in {SCRATCH}\sheet-{chapter-id}-r{R}\sheets\, in order. Each row is one beat: frames at 50% and 95%.
+7. Frame sweep output: {path to sweep.md, or "not run"}
+
+PROJECT CHECKS (from {PROJECT_ROOT}\production\checks\animation-supervisor.md; apply after the role checklist)
+{paste the file verbatim, or "none"}
 
 TO CONFIRM A FINDING
-You may take extra headless frames: {command or tool doc path}. Save under {SCRATCH}.
+Make an extra sheet at other fractions of each beat, e.g.:
+pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --chapter {chapter-id} --at 0.25,0.75 --out {SCRATCH}\probe
+Write only under {SCRATCH}.
 
 ROUND 2+
-Open findings from last round: {list}. Re-check each on the new frames, then run the full checklist on changed beats: {ids}.
+Open findings from last round: {list}. Re-check each on the new sheets, then run the full checklist on changed beats: {ids}.
 
 YOU OWN
 Nothing. Leave git status clean.
 
-{REPORT — use the report format in your role file}
+REPORT
+Use the report format in your role file. At most 300 words plus the quoted rules.
 ```
 
 ## Escalation
@@ -151,10 +153,9 @@ Report as escalations, not findings:
 ## Known failure modes
 
 - **Reading code instead of frames.** The critic then shares the maker's
-  intent and misses what is on screen. Prevention: the brief forbids
-  scene code and lists frames.
-- **Frames at the wrong times.** A beat start often shows the previous
-  beat's end. Prevention: midpoint and end-minus-0.05 s, from `__info()`.
+  intent. Prevention: the brief forbids scene code and lists sheets.
+- **Frames at the wrong times.** A beat's first frame often shows the
+  previous beat's end. Prevention: frames at 50% and 95% of each beat.
 - **Chapter-local judgment.** A symbol can be right in its chapter and
   wrong in the video. Prevention: the vocabulary is an input; the art
   director's cross-chapter audit follows each parallel round.

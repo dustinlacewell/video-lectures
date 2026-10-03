@@ -1,34 +1,35 @@
 # QA (critic)
 
-Runs every machine check on the build and reports measurements. It is
-the critic whose sense is measurement: tools, tests, speech-to-text,
-grep. It does not judge taste and does not fix. This file is the
-checklist and how to report.
-
-Real-studio counterpart: the technical QC pass before delivery, and the
-dialogue editor's sync check.
+Runs every machine check on the build and reports measurements. Its
+sense is measurement: tools, tests, speech-to-text, grep. It does not
+judge taste or meaning and does not fix. This file is the checklist,
+the exact commands, and how to report.
 
 ## Model tier
 
 **Sonnet.** Every check is a command with a pass rule. The brief lists
-which checks to run.
+which sets to run.
 
 ## Sense
 
 Measurement. It catches what neither eyes nor reading catch: text off
-screen for 0.1 s between screenshots, a clip 30 ms longer than its beat,
-a random number at draw time.
+screen for 0.1 s between frames, a clip 30 ms longer than its beat, a
+random number at draw time.
 
 ## Inputs
 
-- The project at `{PROJECT_ROOT}` (built).
-- The tool docs: [frame-sweep](../tools/frame-sweep.md),
+- The project at `{PROJECT_ROOT}`.
+- The tool docs: [setup](../tools/setup.md),
+  [frame-sweep](../tools/frame-sweep.md),
   [clip-check](../tools/clip-check.md),
   [pacing-curve](../tools/pacing-curve.md),
   [contact-sheet](../tools/contact-sheet.md).
-- [voice-pipeline](../engine/voice-pipeline.md) for the Whisper verify command.
-- The checklist of the maker it is checking (sound engineer, editor,
-  casting), when the brief names one.
+- [voice-pipeline](../engine/voice-pipeline.md) for the Whisper commands.
+- The checklist of the maker it checks ([sound-engineer](sound-engineer.md),
+  [editor](editor.md), [casting](casting.md),
+  [engine-owner](engine-owner.md)), when the brief names one.
+- Project checks: `production/checks/qa.md`, pasted into the brief.
+  Only measurable items belong there.
 
 ## Outputs
 
@@ -41,45 +42,89 @@ Owns nothing in the project. Writes only under `{SCRATCH}`. Leaves
 
 ## Checklist
 
-Run the checks the brief names. Default: all of the build set.
+Commands are PowerShell, numbered to match the tables. Add
+`--chapter {id}` to a tool command to narrow it to one chapter.
 
 Build set (every round, every maker):
 
-| Check | Command | Pass rule | Evidence on fail |
+```
+B0  cd {PROJECT_ROOT}; wm build
+    cd {PROJECT_ROOT}; pnpm vite build --outDir {SCRATCH}\build      # the build every tool below reads
+B1  cd {PROJECT_ROOT}; wm test
+B2  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools frame-sweep --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\sweep
+B3  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --twice --out {SCRATCH}\det
+B4  Grep tool, pattern: Math\.random|Date\.now|performance\.now|new Date   paths: {PROJECT_ROOT}\scenes, {PROJECT_ROOT}\kit, {PROJECT_ROOT}\engine
+```
+
+| Check | Cmd | Pass rule | Evidence on fail |
 |---|---|---|---|
-| Types and build | `wm build` | 0 errors | first 5 error lines |
-| Unit tests | `wm test` | all pass | failing test names |
-| Off-screen text and boxes | frame sweep, step 0.1 s | 0 findings | time, beat id, item, bounds |
-| Determinism | screenshot the same `t` twice in fresh pages, compare pixels | 0 differing pixels | `t`, both paths, pixel count |
-| Randomness at draw time | grep `Math.random`, `Date.now`, `performance.now` in `scenes/`, `kit/`, `engine/` | no hits in draw paths | file:line |
-| Card is last | each chapter's last beat is its card, or the bible lists the exception | true | chapter, ids after the card |
+| Types and build | B0 | 0 errors | first 5 error lines |
+| Unit tests, incl. storyboard and card-last | B1 | all pass | failing test names |
+| Off-screen text and images | B2 | 0 cut ranges; text-draw count above 0 | `sweep.md` line, frame path |
+| Determinism | B3 | exit 0; `determinism.md` lists 0 differing frames (exit 3 = a frame differs) | time, beat id, pixel count |
+| Randomness at draw time | B4 | no hits in draw or audio-scheduling code | file:line |
 
 Audio set (after any voice render, or when the brief names the sound
-engineer or casting):
+engineer):
 
-| Check | Command | Pass rule | Evidence on fail |
+```
+A1  cd {PROJECT_ROOT}\voice; uv run verify.py
+A2  read {PROJECT_ROOT}\voice\clips\failures.json
+A3  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --manifest {PROJECT_ROOT}\voice\manifest.json --out {SCRATCH}\clips
+A4  cd {PROJECT_ROOT}; node -e "const m=require('./voice/manifest.json'),i=require('./voice/clips/index.json');for(const e of m)if(!(i[e.id]||'').startsWith(e.hash+'.'))console.log(e.id)"
+A5  cd {PROJECT_ROOT}; wm test
+```
+
+| Check | Cmd | Pass rule | Evidence on fail |
 |---|---|---|---|
-| Words match | Whisper verify script (voice-pipeline doc) | no mismatches | clip id, script text, transcript |
-| Ends cleanly | tail level check in the render report | no clip flagged | clip id, dB |
-| Clips vs beats | clip check | no missing, orphan, or overlong clips | clip id, lengths |
-| Clips current | manifest hashes vs script, cast, refs | all current | stale clip ids |
-| Player plays to end | `__voice()` sampled near each clip's end | offset reaches clip length | clip id, last offset, length |
+| Words match, ends cleanly | A1 | no flawed clip | clip id, flaw, transcript |
+| Render failures | A2 | empty | clip id, text |
+| Clips vs beats | A3 | no missing, runs-past, or orphan line | `clips.md` line |
+| Clips current | A4 | no output | stale clip ids |
+| Coverage | A5 | voiceCoverage passes | failing test |
+
+Casting set (when the brief names casting): the VERIFY commands in
+[casting](casting.md)'s brief template, per ref: transcript equals
+`.txt`; length 8–15 s; no internal silence over 0.7 s; reuse hashes equal.
 
 Pacing set (when the brief names the editor):
 
-| Check | Command | Pass rule | Evidence on fail |
-|---|---|---|---|
-| Pacing curve | pacing curve | every beat within the bible's targets | beat id, metric, value, target |
-| Runtime | `__info().total` | equals last approved, or a ledger row explains it | both runtimes |
-| Weights | per-chapter share vs spine weight | within the bible's tolerance | chapter, share, weight |
+```
+P1  pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools pacing-curve --build {SCRATCH}\build --script {PROJECT_ROOT}\script\index.ts --out {SCRATCH}\pacing
+P2  A3 above
+```
 
-Then apply the maker's checklist from its role file, if named, using
-the same outputs.
+| Check | Cmd | Pass rule | Evidence on fail |
+|---|---|---|---|
+| Pacing curve | P1, `beats.csv` | each beat within the bible's targets | `beats.csv` row, target |
+| Runtime | P1, sum of `dur` in `chapters.csv` | equals last approved, or a ledger row explains it | both runtimes |
+| Weights | P1, `share_pct` in `chapters.csv` vs spine weight | within the bible's tolerance | chapter, share, weight |
+| Clip check | P2 | no missing, runs-past, or orphan line | `clips.md` line |
+
+Port set (when the brief names a port): `cd {PROJECT_ROOT}; wm parity`,
+with the negative control and pass rule in
+[porting](../engine/porting.md), step 4: identical timelines and cues,
+0 differing pixels (or each diff image explained as antialias noise),
+and a negative control that reports differing pixels. Report the tool's
+summary lines.
+
+Export set (when the brief names the export): every check in
+[export](../engine/export.md) section 6.
+
+Then apply the maker's checklist from its role file, if named, and the
+project checks, using the same outputs.
+
+Not a QA item: anything that needs judgment of meaning ("no new idea",
+a false claim, a confusing symbol). Those belong to the
+[script-editor](script-editor.md), the
+[animation-supervisor](animation-supervisor.md), and cold viewers.
+Whether the player stops a clip early cannot be measured headless; the
+human listens for it.
 
 ## Report format
 
 ```
-QA — {scope} — round {R}
+QA — {sets} — round {R}
 Ran: {check names}
 Failed ({count}):
 1. {check}: {evidence per the table}
@@ -96,27 +141,32 @@ as not run, never as passed.
 ## Brief template
 
 ```
-ROLE: QA (critic) — {build | audio | pacing} checks{, for the {maker role} checklist}, round {R}
-{ENVIRONMENT — paste the standard block from loops/maker-critic.md}
+ROLE: QA (critic) — {build | audio | casting | pacing | port | export} checks{, for the {maker role} checklist}, round {R}
+{ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
 
 GOAL
-Run the named checks and report measurements. Do not fix. Do not judge taste.
+Run the named checks and report measurements. Do not fix. Do not judge taste or meaning.
 
 READ, IN THIS ORDER (and nothing else)
-1. C:\Users\dustin\.claude\skills\video-studio\roles\qa.md   (checklist and report format)
-2. The tool docs for the checks you run: C:\Users\dustin\.claude\skills\video-studio\tools\{frame-sweep|clip-check|pacing-curve}.md
+1. C:\Users\dustin\.claude\skills\video-studio\roles\qa.md   (checklist, commands, report format)
+2. C:\Users\dustin\.claude\skills\video-studio\tools\setup.md and the doc of each tool you run, in that folder
 3. {maker's role file, for its checklist, if named}
-4. {PROJECT_ROOT}\production\bible.md   (pacing targets, exceptions) — for pacing and card checks only
+4. {PROJECT_ROOT}\production\bible.md   (pacing targets, exceptions) — pacing set only
+5. {Port: C:\Users\dustin\.claude\skills\video-studio\engine\porting.md. Export: ...\engine\export.md section 6}
 
 CHECKS TO RUN
-{list from the checklist}
-Scope: {all | chapters {list} | time range {a}–{b} s | clip ids {list}}
+Sets: {list}
+Scope: {all | chapters {ids}: add --chapter {id} to each tool | clip ids {list}}
+
+PROJECT CHECKS (from {PROJECT_ROOT}\production\checks\qa.md)
+{paste the file verbatim, or "none"}
 
 YOU OWN
 Nothing. Outputs under {SCRATCH}. Leave git status clean.
-If a check needs a running dev server, start it headless, use it, and stop it before you report.
+Tools start and stop their own server. If you start one, stop it before you report.
 
-{REPORT — use the report format in your role file}
+REPORT
+Use the report format in your role file. At most 250 words.
 ```
 
 ## Escalation
@@ -130,11 +180,9 @@ If a check needs a running dev server, start it headless, use it, and stop it be
 
 - **"Should pass" reported as pass.** Prevention: the report separates
   ran, passed, and not run.
-- **Screenshots miss brief clipping.** Midpoint and end frames skip what
-  happens in between. Prevention: the frame sweep at every 0.1 s, one
-  of the machine checks that worked on the reference production.
-- **Audio judged by ear claims.** Agents cannot hear; two audio defects
-  reached the human. Prevention: audio checks are transcript and signal
-  measurements only, and the human still listens.
-- **Locked worktree on Windows.** A preview server left running held the
-  folder. Prevention: the brief says to stop any server before reporting.
+- **Frames miss brief clipping.** Prevention: the frame sweep every 0.1 s.
+- **A void sweep.** Zero text draws means the sweep saw nothing.
+  Prevention: the pass rule requires a count above 0.
+- **Audio judged by ear claims.** Agents cannot hear. Prevention: audio
+  checks are transcript and signal measurements only; the human listens.
+- **Locked worktree on Windows.** Prevention: stop any server you started.

@@ -4,9 +4,6 @@ Reads the script cold, as text, against the spine, bible, writing guide,
 and terminology table. Reports observable failures with quoted evidence.
 Does not rewrite. This file is the checklist and how to report.
 
-Real-studio counterpart: the story editor, and the script supervisor who
-tracks continuity across scenes.
-
 ## Model tier
 
 **Fable.** It is review. The brief names every file it reads. It does not
@@ -15,8 +12,10 @@ browse the repo.
 ## Sense
 
 Cold context. It never sees the writer's report or reasoning. It reads
-the whole script in order, not only the changed chapter, because most of
-its failures span chapters.
+the whole script in order, because most of its failures span chapters.
+
+One loop per script draft: it runs once all writers have finished, on
+the whole script, not once per chapter.
 
 ## Inputs
 
@@ -24,12 +23,14 @@ its failures span chapters.
 - [spine](../documents/spine.md), [bible](../documents/bible.md),
   [writing](../documents/style-guide/writing.md),
   [terminology](../documents/style-guide/terminology.md).
-- The list of changed beat ids from the maker's report (to focus a
+- The list of changed beat ids from the writers' reports (to focus a
   re-check round).
+- Project checks: `production/checks/script-editor.md`, pasted into the
+  brief.
 
 ## Outputs
 
-A findings report. Nothing else. It edits no files.
+A findings report. It edits no files.
 
 ## Owns / must not touch
 
@@ -45,14 +46,16 @@ Argument and structure:
 
 - [ ] **Repeated claim.** The same claim is stated in two chapters.
   Evidence: both quoted lines, both beat ids, and which chapter's spine
-  job owns the claim. (The original video made one point three times in
-  chapters 4–6.)
+  job owns the claim.
+- [ ] **No new idea.** A run of beats longer than the bible's limit adds
+  no new claim, step, or example; each restates the one before.
+  Evidence: the beat ids and, for each, what it restates.
 - [ ] **Off-job content.** A beat makes a point that is not this
   chapter's spine job and not a setup or payoff listed for it. Evidence:
   the line and the spine row.
 - [ ] **Missing opening claim.** The chapter's first spoken beat does not
   state its spine opening claim. Evidence: the first line and the spine
-  opening claim. (The human asked for the form chapter to open on its thesis.)
+  opening claim.
 - [ ] **Past the card.** A beat follows the chapter's card, and the bible
   lists no exception. Evidence: the card's beat id and the ids after it.
 - [ ] **Card is not the claim.** The card text differs from the spine
@@ -60,17 +63,22 @@ Argument and structure:
 - [ ] **Unpaid setup / unset payoff.** A spine setup never pays off, or a
   payoff appears before its setup. Evidence: the spine row and beat ids.
 
+Truth:
+
+- [ ] **False or unsupported claim.** A line states something false, or
+  something the video and the bible's stipulations do not support.
+  Evidence: the claim, and why it fails (a counterexample, or the
+  missing support).
+
 Consistency:
 
-- [ ] **Stipulation contradicted.** A later line contradicts something the
-  script stipulated. Evidence: both lines. (The zombie had "nothing it is
-  like" to be it, yet it reports experience.)
+- [ ] **Stipulation contradicted.** A later line contradicts something
+  the script stipulated. Evidence: both lines.
 - [ ] **Term drift.** A term is used outside its terminology-table
   meaning, or a synonym replaces a table term. Evidence: the line and the
   table row.
 - [ ] **Bible reopened.** A line reverses or softens a bible decision.
-  Evidence: the line and the bible entry. ("Trivia" stays; the zombie
-  keeps everything cognitive, including pain.)
+  Evidence: the line and the bible entry.
 - [ ] **Speaker mismatch.** A character's words are given to the narrator,
   or a chorus line differs between its speakers. Evidence: the beat.
 
@@ -78,24 +86,21 @@ Precision:
 
 - [ ] **Unnamed cause.** "Has to", "must", "because" where the line
   should name the cause the argument depends on. Evidence: the line and
-  the bible thesis step. ("It has to say that... form is function" →
-  "for all the same physical reasons")
+  the thesis step.
 - [ ] **Mis-aimed attribution.** A view is attributed without the part
-  that makes it the target. Evidence: the line. ("whether they are
-  conscious" → "…as if the answer settles how we ought to treat them")
+  that makes it the target. Evidence: the line.
 - [ ] **Grammar.** Number or agreement is wrong. Evidence: the line.
-  ("particle" → "particles")
 - [ ] **Overclaim or underclaim.** A line states more or less than the
   spine job. Evidence: the line and the job.
 
 Voice:
 
 - [ ] **Writing-guide breach.** A line breaks a rule in the writing guide.
-  Evidence: the line and the rule. (Example rules from human fixes:
-  invite the viewer, do not cite authority; cut a metaphor that adds no
-  claim; mark the stressed word that carries the claim.)
+  Evidence: the line and the rule.
 - [ ] **Unspeakable text.** `say` contains symbols, digits, or
   abbreviations a voice model may misread. Evidence: the line.
+
+Then apply the project checks pasted in the brief.
 
 ## Report format
 
@@ -111,35 +116,39 @@ Notes (at most 3, maker may ignore):
 Clean tree: yes/no
 ```
 
-At most 300 words plus the quotes. No rewrites offered unless the brief
-asks for one suggested wording per finding.
+At most 300 words plus the quotes. No rewrites unless the brief asks for
+one suggested wording per finding.
 
 ## Brief template
 
 ```
 ROLE: Script editor (critic) — {script | spine} review, round {R}
-{ENVIRONMENT — paste the standard block from loops/maker-critic.md}
+{ENVIRONMENT — paste the standard block from C:\Users\dustin\.claude\skills\video-studio\loops\maker-critic.md, filled}
 
 GOAL
 Find observable failures against the checklist. Do not fix anything.
 
 READ, IN THIS ORDER (and nothing else)
 1. C:\Users\dustin\.claude\skills\video-studio\roles\script-editor.md   (your checklist and report format)
-   {for spine review: C:\Users\dustin\.claude\skills\video-studio\roles\director.md, section "Spine-mode checklist"}
+   {spine review: C:\Users\dustin\.claude\skills\video-studio\roles\director.md, section "Spine checklist", instead}
 2. {PROJECT_ROOT}\production\spine.md
 3. {PROJECT_ROOT}\production\bible.md
 4. {PROJECT_ROOT}\production\style-guide\writing.md
 5. {PROJECT_ROOT}\production\style-guide\terminology.md
-6. {PROJECT_ROOT}\script\index.ts, then every chapter file it lists, in order
+6. {script review: {PROJECT_ROOT}\script\index.ts, then every chapter file it lists, in order}
 
 FOCUS
-Changed beats: {ids from the maker's report}. Check the whole script anyway; cross-chapter failures count.
+Changed beats: {ids from the writers' reports, or "all (first draft)"}. Check the whole script anyway; cross-chapter failures count.
 Round 2+: open findings from last round: {list}. Confirm each fixed or still open.
+
+PROJECT CHECKS (from {PROJECT_ROOT}\production\checks\script-editor.md; apply after the role checklist)
+{paste the file verbatim, or "none"}
 
 YOU OWN
 Nothing. Probe notes go in {SCRATCH}. Leave git status clean.
 
-{REPORT — use the report format in your role file}
+REPORT
+Use the report format in your role file. At most 300 words plus the quotes.
 ```
 
 ## Escalation
@@ -148,16 +157,18 @@ Report as escalations, not findings:
 
 - a failure whose fix needs a new term, motif, or symbol;
 - a failure whose fix changes a chapter's job or the spine;
-- a conflict between two documents (spine vs bible).
+- a conflict between two documents (spine vs bible);
+- a false claim the spine itself requires.
 
 ## Known failure modes
 
-- **Checking only the changed chapter.** Cross-chapter repetition is
-  invisible from one chapter. Prevention: the brief has it read the whole
+- **Checking only the changed chapter.** Prevention: it reads the whole
   script every round.
 - **Opinions as findings.** "This line is weak" is not a finding.
   Prevention: the evidence rule in
   [maker-critic](../loops/maker-critic.md); items without a checklist
   line become notes, at most three.
+- **No one checks truth.** Consistency checks pass a false claim that
+  agrees with itself. Prevention: the "false or unsupported claim" item.
 - **Rewriting.** A critic that rewrites becomes an unchecked maker.
   Prevention: it owns no files.
