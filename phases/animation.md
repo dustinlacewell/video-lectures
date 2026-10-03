@@ -1,124 +1,128 @@
 # Phase: animation
 
-First the animatic, and the human's main sign-off. Then the shared kit,
-then chapter teams in parallel, each with its own critic. Last, the
-director checks the whole video for consistency across chapters.
+First the animatic and the human's main sign-off. Then the exporter (if
+none exists), the shared kit, and chapter teams in parallel, each with
+its own critic.
 
 ## Entry criteria
 
-- Voice locked (lean: rendered and clip-check green; the lock comes at
-  this phase's gate). `durations.json` committed.
+- Voice rendered and clip-check green (full: voice locked).
+  `durations.json` committed.
 - Storyboard test green: every voiced beat has a board.
-- Visual vocabulary approved by the director.
-- The board renderer exists. The engine owner built it in
-  [preproduction](preproduction.md) step 0.
+- The board renderer exists ([preproduction](preproduction.md) step 0).
 
 ## Steps, part A: the animatic
 
-1. **Build and measure.** The [editor](../roles/editor.md) builds the
-   animatic per [animatic](../documents/animatic.md) and runs
+1. **Build and measure.** Build the animatic per
+   [animatic](../documents/animatic.md). Run
    [clip-check](../tools/clip-check.md),
-   [pacing-curve](../tools/pacing-curve.md), and
-   [contact-sheet](../tools/contact-sheet.md). The cold viewers' contact
-   sheet is captured without the boards' purpose band: the purpose is
-   the spine, and a cold viewer must not see it.
+   [pacing-curve](../tools/pacing-curve.md) and
+   [contact-sheet](../tools/contact-sheet.md). The cold viewers' sheet is
+   captured with `?boards` and without `?purpose`: the purpose is the
+   spine, and a cold viewer must not see it. Lean: the producer does
+   this. Full: the [editor](../roles/editor.md).
 2. **Cold viewers.** Fresh agents per
-   [cold-viewer review](../loops/cold-viewer-review.md). Full: newcomer,
-   skeptic and domain expert. Lean: newcomer and skeptic. They get the
-   contact sheet and transcript only.
-3. **Record.** The [director](../roles/director.md) writes
+   [cold-viewer review](../loops/cold-viewer-review.md), on the contact
+   sheet and transcript only. Lean: newcomer and skeptic, 2 runs. Full:
+   newcomer, skeptic and domain expert.
+3. **Compare with the spine.** Lean: the producer compares the reports
+   with each chapter's job and writes the gate decisions. No synthesis
+   agent. Full: the [director](../roles/director.md) writes
    `production/animatic.md`: runtimes against weights, pacing flags,
-   what each cold viewer believes against each chapter's job. The
-   director turns mismatches into decisions for the gate.
+   what each viewer believes against each job, and the decisions.
 
 ## Gate: the animatic
 
-This is the human's main sign-off. Fixes here are edits to data. Every
-message: one decision, two choices, a recommendation. Keep each tiny.
+The human's main sign-off. Fixes here are edits to data. One decision
+per message: two choices and a recommendation.
 
 1. "Watch the animatic once in the player (<m:ss>). It is boards timed
-   to the real voice. Send notes in any form." Lean adds the table-read
-   listen from the [voice gate](voice.md#gate-table-read), step 1,
-   including its "cut off" item. This is the table read.
-2. Then the director's decisions, one per message, each with two
-   choices and a recommendation. Example: "The last chapter carries
-   three claims in one minute. Split it in two, or give the trivia claim
-   its own card? I recommend splitting."
+   to the real voice. Send notes in any form." Lean: this is also the
+   table read. Add "Note any line that sounds wrong: wrong word, odd
+   stress, cut off, wrong voice."
+2. The decisions from step 3, one per message. Example: "The last
+   chapter carries three claims in one minute. Split it in two, or give
+   the trivia claim its own card? I recommend splitting."
 3. "Sign the animatic? Animation starts from it. I recommend yes." Lean:
    "Sign the animatic and lock the script and voice?"
 
 On rejection: notes go to the [notes ledger](../documents/notes-ledger.md)
 and through [notes-to-checks](../loops/notes-to-checks.md). Script
-changes re-enter the voice phase for the changed clips only. Rebuild the
-animatic and re-ask only what changed.
+changes go to the writer (full: then the script-editor), then voice
+steps 1–3 for the changed clips only. Rebuild the animatic and re-ask
+only what changed.
 
 ## Steps, part B: animation
 
-4. **Shared kit first.** One kit owner (an [animator](../roles/animator.md),
-   to the [art-director](../roles/art-director.md)'s spec; lean: the
-   director's spec) implements every vocabulary symbol in `kit/` before
-   any chapter starts. Structural
-   fixes go here: one color per badge icon, set in the kit; speech
-   bubbles clamped into the safe area; face drawn over limbs. Nobody
-   else edits `kit/` or `engine/` in this phase.
-5. **Chapter teams in parallel.** One [animator](../roles/animator.md)
-   (Opus) per chapter, each in its own worktree. Lean: one animator per
-   chapter group, 2–3 groups in all.
+4. **Exporter** (one-time, only if none exists). The
+   [engine owner](../roles/engine-owner.md) builds it per
+   [export](../engine/export.md), including its §3 engine change for
+   deterministic audio. It starts right after the gate, in its own
+   worktree, in parallel with steps 5–8. [QA](../roles/qa.md) runs
+   export.md's §6 verification on the animatic. Delivery cannot start
+   until it passes.
+5. **Shared kit.** One kit owner (an [animator](../roles/animator.md))
+   implements every vocabulary symbol the kit lacks in `kit/`, to the
+   [art-director](../roles/art-director.md)'s spec (lean: the
+   director's), before any chapter starts. Structural fixes go here:
+   one color per badge icon, speech bubbles clamped to the safe area,
+   face drawn over limbs. Lean: only when the vocabulary added symbols
+   the kit lacks. Nobody else edits `kit/` or `engine/` in this phase.
+6. **Chapter teams in parallel.** Each animator (Opus) works in its own
+   worktree. Lean: 2–3 chapter groups. Full: one chapter each.
    - Owns: `scenes/<NN-chapter>*.ts`; the `cam`, `camT`, `still`, `dur`,
-     `sfx`, and `cues` fields of `script/<NN-chapter>.ts`, for its
-     chapters only.
+     `sfx` and `cues` fields of its chapters' script files.
    - Must not touch: `say`, `card`, `speaker`, `stagger`, beat ids (a
-     change breaks the voice manifest hash and clip-check fails); `kit/`,
-     `engine/`, `player/`, `production/`, other chapters.
-   - Needs a symbol or term that is not in the documents: stops and
-     sends a proposal up.
-6. **Supervise each chapter.** [Animation-supervisor](../roles/animation-supervisor.md)
-   in a [maker-critic loop](../loops/maker-critic.md), at most 3 rounds.
-   Lean: one loop per chapter group. The producer (or a Sonnet helper)
-   renders headless frames at each beat's midpoint and end (`__seek`);
-   [QA](../roles/qa.md) runs [frame-sweep](../tools/frame-sweep.md)
-   (lean: the producer runs it). The supervisor checks each frame
-   against the board's purpose, the vocabulary, and the bible.
-7. **Merge.** The producer merges one worktree at a time. After each
-   merge: tests, frame-sweep on the whole video. Each agent stops any
+     change breaks the voice manifest hash); `kit/`, `engine/`,
+     `player/`, `production/`, other chapters.
+   - Needs a symbol or term not in the documents: stops and sends a
+     proposal up.
+7. **Supervise.** The [animation-supervisor](../roles/animation-supervisor.md)
+   checks each beat's frames against the board's purpose, the
+   vocabulary and the bible.
+   - Lean: one supervisor pass per group, then at most one fix round by
+     the animator. The producer runs [frame-sweep](../tools/frame-sweep.md)
+     and clip-check. A finding the fix did not close becomes an open
+     ledger row for post.
+   - Full: a [maker-critic loop](../loops/maker-critic.md), at most 3
+     rounds; QA runs frame-sweep each round.
+8. **Merge.** The producer merges one worktree at a time. After each
+   merge: `wm test`, frame-sweep on the whole video. Each agent stops any
    server it started before it reports.
-8. **Whole-video pass.** The director reads a contact sheet of every
-   chapter, one symbol at a time across chapters, then motifs, then
-   labels against terminology. Findings go to the owners, not into
-   chapter files directly.
+9. **Whole-video pass** (full). The director reads a contact sheet of
+   every chapter: one symbol at a time across chapters, then motifs,
+   then labels against terminology. Findings go to the owners.
 
 Decisions the director cannot settle go to the human, one per message.
 A human note that arrives while chapter loops run follows
-[change-orders](../loops/change-orders.md). There is no other human
-gate in this phase. The human's next watch is the full draft in
-[post](post.md).
+[change-orders](../loops/change-orders.md). The human's next watch is
+the full draft in [post](post.md).
 
-Polish task mode runs steps 6–7 alone, on the named chapters.
+The polish task mode runs steps 7–8 on the named chapters
+([sizing](sizing.md#polish)).
 
 ## Exit criteria
 
-- No chapter falls back to boards. The registry has a scene for each.
-- Every chapter passed its supervisor loop. Frame-sweep is clean.
-- Director's whole-video pass has no open item.
+- No chapter falls back to boards.
+- Every chapter passed its supervisor step. Frame-sweep is clean.
+- Full: the director's whole-video pass has no open item.
 - All worktrees merged and removed.
+- The exporter, when it was built here, passed export.md §6 on the
+  animatic.
 
 ## Common failures
 
-- **Symbol drift across chapters.** The checkmark meant "tested",
-  "chosen", "still has it", and "clearly has it" in different chapters.
-  The supervisor checks each frame against the vocabulary row; the
-  director checks one symbol across all chapters.
-- **Local restyling.** The animals chapter put the star in two places
-  and restyled it inside a "?" bubble. A new look is a vocabulary
-  proposal, not a local edit.
-- **Unchecked openers.** The form chapter's new opening visual was
-  never checked against anything. Every beat has a board; the board is
-  the brief.
+- **Symbol drift.** The checkmark meant "tested", "chosen", "still has
+  it" and "clearly has it" in different chapters. The supervisor checks
+  each frame against the vocabulary row.
+- **Local restyling.** The animals chapter restyled the star inside a
+  "?" bubble. A new look is a vocabulary proposal, not a local edit.
 - **Picture begs the question.** A brain with no background activity
   made "those fired because others fired first" beg the question. The
   supervisor checks the picture against the line's claim.
-- **Off-screen and layering.** A close-up domino and several bubbles
-  were half off screen; arms drew behind the face. Frame-sweep and kit
-  fixes, not eyeballing.
+- **Off-screen and layering.** Bubbles half off screen; arms behind the
+  face. Frame-sweep and kit fixes, not eyeballing.
+- **Export left to the end.** On the reference the exporter was still
+  not built when the video was otherwise done. Step 4 builds it here.
 - **Windows worktrees.** A worktree stays locked while its agent or a
   preview server lives. Stop servers before reporting.
