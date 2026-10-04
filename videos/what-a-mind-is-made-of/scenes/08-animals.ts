@@ -1,20 +1,20 @@
 /* 8. Animals and AI: consciousness is trivia, cognition is what matters. Ends on the title art. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, c, tf } from '../engine/canvas';
-import { bgGradient, check, circ, fillRR, glow, line, poly, ring, rr, strokeRR } from '../engine/draw';
-import { PI, cl, easeIn, easeOut, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { withCam } from '../engine/parallax';
-import { tag, txt } from '../engine/text';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, c, tf } from '@studio/engine/canvas';
+import { bgGradient, check, circ, fillRR, glow, line, poly, ring, rr, strokeRR } from '@studio/engine/draw';
+import { PI, cl, easeIn, easeOut, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { withCam } from '@studio/engine/parallax';
+import { tag, txt } from '@studio/engine/text';
 import { aibot } from '../kit/aibot';
 import { crow, dog, octopus, type Creature } from '../kit/animals';
-import { bean } from '../kit/bean';
-import { badge, icon, type IconKind } from '../kit/icons';
-import { ground, stars } from '../kit/scenery';
-import { spark } from '../kit/spark';
+import { bean } from '@studio/library/characters/bean';
+import { badge, icon, type IconKind } from '@studio/library/props/icons';
+import { ground, stars } from '@studio/library/backgrounds/scenery';
+import { spark } from '@studio/library/props/spark';
 import { TITLE_BG, titleBack, titleScene } from './shared/titleArt';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 const GY = 620;
 

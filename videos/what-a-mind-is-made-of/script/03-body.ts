@@ -1,6 +1,7 @@
-import { ease, lerp } from '../engine/math';
+import { ease, lerp } from '@studio/engine/math';
 import { CHAIN, LOOP } from '../scenes/03-body.layout';
-import type { ChapterCue, ChapterScript } from './types';
+import type { ChapterCue } from '@studio/engine/script';
+import type { ChapterScript } from './types';
 
 /** Start deep inside the body, then pull back to the whole figure. */
 function pullBack(S: { since(key: string): number }) {

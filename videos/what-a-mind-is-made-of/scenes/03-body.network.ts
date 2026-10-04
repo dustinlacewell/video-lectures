@@ -1,7 +1,7 @@
 /* Pure: the brain network of the body chapter, and its always-on background firing.
    Positions are in world units. Nothing here draws. */
 
-import { TAU, cl, rng } from '../engine/math';
+import { TAU, cl, rng } from '@studio/engine/math';
 import { CHAIN } from './03-body.layout';
 
 export type Pt = [number, number];

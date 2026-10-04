@@ -1,17 +1,17 @@
 /* 4. Words: why this word and not that one. Cognition weighs candidates; the answer is selected. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, tf, withA } from '../engine/canvas';
-import { arrow, check, circ, fillRR, line, strokeRR } from '../engine/draw';
-import { PI, back, ease, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { bubble, tag, txt } from '../engine/text';
-import { bean } from '../kit/bean';
-import { badge, type IconKind } from '../kit/icons';
-import { floaters, ground, stars } from '../kit/scenery';
-import { speech, type Speech, type Spots } from './shared/speech';
-import type { Holds } from './shared/speechTiming';
-import type { Scene } from './types';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, tf, withA } from '@studio/engine/canvas';
+import { arrow, check, circ, fillRR, line, strokeRR } from '@studio/engine/draw';
+import { PI, back, ease, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { bubble, tag, txt } from '@studio/engine/text';
+import { bean } from '@studio/library/characters/bean';
+import { badge, type IconKind } from '@studio/library/props/icons';
+import { floaters, ground, stars } from '@studio/library/backgrounds/scenery';
+import { speech, type Speech, type Spots } from '@studio/engine/speech/speech';
+import type { Holds } from '@studio/engine/speech/speechTiming';
+import type { Scene } from '@studio/engine/scene';
 
 const GY = 620, HEAD = [505, 350];
 

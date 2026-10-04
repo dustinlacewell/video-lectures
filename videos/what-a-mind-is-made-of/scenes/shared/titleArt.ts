@@ -1,13 +1,13 @@
 /* The title art: big headline, a grinning figure, and its faculties orbiting it. Used at start and end. */
 
-import type { Cam } from '../../script/types';
-import { fillRR } from '../../engine/draw';
-import { TAU } from '../../engine/math';
-import { C } from '../../engine/palette';
-import { txt } from '../../engine/text';
-import { bean } from '../../kit/bean';
-import { badge, type IconKind } from '../../kit/icons';
-import { floaters, stars } from '../../kit/scenery';
+import type { Cam } from '@studio/engine/script';
+import { fillRR } from '@studio/engine/draw';
+import { TAU } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { txt } from '@studio/engine/text';
+import { bean } from '@studio/library/characters/bean';
+import { badge, type IconKind } from '@studio/library/props/icons';
+import { floaters, stars } from '@studio/library/backgrounds/scenery';
 
 export const TITLE_BG: [string, string] = ['#3A2C8C', '#1A1446'];
 

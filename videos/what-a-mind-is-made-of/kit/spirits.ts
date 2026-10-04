@@ -1,9 +1,9 @@
 /* Non-physical visitors: ghost, spirit, thought. Each floats around (x,y). */
 
-import { c, tf, withA } from '../engine/canvas';
-import { circ, ell, fillRR, glow, line } from '../engine/draw';
-import { PI } from '../engine/math';
-import { C } from '../engine/palette';
+import { c, tf, withA } from '@studio/engine/canvas';
+import { circ, ell, fillRR, glow, line } from '@studio/engine/draw';
+import { PI } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
 
 export interface SpiritOpts { t?: number; alpha?: number | null; rot?: number; flip?: boolean; mood?: string; shake?: number }
 

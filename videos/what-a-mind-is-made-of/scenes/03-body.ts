@@ -1,19 +1,19 @@
 /* 3. The body: the arm, traced back into the brain. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, c, tf, withA } from '../engine/canvas';
-import { circ, cross, ell, glow, line, rr } from '../engine/draw';
-import { TAU, back, cl, ease, easeOut, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { tag } from '../engine/text';
-import type { Cam } from '../script/types';
-import { bean } from '../kit/bean';
-import { badge, type IconKind } from '../kit/icons';
-import { along, flow, floaters, ground, stars } from '../kit/scenery';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, c, tf, withA } from '@studio/engine/canvas';
+import { circ, cross, ell, glow, line, rr } from '@studio/engine/draw';
+import { TAU, back, cl, ease, easeOut, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { tag } from '@studio/engine/text';
+import type { Cam } from '@studio/engine/script';
+import { bean } from '@studio/library/characters/bean';
+import { badge, type IconKind } from '@studio/library/props/icons';
+import { along, flow, floaters, ground, stars } from '@studio/library/backgrounds/scenery';
 import { spirit } from '../kit/spirits';
 import { CHAIN, LOOP } from './03-body.layout';
 import { BR, EDGES, NODES, PATH, TRACE, TRACE_BADGE, activity, type Pt } from './03-body.network';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 const BX = 640, BY = 650, BS = 2.3;
 const PATH_FLAT = ([] as number[]).concat(...PATH);

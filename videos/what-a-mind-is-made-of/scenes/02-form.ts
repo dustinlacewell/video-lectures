@@ -1,15 +1,15 @@
 /* 2. Form is function: a rolling shape, then lever, pulley, circuit. Each sits at its own place in the world. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, c, tf, withA } from '../engine/canvas';
-import { arrow, circ, fillRR, glow, line, poly, ring, strokeRR } from '../engine/draw';
-import { PI, TAU, back, cl, ease, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { withCam } from '../engine/parallax';
-import { tag, txt } from '../engine/text';
-import { bean } from '../kit/bean';
-import { flow, floaters, ground } from '../kit/scenery';
-import type { Scene } from './types';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, c, tf, withA } from '@studio/engine/canvas';
+import { arrow, circ, fillRR, glow, line, poly, ring, strokeRR } from '@studio/engine/draw';
+import { PI, TAU, back, cl, ease, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { withCam } from '@studio/engine/parallax';
+import { tag, txt } from '@studio/engine/text';
+import { bean } from '@studio/library/characters/bean';
+import { flow, floaters, ground } from '@studio/library/backgrounds/scenery';
+import type { Scene } from '@studio/engine/scene';
 
 const GY = 560, WOOD = '#D9924E', WOODD = '#A8652E';
 

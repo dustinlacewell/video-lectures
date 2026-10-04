@@ -1,0 +1,7 @@
+{
+  "extends": "@studio/engine/tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", "test"]
+}

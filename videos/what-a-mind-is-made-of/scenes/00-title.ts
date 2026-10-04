@@ -1,5 +1,5 @@
-import { C } from '../engine/palette';
-import type { Scene } from './types';
+import { C } from '@studio/engine/palette';
+import type { Scene } from '@studio/engine/scene';
 import { TITLE_BG, titleBack, titleScene } from './shared/titleArt';
 
 export const title: Scene = {

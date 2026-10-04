@@ -1,17 +1,17 @@
 /* 1. Physics: only physical things push. A domino chain, a lone domino, and visitors who fail to move it. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, GA, c, tf, withA } from '../engine/canvas';
-import { check, circ, cross, ell, glow, fillRR, line, ring } from '../engine/draw';
-import { PI, TAU, back, cl, ease, easeIn, easeOut, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { withCam } from '../engine/parallax';
-import { tag } from '../engine/text';
-import { hand } from '../kit/hand';
-import { floaters, ground, stars } from '../kit/scenery';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, GA, c, tf, withA } from '@studio/engine/canvas';
+import { check, circ, cross, ell, glow, fillRR, line, ring } from '@studio/engine/draw';
+import { PI, TAU, back, cl, ease, easeIn, easeOut, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { withCam } from '@studio/engine/parallax';
+import { tag } from '@studio/engine/text';
+import { hand } from '@studio/library/characters/hand';
+import { floaters, ground, stars } from '@studio/library/backgrounds/scenery';
 import { ghost, spirit, thought, type Visitor } from '../kit/spirits';
 import { DELTA, GY, LONE, N, PUSH, dh, ds, dw, thHit, x0 } from './01-physics.layout';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 export const physics: Scene = {
   bg: ['#1B3A8A', '#0E1547'], accent: C.cyan,

@@ -1,19 +1,19 @@
 /* 7. Two subtractions: remove experience (still you), remove cognition (no one). */
 
-import type { BeatState } from '../engine/beatState';
-import { A, tf } from '../engine/canvas';
-import { check, circ, ring } from '../engine/draw';
-import { TAU, cl, easeIn, easeOut, mix } from '../engine/math';
-import { C } from '../engine/palette';
-import { tag } from '../engine/text';
-import { bean } from '../kit/bean';
-import { badge } from '../kit/icons';
-import { floaters, ground, stars } from '../kit/scenery';
-import { spark } from '../kit/spark';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, tf } from '@studio/engine/canvas';
+import { check, circ, ring } from '@studio/engine/draw';
+import { TAU, cl, easeIn, easeOut, mix } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { tag } from '@studio/engine/text';
+import { bean } from '@studio/library/characters/bean';
+import { badge } from '@studio/library/props/icons';
+import { floaters, ground, stars } from '@studio/library/backgrounds/scenery';
+import { spark } from '@studio/library/props/spark';
 import { GY, INV, ZC, invPos } from './06-inventory.layout';
 import { CHECK_STEP, REM } from './07-subtract.layout';
 import { thoughtTag } from './shared/thoughtTag';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 const GREY = '#8D89A8';
 

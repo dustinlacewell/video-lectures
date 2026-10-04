@@ -9,6 +9,6 @@ import { zombie } from './05-zombie';
 import { inventory } from './06-inventory';
 import { subtract } from './07-subtract';
 import { animals } from './08-animals';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 export const SCENES: Record<string, Scene> = { title, physics, form, body, words, zombie, inventory, subtract, animals };
