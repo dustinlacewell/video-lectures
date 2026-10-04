@@ -1,6 +1,6 @@
 # export
 
-Renders the video to an MP4 with its own voice, music and sound effects. Also writes a YouTube chapter list and captions. The design it follows is `engine/export.md`; this file says what is built.
+Renders the video to an MP4 with its own voice, music and sound effects. Also writes a YouTube chapter list and captions. The design it follows is [export](../engine/export.md); this file says what is built.
 
 ## Contract it relies on
 
@@ -73,7 +73,7 @@ pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools export --build <scr
 - `loudnessI`, `truePeak` of the MP4 (EBU R128).
 - `psnr`: the first and last frame and up to 8 beat midpoints, decoded from the MP4 and compared with a fresh `__seek` capture. H.264 loss alone gives about 36-39 dB; much lower means a determinism bug or a frame offset.
 
-Not built yet from `engine/export.md` section 6: audio cross-correlation per clip, and the cold/warm determinism precheck (`contact-sheet --twice` covers it).
+Not built yet from [export](../engine/export.md) section 6: audio cross-correlation per clip, and the cold/warm determinism precheck (`contact-sheet --twice` covers it).
 
 ## Exit codes
 

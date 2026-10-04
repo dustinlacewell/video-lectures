@@ -13,8 +13,8 @@ director proposes, the human decides.
   Colors, Label styles, and the Sounds rows the boards use), the board
   picture fields, `production/storyboard/stills/`.
 - **Must not touch:** code and data under `{PROJECT_ROOT}` (`script/`,
-  `scenes/`, `kit/`, `engine/`, `voice/`, `player/`, `test/`). Full
-  track: the vocabulary and picture fields (the
+  `scenes/`, `kit/`, `voice/`, `test/`), or `@studio/engine` and
+  `@studio/library`. Full track: the vocabulary and picture fields (the
   [art-director](art-director.md)'s; the director approves rows, does not
   edit them).
 - **Model:** Fable. Every brief names its files. Never "go explore".

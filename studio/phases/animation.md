@@ -62,19 +62,21 @@ only what changed.
    export.md's §6 verification on the animatic. Delivery cannot start
    until it passes.
 5. **Shared kit.** One kit owner (an [animator](../roles/animator.md))
-   implements every vocabulary symbol the kit lacks in `kit/`, to the
-   [art-director](../roles/art-director.md)'s spec (lean: the
+   implements every vocabulary symbol the kit lacks, in the video's
+   `kit/` or in `@studio/library` if it is generic enough to share, to
+   the [art-director](../roles/art-director.md)'s spec (lean: the
    director's), before any chapter starts. Structural fixes go here:
    one color per badge icon, speech bubbles clamped to the safe area,
    face drawn over limbs. Lean: only when the vocabulary added symbols
-   the kit lacks. Nobody else edits `kit/` or `engine/` in this phase.
+   the kit lacks. Nobody else edits `kit/`, `@studio/library` or
+   `@studio/engine` in this phase.
 6. **Chapter teams in parallel.** Each animator (Opus) works in its own
    worktree. Lean: 2–3 chapter groups. Full: one chapter each.
    - Owns: `scenes/<NN-chapter>*.ts`; the `cam`, `camT`, `still`, `dur`,
      `sfx` and `cues` fields of its chapters' script files.
    - Must not touch: `say`, `card`, `speaker`, `stagger`, beat ids (a
-     change breaks the voice manifest hash); `kit/`, `engine/`,
-     `player/`, `production/`, other chapters.
+     change breaks the voice manifest hash); `kit/`, `@studio/engine`,
+     `@studio/library`, `production/`, other chapters.
    - Needs a symbol or term not in the documents: stops and sends a
      proposal up.
 7. **Supervise.** The [animation-supervisor](../roles/animation-supervisor.md)

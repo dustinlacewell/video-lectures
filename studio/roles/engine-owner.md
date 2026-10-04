@@ -1,26 +1,27 @@
 # Engine owner
 
-Owns the code every chapter and every tool stands on: engine, player,
-kit primitives, test infrastructure, and the voice pipeline code. Makes
-the engine ready, ports prototypes into the
+Owns the code every chapter and every tool stands on: `@studio/engine`
+(player included), `@studio/library`, kit primitives, test
+infrastructure, and the voice pipeline code. Makes the engine ready,
+ports prototypes into the
 [engine contract](../engine/contract.md), and builds the MP4 exporter.
 Never animates a chapter.
 
-- **Owns:** `engine/**` except `engine/audio/music.ts`, `sfx.ts`,
-  `synth.ts` (the [sound engineer](sound-engineer.md)); `player/**`;
-  kit primitives (files in `kit/` that draw no character and no
-  vocabulary symbol); `scenes/shared/speech.ts`, `speechTiming.ts`,
-  `board.ts` and the board fallback in `scenes/index.ts`; `test/**`
-  infrastructure and engine tests; the `__script()` global; the MP4
-  exporter; `tsconfig.json`, `vite.config.ts`, `package.json`, `wm.ts`,
-  `.wm/**`; `voice/*.py`, `voice/manifest.ts`, `voice/refs.ts`,
-  `voice/pyproject.toml`, `voice/uv.lock`; `script/types.ts` except
-  `SpeakerId` ([casting](casting.md)) and `SfxName` (sound engineer).
-  New project and port: every file the job creates, until its commit
-  lands.
+- **Owns:** `packages/engine/**` (`@studio/engine`, player included)
+  except `audio/music.ts`, `sfx.ts`, `synth.ts` (the
+  [sound engineer](sound-engineer.md)); `packages/library/**`
+  (`@studio/library`); kit primitives (files in the video's `kit/` that
+  draw no character and no vocabulary symbol); `scenes/shared/speech.ts`,
+  `speechTiming.ts`, `board.ts` and the board fallback in
+  `scenes/index.ts`; `test/**` infrastructure and engine tests; the
+  `__script()` global; the MP4 exporter; `tsconfig.json`,
+  `vite.config.ts`, `package.json`, `wm.ts`, `.wm/**`; `packages/voice/**`
+  (`@studio/voice`); `script/types.ts` except `SpeakerId`
+  ([casting](casting.md)) and `SfxName` (sound engineer). New project and
+  port: every file the job creates, until its commit lands.
 - **Must not touch:** `script/NN-*.ts`, `scenes/NN-*.ts`; kit files that
-  draw characters or symbols (the kit owner); `engine/audio/music.ts`,
-  `sfx.ts`, `synth.ts`; `voice/refs/`, `voice/clips/`,
+  draw characters or symbols (the kit owner); `@studio/engine`'s
+  `audio/music.ts`, `sfx.ts`, `synth.ts`; `voice/refs/`, `voice/clips/`,
   `voice/manifest.json`; `script/cast.ts`; `production/**`.
 - **Model:** Opus (new project copy steps: Sonnet). A change to the
   contract itself gets a design pass first.
@@ -56,8 +57,9 @@ engine change requests it through the producer.
      ([export](../engine/export.md) section 3). The synth changes it
      needs go to the sound engineer as a request.
 - **New project** (port only; otherwise the producer follows
-  [new-project](../engine/new-project.md) by hand). Copy the reference
-  repo with its content removed, per new-project.md.
+  [new-project](../engine/new-project.md) by hand). Make the new video
+  folder depend on `@studio/engine`, `@studio/library` and
+  `@studio/voice`, per new-project.md.
 - **Port.** Split a prototype into the contract's layers with no visual
   change, proven by pixel parity ([porting](../engine/porting.md)). Build
   the parity tool as `wm parity` for the port; delete it after.
@@ -112,7 +114,7 @@ READ, IN THIS ORDER
    {Port: C:\Users\dustin\.claude\skills\video-studio\engine\porting.md, and the recon report pasted below}
    {Export: C:\Users\dustin\.claude\skills\video-studio\engine\export.md}
 3. C:\Users\dustin\.claude\skills\video-studio\tools\setup.md
-4. {Not new project: {PROJECT_ROOT}\engine\, {PROJECT_ROOT}\player\main.ts, {PROJECT_ROOT}\scenes\index.ts, {PROJECT_ROOT}\test\}
+4. {Not new project: D:\code\ai\video-lectures\packages\engine\src\, {PROJECT_ROOT}\scenes\index.ts, {PROJECT_ROOT}\test\}
 5. {art-director spec, pasted below, if any}
 
 YOU OWN (may edit)
@@ -120,8 +122,9 @@ YOU OWN (may edit)
 {New project: every file new-project.md creates, except voice\refs\ and production\ documents. Project name: {name}.}
 
 DO NOT TOUCH
-script\NN-*.ts, scenes\NN-*.ts, kit files that draw characters or symbols, engine\audio\music.ts, sfx.ts, synth.ts,
-voice\refs\, voice\clips\, voice\manifest.json, script\cast.ts, production\. {New project: the reference repo is read-only.}
+script\NN-*.ts, scenes\NN-*.ts, kit files that draw characters or symbols, @studio/engine's audio\music.ts, sfx.ts, synth.ts,
+voice\refs\, voice\clips\, voice\manifest.json, script\cast.ts, production\. {New project: packages\engine, packages\library and
+packages\voice are read-only unless the job is a readiness or export fix to them.}
 
 DECISIONS ALREADY MADE (do not reopen)
 {bible ids and one-line summaries}

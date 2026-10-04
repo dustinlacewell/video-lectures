@@ -9,8 +9,8 @@ delivery runs the export.
   round); `out/` at delivery.
 - **Must not touch:** every field in the chapter script files; scene
   code; `scenes/shared/board.ts` and the board fallback (the
-  [engine owner](engine-owner.md)); `voice/`, `kit/`, `engine/`,
-  `player/`; documents. A `dur` change goes to the chapter's
+  [engine owner](engine-owner.md)); `voice/`, `kit/`, `@studio/engine`,
+  `@studio/library`; documents. A `dur` change goes to the chapter's
   [animator](animator.md), a `stagger` or text change to the
   [writer](writer.md), a weight or order change to the
   [director](director.md): each by note.

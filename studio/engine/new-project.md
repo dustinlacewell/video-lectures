@@ -1,6 +1,6 @@
 # Starting a new video project
 
-A new video is a new folder, `videos/<slug>/`, in the monorepo `D:\code\ai\video-lectures`. It starts as a copy of the reference video, `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of`, with its content removed. The engine, kit, player and voice pipeline carry over as copied code for now. A shared engine package is future work. The script and scenes do not carry over. Voices carry over only when the human asks for the same voices.
+A new video is a new folder, `videos/<slug>/`, in the monorepo `D:\code\ai\video-lectures`. It depends on the shared packages — `@studio/engine` (player, scene and audio runtime), `@studio/library` (characters, backgrounds, props) and `@studio/voice` (the voice pipeline) — instead of carrying a copy of their code. Only the video's own content is new: `video.ts`, `scenes/`, `script/`, `production/`, `voice/refs/` and `voice/clips/`, `video.json`, `poster.png`. Voices carry over only when the human asks for the same voices.
 
 The monorepo also holds this skill (`studio/`) and the series site (`site/`). The site lists every folder under `videos/` that has a `video.json`, and serves each video at `https://lectures.ldlework.com/<slug>/`.
 
@@ -14,13 +14,13 @@ The monorepo also holds this skill (`studio/`) and the series site (`site/`). Th
 
 The human names the video. Ask one question. The slug is the folder name, the URL path, the `package.json` name and the workmark project name. All four MUST match.
 
-The voice stack needs about 15 GB per video: a 5 GB venv and 8.7 GB of model weights in the video's own `voice/` ([voice pipeline](voice-pipeline.md)). Export needs about 5 GB more. The D: drive filled up during the reference project. Check now:
+The voice stack is shared: one 5 GB venv and 8.7 GB of model weights in `packages/voice/py`, installed once for the whole monorepo ([voice pipeline](voice-pipeline.md)). A new video needs none of that; it only adds clips, small per video. Export needs about 5 GB more per video. The D: drive filled up during the reference project. Check now:
 
 ```powershell
 Get-PSDrive -PSProvider FileSystem | Select-Object Name, @{n='FreeGB';e={[int]($_.Free/1GB)}}
 ```
 
-Under 25 GB free: stop and ask the human. One answer is to move the reference video's `voice/models` and `voice/vendor` into the new video when the reference no longer renders voice.
+Under 10 GB free: stop and ask the human.
 
 ## 2. Make the folder
 
@@ -34,19 +34,21 @@ There is no new repo. The root `.gitattributes` already pins LF line endings.
 
 Copy from the reference video's tracked files (`git -C D:/code/ai/video-lectures ls-files videos/what-a-mind-is-made-of`), not from its working folder. The working folder holds gitignored weights, venvs and vendor code.
 
+Nothing from `@studio/engine` or `@studio/library` is copied. The new video depends on them (step 6) and uses their exports: characters and backgrounds from `@studio/library`, the player and audio runtime from `@studio/engine`. Only these files carry over, as a starting point to edit, not as code the new video must keep:
+
 | Copy | Notes |
 |---|---|
-| `engine/**` | All of it. `palette.ts` is the old look; the art-director specs a new one and the engine owner applies it. |
-| `player/**` | All of it. Change the page title, the `<h1>` and the `og:*` tags in `player/index.html`. Keep the "← Lectures" link. |
-| `kit/bean.ts`, `kit/hand.ts`, `kit/spark.ts`, `kit/scenery.ts` | Generic primitives. Copy `animals.ts`, `aibot.ts`, `spirits.ts`, `icons.ts` only if the visual vocabulary uses them: they carry the old video's symbols. |
 | `scenes/types.ts`, `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts` | Shared scene services. Not `thoughtTag.ts` or `titleArt.ts`: they belong to the old video. |
 | `script/types.ts` | Set `SpeakerId = 'narrator'`. Casting declares every other speaker at the start of preproduction. Keep `SfxName`; the sound engineer changes it. The storyboard test checks only sounds the script uses, so the inherited list needs no Sounds rows yet. |
-| `voice/breeze.py`, `render.py`, `verify.py`, `transcribe.py`, `speak.py`, `manifest.ts`, `refs.ts`, `pyproject.toml`, `uv.lock` | The voice pipeline. |
 | `test/text.test.ts`, `test/voiceCoverage.test.ts` | Generic. The other tests assert on the old script's chapters; rewrite them against a small fixture script. |
 | `wm.ts` | The workmark project. The commands live once, at the repo root (`.wm/`), and take the video as their project argument. |
-| `vite.config.ts`, `tsconfig.json`, `package.json`, `.gitignore` | Config. |
+| `vite.config.ts`, `tsconfig.json`, `package.json`, `.gitignore` | Config. `vite.config.ts` is exactly `export default studioConfig(import.meta.dirname);` from `@studio/engine/vite`. `package.json` declares `@studio/engine` and `@studio/library` as dependencies. |
 
-The player is built at `/<slug>/`. Every runtime URL (clips, `durations.json`, anything fetched) MUST start with `import.meta.env.BASE_URL`, as the reference's `player/main.ts` does.
+If the video needs its own symbols (an old video's `kit/animals.ts`-style primitives, not generic enough for `@studio/library`), those live under the new video's own `kit/` folder and are written fresh, not copied from the reference video.
+
+The voice pipeline is never copied either. The video's `voice/` folder holds only its own data: `refs/` (reference clips and transcripts) and `clips/` (rendered output). The pipeline code itself is `@studio/voice`, used through the root `.wm/commands/voice/*` commands.
+
+The player is served by `@studio/engine`'s Vite config at `/<slug>/`. Every runtime URL (clips, `durations.json`, anything fetched) MUST start with `import.meta.env.BASE_URL`, as the player does.
 
 ## 4. Clear, rename, stub
 

@@ -10,11 +10,11 @@ places the cues.
   table in `production/style-guide/visual-vocabulary.md` (lean: the
   [director](director.md#lean-mode) writes the rows the boards use); the
   `SfxName` union in `script/types.ts`; the `root` and `scale` fields of
-  each chapter script file; `engine/audio/music.ts`, `sfx.ts`,
-  `synth.ts`.
+  each chapter script file; `@studio/engine`'s `audio/music.ts`,
+  `sfx.ts`, `synth.ts`.
 - **Must not touch:** `voice/refs/`, `script/cast.ts` (casting);
-  `voice/*.py`, `voice/*.ts`, the rest of `engine/` including
-  `engine/audio/voice*.ts` (the [engine owner](engine-owner.md); a defect
+  `@studio/voice`, the rest of `@studio/engine` including its
+  `audio/voice*.ts` (the [engine owner](engine-owner.md); a defect
   there goes to it); every other field in the chapter script files; the
   rest of `visual-vocabulary.md`; `scenes/`, `kit/`; other documents.
 - **Model:** Sonnet for voice renders. Opus for the Sounds table and

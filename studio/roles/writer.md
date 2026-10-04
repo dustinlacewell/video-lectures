@@ -10,7 +10,7 @@ script, one run. Full: one writer per chapter.
   `root`, `scale` (the [sound engineer](sound-engineer.md)); `cam`,
   `camT`, `still`, `dur`, `sfx`, `cues` (the [animator](animator.md));
   `script/types.ts`, `script/cast.ts`, `script/index.ts`; `scenes/`,
-  `kit/`, `engine/`, `voice/`, `player/`; every document.
+  `kit/`, `@studio/engine`, `@studio/library`, `voice/`; every document.
 - **Model:** Opus. The spine and bible carry the decisions.
 - **Critic:** the [script-editor](script-editor.md). Lean: its combined
   pass, after the boards exist. Full: its script mode, once all writers

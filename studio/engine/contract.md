@@ -1,6 +1,6 @@
 # The engine contract
 
-A video project MUST honor this contract. The roles, loops and tools in this skill depend on it. The reference implementation is `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` (commit `1b6be63`). Type shapes below are copied from it.
+A video project MUST honor this contract. The roles, loops and tools in this skill depend on it. The reference implementation is `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of`, which depends on the shared packages `@studio/engine`, `@studio/library` and `@studio/voice` (`D:\code\ai\video-lectures\packages\`). Type shapes below are copied from it.
 
 "MUST" is a hard rule. A tool or role breaks without it. "SHOULD" is the default; break it only with a reason in the bible (`documents/bible.md`).
 
@@ -9,31 +9,31 @@ A project that starts from a single-file prototype reaches this contract through
 ## 1. Medium
 
 - The video is TypeScript drawing on one Canvas 2D element.
-- All drawing uses a virtual stage of 1280 x 720 (`W`, `H` in `engine/math.ts`). The renderer scales it to the real canvas size. Scenes MUST NOT read the real canvas size.
-- Music and sound effects are synthesized with Web Audio. Voice is pre-rendered WAV clips (see `engine/voice-pipeline.md`).
-- The player is a Vite page. The project has no `package.json` scripts. Workmark commands run everything (section 9).
+- All drawing uses a virtual stage of 1280 x 720 (`W`, `H` in `@studio/engine/math`). The renderer scales it to the real canvas size. Scenes MUST NOT read the real canvas size.
+- Music and sound effects are synthesized with Web Audio. Voice is pre-rendered WAV clips (see [voice pipeline](voice-pipeline.md)).
+- The player is a Vite page, served by `@studio/engine`'s Vite config. The project has no `package.json` scripts. Workmark commands run everything (section 9).
 
 ## 2. Layers
 
-Each folder is one layer. A layer MUST import only from the layers above it in this list.
+Each folder or package is one layer. A layer MUST import only from the layers above it in this list.
 
-| Folder | Purpose | Pure? |
+| Layer | Purpose | Pure? |
 |---|---|---|
-| `script/` | What is said, shown and heard, and when. Pure data. | Pure. No drawing, no I/O. |
-| `engine/` | Timeline, beat state, camera, text, overlays, audio, render loop. | Core is pure (`timeline`, `beatState`, `camera`, `audio/voiceLines`, `audio/voiceTrack`, `richText`, `safeArea.fitShift`). Shell does I/O (`canvas`, `text`, `render`, `audio/*` playback). |
-| `kit/` | Characters and props: draw functions of options plus time. | Draw only. No timeline knowledge. |
-| `scenes/` | One scene per chapter. Calls kit and engine. | Draw only. |
-| `player/` | Composition root, clock, UI, debug globals. The only layer that fetches files. | Shell. |
-| `voice/` | Manifest builder (TS) and synthesis (Python). | `manifest.ts` pure; `refs.ts` and `*.py` do I/O. |
-| `test/` | Vitest unit tests of the pure core. | — |
+| `script/` | What is said, shown and heard, and when. Pure data. Lives in the video. | Pure. No drawing, no I/O. |
+| `@studio/engine` | Timeline, beat state, camera, text, overlays, audio, render loop, player, composition root. Shared by every video. | Core is pure (`timeline`, `beatState`, `camera`, `audio/voiceLines`, `audio/voiceTrack`, `richText`, `safeArea.fitShift`). Shell does I/O (`canvas`, `text`, `render`, `audio/*` playback, `player/*`). |
+| `@studio/library` | Characters, backgrounds and props: draw functions of options plus time. Shared by every video. | Draw only. No timeline knowledge. |
+| `kit/` | A video's own characters and props, too specific to share. Same shape as `@studio/library`. Lives in the video. | Draw only. No timeline knowledge. |
+| `scenes/` | One scene per chapter. Calls the library, the kit and the engine. Lives in the video. | Draw only. |
+| `voice/` | A video's reference clips, manifest and rendered clips. The pipeline code is `@studio/voice`. | `voice/refs/`, `voice/clips/` are data. |
+| `test/` | Vitest unit tests of the pure core. Lives in the video. | — |
 
 Rules:
 
-- `script/` MUST hold no drawing and no logic beyond camera functions (`CamFn`). It MAY import types from `engine/` (the reference imports `BeatState` for `CamFn`).
-- `engine/` MUST NOT import from `kit/`, `scenes/` or `player/`.
-- `kit/` MUST NOT know beats, chapters or the timeline. A kit function takes options and a time `t`. Example: `bean(o: BeanOpts)`.
-- A scene MUST NOT reach past kit into raw canvas calls to redraw a kit character. If a character needs a new pose, the kit owner adds it.
-- `player/main.ts` is the composition root. Construction happens there. Other modules receive what they need.
+- `script/` MUST hold no drawing and no logic beyond camera functions (`CamFn`). It MAY import types from `@studio/engine` (the reference imports `BeatState` for `CamFn`).
+- `@studio/engine` MUST NOT import from `@studio/library`, a video's `kit/`, `scenes/` or any video at all.
+- `@studio/library` and a video's `kit/` MUST NOT know beats, chapters or the timeline. A kit function takes options and a time `t`. Example: `bean(o: BeanOpts)`.
+- A scene MUST NOT reach past the library or the kit into raw canvas calls to redraw a character. If a character needs a new pose, its owner adds it.
+- `@studio/engine/player`'s `main.ts` is the composition root. Construction happens there. Other modules receive what they need.
 
 ## 3. The script
 
@@ -93,7 +93,7 @@ Rules:
 
 ## 4. Timing
 
-`engine/timeline.ts` turns the script plus clip lengths into a `Timeline`. It is pure.
+`@studio/engine/timeline` turns the script plus clip lengths into a `Timeline`. It is pure.
 
 ```ts
 buildTimeline(SCRIPT, voiceDurations(SCRIPT, clips, CAST)): Timeline
@@ -127,12 +127,12 @@ Every frame MUST be a pure function of the time `T`. Scrubbing, headless screens
 
 - A draw pass has the type `(S: BeatState, cam: Cam, T: number) => void`. Its output MUST depend only on these inputs and constants.
 - Draw code MUST NOT call `Math.random`, `Date.now`, `performance.now` or `new Date`.
-- Randomness MUST come from `rng(seed)` in `engine/math.ts`, built from a constant seed or a hash of a stable index. A draw MUST NOT advance an rng that lives across frames.
+- Randomness MUST come from `rng(seed)` in `@studio/engine/math`, built from a constant seed or a hash of a stable index. A draw MUST NOT advance an rng that lives across frames.
 - Draw code MUST NOT keep state between frames. Motion with history (particles, trails, bouncing) MUST be closed-form in `T`. Drawing `T = 30` cold MUST give the same pixels as playing up to 30.
 - Caches MUST be keyed by every input they depend on. The text-wrap cache is cleared when fonts arrive (`clearWrapCache`).
-- Fonts MUST be requested at boot (`player/fonts.ts` calls `document.fonts.load`), so `document.fonts.ready` waits for them. A tool MUST await `document.fonts.ready`, then wait one animation frame, before its first capture. Text measured with a fallback font wraps differently.
+- Fonts MUST be requested at boot (`@studio/engine/player/fonts.ts` calls `document.fonts.load`), so `document.fonts.ready` waits for them. A tool MUST await `document.fonts.ready`, then wait one animation frame, before its first capture. Text measured with a fallback font wraps differently.
 - The page MUST start paused. `__seek(T)` MUST draw synchronously before it returns.
-- The sound-effect cue list (`Timeline.cues`) is pure data. Music and noise SHOULD also be a pure function of `T` (see `engine/export.md`).
+- The sound-effect cue list (`Timeline.cues`) is pure data. Music and noise SHOULD also be a pure function of `T` (see [export](export.md)).
 
 ## 6. Scenes
 
@@ -150,7 +150,7 @@ export interface Scene {
 - `scenes/index.ts` exports `SCENES: Record<chapterId, Scene>`. Every chapter id MUST have a scene.
 - One chapter's scene lives in `scenes/NN-<id>.ts`. It MAY split into `scenes/NN-<id>.<part>.ts` (for example `.layout.ts` for positions, `.network.ts`). Those files belong to the chapter.
 - `scenes/shared/` holds helpers used by several chapters. It has one owner, like `kit/`.
-- Render order per frame (`engine/render.ts`): background gradient, `back`, `draw` under the camera, `over`, chapter fades, title card / card / caption, grain and vignette.
+- Render order per frame (`@studio/engine/render.ts`): background gradient, `back`, `draw` under the camera, `over`, chapter fades, title card / card / caption, grain and vignette.
 
 ## 7. Engine services
 
@@ -165,7 +165,7 @@ Scenes MUST use these instead of drawing their own.
   sp.bubbles({ you: { x, y, size?, maxW? } }); // tail tip at (x, y), world space
   ```
   A bubble pops in when its speaker starts and leaves when the next beat starts, unless `holds` keeps it.
-- **Safe area.** Nothing readable may leave the frame. `SAFE_MARGIN` is 16 virtual px. `tag()` and `bubble()` fit themselves in screen space, whatever the camera does. A custom text box SHOULD call `onScreenShift(box, keep)` or `labelShift(box)` from `engine/safeArea.ts`.
+- **Safe area.** Nothing readable may leave the frame. `SAFE_MARGIN` is 16 virtual px. `tag()` and `bubble()` fit themselves in screen space, whatever the camera does. A custom text box SHOULD call `onScreenShift(box, keep)` or `labelShift(box)` from `@studio/engine/safeArea`.
 - **Rich text.** `txt`, `tw`, `wrap`, `tag` and `bubble` accept `*italic*` markup. `wrapMarkup` keeps spans valid across line breaks.
 
 ## 8. Debug globals
@@ -212,7 +212,7 @@ interface Window {
 
 - `__script()` is one line in the player's debug globals: `window.__script = () => SCRIPT`. The [tools](../tools/setup.md) use it when the page has it. Without it, every tool needs `--script <path>/script/index.ts`. The reference repo lacks it (section 11).
 
-- `__synth()` lets the [export tool](../tools/export.md) render the page's own music and sound effects offline, deterministically, instead of recording live playback. The exporter swaps in an `OfflineAudioContext` behind a proxy with a virtual `currentTime`, calls `init()` to build the graph on it, seeds `Math.random` for the noise buffer, then walks the timeline tick by tick calling `music(T)`, `sfx(type, arg)` at each cue, and `duck(under)` at each voice clip's start and end — the same calls live playback makes, replayed on a clock the exporter drives instead of the browser's. See `studio/tools/export/synth.ts`.
+- `__synth()` lets the [export tool](../tools/export.md) render the page's own music and sound effects offline, deterministically, instead of recording live playback. The exporter swaps in an `OfflineAudioContext` behind a proxy with a virtual `currentTime`, calls `init()` to build the graph on it, seeds `Math.random` for the noise buffer, then walks the timeline tick by tick calling `music(T)`, `sfx(type, arg)` at each cue, and `duck(under)` at each voice clip's start and end — the same calls live playback makes, replayed on a clock the exporter drives instead of the browser's. See `studio/tools/export/synth.ts` (this skill's own tool, not part of `@studio/engine`).
 
 - The stage MUST be one `<canvas id="cv">`. Its backing width is `min(1920, clientWidth x devicePixelRatio)`; height follows 16:9. A tool sets the viewport to get the size it needs.
 - Clip lengths are served at `<base>durations.json`; clips at `<base><clipId>.wav`, where `<base>` is `import.meta.env.BASE_URL` (Vite `publicDir` is `voice/clips`). The site serves a video at `/<slug>/`, so a relative or root URL breaks there.
@@ -262,10 +262,10 @@ Parallel agents MUST own disjoint files. Each works in its own git worktree. In 
 
 | Files | Owner |
 |---|---|
-| `engine/**` except `engine/audio/music.ts`, `sfx.ts` and `synth.ts` (so including `engine/audio/voice*.ts`); `player/**`; `script/types.ts` (except `SpeakerId` and `SfxName`); `test/**` infrastructure (engine tests, `test/storyboard.test.ts`, `test/card-last.test.ts`); `tsconfig.json`, `vite.config.ts`, `.wm/**`; the board renderer `scenes/shared/board.ts` and the board fallback in `scenes/index.ts`; kit primitives (`kit/` files that draw no character and no symbol), `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts`; the `__script()` global; the voice pipeline code (`voice/*.py`, `voice/manifest.ts`, `voice/refs.ts`, `voice/pyproject.toml`, `voice/uv.lock`); the MP4 exporter ([export](export.md)) | The [engine owner](../roles/engine-owner.md): one Opus agent on its own brief, never a chapter animator |
-| `SpeakerId` in `script/types.ts`, `script/cast.ts`, `voice/refs/**` | [Casting](../roles/casting.md). It declares the speaker ids at the start of preproduction (section 3). Frozen at cast lock; then `pad` passes to the editor. |
-| `root` and `scale` of every chapter; `SfxName` and the vocabulary's Sounds table; `engine/audio/music.ts`, `engine/audio/sfx.ts`, `engine/audio/synth.ts`; generated voice files, written only by `wm voice:render {SLUG}` | [Sound engineer](../roles/sound-engineer.md). It runs the voice renders; it does not own the voice pipeline code. |
-| `kit/` files that draw characters or vocabulary symbols; `scenes/shared/` files that draw symbols | The kit owner: one [animator](../roles/animator.md), named in the producer's brief for each round. It draws the characters and props the visual vocabulary defines. Chapter animators request changes; they do not edit. |
+| `packages/engine/**` (`@studio/engine`, including its `player/**` and `audio/voice*.ts`) except `audio/music.ts`, `sfx.ts` and `synth.ts`; `packages/library/**` (`@studio/library`); the video's `script/types.ts` (except `SpeakerId` and `SfxName`); the video's `test/**` infrastructure (`test/storyboard.test.ts`, `test/card-last.test.ts`); the video's `tsconfig.json`, `vite.config.ts`; `.wm/**`; the board renderer `scenes/shared/board.ts` and the board fallback in `scenes/index.ts`; kit primitives (the video's `kit/` files that draw no character and no symbol), `scenes/shared/speech.ts`, `scenes/shared/speechTiming.ts`; the `__script()` global; `packages/voice/**` (`@studio/voice`); the MP4 exporter ([export](export.md)) | The [engine owner](../roles/engine-owner.md): one Opus agent on its own brief, never a chapter animator |
+| `SpeakerId` in the video's `script/types.ts`, `script/cast.ts`, `voice/refs/**` | [Casting](../roles/casting.md). It declares the speaker ids at the start of preproduction (section 3). Frozen at cast lock; then `pad` passes to the editor. |
+| `root` and `scale` of every chapter; `SfxName` and the vocabulary's Sounds table; `@studio/engine`'s `audio/music.ts`, `audio/sfx.ts`, `audio/synth.ts`; generated voice files, written only by `wm voice:render {SLUG}` | [Sound engineer](../roles/sound-engineer.md). It runs the voice renders; it does not own the voice pipeline code. |
+| The video's `kit/` files that draw characters or vocabulary symbols, or `@studio/library` files for the same; `scenes/shared/` files that draw symbols | The kit owner: one [animator](../roles/animator.md), named in the producer's brief for each round. It draws the characters and props the visual vocabulary defines. Chapter animators request changes; they do not edit. |
 | Each chapter's `id`; chapter order in `script/index.ts` and `scenes/index.ts` (adding, removing, reordering chapters) | [Director](../roles/director.md) |
 | `script/NN-<id>.ts`: `say`, `card`, `speaker`, `stagger`, beat order and ids, `title`, `short` | [Writer](../roles/writer.md). These change voice or timing. |
 | `script/NN-<id>.ts`: `cam`, `camT`, `still`, `sfx`, `cues`, `dur` (a minimum) | That chapter's animator |
@@ -278,7 +278,7 @@ Parallel agents MUST own disjoint files. Each works in its own git worktree. In 
 
 ## 11. Reference repo gaps
 
-Where `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` does not yet meet this contract or the skill. A new project copies these gaps. The engine owner closes each one in [preproduction](../phases/preproduction.md) step 0, the only place they are scheduled, and reports the verify output.
+Where `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of` does not yet meet this contract or the skill. A gap in `@studio/engine` or `@studio/library` is shared; closing it there fixes every video. A gap in the video's own files (tests, `tsconfig.json`) is written fresh into each new project, per [new project](new-project.md), so it recurs until closed. The engine owner closes each one in [preproduction](../phases/preproduction.md) step 0, the only place they are scheduled, and reports the verify output.
 
 In the commands, `<scratch>` is the agent's scratch folder and `<preview>` is a running preview of the build. Tool commands use the one form in [setup](../tools/setup.md): `pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools <tool> ...`.
 
@@ -289,4 +289,4 @@ In the commands, `<scratch>` is the agent's scratch folder and `<preview>` is a 
 | No test that fails on a beat after a card. Three chapters in the reference break that rule ([bible](../documents/bible.md) example, Open). | `test/card-last.test.ts`: a pure check `beatsAfterCard(chapters)` over `SCRIPT`. Exceptions are beat ids listed in the test, each citing a bible entry. | `wm test {SLUG}` passes. The test file also runs the check on a fixture chapter with a beat after its card and expects one violation. |
 | No storyboard test and no vocabulary parser. | `test/storyboard.test.ts` with the failures in [storyboard](../documents/storyboard.md), "How it is checked". It parses the Symbols and Sounds tables of `production/style-guide/visual-vocabulary.md` ([visual vocabulary](../documents/style-guide/visual-vocabulary.md), "Format"). | `wm test {SLUG}` passes, with zero board files too. Fixture cases MUST each fail: an unknown symbol id, a `{id}` in frame text not in the vocabulary, a missing `purpose`, a sound the script uses (a beat's `sfx` or a chapter's `cues`) with no Sounds row. A fixture with an unused `SfxName` and no Sounds row MUST pass: the check fails only on a used sound. |
 | No board renderer, board fallback, `?boards` or `?purpose` flag. | `scenes/shared/board.ts` and the fallback in `scenes/index.ts`, as in [animatic](../documents/animatic.md). | `wm build {SLUG}` passes. `pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --url "<preview>/?boards" --purpose --out <scratch>\a` and `pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools contact-sheet --url "<preview>/?boards" --out <scratch>\b`. contact-sheet strips `?purpose` from `--url` by design ([contact-sheet](../tools/contact-sheet.md)); only `--purpose` turns the band on. QA looks at one sheet of each. The purpose band MUST show in `a` and MUST NOT show in `b`. |
-| Music and sound effects are not a pure function of `T`. MP4 export needs that first. | The pure `score()` in [export](export.md) section 3. The engine owner builds `score()` and its test. The changes it needs in `engine/audio/music.ts`, `sfx.ts` and `synth.ts` (seeded noise, scheduling from the score) go to the sound engineer as a request (section 10). | A unit test: `score()` twice on the same timeline gives equal output. Then the determinism precheck in [export](export.md) section 6. |
+| Music and sound effects are not a pure function of `T`. MP4 export needs that first. | The pure `score()` in [export](export.md) section 3. The engine owner builds `score()` and its test. The changes it needs in `@studio/engine`'s `audio/music.ts`, `sfx.ts` and `synth.ts` (seeded noise, scheduling from the score) go to the sound engineer as a request (section 10). | A unit test: `score()` twice on the same timeline gives equal output. Then the determinism precheck in [export](export.md) section 6. |

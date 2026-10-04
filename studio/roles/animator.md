@@ -15,10 +15,10 @@ spec.
   owner per round.
 - **Must not touch:** `kit/`, `scenes/shared/` (chapter animator);
   kit primitives, `speech.ts`, `speechTiming.ts`, `board.ts` (the
-  [engine owner](engine-owner.md)); `engine/`, `player/`, `voice/`,
-  `test/`; the fields `id`, `root`, `scale`, `say`, `card`, `speaker`,
-  `stagger`, `title`, `short`, and beat ids; chapters outside its scope;
-  every document.
+  [engine owner](engine-owner.md)); `@studio/engine`, `@studio/library`,
+  `voice/`, `test/`; the fields `id`, `root`, `scale`, `say`, `card`,
+  `speaker`, `stagger`, `title`, `short`, and beat ids; chapters outside
+  its scope; every document.
 - **Model:** Opus. Storyboard, vocabulary, and clips are fixed before it
   starts.
 - **Critic:** the [animation-supervisor](animation-supervisor.md).
