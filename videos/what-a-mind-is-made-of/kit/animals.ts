@@ -1,9 +1,9 @@
 /* Animals: crow, dog, octopus. Feet at (x,y); `lift` raises them off the ground. */
 
-import { A, c, tf } from '../engine/canvas';
-import { circ, ell, fillRR, line, poly } from '../engine/draw';
-import { PI, TAU } from '../engine/math';
-import { C } from '../engine/palette';
+import { A, c, tf } from '@studio/engine/canvas';
+import { circ, ell, fillRR, line, poly } from '@studio/engine/draw';
+import { PI, TAU } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
 
 export type Creature = (x: number, y: number, s: number, T: number, lift?: number) => void;
 

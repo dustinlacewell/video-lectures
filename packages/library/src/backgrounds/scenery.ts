@@ -1,11 +1,11 @@
 /* Scenery: star fields, soft floating blobs, ground strips, and motion along paths. */
 
-import type { Cam } from '../script/types';
-import { c } from '../engine/canvas';
-import { circ } from '../engine/draw';
-import { cl, lerp, rng } from '../engine/math';
-import { C } from '../engine/palette';
-import { withCam } from '../engine/parallax';
+import type { Cam } from '@studio/engine/script';
+import { c } from '@studio/engine/canvas';
+import { circ } from '@studio/engine/draw';
+import { cl, lerp, rng } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { withCam } from '@studio/engine/parallax';
 
 export function stars(cam: Cam, T: number, seed: number, n: number, f: number, col?: string): void {
   withCam(cam, f, function () {

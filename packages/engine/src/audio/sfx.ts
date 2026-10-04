@@ -1,7 +1,10 @@
 /* Sound effects by name. Add a sound by adding an entry. */
 
-import type { SfxName } from '../../script/types';
 import { AU, hiss, tone } from './synth';
+
+export type SfxName =
+  | 'pop' | 'unpop' | 'tick' | 'thud' | 'whoosh' | 'swish' | 'fail' | 'ding' | 'card' | 'zap' | 'blip'
+  | 'yelp' | 'stamp' | 'rise' | 'fall' | 'click' | 'snip' | 'spark' | 'scan' | 'boo' | 'talk';
 
 const SOUNDS: Record<SfxName, (p: number) => void> = {
   pop: function (p) { tone(420 + p * 60, 880 + p * 90, 0.11, 'sine', 0.22); },

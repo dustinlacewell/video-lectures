@@ -1,6 +1,6 @@
 /* One frame at time T: background, world, overlays, fades, cards, caption, grain. */
 
-import type { Scene } from '../scenes/types';
+import type { Scene } from './scene';
 import { mkS, type BeatState } from './beatState';
 import { camAt } from './camera';
 import { c, resetAlpha } from './canvas';

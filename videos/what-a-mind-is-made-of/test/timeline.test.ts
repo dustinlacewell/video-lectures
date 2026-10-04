@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { beatDuration, buildTimeline, keyOf } from '../engine/timeline';
+import { beatDuration, buildTimeline, keyOf } from '@studio/engine/timeline';
 import { SCRIPT } from '../script';
 
 describe('buildTimeline', () => {

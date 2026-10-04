@@ -1,6 +1,6 @@
 /* Pure helpers for the control bar: clock text, chapter labels, scrub-bar segments. */
 
-import { chapterAt, type TimedChapter, type Timeline } from '../../engine/timeline';
+import { chapterAt, type TimedChapter, type Timeline } from '@studio/engine/timeline';
 
 /** Seconds as m:ss. */
 export function clock(s: number): string {

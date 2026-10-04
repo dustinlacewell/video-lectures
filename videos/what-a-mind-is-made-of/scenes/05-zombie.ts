@@ -1,18 +1,18 @@
 /* 5. The zombie: identical, minus inner experience. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, c, tf, withA } from '../engine/canvas';
-import { arrow, circ, cross, ell, fillRR, glow, line } from '../engine/draw';
-import { PI, back, cl, ease, easeIn, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { withCam } from '../engine/parallax';
-import { bubble, tag } from '../engine/text';
-import { bean, type BeanOpts } from '../kit/bean';
-import { floaters, ground, stars } from '../kit/scenery';
-import { spark } from '../kit/spark';
-import { speech, type Speech, type Spots } from './shared/speech';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, c, tf, withA } from '@studio/engine/canvas';
+import { arrow, circ, cross, ell, fillRR, glow, line } from '@studio/engine/draw';
+import { PI, back, cl, ease, easeIn, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { withCam } from '@studio/engine/parallax';
+import { bubble, tag } from '@studio/engine/text';
+import { bean, type BeanOpts } from '@studio/library/characters/bean';
+import { floaters, ground, stars } from '@studio/library/backgrounds/scenery';
+import { spark } from '@studio/library/props/spark';
+import { speech, type Speech, type Spots } from '@studio/engine/speech/speech';
 import { thoughtTag } from './shared/thoughtTag';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 const GY = 600, YX = 400, ZX = 880, SC = 1.55;
 /** Two-line bubbles, low enough to clear the thought-experiment tag. */

@@ -1,11 +1,11 @@
 /* The "Thought experiment" tag: a small screen-space label at the top left, from the start of the
    zombie thought experiment through the chapters built on it. Draw it in a scene's `over` pass. */
 
-import type { BeatState } from '../../engine/beatState';
-import { A } from '../../engine/canvas';
-import { circ, fillRR } from '../../engine/draw';
-import { C } from '../../engine/palette';
-import { tw, txt } from '../../engine/text';
+import type { BeatState } from '@studio/engine/beatState';
+import { A } from '@studio/engine/canvas';
+import { circ, fillRR } from '@studio/engine/draw';
+import { C } from '@studio/engine/palette';
+import { tw, txt } from '@studio/engine/text';
 
 const X = 26, Y = 22, SIZE = 20, H = 36;
 

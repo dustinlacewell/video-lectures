@@ -1,18 +1,18 @@
 /* 6. The inventory: what makes you you, and the zombie has every item too. */
 
-import type { BeatState } from '../engine/beatState';
-import { A, tf } from '../engine/canvas';
-import { arrow, ell, line } from '../engine/draw';
-import { PI, back, lerp } from '../engine/math';
-import { C } from '../engine/palette';
-import { tag } from '../engine/text';
-import { bean } from '../kit/bean';
-import { badge } from '../kit/icons';
-import { floaters, ground, stars } from '../kit/scenery';
-import { spark } from '../kit/spark';
+import type { BeatState } from '@studio/engine/beatState';
+import { A, tf } from '@studio/engine/canvas';
+import { arrow, ell, line } from '@studio/engine/draw';
+import { PI, back, lerp } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { tag } from '@studio/engine/text';
+import { bean } from '@studio/library/characters/bean';
+import { badge } from '@studio/library/props/icons';
+import { floaters, ground, stars } from '@studio/library/backgrounds/scenery';
+import { spark } from '@studio/library/props/spark';
 import { GY, INV, ZC, invPos } from './06-inventory.layout';
 import { thoughtTag } from './shared/thoughtTag';
-import type { Scene } from './types';
+import type { Scene } from '@studio/engine/scene';
 
 /** When each of your items pops in: [beat, seconds]. */
 const TIMES: [string, number][] = [['m1', 0.3], ['m1', 1.9], ['m1', 3.5], ['m2', 0.3], ['m2', 1.9], ['m2', 3.5], ['m3', 0.3], ['m3', 2.6]];

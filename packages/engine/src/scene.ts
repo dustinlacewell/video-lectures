@@ -1,7 +1,7 @@
 /* What a chapter's scene provides: its look and its draw passes. */
 
-import type { BeatState } from '../engine/beatState';
-import type { Cam } from '../script/types';
+import type { BeatState } from './beatState';
+import type { Cam } from './script';
 
 /** A draw pass. Every frame is a pure function of these inputs. */
 export type DrawFn = (S: BeatState, cam: Cam, T: number) => void;

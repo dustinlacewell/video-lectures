@@ -1,16 +1,12 @@
 /* Shapes of the script: what is said, shown, and heard, and when. No drawing. */
 
-import type { BeatState } from '../engine/beatState';
-
-export type SfxName =
-  | 'pop' | 'unpop' | 'tick' | 'thud' | 'whoosh' | 'swish' | 'fail' | 'ding' | 'card' | 'zap' | 'blip'
-  | 'yelp' | 'stamp' | 'rise' | 'fall' | 'click' | 'snip' | 'spark' | 'scan' | 'boo' | 'talk';
+import type { SfxName } from './audio/sfx';
+import type { BeatState } from './beatState';
 
 /** A sound at `at` seconds into a beat. `arg` shifts pitch for some sounds. */
 export type SfxCue = [at: number, sfx: SfxName, arg?: number];
 
-/** Who speaks a line. Voices live in script/cast.ts. */
-export type SpeakerId = 'narrator' | 'you' | 'zombie' | 'friend' | 'aibot';
+/* `S` is the video's speaker ids. A video narrows it in its own script/types.ts; the engine reads any string. */
 
 export interface CastMember {
   /** Label in the script text and speech bubbles. */
@@ -25,20 +21,20 @@ export interface CastMember {
   pad?: number;
 }
 
-export type Cast = Record<SpeakerId, CastMember>;
+export type Cast<S extends string = string> = Record<S, CastMember>;
 
 export interface Cam { x: number; y: number; z: number }
 
 /** A camera that moves with time inside its beat. */
 export type CamFn = (S: BeatState) => Cam;
 
-export interface BeatScript {
+export interface BeatScript<S extends string = string> {
   /** Stable global id, "<chapter>.<key>". Audio files are named by it. */
   id: string;
   /** The spoken line. A narrator line is also the caption. */
   say?: string;
   /** Who says `say`. Default "narrator". Several speakers each get their own clip and speak together. */
-  speaker?: SpeakerId | SpeakerId[];
+  speaker?: S | S[];
   /** With several speakers: seconds between each one's start. Default 0.15. */
   stagger?: number;
   /** Full-screen card text. */
@@ -57,7 +53,7 @@ export interface BeatScript {
 /** A sound tied to a beat but authored at chapter level: [beatId, at, sfx, arg]. */
 export type ChapterCue = [beatId: string, at: number, sfx: SfxName, arg?: number];
 
-export interface ChapterScript {
+export interface ChapterScript<S extends string = string> {
   /** Stable id; prefix of every beat id in the chapter. */
   id: string;
   /** Shown on the chapter title card. A chapter with no title gets no title card. */
@@ -67,6 +63,6 @@ export interface ChapterScript {
   /** Music root frequency (Hz) and scale (semitones). */
   root: number;
   scale: number[];
-  beats: BeatScript[];
+  beats: BeatScript<S>[];
   cues?: ChapterCue[];
 }

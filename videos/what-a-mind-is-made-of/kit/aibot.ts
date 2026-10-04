@@ -1,9 +1,9 @@
 /* The AI: a hovering screen-faced robot. Feet at (x,y). */
 
-import { A, c, tf } from '../engine/canvas';
-import { circ, ell, fillRR, glow, line, rr } from '../engine/draw';
-import { PI } from '../engine/math';
-import { C } from '../engine/palette';
+import { A, c, tf } from '@studio/engine/canvas';
+import { circ, ell, fillRR, glow, line, rr } from '@studio/engine/draw';
+import { PI } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
 
 export function aibot(x: number, y: number, s: number, T: number, lift?: number): void {
   tf(x, y - (lift || 0), s, 0, function () {

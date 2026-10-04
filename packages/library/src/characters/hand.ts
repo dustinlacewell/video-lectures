@@ -1,8 +1,8 @@
 /* A pointing hand. Origin at the fingertip, pointing toward -x. */
 
-import { tf } from '../engine/canvas';
-import { ell, fillRR } from '../engine/draw';
-import { C } from '../engine/palette';
+import { tf } from '@studio/engine/canvas';
+import { ell, fillRR } from '@studio/engine/draw';
+import { C } from '@studio/engine/palette';
 
 export function hand(x: number, y: number, s: number, rot?: number): void {
   tf(x, y, s, rot || 0, function () {

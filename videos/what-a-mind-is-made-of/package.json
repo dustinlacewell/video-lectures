@@ -2,6 +2,10 @@
   "name": "what-a-mind-is-made-of",
   "private": true,
   "type": "module",
+  "dependencies": {
+    "@studio/engine": "workspace:*",
+    "@studio/library": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^26.6.4",
     "playwright": "^1.63.0",

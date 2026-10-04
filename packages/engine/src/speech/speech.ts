@@ -1,19 +1,19 @@
 /* Character lines: a speaking bean flaps its mouth, and its line shows in a speech bubble.
    A scene calls speech(S) once, passes talk(id) to each bean it draws, then draws the bubbles on top. */
 
-import type { BeatState } from '../../engine/beatState';
-import { bubble, type BubbleOpts } from '../../engine/text';
-import type { SpeakerId } from '../../script/types';
+import type { BeatState } from '../beatState';
+import { bubble, type BubbleOpts } from '../text';
 import { shownLines, talkTime, type Holds } from './speechTiming';
 
 /** Where a speaker's bubble points (its tail tip, in world space) and how it looks. */
 export interface Spot extends BubbleOpts { x: number; y: number; size?: number }
 
-export type Spots = Partial<Record<SpeakerId, Spot>>;
+/** Speaker id -> its bubble spot. */
+export type Spots = Partial<Record<string, Spot>>;
 
 export interface Speech {
   /** For BeanOpts.talk: seconds into this speaker's line while it speaks, else undefined. */
-  talk(who: SpeakerId): number | undefined;
+  talk(who: string): number | undefined;
   /** Draw every shown line from its speaker's spot. Speakers without a spot are skipped. */
   bubbles(spots: Spots): void;
 }

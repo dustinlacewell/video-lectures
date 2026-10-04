@@ -1,9 +1,9 @@
 /* The marker for inner experience: lit = present, unlit = absent. */
 
-import { c } from '../engine/canvas';
-import { glow } from '../engine/draw';
-import { PI } from '../engine/math';
-import { C } from '../engine/palette';
+import { c } from '@studio/engine/canvas';
+import { glow } from '@studio/engine/draw';
+import { PI } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
 
 function starPath(x: number, y: number, R: number, r2: number, rot: number): void {
   c.beginPath();

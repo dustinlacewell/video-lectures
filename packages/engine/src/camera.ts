@@ -1,6 +1,6 @@
 /* Pure: the camera at any moment. Cameras are resolved per beat once, at build time. */
 
-import type { Cam, CamFn } from '../script/types';
+import type { Cam, CamFn } from './script';
 import { mkS, type BeatState } from './beatState';
 import { ease, lerp } from './math';
 import type { TimedChapter } from './timeline';

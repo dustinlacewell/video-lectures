@@ -1,6 +1,6 @@
 /* The control bar: wires each control to playback and returns the per-frame update that redraws them. */
 
-import type { Timeline } from '../../engine/timeline';
+import type { Timeline } from '@studio/engine/timeline';
 import type { PlayerEls } from '../dom';
 import type { Playback, PlayState } from '../playback';
 import { clock, menuChapters } from './format';

@@ -1,6 +1,7 @@
 import { ZC } from '../scenes/06-inventory.layout';
 import { CHECK_STEP, REM } from '../scenes/07-subtract.layout';
-import type { ChapterCue, ChapterScript } from './types';
+import type { ChapterCue } from '@studio/engine/script';
+import type { ChapterScript } from './types';
 
 function checksAndRemovals(): ChapterCue[] {
   const out: ChapterCue[] = [];

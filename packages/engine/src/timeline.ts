@@ -1,8 +1,12 @@
 /* Pure: script chapters (+ optional measured durations) -> timed beats, cues, total. */
 
-import type { BeatScript, Cam, CamFn, Cast, ChapterScript, SfxCue, SfxName, SpeakerId } from '../script/types';
+import type { SfxName } from './audio/sfx';
 import { captionOf, speakersOf, voiceLines, type VoiceLine } from './audio/voiceLines';
 import { resolveCams } from './camera';
+import type { BeatScript, Cam, CamFn, Cast, ChapterScript, SfxCue } from './script';
+
+/** A voice clip in a timed beat, with its speaker's pad (seconds of quiet after the line). */
+export interface TimedLine extends VoiceLine { pad: number }
 
 export interface TimedBeat extends BeatScript {
   /** Id local to the chapter, used by scenes ("fall" for "physics.fall"). */
@@ -13,11 +17,11 @@ export interface TimedBeat extends BeatScript {
   dur: number;
   chTitle?: boolean;
   /** Who says `say`, always a list. Scenes draw non-narrator lines in speech bubbles. */
-  speakers: SpeakerId[];
+  speakers: string[];
   /** The caption: `say` when the narrator speaks it, else nothing. */
   caption?: string;
   /** Voice clips of this beat, `at` seconds after the beat starts. */
-  lines: VoiceLine[];
+  lines: TimedLine[];
 }
 
 export interface TimedChapter {
@@ -49,11 +53,12 @@ const TITLE_DUR = 3.4;
 const TITLE_SFX: SfxCue[] = [[0.05, 'whoosh'], [0.5, 'ding']];
 const CARD_SFX: SfxCue[] = [[0.1, 'card']];
 
-export function buildTimeline(chapters: ChapterScript[], durations: Durations = {}): Timeline {
+/** `cast` gives each line its speaker's pad; without it every pad is DEFAULT_PAD. */
+export function buildTimeline(chapters: ChapterScript[], durations: Durations = {}, cast: Partial<Cast> = {}): Timeline {
   const out: TimedChapter[] = [], cues: Cue[] = [];
   let T = 0;
   chapters.forEach(function (script, ci) {
-    const ch = timeChapter(script, ci, T, durations, cues);
+    const ch = timeChapter(script, ci, T, durations, cast, cues);
     out.push(ch);
     T += ch.dur;
   });
@@ -61,14 +66,14 @@ export function buildTimeline(chapters: ChapterScript[], durations: Durations = 
   return { chapters: out, cues: cues, total: T };
 }
 
-function timeChapter(script: ChapterScript, ci: number, T: number, durations: Durations, cues: Cue[]): TimedChapter {
+function timeChapter(script: ChapterScript, ci: number, T: number, durations: Durations, cast: Partial<Cast>, cues: Cue[]): TimedChapter {
   const src = withTitleBeat(script), idx: Record<string, number> = {}, beats: TimedBeat[] = [];
   let a = 0;
   src.forEach(function (b, i) {
     const key = keyOf(script.id, b.id);
     const dur = beatDuration(b, durations);
     const sfx = b.sfx || (b.card ? CARD_SFX : undefined);
-    const tb: TimedBeat = { ...b, key: key, i: i, start: a, dur: dur, speakers: speakersOf(b), caption: captionOf(b), lines: voiceLines(b) };
+    const tb: TimedBeat = { ...b, key: key, i: i, start: a, dur: dur, speakers: speakersOf(b), caption: captionOf(b), lines: timedLines(b, cast) };
     if (sfx) tb.sfx = sfx;
     beats.push(tb);
     idx[key] = i;
@@ -95,6 +100,14 @@ function withTitleBeat(script: ChapterScript): (BeatScript & { chTitle?: boolean
 
 /** Seconds of quiet after a line when the speaker sets no pad. */
 export const DEFAULT_PAD = 0.6;
+
+function padOf(cast: Partial<Cast>, speaker: string): number {
+  return cast[speaker]?.pad ?? DEFAULT_PAD;
+}
+
+function timedLines(b: BeatScript, cast: Partial<Cast>): TimedLine[] {
+  return voiceLines(b).map(function (l) { return { ...l, pad: padOf(cast, l.speaker) }; });
+}
 
 /**
  * Beat durations from voice clip lengths (clip id -> seconds).
@@ -124,7 +137,7 @@ function voicedDuration(b: BeatScript, clips: Durations, cast: Cast): number | u
   const lines = voiceLines(b);
   if (!lines.length || lines.some(function (l) { return !clips[l.clip]; })) return undefined;
   const end = Math.max(...lines.map(function (l) { return l.at + clips[l.clip]; }));
-  const pad = Math.max(...lines.map(function (l) { return cast[l.speaker].pad ?? DEFAULT_PAD; }));
+  const pad = Math.max(...lines.map(function (l) { return padOf(cast, l.speaker); }));
   return end + pad;
 }
 

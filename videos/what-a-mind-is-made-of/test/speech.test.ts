@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { mkS } from '../engine/beatState';
-import { DEFAULT_PAD, buildTimeline, voiceDurations } from '../engine/timeline';
-import { mouthOpen } from '../kit/bean';
-import { POP, shownLines, speechSeconds, talkTime, talkWindow } from '../scenes/shared/speechTiming';
+import { mkS } from '@studio/engine/beatState';
+import { DEFAULT_PAD, buildTimeline, voiceDurations } from '@studio/engine/timeline';
+import { mouthOpen } from '@studio/library/characters/bean';
+import { POP, shownLines, speechSeconds, talkTime, talkWindow } from '@studio/engine/speech/speechTiming';
 import { CAST } from '../script/cast';
 import type { ChapterScript } from '../script/types';
 

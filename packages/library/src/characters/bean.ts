@@ -1,9 +1,9 @@
 /* The cast: a rounded figure standing with its feet at (x,y). */
 
-import { A, c, withA } from '../engine/canvas';
-import { circ, ell, fillRR, line, rr } from '../engine/draw';
-import { PI, cl } from '../engine/math';
-import { C, DK } from '../engine/palette';
+import { A, c, withA } from '@studio/engine/canvas';
+import { circ, ell, fillRR, line, rr } from '@studio/engine/draw';
+import { PI, cl } from '@studio/engine/math';
+import { C, DK } from '@studio/engine/palette';
 
 export type Mouth = 'smile' | 'frown' | 'flat' | 'o' | 'talk' | 'yell' | 'grin';
 

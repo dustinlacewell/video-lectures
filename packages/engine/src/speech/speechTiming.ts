@@ -1,10 +1,8 @@
 /* Pure: when a character speaks its line, and which speech bubbles show at a moment, at what scale. */
 
-import type { BeatState } from '../../engine/beatState';
-import { back, ease } from '../../engine/math';
-import { DEFAULT_PAD, type TimedBeat } from '../../engine/timeline';
-import { CAST } from '../../script/cast';
-import type { SpeakerId } from '../../script/types';
+import type { BeatState } from '../beatState';
+import { back, ease } from '../math';
+import type { TimedBeat } from '../timeline';
 
 /** Seconds into a beat. */
 export interface Window { start: number; end: number }
@@ -13,7 +11,7 @@ export interface Window { start: number; end: number }
     Without an entry, a bubble leaves when the next beat starts. */
 export type Holds = Record<string, string | null>;
 
-export interface ShownLine { beat: TimedBeat; who: SpeakerId; scale: number }
+export interface ShownLine { beat: TimedBeat; who: string; scale: number }
 
 /** Seconds for a bubble to pop in, and to shrink away. */
 export const POP = 0.4, EXIT = 0.28;
@@ -27,17 +25,17 @@ export function speechSeconds(say: string): number {
 
 /** When `who` speaks in beat `b`, or undefined if it does not. The last clip ends one pad before the beat does;
     earlier speakers end earlier by their stagger. */
-export function talkWindow(b: TimedBeat, who: SpeakerId): Window | undefined {
+export function talkWindow(b: TimedBeat, who: string): Window | undefined {
   const line = b.lines.find(function (l) { return l.speaker === who; });
   if (!line || who === 'narrator' || !b.say) return undefined;
   const last = b.lines[b.lines.length - 1].at;
-  const pad = Math.max(...b.lines.map(function (l) { return CAST[l.speaker].pad ?? DEFAULT_PAD; }));
+  const pad = Math.max(...b.lines.map(function (l) { return l.pad; }));
   const end = Math.min(line.at + speechSeconds(b.say), b.dur - pad - (last - line.at));
   return { start: line.at, end: Math.max(line.at + 0.3, end) };
 }
 
 /** Seconds into `who`'s line in the current beat while it speaks, else undefined. */
-export function talkTime(S: BeatState, who: SpeakerId): number | undefined {
+export function talkTime(S: BeatState, who: string): number | undefined {
   const w = talkWindow(S.b, who);
   return w && S.bt >= w.start && S.bt <= w.end ? S.bt - w.start : undefined;
 }

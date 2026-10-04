@@ -1,18 +1,7 @@
 {
+  "extends": "@studio/engine/tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["node", "vite/client"],
-    "strict": true,
-    "noEmit": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "allowImportingTsExtensions": true,
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false
+    "types": ["node", "vite/client"]
   },
-  "include": ["engine", "kit", "scenes", "script", "player", "tools", "test", "wm.ts", "vite.config.ts"]
+  "include": ["engine", "kit", "scenes", "script", "player", "test", "wm.ts", "vite.config.ts"]
 }

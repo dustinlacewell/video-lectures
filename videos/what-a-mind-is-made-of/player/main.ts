@@ -1,9 +1,9 @@
 /* Composition root: load voice clip lengths, build the timeline, bind the canvas, wire the page, start the clock. */
 
-import { createVoiceTrack } from '../engine/audio/voice';
-import type { ClipLengths } from '../engine/audio/voiceTrack';
-import { setContext } from '../engine/canvas';
-import { buildTimeline, voiceDurations } from '../engine/timeline';
+import { createVoiceTrack } from '@studio/engine/audio/voice';
+import type { ClipLengths } from '@studio/engine/audio/voiceTrack';
+import { setContext } from '@studio/engine/canvas';
+import { buildTimeline, voiceDurations } from '@studio/engine/timeline';
 import { SCENES } from '../scenes';
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';

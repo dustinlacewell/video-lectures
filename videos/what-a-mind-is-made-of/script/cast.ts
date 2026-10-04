@@ -1,6 +1,7 @@
 /* The voices. Each speaker clones one fixed reference clip in voice/refs, so every line sounds like the same person. */
 
-import type { Cast, CastMember } from './types';
+import type { CastMember } from '@studio/engine/script';
+import type { Cast } from './types';
 
 const you: CastMember = { name: 'You', ref: 'refs/you.wav' };
 

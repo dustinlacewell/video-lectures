@@ -1,10 +1,10 @@
 /* Icons drawn in a 100-unit box, and round badges that hold them. */
 
-import { c, tf } from '../engine/canvas';
-import { circ, ell, fillRR, line, poly, ring } from '../engine/draw';
-import { PI, TAU, mix, rgba } from '../engine/math';
-import { C } from '../engine/palette';
-import { txt } from '../engine/text';
+import { c, tf } from '@studio/engine/canvas';
+import { circ, ell, fillRR, line, poly, ring } from '@studio/engine/draw';
+import { PI, TAU, mix, rgba } from '@studio/engine/math';
+import { C } from '@studio/engine/palette';
+import { txt } from '@studio/engine/text';
 
 export type IconKind =
   | 'memory' | 'habit' | 'belief' | 'talent' | 'love' | 'fear' | 'humor' | 'plan' | 'eye' | 'tool'

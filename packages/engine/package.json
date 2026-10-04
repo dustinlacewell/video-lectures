@@ -1,0 +1,20 @@
+{
+  "name": "@studio/engine",
+  "private": true,
+  "type": "module",
+  "description": "The video engine: timeline, beat state, camera, render, text, audio, speech, player shell. TS sources, no build step.",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}

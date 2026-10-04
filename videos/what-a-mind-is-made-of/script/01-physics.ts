@@ -1,5 +1,6 @@
 import { DELTA, LAND, N, PUSH, ds, x0 } from '../scenes/01-physics.layout';
-import type { ChapterCue, ChapterScript } from './types';
+import type { ChapterCue } from '@studio/engine/script';
+import type { ChapterScript } from './types';
 
 /** The camera follows the falling chain. */
 function followChain(S: { since(key: string): number }) {

@@ -1,6 +1,6 @@
 /* Draw in world space with a parallax factor f (1 = moves with the world, 0 = fixed to screen). */
 
-import type { Cam } from '../script/types';
+import type { Cam } from './script';
 import { c } from './canvas';
 import { H, W } from './math';
 

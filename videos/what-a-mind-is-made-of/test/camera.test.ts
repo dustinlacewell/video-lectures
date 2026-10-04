@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { mkS, type BeatState } from '../engine/beatState';
-import { camAt, resolveCams } from '../engine/camera';
-import { ease, lerp } from '../engine/math';
-import { buildTimeline, type TimedChapter } from '../engine/timeline';
-import type { Cam } from '../script/types';
+import { mkS, type BeatState } from '@studio/engine/beatState';
+import { camAt, resolveCams } from '@studio/engine/camera';
+import { ease, lerp } from '@studio/engine/math';
+import { buildTimeline, type TimedChapter } from '@studio/engine/timeline';
+import type { Cam } from '@studio/engine/script';
 import { SCRIPT } from '../script';
 
 /* The original's camera: search backwards from the beat each frame. Kept here as the oracle. */

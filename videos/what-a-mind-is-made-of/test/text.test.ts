@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseRuns, runsWidth, toMarkup, wrapMarkup, type Measure } from '../engine/richText';
+import { parseRuns, runsWidth, toMarkup, wrapMarkup, type Measure } from '@studio/engine/richText';
 
 /** Fake metrics: 10 per character, italic 12. */
 const measure: Measure = function (s, italic) { return s.length * (italic ? 12 : 10); };

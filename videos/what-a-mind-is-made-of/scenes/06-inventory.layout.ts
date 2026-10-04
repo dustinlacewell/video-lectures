@@ -1,6 +1,6 @@
 /* The inventory of a self: layout shared by the inventory and subtraction chapters. */
 
-import type { IconKind } from '../kit/icons';
+import type { IconKind } from '@studio/library/props/icons';
 
 export const GY = 650;
 /** X of the zombie (second figure) in world space. */
