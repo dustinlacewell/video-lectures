@@ -13,5 +13,5 @@
     "skipLibCheck": true,
     "noUnusedLocals": true
   },
-  "include": ["shared", "contact-sheet", "frame-sweep", "pacing-curve", "clip-check", "export", "test"]
+  "include": ["shared", "contact-sheet", "frame-sweep", "pacing-curve", "clip-check", "export", "guard", "test"]
 }

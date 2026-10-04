@@ -9,6 +9,8 @@
     "pacing-curve": "tsx pacing-curve/cli.ts",
     "clip-check": "tsx clip-check/cli.ts",
     "export": "tsx export/cli.ts",
+    "guard": "tsx guard/cli.ts",
+    "guard:bless": "tsx guard/bless-cli.ts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
   },
