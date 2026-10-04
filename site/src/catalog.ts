@@ -4,8 +4,8 @@ export interface Video {
   slug: string;
   title: string;
   description: string;
-  /** Runtime in seconds. */
-  runtime: number;
+  /** Runtime in seconds. Absent or 0 before the engine computes it at build time: no badge. */
+  runtime?: number;
   /** Poster file name inside the video folder. */
   poster: string;
   /** ISO date, YYYY-MM-DD. */
@@ -18,8 +18,13 @@ export function parseVideo(raw: unknown, where: string): Video {
   for (const k of ['slug', 'title', 'description', 'poster', 'published'] as const) {
     if (typeof r?.[k] !== 'string' || !r[k]) throw new Error(`${where}: "${k}" must be a non-empty string`);
   }
-  if (typeof r.runtime !== 'number' || !(r.runtime > 0)) throw new Error(`${where}: "runtime" must be a positive number`);
+  if (r.runtime !== undefined && typeof r.runtime !== 'number') throw new Error(`${where}: "runtime" must be a number`);
   return r as unknown as Video;
+}
+
+/** Whether a video has a runtime worth showing. */
+export function hasRuntime(v: Video): boolean {
+  return typeof v.runtime === 'number' && v.runtime > 0;
 }
 
 /** Newest first. */
@@ -42,12 +47,13 @@ export function renderCards(videos: Video[]): string {
 
 function renderCard(v: Video): string {
   const href = `/${v.slug}/`;
+  const runtime = hasRuntime(v) ? `<span class="runtime">${formatRuntime(v.runtime!)}</span>` : '';
   return `<li class="card">
   <a href="${href}">
     <img src="/${posterPath(v)}" alt="" width="1280" height="720" loading="lazy">
     <div class="meta">
       <h2>${esc(v.title)}</h2>
-      <span class="runtime">${formatRuntime(v.runtime)}</span>
+      ${runtime}
     </div>
     <p>${esc(v.description)}</p>
   </a>
