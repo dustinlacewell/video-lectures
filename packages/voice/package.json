@@ -1,0 +1,9 @@
+{
+  "name": "@studio/voice",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/manifest.ts",
+    "./refs": "./src/refs.ts"
+  }
+}

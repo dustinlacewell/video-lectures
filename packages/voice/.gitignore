@@ -1,0 +1,4 @@
+py/.venv/
+py/models/
+py/vendor/
+__pycache__/

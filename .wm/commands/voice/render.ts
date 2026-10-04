@@ -6,9 +6,9 @@ import { video } from "../../traits/video.js";
 export default cmd({
   needs: [video],
   select: "one",
-  handler: async (_, { project, invoke, exec }) => {
+  handler: async (_, { project, workspace, invoke, exec }) => {
     const manifest = await invoke("voice:manifest", { project: project.name });
     if (manifest.isError) return manifest;
-    return exec("uv run render.py", { cwd: join(project.dir, "voice"), timeout: 3_600_000 });
+    return exec(`uv run render.py --video "${project.dir}"`, { cwd: join(workspace.root, "packages/voice/py"), timeout: 3_600_000 });
   },
 });

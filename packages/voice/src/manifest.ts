@@ -1,8 +1,32 @@
-/* Pure: the script, cast and reference clips -> one speech-synthesis job per voice clip. voice/render.py reads the result. */
+/* Pure: the script, cast and reference clips -> one speech-synthesis job per voice clip. voice/render.py reads the result.
+ *
+ * This package has no video's engine or script to import, so the shapes it needs are generic (SpeakerId = string)
+ * and the beat-reading functions (lineOf, spokenText, voiceLines) are passed in by the caller, which does have them.
+ */
 
 import { createHash } from 'node:crypto';
-import { lineOf, spokenText, voiceLines } from '../engine/audio/voiceLines';
-import type { Cast, ChapterScript, SpeakerId } from '../script/types';
+
+export type SpeakerId = string;
+
+/** The one piece of a beat buildManifest reads: its speaker lines (from the video's own voiceLines.ts). */
+export interface VoiceLine { clip: string; speaker: SpeakerId; at: number }
+
+/** The three beat-reading functions a video's engine provides; buildManifest calls them, never imports them. */
+export interface LineReader<Beat> {
+  lineOf(b: Beat): string | undefined;
+  spokenText(say: string): string;
+  voiceLines(b: Beat): VoiceLine[];
+}
+
+export interface ChapterScript<Beat> { beats: Beat[] }
+
+export interface CastMember {
+  ref: string;
+  refText?: string;
+  style?: string;
+}
+
+export type Cast = Record<SpeakerId, CastMember>;
 
 /** What the manifest needs to know about one reference clip. voice/refs.ts reads it from disk. */
 export interface RefInfo {
@@ -37,11 +61,13 @@ export interface ManifestEntry {
   hash: string;
 }
 
-export function buildManifest(chapters: ChapterScript[], cast: Cast, refs: Refs): ManifestEntry[] {
+export function buildManifest<Beat extends { id: string }>(
+  chapters: ChapterScript<Beat>[], cast: Cast, refs: Refs, reader: LineReader<Beat>
+): ManifestEntry[] {
   return chapters.flatMap(function (ch) {
     return ch.beats.flatMap(function (b) {
-      return voiceLines(b).map(function (l): ManifestEntry {
-        const voice = voiceOf(cast, l.speaker, refs), text = spokenText(lineOf(b)!);
+      return reader.voiceLines(b).map(function (l): ManifestEntry {
+        const voice = voiceOf(cast, l.speaker, refs), text = reader.spokenText(reader.lineOf(b)!);
         return {
           id: l.clip, beat: b.id, speaker: l.speaker, voiceKey: voiceKeyOf(cast, voice, refs), ...voice,
           text: text, hash: hashOf(text, voice, refs[voice.ref].hash)

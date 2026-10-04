@@ -1,17 +1,20 @@
 """Check voice clips against their script text with Whisper. Lists every clip with missing or wrong words.
 
-uv run verify.py [clip_id ...]
+uv run verify.py --video <dir> [clip_id ...]
+
+<dir> is a video folder (e.g. videos/<slug>); its voice/ holds manifest.json and clips/.
+HERE (this package) holds the model; it is not the video's data.
 
 Without ids it checks every clip in manifest.json. render.py uses the same check on each fresh clip.
 """
 
 from __future__ import annotations
 
+import argparse
 import difflib
 import json
 import os
 import re
-import sys
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -21,8 +24,6 @@ HERE = Path(__file__).resolve().parent
 os.environ.setdefault("HF_HOME", str(HERE / "models"))
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
 
-MANIFEST = HERE / "manifest.json"
-CLIPS = HERE / "clips"
 MODEL = "openai/whisper-large-v3-turbo"
 RATE = 16000
 
@@ -63,6 +64,47 @@ def words(text: str) -> list[str]:
     return [w for w in out if w]
 
 
+def align(text: str, chunks: list[tuple[str, float, float]]) -> list[list[float]]:
+    """Script tokens (text.split(), in order) -> one [start, end] seconds pair per token.
+
+    Normalizes each script token and each heard chunk with `words()` into 0..n normal words, each
+    tagged with its source index; matches the two sequences with SequenceMatcher. A token's time
+    spans its first matched chunk's start to its last matched chunk's end. An unmatched token's
+    time is interpolated between its nearest matched neighbours. Output length == len(text.split()).
+    """
+    tokens = text.split()
+    want = _tag_words(tokens, words)
+    got = _tag_words([c[0] for c in chunks], words)
+    matched: dict[int, tuple[float, float]] = {}
+    sm = difflib.SequenceMatcher(a=[w for w, _ in want], b=[w for w, _ in got], autojunk=False)
+    for op, i1, i2, j1, j2 in sm.get_opcodes():
+        if op not in ("equal", "replace"):
+            continue
+        for i, j in zip(range(i1, i2), range(j1, j2)):
+            tok_i, chunk_i = want[i][1], got[j][1]
+            start, end = chunks[chunk_i][1], chunks[chunk_i][2]
+            lo, hi = matched.get(tok_i, (start, end))
+            matched[tok_i] = (min(lo, start), max(hi, end))
+    return _fill_gaps(len(tokens), matched)
+
+
+def _tag_words(items: list[str], normalize) -> list[tuple[str, int]]:
+    """Each item may normalize to 0..n words; each is tagged with its source index."""
+    return [(w, i) for i, item in enumerate(items) for w in normalize(item)]
+
+
+def _fill_gaps(n: int, matched: dict[int, tuple[float, float]]) -> list[list[float]]:
+    """Unmatched tokens get times interpolated between their nearest matched neighbours."""
+    out: list[list[float] | None] = [list(matched[i]) if i in matched else None for i in range(n)]
+    for i in range(n):
+        if out[i] is not None:
+            continue
+        lo = next((out[j][1] for j in range(i - 1, -1, -1) if out[j] is not None), 0.0)
+        hi = next((out[j][0] for j in range(i + 1, n) if out[j] is not None), lo)
+        out[i] = [lo, hi]
+    return out  # type: ignore[return-value]
+
+
 def compare(expected: str, heard: str) -> Check:
     """Word-level diff. A miss at the last expected word is 'end', at the first 'start', else 'middle'."""
     want, got = words(expected), words(heard)
@@ -87,28 +129,49 @@ class Listener:
         self._asr = pipeline("automatic-speech-recognition", model=MODEL, torch_dtype=torch.float16, device="cuda:0")
 
     def hear(self, audio: np.ndarray, sample_rate: int) -> str:
+        return self._transcribe(audio, sample_rate)["text"].strip()
+
+    def hear_words(self, audio: np.ndarray, sample_rate: int) -> list[tuple[str, float, float]]:
+        """Each heard word as (text, start, end) seconds, in order. An open-ended last word gets end = start."""
+        chunks = self._transcribe(audio, sample_rate, return_timestamps="word")["chunks"]
+        out = []
+        for c in chunks:
+            start, end = c["timestamp"]
+            out.append((c["text"].strip(), start, end if end is not None else start))
+        return out
+
+    def _transcribe(self, audio: np.ndarray, sample_rate: int, **kwargs):
         import librosa
 
         mono = audio.astype(np.float32)
         if sample_rate != RATE:
             mono = librosa.resample(mono, orig_sr=sample_rate, target_sr=RATE)
-        out = self._asr(mono, generate_kwargs={"language": "en", "task": "transcribe"})
-        return out["text"].strip()
+        return self._asr(mono, generate_kwargs={"language": "en", "task": "transcribe"}, **kwargs)
 
     def check(self, audio: np.ndarray, sample_rate: int, text: str) -> Check:
         return compare(text, self.hear(audio, sample_rate))
 
 
+def parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("--video", type=Path, required=True, help="a video folder, e.g. videos/<slug>")
+    p.add_argument("clip_ids", nargs="*", help="check only these clip ids (default: every clip)")
+    return p.parse_args()
+
+
 def main() -> None:
     import soundfile as sf
 
-    entries = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    ids = set(sys.argv[1:])
+    args = parse_args()
+    voice_dir = args.video.resolve() / "voice"
+    clips_dir = voice_dir / "clips"
+    entries = json.loads((voice_dir / "manifest.json").read_text(encoding="utf-8"))
+    ids = set(args.clip_ids)
     entries = [e for e in entries if not ids or e["id"] in ids]
     listener = Listener()
     bad = 0
     for e in entries:
-        path = CLIPS / f"{e['id']}.wav"
+        path = clips_dir / f"{e['id']}.wav"
         if not path.exists():
             print(f"MISSING  {e['id']}")
             bad += 1

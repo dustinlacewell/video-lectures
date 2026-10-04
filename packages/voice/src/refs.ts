@@ -3,8 +3,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { Cast } from '../script/types';
-import type { Refs } from './manifest';
+import type { Cast, Refs } from './manifest';
 
 /** voiceDir is the voice/ folder; cast refs are relative to it. A missing clip is left out. */
 export function readRefs(cast: Cast, voiceDir: string): Refs {
