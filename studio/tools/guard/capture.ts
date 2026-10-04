@@ -10,9 +10,9 @@ export async function frameHash(session: Session, T: number): Promise<string> {
   return sha256(await rawPixels(session.page, T));
 }
 
-/** Seek to T and return a PNG data URL at full canvas size (for a human reference image). */
-export function framePng(session: Session, T: number): Promise<string> {
-  return session.frame(T, session.canvas.width);
+/** Seek to T and return a PNG data URL `width` px wide (for a human reference image; the bless default is reduced, not full size). */
+export function framePng(session: Session, T: number, width: number): Promise<string> {
+  return session.frame(T, width);
 }
 
 async function rawPixels(page: Page, T: number): Promise<Buffer> {

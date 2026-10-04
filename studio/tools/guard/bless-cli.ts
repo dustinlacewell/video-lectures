@@ -17,13 +17,17 @@ const USAGE = `guard:bless: capture fresh samples and write them as the blessed 
   --golden <dir>    golden folder to write (required)
   --repo <dir>      git repo root to check for a dirty tree (default: the golden folder's parent)
   --force           bless even if the tree is dirty outside golden/
-  --refs <n>         how many reference PNGs to keep, evenly spread (default 12)`;
+  --refs <n>        how many reference PNGs to keep, evenly spread (default 12)
+  --ref-width <px>  reference PNG width, for a small committed size (default 480)`;
 
-const { common, own } = parseCli(USAGE, { golden: { type: 'string' }, repo: { type: 'string' }, force: { type: 'boolean' }, refs: { type: 'string' } });
+const { common, own } = parseCli(USAGE, {
+  golden: { type: 'string' }, repo: { type: 'string' }, force: { type: 'boolean' }, refs: { type: 'string' }, 'ref-width': { type: 'string' }
+});
 if (!own.golden) exitUsage(USAGE, EXIT.USAGE, '--golden <dir> is required');
 const goldenDir = resolve(own.golden as string);
 const repo = resolve((own.repo as string | undefined) ?? resolve(goldenDir, '..'));
 const refCount = Number(own.refs ?? 12);
+const refWidth = Number(own['ref-width'] ?? 480);
 
 if (!own.force) {
   const dirty = dirtyOutsideGolden(repo, goldenDir);
@@ -60,7 +64,7 @@ function pick<T>(items: T[], n: number): T[] {
 }
 
 async function pngBytes(v: Video, t: number): Promise<Buffer> {
-  const url = await framePng(v.session, t);
+  const url = await framePng(v.session, t, refWidth);
   return Buffer.from(url.slice(url.indexOf(',') + 1), 'base64');
 }
 

@@ -42,7 +42,7 @@ Exit 0 if every sample matches and `__info()` is unchanged. Exit 3 with one line
 
 ## `wm guard:bless`
 
-Builds, captures every sample time fresh, and writes `videos/<slug>/golden/frames.json` plus up to 12 reference PNGs under `golden/png/`, evenly spread across the samples. The PNGs are for a human to look at; nothing reads them back.
+Builds, captures every sample time fresh, and writes `videos/<slug>/golden/frames.json` plus up to 12 reference PNGs (480px wide by default, `--ref-width`) under `golden/png/`, evenly spread across the samples. The PNGs are for a human to look at; nothing reads them back.
 
 Refuses when the working tree has uncommitted changes outside `golden/` — bless after a human has watched the result and the rest of the change is already committed. `--force` skips the check.
 
