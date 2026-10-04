@@ -11,9 +11,9 @@ never writes code. Audits real frames for local inventions.
   Sounds table (the [sound engineer](sound-engineer.md)); the picture
   fields (`frame`, `camera`, `symbols`, `figures`, `still`) of
   `production/storyboard/<NN-chapter>.ts`; `production/storyboard/stills/`.
-- **Must not touch:** all code (`kit/`, `scenes/`, `engine/`, `player/`,
-  `test/`); `script/`; the `purpose` field and `types.ts` (the
-  director's); other documents.
+- **Must not touch:** all code (`kit/`, `scenes/`, `@studio/engine`,
+  `@studio/library`, `test/`); `script/`; the `purpose` field and
+  `types.ts` (the director's); other documents.
 - **Model:** Fable. Briefs name every file and image it reads.
 - **Critic:** vocabulary rows: the director approves each, with the
   [vocabulary checklist](#vocabulary-checklist). Boards: the
@@ -26,7 +26,8 @@ never writes code. Audits real frames for local inventions.
 Kit specs: for each function, what it draws, its options, and every
 beat that uses it. Characters and symbols go to the kit owner (an
 [animator](animator.md) named per round); primitives and palette
-changes (`engine/palette.ts`) go to the [engine owner](engine-owner.md).
+changes (`@studio/engine`'s `palette.ts`) go to the
+[engine owner](engine-owner.md).
 
 ## Vocabulary checklist
 

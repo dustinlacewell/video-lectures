@@ -23,7 +23,7 @@ The harvest reads the prototype and the human's material. It writes only `produc
    - every `Math.random`, `Date.now` and state kept between frames.
    The report goes into the engine owner's brief. It is not a document.
 2. **Make the prototype comparable.** The parity tool drives both pages through `__seek(T)`, `__info()` and `__cam(T)`. The reference prototype already had these three globals. If a prototype lacks one, the engine owner adds it to a copy of the prototype: globals only, no drawing change. The copy is the original from then on.
-3. **Port** (engine owner, Opus). Split the file into the contract layout: `script/`, `engine/`, `kit/`, `scenes/`, `player/`. Rules:
+3. **Port** (engine owner, Opus). Split the file into the contract layout ([contract](contract.md) section 2): `script/`, `kit/` and `scenes/` in the new video; the player and the generic runtime go to `@studio/engine`, generic characters and props to `@studio/library`, both already built by the first ported video. Rules:
    - No visual change. A bug in the prototype is ported as it is and listed in the report. It is fixed after the port commit, in its own commit (reference: `7c8ed90`, "visitor jumps, double fades, dead code").
    - Pin the old timeline: capture the prototype's `__info()` and cue list into `test/fixtures/original-timeline.json` (`node tools/parity.ts --write-fixture`), and assert in `test/timeline.test.ts` that the port's total, chapter and beat starts and durations, and cues equal it.
 4. **Prove** (QA, Sonnet). Run `wm parity`. Pass rule:

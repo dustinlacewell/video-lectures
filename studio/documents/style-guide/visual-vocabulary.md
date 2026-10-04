@@ -36,8 +36,9 @@ rejection, a foot stomp and a verdict.
   change.
 - Implementer: the kit owner, one [animator](../../roles/animator.md)
   named in the producer's brief for each round. It draws each character
-  and prop in the shared kit (for example `kit/spark.ts`) from its row,
-  then writes the kit function into the row's "Drawn by" cell.
+  and prop, in `@studio/library` (for example `props/spark.ts`) if
+  generic enough to share, else the video's own `kit/`, from its row,
+  then writes the function into the row's "Drawn by" cell.
 - Readers: [animator](../../roles/animator.md),
   [animation-supervisor](../../roles/animation-supervisor.md), the
   [storyboard](../storyboard.md) (boards cite ids), and the board
@@ -50,7 +51,8 @@ rejection, a foot stomp and a verdict.
 ## Where it lives
 
 `production/style-guide/visual-vocabulary.md` in the video repo. The
-code that draws each symbol lives in the shared kit, with one owner.
+code that draws each symbol lives in `@studio/library` or the video's
+own `kit/`, with one owner.
 
 ## Format
 

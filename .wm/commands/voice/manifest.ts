@@ -2,6 +2,7 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import { cmd } from "@ldlework/workmark/define";
+import { lineOf, spokenText, voiceLines } from "@studio/engine/audio/voiceLines";
 import { buildManifest } from "@studio/voice";
 import { readRefs } from "@studio/voice/refs";
 import { video } from "../../traits/video.js";
@@ -12,7 +13,6 @@ export default cmd({
   select: "one",
   handler: async (_, { project, ok }) => {
     const load = (rel: string) => import(pathToFileURL(join(project.dir, rel)).href);
-    const { lineOf, spokenText, voiceLines } = await load("engine/audio/voiceLines.ts");
     const { SCRIPT } = await load("script/index.ts");
     const { CAST } = await load("script/cast.ts");
     const voiceDir = join(project.dir, "voice");

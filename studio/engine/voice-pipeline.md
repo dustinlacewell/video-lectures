@@ -1,6 +1,6 @@
 # The voice pipeline
 
-How lines in the script become WAV clips that set the video's timing. Built and used in `D:\code\ai\video-lectures\videos\what-a-mind-is-made-of`. File shapes are in `engine/contract.md` sections 3, 4 and 9.
+How lines in the script become WAV clips that set the video's timing. The pipeline code is `@studio/voice` (TypeScript manifest) and `packages/voice/py` (Python synthesis), shared by every video; each video holds only its own `voice/refs/`, `voice/manifest.json` and `voice/clips/`. File shapes are in [contract](contract.md) sections 3, 4 and 9.
 
 ## The flow
 
@@ -35,12 +35,12 @@ A speaker the human wants to keep from an earlier production is copied, not cast
 How to pick a voice:
 
 1. Write two to four short text descriptions per speaker. Example: "posh British woman, mid-30s, dry and wry".
-2. Render samples of one test passage per description:
-   `uv run speak.py --text "<passage>" --voice "<description>" --out samples/NN-name.wav --seed <n>`
+2. Render samples of one test passage per description, from `packages/voice/py`:
+   `uv run speak.py --text "<passage>" --voice "<description>" --out <video dir>/voice/samples/NN-name.wav --seed <n>`
    Try two or three seeds for the favourite description; each seed is a different person.
 3. The human listens and picks one file. Agents MUST NOT pick a voice.
-4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav`. A new ref is 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
-5. Transcribe it: `uv run transcribe.py refs/<speaker>.wav`. Correct the text against what is actually said, word for word, fillers included. Save it as `voice/refs/<speaker>.txt`.
+4. Freeze it: copy the picked sample to `voice/refs/<speaker>.wav` in the video folder. A new ref is 8–15 s of natural speech with a mix of statements and a question. The reference narrator clip is 9.4 s.
+5. Transcribe it, from `packages/voice/py`: `uv run transcribe.py <video dir>/voice/refs/<speaker>.wav`. Correct the text against what is actually said, word for word, fillers included. Save it as `voice/refs/<speaker>.txt` in the video folder.
 6. The speaker id and its `CAST` entry already exist: casting declared them at the start of preproduction ([contract](contract.md) section 3). Casting points the entry's `ref` at the frozen clip.
 
 Rules:
@@ -52,7 +52,7 @@ Rules:
 
 ## 2. Manifest
 
-`voice/manifest.ts` (pure) and `voice/refs.ts` (reads the ref files) build `voice/manifest.json`.
+`@studio/voice`'s `manifest.ts` (pure) and `refs.ts` (reads the ref files) build the video's `voice/manifest.json`, run through `wm voice:manifest {SLUG}`.
 
 - One entry per voice line: `voiceLines(beat)` gives one clip per speaker.
 - Spoken text is `spokenText(say ?? card)`: `*` removed, quotes around the whole line removed.
@@ -61,7 +61,7 @@ Rules:
 
 ## 3. Render
 
-`voice/render.py`. Run through `wm voice:render {SLUG}`, which writes the manifest first.
+`packages/voice/py/render.py`. Run through `wm voice:render {SLUG}`, which writes the manifest first, then runs `render.py --video <video dir>`.
 
 - A clip is stale when its WAV is missing, or `index.json[id] != "<hash>.r<RENDER_VERSION>"`.
 - Bump `RENDER_VERSION` when rendering or trimming changes. Every clip then re-renders.
@@ -80,7 +80,7 @@ For each take, `flaws_of` collects:
 
 A take with no flaws is kept. Else the loop re-rolls, up to 4 takes, and keeps the take with the fewest flaws. A clip still flawed goes to `failures.json`. The sound engineer reports every entry there to the producer. The usual fix is a script change (rewording) or a human listen.
 
-`uv run verify.py [clipId ...]` re-checks existing clips without rendering.
+From `packages/voice/py`: `uv run verify.py --video <video dir> [clipId ...]` re-checks existing clips without rendering.
 
 ## 5. Trim
 
@@ -93,7 +93,7 @@ On each take:
 
 ## 6. Durations
 
-After rendering, `measure` reads every clip's length into `voice/clips/durations.json` (`{ clipId: seconds }`, 3 decimals). It is tracked in git. The timing rule that consumes it is in `engine/contract.md` section 4.
+After rendering, `measure` reads every clip's length into `voice/clips/durations.json` (`{ clipId: seconds }`, 3 decimals). It is tracked in git. The timing rule that consumes it is in [contract](contract.md) section 4.
 
 After any re-render:
 
@@ -102,7 +102,7 @@ After any re-render:
 
 ## 7. Playback
 
-`engine/audio/voice.ts` (shell) and `engine/audio/voiceTrack.ts` (pure).
+`@studio/engine`'s `audio/voice.ts` (shell) and `audio/voiceTrack.ts` (pure).
 
 - `activeClips(tl, T, clips)` lists clips that should sound at `T` and the offset into each.
 - One `HTMLAudioElement` per clip. On start or jump, it seeks to the exact offset.
@@ -121,7 +121,7 @@ stopsNow(wanted, finished, move) = !wanted && (finished || !move.playing || move
 
 The model in use. Chosen as the top open-weights model on the Artificial Analysis TTS arena at the time.
 
-- **Code:** `https://github.com/breezeblue-ai/breeze-tts`, cloned to `voice/vendor/breeze-tts` at commit `58ec70c`. `breeze.py` puts it on `sys.path`.
+- **Code:** `https://github.com/breezeblue-ai/breeze-tts`, cloned to `packages/voice/py/vendor/breeze-tts` at commit `58ec70c`. `breeze.py` puts it on `sys.path`.
 - **Weights:** Hugging Face `BreezeBlue/Breeze-TTS-2`, revision `3e28c5151381a722f1d8661b4118c298caa77aa4`. Downloaded on first run.
 - **License:** code is Apache-2.0. Weights and self-hosted outputs are research and non-commercial only. Fine for an unmonetized channel. A monetized video MUST swap the model.
 - **VRAM:** about 7.7 GiB eager, about 14.4 GiB on the fast path (CUDA graphs). The reference machine is an RTX 3090 (24 GB); `render.py` uses the fast path by default (`--no-fast` turns it off).
@@ -130,7 +130,7 @@ The model in use. Chosen as the top open-weights model on the Artificial Analysi
 - **Windows fast-path fixes:**
   - `triton-windows<3.6` in the dependencies.
   - `TORCHINDUCTOR_USE_STATIC_CUDA_LAUNCHER=0`. Inductor's static CUDA launcher overflows a 32-bit C `long` on Windows. `breeze.py` sets it before importing torch.
-- **`HF_HOME`:** MUST be set before `huggingface_hub` is imported; the library reads it at import. `breeze.py`, `verify.py` and `transcribe.py` set it to `voice/models` at the top, with `setdefault`, so an outer `HF_HOME` still wins.
+- **`HF_HOME`:** MUST be set before `huggingface_hub` is imported; the library reads it at import. `breeze.py`, `verify.py` and `transcribe.py` set it to `packages/voice/py/models` at the top, with `setdefault`, so an outer `HF_HOME` still wins. One model download, shared by every video.
 - **Limits:**
   - The fast path is warmed for sequences up to 512 tokens. Keep each line to one beat's sentence or two. Split a long passage into beats.
   - `max_new_tokens=1500` caps output at about 120 s. A take that reaches it is a runaway; the verify loop flags it.
@@ -138,30 +138,31 @@ The model in use. Chosen as the top open-weights model on the Artificial Analysi
 
 ### Install
 
-From the project's `voice/` folder:
+One venv for the whole monorepo, in `packages/voice/py`. Every video shares it; a new video needs no install of its own.
 
 ```bash
+cd packages/voice/py
 git clone https://github.com/breezeblue-ai/breeze-tts vendor/breeze-tts
 git -C vendor/breeze-tts checkout 58ec70c
-uv sync                      # makes voice/.venv on Python 3.12
+uv sync                      # makes packages/voice/py/.venv on Python 3.12
 uv run speak.py --text "Testing one two." --out samples/test.wav --voice "calm adult narrator"
 ```
 
-The first run downloads the weights into `voice/models`. `voice/vendor/`, `voice/models/` and `.venv/` are gitignored.
+The first run downloads the weights into `packages/voice/py/models`. `vendor/`, `models/` and `.venv/` under `packages/voice/py` are gitignored.
 
 ### Disk
 
-Plan for about 15 GB on the project's drive before installing:
+Plan for about 15 GB on the repo's drive before installing, once for the whole monorepo:
 
-- `voice/.venv`: about 5 GB (torch with CUDA).
-- `voice/models`: 8.7 GB measured (Breeze about 7 GB, Whisper large-v3-turbo about 1.6 GB).
-- Clips: small (80 clips is a few tens of MB).
+- `packages/voice/py/.venv`: about 5 GB (torch with CUDA).
+- `packages/voice/py/models`: 8.7 GB measured (Breeze about 7 GB, Whisper large-v3-turbo about 1.6 GB).
+- Clips: small per video (80 clips is a few tens of MB), in each video's own `voice/clips/`.
 
 Check free space first. The D: drive filled up during the reference project.
 
 ## Swapping the TTS model
 
-`render.py`, `speak.py` and the manifest do not know the model. Only `voice/breeze.py` does. A new model is a new module with the same four functions:
+`render.py`, `speak.py` and the manifest do not know the model. Only `breeze.py` does. A new model is a new module with the same four functions, in `packages/voice/py`:
 
 ```python
 def load(fast: bool) -> Handle                       # Handle has .sample_rate: int
@@ -179,8 +180,8 @@ Requirements for a replacement:
 
 Steps:
 
-1. Write `voice/<model>.py` with the four functions. Point the imports in `render.py` and `speak.py` at it.
+1. Write `packages/voice/py/<model>.py` with the four functions. Point the imports in `render.py` and `speak.py` at it.
 2. Bump `RENDER_VERSION`.
 3. Keep the frozen reference clips; they are plain audio and do not depend on the model. Render one sample line per speaker with the new model. The human listens and signs off on each voice again.
-4. `wm voice:render {SLUG}`, then `uv run verify.py`, then `wm test {SLUG}`.
+4. `wm voice:render {SLUG}`, then `uv run verify.py --video <video dir>`, then `wm test {SLUG}`. The model change is shared, so every video's clips are affected; re-render each in turn.
 5. Every clip length changes. Re-run the clip check and the pacing curve. Animation timed with `S.since`/`S.on` follows; anything keyed to fixed seconds inside a beat needs an animator's check.

@@ -6,7 +6,7 @@ Goal: one MP4 that matches the live player frame for frame and sample for sample
 
 ## First production on a new engine builds this
 
-The first production that delivers an MP4 builds the exporter. Later productions copy it with the engine.
+The first production that delivers an MP4 builds the exporter, in `@studio/engine`. Every later production gets it for free, as a dependency.
 
 - **Owner:** the [engine owner](../roles/engine-owner.md) (contract section 10 lists the exporter as its file). Opus, its own brief.
 - **Critic:** [QA](../roles/qa.md), in a [maker-critic loop](../loops/maker-critic.md). The engine owner never certifies its own export.
@@ -36,11 +36,11 @@ Functional core, imperative shell:
 
 ### A capture page
 
-Add a second composition root, `player/capture.html` + `player/capture.ts`. It builds the same timeline and scenes as `player/main.ts`, but:
+Add a second composition root in `@studio/engine/player`, `capture.html` + `capture.ts`. It builds the same timeline and scenes as `main.ts`, but:
 
 - no control bar, no audio, no clock loop;
 - canvas size from the URL: `?w=1920` gives 1920 x 1080, `?w=3840` gives 3840 x 2160. The live player caps width at 1920 and follows `devicePixelRatio`, so it cannot give 4K or an exact size;
-- the same debug globals (`engine/contract.md` section 8).
+- the same debug globals ([contract](contract.md) section 8).
 
 ### Frame loop
 
@@ -77,7 +77,7 @@ The live audio is not a function of `T`:
 
 - `auMusic(T, ch)` advances the sequencer at most one step per call, driven by the frame clock, and schedules each note at `ctx.currentTime`.
 - Sound effects fire at `currentTime` when the clock passes a cue.
-- The noise buffer (`engine/audio/synth.ts` `whiteNoise`) uses `Math.random`.
+- The noise buffer (`@studio/engine/audio/synth.ts` `whiteNoise`) uses `Math.random`.
 - Ducking follows which `HTMLAudioElement`s are live.
 
 ### The engine change

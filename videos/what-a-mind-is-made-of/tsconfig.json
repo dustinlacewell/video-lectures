@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": ["engine", "kit", "scenes", "script", "test", "video.ts", "wm.ts", "vite.config.ts"]
+  "include": ["kit", "scenes", "script", "test", "video.ts", "wm.ts", "vite.config.ts"]
 }
