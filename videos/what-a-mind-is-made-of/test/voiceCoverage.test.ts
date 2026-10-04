@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { buildTimeline, voiceDurations } from '../engine/timeline';
-import { voiceLines } from '../engine/audio/voiceLines';
+import { buildTimeline, voiceDurations } from '@studio/engine/timeline';
+import { voiceLines } from '@studio/engine/audio/voiceLines';
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';
 
