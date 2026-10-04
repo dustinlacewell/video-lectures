@@ -1,6 +1,6 @@
 /* The scrub bar: a range input over a chapter-segmented track, with a hover tooltip naming the chapter and time. */
 
-import type { Timeline } from '@studio/engine/timeline';
+import type { Timeline } from '../../timeline';
 import { clock, pointLabel, segmentFill, segments } from './format';
 
 export interface ScrubberEls {

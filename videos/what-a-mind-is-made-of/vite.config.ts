@@ -1,9 +1,3 @@
-import { defineConfig } from 'vitest/config';
+import { studioConfig } from '@studio/engine/vite';
 
-export default defineConfig({
-  root: 'player',
-  /** Voice clips and durations.json: served at the page root in dev, copied into dist on build. */
-  publicDir: '../voice/clips',
-  build: { outDir: '../dist', emptyOutDir: true },
-  test: { root: '.', include: ['test/**/*.test.ts'] }
-});
+export default studioConfig(import.meta.dirname);

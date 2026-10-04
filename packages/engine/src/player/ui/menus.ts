@@ -1,6 +1,6 @@
 /* The contents of the two popover menus: chapters and speed. Each returns a function that marks the current choice. */
 
-import type { TimedChapter } from '@studio/engine/timeline';
+import type { TimedChapter } from '../../timeline';
 import { chapterLabel, clock } from './format';
 
 export const SPEEDS = [1, 1.25, 1.5];

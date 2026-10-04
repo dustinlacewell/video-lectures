@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>What a Mind Is Made Of</title>
-<meta name="description" content="Consciousness causes nothing you say or do, so for ethics a mind is its cognition.">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
 <meta property="og:type" content="video.other">
-<meta property="og:title" content="What a Mind Is Made Of">
-<meta property="og:description" content="Consciousness causes nothing you say or do, so for ethics a mind is its cognition.">
-<meta property="og:url" content="https://lectures.ldlework.com/what-a-mind-is-made-of/">
-<meta property="og:image" content="https://lectures.ldlework.com/what-a-mind-is-made-of/poster.png">
+<meta property="og:title" content="{{title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:url" content="{{url}}">
+<meta property="og:image" content="{{image}}">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="720">
 <meta name="twitter:card" content="summary_large_image">
@@ -21,35 +21,10 @@
 <main class="page">
   <header class="head">
     <a class="back" href="/">← Lectures</a>
-    <h1 class="title">What a mind is made of</h1>
+    <h1 class="title">{{heading}}</h1>
   </header>
 
-  <div class="player paused" id="player">
-    <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="Animated video with captions"></canvas>
-      <div class="bigplay" id="bigplay" aria-hidden="true"></div>
-    </div>
-
-    <div class="bar" id="bar">
-      <button class="ic play" id="play" type="button" aria-label="Play (k)"></button>
-      <span class="time"><span id="cur">0:00</span><span class="of"> / <span id="total">0:00</span></span></span>
-      <div class="scrub" id="scrub">
-        <div class="track" id="track"></div>
-        <input id="seek" type="range" value="0" aria-label="Seek">
-        <div class="tip" id="tip" hidden><span></span><span></span></div>
-      </div>
-      <div class="menu-anchor">
-        <button class="ic" id="chap" type="button" aria-label="Chapters"></button>
-        <div class="menu chapters" id="chapmenu" role="menu" aria-label="Chapters" hidden></div>
-      </div>
-      <div class="menu-anchor">
-        <button class="ic speed" id="spd" type="button" aria-label="Playback speed">1×</button>
-        <div class="menu" id="spdmenu" role="menu" aria-label="Playback speed" hidden></div>
-      </div>
-      <button class="ic" id="snd" type="button" aria-label="Mute (m)"></button>
-      <button class="ic" id="full" type="button" aria-label="Full screen (f)"></button>
-    </div>
-  </div>
+  <div class="player paused" id="player"></div>
 </main>
 <script type="module" src="./main.ts"></script>
 </body>

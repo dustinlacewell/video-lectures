@@ -1,14 +1,14 @@
 /* Playback state: the clock T, play/pause, speed, sound cues, voice, and drawing the current frame. */
 
-import { auPad, auMusic, setSound } from '@studio/engine/audio/music';
-import { sfx } from '@studio/engine/audio/sfx';
-import { AU, auInit } from '@studio/engine/audio/synth';
-import type { VoiceTrack } from '@studio/engine/audio/voice';
-import { resetGrain } from '@studio/engine/grain';
-import { H, W } from '@studio/engine/math';
-import { renderFrame, type SceneMap } from '@studio/engine/render';
-import { clearWrapCache } from '@studio/engine/text';
-import { chapterAt, firstCueAt, type TimedChapter, type Timeline } from '@studio/engine/timeline';
+import { auPad, auMusic, setSound } from '../audio/music';
+import { sfx } from '../audio/sfx';
+import { AU, auInit } from '../audio/synth';
+import type { VoiceTrack } from '../audio/voice';
+import { resetGrain } from '../grain';
+import { H, W } from '../math';
+import { renderFrame, type SceneMap } from '../render';
+import { clearWrapCache } from '../text';
+import { chapterAt, firstCueAt, type TimedChapter, type Timeline } from '../timeline';
 
 /** What the page shows about playback after each frame. */
 export interface PlayState {

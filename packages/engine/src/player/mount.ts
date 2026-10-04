@@ -1,14 +1,13 @@
 /* Composition root: load voice clip lengths, build the timeline, bind the canvas, wire the page, start the clock. */
 
-import { createVoiceTrack } from '@studio/engine/audio/voice';
-import type { ClipLengths } from '@studio/engine/audio/voiceTrack';
-import { setContext } from '@studio/engine/canvas';
-import { buildTimeline, voiceDurations } from '@studio/engine/timeline';
-import { SCENES } from '../scenes';
-import { SCRIPT } from '../script';
-import { CAST } from '../script/cast';
+import { createVoiceTrack } from '../audio/voice';
+import type { ClipLengths } from '../audio/voiceTrack';
+import { setContext } from '../canvas';
+import type { SceneMap } from '../render';
+import { buildTimeline, voiceDurations } from '../timeline';
+import type { VideoData } from '../video';
 import { exposeDebug } from './debug';
-import { findElements } from './dom';
+import { buildPlayer } from './dom';
 import { onFontsLoaded } from './fonts';
 import { createPlayback, type Playback } from './playback';
 import { createAutoHide } from './ui/autoHide';
@@ -21,15 +20,18 @@ import type { KeyAction } from './ui/keymap';
 const BASE = import.meta.env.BASE_URL;
 const clipUrl = (clip: string) => BASE + encodeURIComponent(clip) + '.wav';
 
-boot(await loadClipLengths());
+/** Build the player inside `el` and start it on `video`, drawn by `scenes`. */
+export async function mountPlayer(video: VideoData, scenes: SceneMap, el: HTMLElement): Promise<void> {
+  boot(video, scenes, el, await loadClipLengths());
+}
 
-function boot(clips: ClipLengths): void {
-  const tl = buildTimeline(SCRIPT, voiceDurations(SCRIPT, clips, CAST));
-  const els = findElements();
+function boot(video: VideoData, scenes: SceneMap, el: HTMLElement, clips: ClipLengths): void {
+  const tl = buildTimeline(video.script, voiceDurations(video.script, clips, video.cast), video.cast);
+  const els = buildPlayer(el);
   setContext(els.cv.getContext('2d')!);
 
   const voice = createVoiceTrack(tl, clips, clipUrl);
-  const player = createPlayback(tl, SCENES, els.cv, voice);
+  const player = createPlayback(tl, scenes, els.cv, voice);
   const updateBar = createControlBar(els, tl, player);
   const autoHide = createAutoHide(els.player);
   player.onFrame(function (s) { updateBar(s); autoHide.setPlaying(s.playing); });

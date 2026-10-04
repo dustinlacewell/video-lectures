@@ -1,12 +1,12 @@
 /* Debug globals for headless tools (exporter, review screenshots). */
 
-import { auMusic, auPad, duckMusic } from '@studio/engine/audio/music';
-import { sfx } from '@studio/engine/audio/sfx';
-import { AU, auInit } from '@studio/engine/audio/synth';
-import type { VoiceTrack } from '@studio/engine/audio/voice';
-import { mkS } from '@studio/engine/beatState';
-import { camAt } from '@studio/engine/camera';
-import { chapterAt, type Cue, type Timeline } from '@studio/engine/timeline';
+import { auMusic, auPad, duckMusic } from '../audio/music';
+import { sfx } from '../audio/sfx';
+import { AU, auInit } from '../audio/synth';
+import type { VoiceTrack } from '../audio/voice';
+import { mkS } from '../beatState';
+import { camAt } from '../camera';
+import { chapterAt, type Cue, type Timeline } from '../timeline';
 import type { Playback } from './playback';
 
 declare global {

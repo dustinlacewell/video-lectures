@@ -1,7 +1,7 @@
 {
   "extends": "@studio/engine/tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node", "vite/client"]
+    "types": ["node"]
   },
-  "include": ["engine", "kit", "scenes", "script", "player", "test", "wm.ts", "vite.config.ts"]
+  "include": ["engine", "kit", "scenes", "script", "test", "video.ts", "wm.ts", "vite.config.ts"]
 }
