@@ -28,6 +28,7 @@ pnpm --dir C:\Users\dustin\.claude\skills\video-studio\tools clip-check (--url <
   --dead-air 2        ratio of beat length to speech
   --pad 0.6           quiet the engine adds after a line (the contract default)
   --chapter <id>      one chapter only; repeatable (orphans are still judged against the whole video)
+  --require-clips     fail when no clip lengths exist yet (the voice gate; see "Before voice exists")
 ```
 
 Takes a few seconds.
@@ -50,9 +51,15 @@ Producer, before the animatic gate: run the critic's command. Missing, runs-past
 
 Leave out `--script` when the page has `__script()`.
 
+## Before voice exists
+
+With no `durations.json` and no clips, clip-check does not fail: it prints `no voice yet: N spoken beats, 0 clips` and exits 0. This lets `wm test` and other preproduction checks pass before the voice phase.
+
+Pass `--require-clips` to restore the old failure (exit 1) when no clip lengths are found. Use it at the voice gate, where clips MUST exist.
+
 ## Exit codes
 
-`0` done. `1` the run failed, or no clip lengths were found. `2` bad options or no script source. Findings never change the exit code: read `clips.md`.
+`0` done, or no clips yet (without `--require-clips`). `1` the run failed, or (with `--require-clips`) no clip lengths were found. `2` bad options or no script source. Findings never change the exit code: read `clips.md`.
 
 ## Output
 

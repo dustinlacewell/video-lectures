@@ -196,10 +196,23 @@ interface Window {
   /** The script as data: SCRIPT itself. Tools read chapter id, title, short,
    *  and per beat: id, say, card, speaker, stagger, dur. */
   __script(): ChapterScript[];
+  /** The synth the player drives, for an offline render. `init()` builds the audio graph on
+   *  `new AudioContext()`; the rest are what playback itself calls each frame: `music(T)`,
+   *  `pad(on)` on play/pause, `duck(under)` while a voice clip sounds, `sfx(type, arg)` per cue. */
+  __synth(): {
+    init(): void;
+    ctx(): BaseAudioContext | null;
+    music(T: number): void;
+    pad(on: boolean): void;
+    duck(under: boolean): void;
+    sfx(type: SfxName, arg?: number): void;
+  };
 }
 ```
 
 - `__script()` is one line in the player's debug globals: `window.__script = () => SCRIPT`. The [tools](../tools/setup.md) use it when the page has it. Without it, every tool needs `--script <path>/script/index.ts`. The reference repo lacks it (section 11).
+
+- `__synth()` lets the [export tool](../tools/export.md) render the page's own music and sound effects offline, deterministically, instead of recording live playback. The exporter swaps in an `OfflineAudioContext` behind a proxy with a virtual `currentTime`, calls `init()` to build the graph on it, seeds `Math.random` for the noise buffer, then walks the timeline tick by tick calling `music(T)`, `sfx(type, arg)` at each cue, and `duck(under)` at each voice clip's start and end — the same calls live playback makes, replayed on a clock the exporter drives instead of the browser's. See `studio/tools/export/synth.ts`.
 
 - The stage MUST be one `<canvas id="cv">`. Its backing width is `min(1920, clientWidth x devicePixelRatio)`; height follows 16:9. A tool sets the viewport to get the size it needs.
 - Clip lengths are served at `<base>durations.json`; clips at `<base><clipId>.wav`, where `<base>` is `import.meta.env.BASE_URL` (Vite `publicDir` is `voice/clips`). The site serves a video at `/<slug>/`, so a relative or root URL breaks there.

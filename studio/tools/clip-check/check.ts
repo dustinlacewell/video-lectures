@@ -32,6 +32,12 @@ export interface ClipReport {
   notInManifest: string[];
 }
 
+/** No clip lengths exist yet (before the voice phase): the status line for stdout. Pure. */
+export function noVoiceYetMessage(beats: Beat[]): string {
+  const spoken = beats.filter(function (b) { return b.lines.length > 0; }).length;
+  return 'no voice yet: ' + spoken + ' spoken beats, 0 clips';
+}
+
 /** `beats` are the beats to check; `allBeats` the whole video, used to tell orphans. */
 export function checkClips(beats: Beat[], allBeats: Beat[], clips: ClipLengths, manifestIds: string[] | undefined, rules: CheckRules = DEFAULT_RULES): ClipReport {
   const spoken = beats.filter(function (b) { return b.lines.length > 0; });
