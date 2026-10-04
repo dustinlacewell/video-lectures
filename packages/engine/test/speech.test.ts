@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { mkS } from '@studio/engine/beatState';
-import { DEFAULT_PAD, buildTimeline, voiceDurations } from '@studio/engine/timeline';
-import { mouthOpen } from '@studio/library/characters/bean';
-import { POP, shownLines, speechSeconds, talkTime, talkWindow } from '@studio/engine/speech/speechTiming';
-import { CAST } from '../script/cast';
-import type { ChapterScript } from '../script/types';
+import { mkS } from '../src/beatState';
+import { DEFAULT_PAD, buildTimeline, voiceDurations } from '../src/timeline';
+import { POP, shownLines, speechSeconds, talkTime, talkWindow } from '../src/speech/speechTiming';
+import { CAST } from './fixtures';
+import type { ChapterScript } from '../src/script';
 
 const CH: ChapterScript[] = [{
   id: 'z', short: 'z', root: 220, scale: [0],
@@ -16,7 +15,7 @@ const CH: ChapterScript[] = [{
   ]
 }];
 
-const timed = (clips: Record<string, number> = {}) => buildTimeline(CH, voiceDurations(CH, clips, CAST)).chapters[0];
+const timed = (clips: Record<string, number> = {}, cast = CAST) => buildTimeline(CH, voiceDurations(CH, clips, cast), cast).chapters[0];
 const at = (key: string, bt: number, clips?: Record<string, number>) => { const ch = timed(clips); return mkS(ch, ch.beats[ch.idx[key]].start + bt); };
 
 describe('talk windows', () => {
@@ -30,6 +29,13 @@ describe('talk windows', () => {
     expect(b.dur).toBeCloseTo(0.5 + 1.5 + DEFAULT_PAD, 9);
     expect(talkWindow(b, 'you')).toEqual({ start: 0, end: 1.5 });
     expect(talkWindow(b, 'zombie')!.start).toBe(0.5);
+    expect(talkWindow(b, 'zombie')!.end).toBeCloseTo(2.0, 9);
+  });
+
+  it('ends the last speaker its cast pad before the beat ends', () => {
+    const cast = { ...CAST, zombie: { ...CAST.zombie, pad: 1.2 } };
+    const b = timed({ 'z.yes.you': 1.5, 'z.yes.zombie': 1.5 }, cast).beats[1];
+    expect(b.dur).toBeCloseTo(0.5 + 1.5 + 1.2, 9);
     expect(talkWindow(b, 'zombie')!.end).toBeCloseTo(2.0, 9);
   });
 
@@ -64,12 +70,5 @@ describe('shown lines', () => {
 
   it('rejects a hold naming a beat that does not exist', () => {
     expect(() => shownLines(at('after', 1), { held: 'nope' })).toThrow(/nope/);
-  });
-});
-
-describe('mouth', () => {
-  it('starts closed and stays within 0..1', () => {
-    expect(mouthOpen(0)).toBe(0);
-    for (let t = 0; t < 5; t += 0.01) { const o = mouthOpen(t); expect(o).toBeGreaterThanOrEqual(0); expect(o).toBeLessThanOrEqual(1); }
   });
 });

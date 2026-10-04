@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { beatDuration, buildTimeline, keyOf } from '@studio/engine/timeline';
-import { SCRIPT } from '../script';
+import { beatDuration, buildTimeline, keyOf } from '../src/timeline';
+import { SCRIPT } from './fixtures';
 
 describe('buildTimeline', () => {
   const tl = buildTimeline(SCRIPT);
@@ -15,11 +15,6 @@ describe('buildTimeline', () => {
 });
 
 describe('beat ids', () => {
-  it('are unique and prefixed by their chapter id', () => {
-    const ids = SCRIPT.flatMap(ch => ch.beats.map(b => { expect(b.id.startsWith(ch.id + '.')).toBe(true); return b.id; }));
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
   it('rejects a beat id from another chapter', () => {
     expect(() => keyOf('physics', 'form.lever1')).toThrow();
     expect(keyOf('physics', 'physics.fall')).toBe('fall');

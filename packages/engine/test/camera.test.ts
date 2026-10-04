@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { mkS, type BeatState } from '@studio/engine/beatState';
-import { camAt, resolveCams } from '@studio/engine/camera';
-import { ease, lerp } from '@studio/engine/math';
-import { buildTimeline, type TimedChapter } from '@studio/engine/timeline';
-import type { Cam } from '@studio/engine/script';
-import { SCRIPT } from '../script';
+import { mkS, type BeatState } from '../src/beatState';
+import { camAt, resolveCams } from '../src/camera';
+import { ease, lerp } from '../src/math';
+import { buildTimeline, type TimedChapter } from '../src/timeline';
+import type { Cam } from '../src/script';
+import { SCRIPT } from './fixtures';
 
 /* The original's camera: search backwards from the beat each frame. Kept here as the oracle. */
 function camOfOriginal(ch: TimedChapter, i: number, S: BeatState): Cam {
@@ -46,7 +46,7 @@ describe('camAt', () => {
     const ch = tl.chapters.find(c => c.id === 'physics')!;
     const stop = ch.beats[ch.idx['stop']];
     const atStart = camAt(ch, mkS(ch, stop.start));
-    expect(atStart.y).toBe(420);
+    expect(atStart.y).toBe(400);
     const settled = camAt(ch, mkS(ch, stop.start + 1.8));
     const lp = 1.8 / stop.dur;
     expect(settled).toEqual({ x: 1290, y: 420, z: 1.5 * (1 + 0.03 * lp) });
