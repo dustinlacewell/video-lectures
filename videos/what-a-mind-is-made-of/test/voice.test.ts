@@ -1,4 +1,6 @@
 import { fileURLToPath } from 'node:url';
+import { buildManifest, type Refs } from '@studio/voice';
+import { readRefs } from '@studio/voice/refs';
 import { describe, expect, it } from 'vitest';
 import { captionOf, lineOf, spokenText, voiceLines } from '../engine/audio/voiceLines';
 import { activeClips, stopsNow } from '../engine/audio/voiceTrack';
@@ -6,8 +8,9 @@ import { DEFAULT_PAD, beatDuration, buildTimeline, firstCueAt, voiceDurations } 
 import { SCRIPT } from '../script';
 import { CAST } from '../script/cast';
 import type { Cast, ChapterScript } from '../script/types';
-import { buildManifest, type Refs } from '../voice/manifest';
-import { readRefs } from '../voice/refs';
+
+/** The three beat-reading functions @studio/voice needs, bound to this video's own engine. */
+const reader = { lineOf, spokenText, voiceLines };
 
 const beat = (tl: ReturnType<typeof buildTimeline>, id: string) =>
   tl.chapters.flatMap(ch => ch.beats).find(b => b.id === id)!;
@@ -69,7 +72,7 @@ describe('read-out cards', () => {
   it('gives a card beat one narrator clip that reads the card without formatting', () => {
     expect(voiceLines(CARD[0].beats[0])).toEqual([{ clip: 'c.claim', speaker: 'narrator', at: 0 }]);
     expect(lineOf(CARD[0].beats[0])).toBe('Form *is* function.');
-    expect(buildManifest(CARD, CAST, refsOf(CAST))[0].text).toBe('Form is function.');
+    expect(buildManifest(CARD, CAST, refsOf(CAST), reader)[0].text).toBe('Form is function.');
   });
 
   it('does not caption a card: the card is already on screen', () => {
@@ -139,39 +142,9 @@ describe('cast and manifest', () => {
     expect(zombie).toEqual(you);
   });
 
-  it('writes one job per speaker, aliased voices sharing a key, transcript from the ref', () => {
-    const m = buildManifest(DUET, CAST, refsOf(CAST));
-    expect(m.map(e => e.id)).toEqual(['z.ask', 'z.yes.you', 'z.yes.zombie', 'z.slow.you', 'z.slow.zombie']);
-    const [you, zombie] = [m[1], m[2]];
-    expect(zombie.voiceKey).toBe('you');
-    expect(you.text).toBe('Yes. Obviously.');
-    expect(you.ref).toBe(CAST.you.ref);
-    expect(you.refText).toBe('transcript of ' + CAST.you.ref);
-    expect(zombie.hash).toBe(you.hash);
-    expect(m[0].hash).not.toBe(you.hash);
-  });
-
-  it('re-hashes a line when its ref audio, transcript or style changes', () => {
-    const base = buildManifest(DUET, CAST, refsOf(CAST))[1].hash;
-    expect(buildManifest(DUET, CAST, refsOf(CAST, 'new audio'))[1].hash).not.toBe(base);
-    const withText: Cast = { ...CAST, you: { ...CAST.you, refText: 'other words' } };
-    expect(buildManifest(DUET, withText, refsOf(CAST))[1].hash).not.toBe(base);
-    const withStyle: Cast = { ...CAST, you: { ...CAST.you, style: 'whispering' } };
-    const styled = buildManifest(DUET, withStyle, refsOf(CAST));
-    expect(styled[1].hash).not.toBe(base);
-    expect(styled[1].style).toBe('whispering');
-    expect(styled[2].voiceKey).toBe('zombie');
-  });
-
   it('finds every cast ref clip and transcript in voice/refs', () => {
     const refs = readRefs(CAST, fileURLToPath(new URL('../voice', import.meta.url)));
-    expect(buildManifest(SCRIPT, CAST, refs).length).toBeGreaterThan(0);
-  });
-
-  it('fails loudly when a ref clip or its transcript is missing', () => {
-    expect(() => buildManifest(DUET, CAST, {})).toThrow(/not found/);
-    const noText = Object.fromEntries(Object.entries(refsOf(CAST)).map(([k, v]) => [k, { hash: v.hash }]));
-    expect(() => buildManifest(DUET, CAST, noText)).toThrow(/no transcript/);
+    expect(buildManifest(SCRIPT, CAST, refs, reader).length).toBeGreaterThan(0);
   });
 });
 
