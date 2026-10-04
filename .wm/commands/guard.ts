@@ -17,7 +17,11 @@ export default cmd({
     const dist = join(project.dir, "dist");
     const out = join(project.dir, ".scratch", "guard");
     const script = join(project.dir, "script", "index.ts");
+    const goldenDir = join(project.dir, "golden");
     const flag = args.control ? " --control" : "";
-    return exec(`pnpm exec tsx guard/cli.ts --build "${dist}" --script "${script}" --out "${out}"${flag}`, { cwd: TOOLS, timeout: 300_000 });
+    return exec(
+      `pnpm exec tsx guard/cli.ts --build "${dist}" --script "${script}" --out "${out}" --golden "${goldenDir}"${flag}`,
+      { cwd: TOOLS, timeout: 300_000 },
+    );
   },
 });

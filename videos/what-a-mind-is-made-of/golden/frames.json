@@ -1,0 +1,723 @@
+{
+  "blessedAt": "2026-10-04T00:36:51.744Z",
+  "commit": "232526e80d808c19257b2fa11eb88b790a110f70",
+  "libraryHash": "(none)",
+  "info": "426.209;title|t|0.000;physics|_title|6.000;physics|atoms|9.400;physics|laws|14.560;physics|fall|20.280;physics|stop|25.840;physics|ghost|31.320;physics|spirit|36.880;physics|thought|42.080;physics|nothing|47.480;physics|finger|52.720;physics|claim|57.920;form|_title|64.280;form|thesis|67.680;form|betray|71.000;form|lever1|76.160;form|lever2|79.360;form|lever3|85.000;form|pulley|90.075;form|circuit|95.315;form|cut|100.075;form|claim|105.075;body|_title|113.535;body|you|116.935;body|lift|120.655;body|muscle|125.255;body|brain|130.255;body|trace|136.334;body|nogap|141.734;body|name|146.654;body|list|152.174;words|_title|158.534;words|speak|161.934;words|which|166.534;words|ask1|170.972;words|weigh|173.372;words|ans1|179.562;words|selected|181.362;words|stranger|184.896;words|ask2|187.296;words|ans2|193.296;words|same|197.736;words|claim|203.376;words|cause|209.736;zombie|_title|213.936;zombie|intro|217.336;zombie|movie|219.536;zombie|copy|225.136;zombie|same|229.496;zombie|diff|235.096;zombie|ask|241.536;zombie|yes|245.096;zombie|must|250.266;zombie|toe|254.946;zombie|pain|258.826;zombie|sure|265.506;zombie|claim|268.906;inventory|_title|276.526;inventory|you|279.926;inventory|m1|284.926;inventory|m2|290.526;inventory|m3|296.126;inventory|cog|301.526;inventory|z|307.726;inventory|zwhy|312.526;inventory|zall|318.086;inventory|zlife|322.686;subtract|_title|328.385;subtract|s1|331.785;subtract|s1a|336.385;subtract|s1b|340.825;subtract|s2a|344.545;subtract|s2b|348.745;subtract|s2c|355.945;subtract|claim|359.345;animals|_title|366.125;animals|animals|369.525;animals|three|374.325;animals|are|379.881;animals|ai|385.081;animals|ask|390.281;animals|trivia|395.441;animals|why|400.281;animals|matters|406.049;animals|claim|412.009;animals|end|419.209",
+  "samples": [
+    {
+      "t": 0.37,
+      "why": "even",
+      "frame": "5f2f4ee85906499c68291996874bcf1660556e1e954bcb1c0613c69d613daad8"
+    },
+    {
+      "t": 3,
+      "why": "beat-mid:title.t",
+      "frame": "49cca348126c9d53db59810854198be294274f49932cdac89894b6b8f42d3c60"
+    },
+    {
+      "t": 5.8,
+      "why": "chapter-start:physics",
+      "frame": "5c84483a8a150374dd2514e421850457dfd07a3798518ae8af40a7fb197fd3db"
+    },
+    {
+      "t": 6.2,
+      "why": "chapter-start:physics",
+      "frame": "c30a6ca21318f6429b356560c36eddac4b21093cfbc55dfc1d920a770f30a5eb"
+    },
+    {
+      "t": 7.7,
+      "why": "beat-mid:physics._title",
+      "frame": "7131913b036000a52a8eb4c4dc094f9f902721c1ec2b603728f34aa5f17248d8"
+    },
+    {
+      "t": 11.000224999999999,
+      "why": "even",
+      "frame": "25c54a09d0808d0d265cd6a0b5c4acde0c86b89e7668c5d532d569c081ea9c43"
+    },
+    {
+      "t": 11.98,
+      "why": "beat-mid:physics.atoms",
+      "frame": "307025cdd953373caa1ed01f7ed73dd28c42cac41e7b1d626840ec2cade5961b"
+    },
+    {
+      "t": 17.419999999999998,
+      "why": "beat-mid:physics.laws",
+      "frame": "0d1db9de7e9a4bee6cbd290a814b14288e8466d8732bfe00314b2959cfc5111b"
+    },
+    {
+      "t": 21.63045,
+      "why": "even",
+      "frame": "b34bd3f0bcf722cb70f27abfc026b60a0f9a51beff4fb67a629902c48ea2e1a3"
+    },
+    {
+      "t": 23.06,
+      "why": "beat-mid:physics.fall",
+      "frame": "cd9cb48b1627ee8ca6ebbeb561afbc24a69fc3845b5478684d60de232cc97257"
+    },
+    {
+      "t": 28.579999999999995,
+      "why": "beat-mid:physics.stop",
+      "frame": "85eb448eb2d509ed3d43e2e1daaebd3300df07aa5144378aff944c6ccdb71b61"
+    },
+    {
+      "t": 32.260675,
+      "why": "even",
+      "frame": "3d6cf19befd6212cb5f4ce2182e71e4ab7fa742bd32a421575435ad3ff9ceca9"
+    },
+    {
+      "t": 34.099999999999994,
+      "why": "beat-mid:physics.ghost",
+      "frame": "02543fc5dc427dd9f08947e02a14519af5b6bdfdfd49a87ca8b0a372db36a887"
+    },
+    {
+      "t": 39.48,
+      "why": "beat-mid:physics.spirit",
+      "frame": "c664a23e57d81e24d0f4873765ea45f7055782f861f5997aa46ba1a82ffde1f3"
+    },
+    {
+      "t": 42.890899999999995,
+      "why": "even",
+      "frame": "48c7ba3ee71f54bfd297e7e2e3120b98d5f701d360dbbe87df0a687e878ab9fd"
+    },
+    {
+      "t": 44.78,
+      "why": "beat-mid:physics.thought",
+      "frame": "c7002d4f2e6540ceaebd6f1facf6b2b77001de16eecb29614cc7c69500293d46"
+    },
+    {
+      "t": 50.099999999999994,
+      "why": "beat-mid:physics.nothing",
+      "frame": "d5dece0fab567b7cf6d04e5d833f8afef0d4ff85fec2e43b93b9a8f9762b4767"
+    },
+    {
+      "t": 53.52112499999999,
+      "why": "even",
+      "frame": "947c9b98c41a13ff95085d76b916513acfd4a923dfbf92e8f72df15f7884b191"
+    },
+    {
+      "t": 55.32,
+      "why": "beat-mid:physics.finger",
+      "frame": "3acca2e2b3522f15b18db0d65a92647fe3d76a81c6d8728b2b5da37ec7f9a0d7"
+    },
+    {
+      "t": 61.1,
+      "why": "beat-mid:physics.claim",
+      "frame": "f05425fc5f40018bfb3132c20d3b20e3c272f26e9e6739e5929c212c4dd6b2a8"
+    },
+    {
+      "t": 64.08,
+      "why": "chapter-start:form",
+      "frame": "8cc295a70893e9a3016ca169f2f7e13c88383f7516e7b2ab14ec62d0533d9dd7"
+    },
+    {
+      "t": 64.15135,
+      "why": "even",
+      "frame": "171e411a1d7cd26fe8587c4d2a25f8f4a0f847ef97f17367c724be6496384391"
+    },
+    {
+      "t": 64.48,
+      "why": "chapter-start:form",
+      "frame": "f541ba6f7859224d34ebb87f47ac841d2577c24b3ecd797a5037c5ca4a61beb6"
+    },
+    {
+      "t": 65.98,
+      "why": "beat-mid:form._title",
+      "frame": "4f729e7927417aec56909577c3d7aa6e1d55d2697cb14f46919e465c210afb20"
+    },
+    {
+      "t": 69.34,
+      "why": "beat-mid:form.thesis",
+      "frame": "800c21c01235a066cfa11235f39f26d096e01cf91517286ab9edb42ab109af1d"
+    },
+    {
+      "t": 73.58,
+      "why": "beat-mid:form.betray",
+      "frame": "778a53d706fc83ecf1eee5a108ec715efc779362c05633423b3f6ab393004813"
+    },
+    {
+      "t": 74.781575,
+      "why": "even",
+      "frame": "565e283d540dc4dc81c350631d3922458cfa93db3b52ac862c13318bb14cbf5e"
+    },
+    {
+      "t": 77.75999999999999,
+      "why": "beat-mid:form.lever1",
+      "frame": "875a621766c60d36f252b5105aa95f6f6654e24bfd8cc4071d0975ef1fb700ca"
+    },
+    {
+      "t": 82.17999999999999,
+      "why": "beat-mid:form.lever2",
+      "frame": "10466d901178408eb06320de9dc9bea486bc04bfed9b07a6eb31f125070dd849"
+    },
+    {
+      "t": 85.4118,
+      "why": "even",
+      "frame": "87d11a04a8fbcb16f3a2b3ca5fc3555b28f911d761c141b25c1cf6e267d6adbe"
+    },
+    {
+      "t": 87.5375,
+      "why": "beat-mid:form.lever3",
+      "frame": "4f3dc07fbe7a775534ae39714b766e2ac3c4e4e668eadfb2980365c7e9e3f9bb"
+    },
+    {
+      "t": 92.69500000000001,
+      "why": "beat-mid:form.pulley",
+      "frame": "12a8a091fc2d511339a9d77204126db186d2738ee2a5e256d69a733065d2ad5e"
+    },
+    {
+      "t": 96.042025,
+      "why": "even",
+      "frame": "868a6ea91c4d565842c8acfd4ad4cc3c976f76e00e50ede1131acefe002ce099"
+    },
+    {
+      "t": 97.695,
+      "why": "beat-mid:form.circuit",
+      "frame": "2f64215b376436a249da7704a7b6ea2a7f049df62a534c5e8d693c33c60dfb18"
+    },
+    {
+      "t": 102.57499999999999,
+      "why": "beat-mid:form.cut",
+      "frame": "28b6898f82b5c58d500fb3b33d78a54a81df262e55009cd1067662ab4bee581d"
+    },
+    {
+      "t": 106.67224999999999,
+      "why": "even",
+      "frame": "ace405ce82c7bf7fa8fa2dd2b6ae220c4f01ffe8fd522d86aebd1e72bd970cc6"
+    },
+    {
+      "t": 109.30499999999999,
+      "why": "beat-mid:form.claim",
+      "frame": "fa966cf8023e71d8bbbff2fbc6c066195e4a3997e84733e01d126f037450cedd"
+    },
+    {
+      "t": 113.335,
+      "why": "chapter-start:body",
+      "frame": "b5290f72bade28f1c6238403b1d688b1932d3e1d74ce04d4377d27ca852bcb4a"
+    },
+    {
+      "t": 113.735,
+      "why": "chapter-start:body",
+      "frame": "f6fbb88af458e98a9e541a53c07780876b397073d29e426096970d395040a87b"
+    },
+    {
+      "t": 115.235,
+      "why": "beat-mid:body._title",
+      "frame": "ab1f34d78279ea992dbefe306e7efbe133aa17d84089750ebc54d2efb4d81bc7"
+    },
+    {
+      "t": 117.30247499999999,
+      "why": "even",
+      "frame": "f1986109c3900b30087ea4d4947de4a30da8ee5a4ac15506cd6f6e3dde0ee108"
+    },
+    {
+      "t": 118.795,
+      "why": "beat-mid:body.you",
+      "frame": "36c700200c5f79ce208cffbc0ed6efdfbad16e14be1eae1626fb06012fede8b4"
+    },
+    {
+      "t": 122.955,
+      "why": "beat-mid:body.lift",
+      "frame": "d74be45968d05fb5bc01e59b233f57efc5870935de559017e55f7ec902d68461"
+    },
+    {
+      "t": 127.755,
+      "why": "beat-mid:body.muscle",
+      "frame": "5a2ffc97225eccac3188f7442f05c998c01fef1014527a5d8d88c6f9dce45a6d"
+    },
+    {
+      "t": 127.9327,
+      "why": "even",
+      "frame": "f6228671d3422ef8fb1f501309690855043b9da94b4004b03edfba563a921a20"
+    },
+    {
+      "t": 133.2945,
+      "why": "beat-mid:body.brain",
+      "frame": "1623225b8f989696a2f645886555b43523f64d79bb5b0b64985117b4bded2f23"
+    },
+    {
+      "t": 138.562925,
+      "why": "even",
+      "frame": "5060b69e94ffbf46d1381239c9095027622ed2788484a5c9da6c3876b85fe64a"
+    },
+    {
+      "t": 139.034,
+      "why": "beat-mid:body.trace",
+      "frame": "94006ce5ba67f7f1766adb928bf2b13c7f75f6049b26a724e7da933d0a90bc2e"
+    },
+    {
+      "t": 144.194,
+      "why": "beat-mid:body.nogap",
+      "frame": "c17bf605cc818bfb03c13efb55e02daf6c5472f2d7b85f605d140d1272ba16d7"
+    },
+    {
+      "t": 149.19315,
+      "why": "even",
+      "frame": "850643636b0c96cfabe8eab7189d4a51b5a2be01e1fe92694659041c0994045f"
+    },
+    {
+      "t": 149.414,
+      "why": "beat-mid:body.name",
+      "frame": "46233245446ce26af0fa72536e671ec03870540f3579a00878824cb32a6a79a7"
+    },
+    {
+      "t": 155.35399999999998,
+      "why": "beat-mid:body.list",
+      "frame": "aed5ff3d3014e7d24d2717290b5fc76cb88806f7fc1669231bcec7a8fb14954b"
+    },
+    {
+      "t": 158.334,
+      "why": "chapter-start:words",
+      "frame": "f0fa29b157eae0980bc0ec71d3196dfdf44636e9aaa51a07925f17c737fba902"
+    },
+    {
+      "t": 158.73399999999998,
+      "why": "chapter-start:words",
+      "frame": "a1d27043ff21991cbf9a5dbd0fac459b99504a61ae10da100da4507be7f4ced4"
+    },
+    {
+      "t": 159.823375,
+      "why": "even",
+      "frame": "2d6411b9cf66845a3b6e1007f61365a225953417cd47078753022694df9ac60f"
+    },
+    {
+      "t": 160.23399999999998,
+      "why": "beat-mid:words._title",
+      "frame": "7e09e901279401023e5ae85e1c577eb6e48d663f4a133a9a5fe93146bcd8af84"
+    },
+    {
+      "t": 164.234,
+      "why": "beat-mid:words.speak",
+      "frame": "181017de0062605a888d9db28d51c0353660c81da9478692b999ffd9766fe9e3"
+    },
+    {
+      "t": 168.753,
+      "why": "beat-mid:words.which",
+      "frame": "72754a78465199730b9c2889da57cc5abbb9feb7ad11773458b952fef20c66e0"
+    },
+    {
+      "t": 170.4536,
+      "why": "even",
+      "frame": "0947017f59f91843267fe0d4389ef13f90858f530a1e9738b63869f97aecd26d"
+    },
+    {
+      "t": 172.17199999999997,
+      "why": "beat-mid:words.ask1",
+      "frame": "bd1037cb1d740d051673977f0e8bc5817a556699c142d79999f39e74487272ba"
+    },
+    {
+      "t": 176.46699999999998,
+      "why": "beat-mid:words.weigh",
+      "frame": "66024d7a6ba9cb697a602146017c1b5d5a1598cde4b68354490aa88093610209"
+    },
+    {
+      "t": 180.462,
+      "why": "beat-mid:words.ans1",
+      "frame": "4614931a1fed78262964bd485355a4f5504a250757ab980ca431569faf015995"
+    },
+    {
+      "t": 181.083825,
+      "why": "even",
+      "frame": "a94220312305ed838fc03ee9f4712705f4e05b20c48df17dbd1769d73cd058fd"
+    },
+    {
+      "t": 183.129,
+      "why": "beat-mid:words.selected",
+      "frame": "cb2eab1bb198e05dae014aec05fbac0f62201fedbecfeab5cd11eeaa57b7a8ff"
+    },
+    {
+      "t": 186.09599999999998,
+      "why": "beat-mid:words.stranger",
+      "frame": "3c77a7c46b3ac53354f6be1d79ace61b45f62538f157c8ab3fcf0cd71d2dbb0e"
+    },
+    {
+      "t": 190.296,
+      "why": "beat-mid:words.ask2",
+      "frame": "6f80ebd077e320096072eccc4747b84c6143419b8cac3e123f4fab9319fbb844"
+    },
+    {
+      "t": 191.71405,
+      "why": "even",
+      "frame": "0c70c587b32bb24e8c7ab527c01e66dcea9dafa8b49c1c0f5ba1a21836a0d231"
+    },
+    {
+      "t": 195.516,
+      "why": "beat-mid:words.ans2",
+      "frame": "77916850d84bfd5496cfdf4ea9757b3d7985094a868f32581093df9284382ee0"
+    },
+    {
+      "t": 200.55599999999998,
+      "why": "beat-mid:words.same",
+      "frame": "fd82ad98f25002303301b79090dcf426f409a86c961522217259d6b1390a0d37"
+    },
+    {
+      "t": 202.34427499999998,
+      "why": "even",
+      "frame": "558413e2611dac072b343216f96b2afd08068eb7f0f4944661f212a0a26ad996"
+    },
+    {
+      "t": 206.55599999999998,
+      "why": "beat-mid:words.claim",
+      "frame": "35cc354ef8759cf46c2738531ac843a50bd3d321a56d867c125c606776362387"
+    },
+    {
+      "t": 211.83599999999998,
+      "why": "beat-mid:words.cause",
+      "frame": "c57741206232f6300f84952f4bb6e550c72ed1672dd0ab458b84c93fcb666a11"
+    },
+    {
+      "t": 212.97449999999998,
+      "why": "even",
+      "frame": "5ffb47856d6661df8423baea1bdea381498b91e06e142cb3ca61ec5c9ab0ea00"
+    },
+    {
+      "t": 213.736,
+      "why": "chapter-start:zombie",
+      "frame": "6ecd85a6378e7ffbf454c205fdccff431f83cfe2b180ef855d0d59172ae483b8"
+    },
+    {
+      "t": 214.13599999999997,
+      "why": "chapter-start:zombie",
+      "frame": "e32ad0bf37651db57cec595021476d39b2917b26aecf6554641434143aeeae42"
+    },
+    {
+      "t": 215.63599999999997,
+      "why": "beat-mid:zombie._title",
+      "frame": "1e82793f73f6d2fadb7f84d2582c36bbbf7caa1c7ead81f4b3913730dcda6fa8"
+    },
+    {
+      "t": 218.43599999999998,
+      "why": "beat-mid:zombie.intro",
+      "frame": "5e1612df6a2757ce2c91ac87dad4f89043a2ac0e459300e1f6c5c6855a2f1555"
+    },
+    {
+      "t": 222.33599999999998,
+      "why": "beat-mid:zombie.movie",
+      "frame": "57e94e016e3d32f8a2f739d7eca9dbdf0869469f4e9f32471d87a4d4a580d1eb"
+    },
+    {
+      "t": 223.60472499999997,
+      "why": "even",
+      "frame": "d96cdd392f2711bced744f2b7ee5a99a9bf04c4cb23ca44c66ac2a7f8cae6919"
+    },
+    {
+      "t": 227.31599999999997,
+      "why": "beat-mid:zombie.copy",
+      "frame": "b8d3c6258457d63fc9ff40914ebabd608807b9d08c3d3f9a8897931692bbdd46"
+    },
+    {
+      "t": 232.296,
+      "why": "beat-mid:zombie.same",
+      "frame": "eabb66bc0468419574668f825d13ffe28255bd6488cec3cb1f1580b772abf1ea"
+    },
+    {
+      "t": 234.23494999999997,
+      "why": "even",
+      "frame": "7b20509c7d8b8afc615f72e9664794bb3c642ebcba70ab858e7a9ff7f31a3413"
+    },
+    {
+      "t": 238.31599999999997,
+      "why": "beat-mid:zombie.diff",
+      "frame": "c2a1676f97091e5e17ce11d21198aed0a33639adc24c2fe44db9f6dcbd42dd45"
+    },
+    {
+      "t": 243.31599999999997,
+      "why": "beat-mid:zombie.ask",
+      "frame": "1728ec079a8c04a1c272590c0064bf1924900a0339b2f9811fa010c8015dc81c"
+    },
+    {
+      "t": 244.86517499999997,
+      "why": "even",
+      "frame": "7098a42b8a58d9684c841c49512b0a45a187601da46d58de8a3e6563971741cc"
+    },
+    {
+      "t": 247.68099999999998,
+      "why": "beat-mid:zombie.yes",
+      "frame": "45d8dcb07a444fb027d9d69f6eb53214245af83c73535dcfd27d6f2d29a7411a"
+    },
+    {
+      "t": 252.60599999999997,
+      "why": "beat-mid:zombie.must",
+      "frame": "472874c146c4e75c48e38cd7236cd4e8c1a1fd03e649df9d55b25eee6ffa7a23"
+    },
+    {
+      "t": 255.4954,
+      "why": "even",
+      "frame": "9c6896f298586f9c36939fc3a073b81ab202575e104c59d9a00e8b201faacf5f"
+    },
+    {
+      "t": 256.88599999999997,
+      "why": "beat-mid:zombie.toe",
+      "frame": "453c0364b3fefc1db2d057dcb272dab2bd64db64ac9b28d32de7b1277e4d6879"
+    },
+    {
+      "t": 262.16599999999994,
+      "why": "beat-mid:zombie.pain",
+      "frame": "99dd59b32bc219e98c7aa97217352583065b859c38f4f136dd2b4e2c2153510f"
+    },
+    {
+      "t": 266.12562499999996,
+      "why": "even",
+      "frame": "6e3b6fcc24f7c382635f7c0eb5757b72b1fd092ef9b378eddcbc0a9f61a006f5"
+    },
+    {
+      "t": 267.20599999999996,
+      "why": "beat-mid:zombie.sure",
+      "frame": "60e9c1a5155396f7478da9265bde2a64e042b834810d0b9bf94b9fae9094e991"
+    },
+    {
+      "t": 272.71599999999995,
+      "why": "beat-mid:zombie.claim",
+      "frame": "12e369527007d267ac5db7f2afafb97eb981992fba9cf4c1ae2b5c4be20283ad"
+    },
+    {
+      "t": 276.32599999999996,
+      "why": "chapter-start:inventory",
+      "frame": "79076e6f0d2bda12c7ed3da0d33ddbc35c8110acd341f7db4a965f7c9684c358"
+    },
+    {
+      "t": 276.72599999999994,
+      "why": "chapter-start:inventory",
+      "frame": "69662bd92be39e8da3846800aef5b8c3374cda378a767ad3fc565f1c45ef0cb0"
+    },
+    {
+      "t": 276.75585,
+      "why": "even",
+      "frame": "6809be5a2038628cc1eeb46fa7e0051adc255aa4cdd100609985d92cee83f11b"
+    },
+    {
+      "t": 278.22599999999994,
+      "why": "beat-mid:inventory._title",
+      "frame": "3cf92c5db13290b7de31b72d0f1b6440a7e735bfb32cde5b31ac9e1adfe83db9"
+    },
+    {
+      "t": 282.42599999999993,
+      "why": "beat-mid:inventory.you",
+      "frame": "acacd945ee417b7d741ee4ab2af71df35ac3605275bb5ab31b86047cbd65b81a"
+    },
+    {
+      "t": 287.38607499999995,
+      "why": "even",
+      "frame": "e136d6481321132c977bfe9bd10aad210c6ed33dad9167aa5db498960aea2372"
+    },
+    {
+      "t": 287.72599999999994,
+      "why": "beat-mid:inventory.m1",
+      "frame": "9cccf14e4f6419d9775ca6f61f66c50b0500a80fc7d789f3c727a4c36e24d07e"
+    },
+    {
+      "t": 293.32599999999996,
+      "why": "beat-mid:inventory.m2",
+      "frame": "9298261ddb0e2525fdb290ab53f0520b12691991b6c0b08c0ffce693ca6cca3a"
+    },
+    {
+      "t": 298.0163,
+      "why": "even",
+      "frame": "6e1114df40023005614dcaa9a941d8bf0174c1eb5935b4ee451ebd0ef638c773"
+    },
+    {
+      "t": 298.82599999999996,
+      "why": "beat-mid:inventory.m3",
+      "frame": "4391876737ddeaaddfb855c739033d25b8a993ecfc0598d93c8e492ff8f2ad3c"
+    },
+    {
+      "t": 304.626,
+      "why": "beat-mid:inventory.cog",
+      "frame": "50b093d54bffc1ed5bf31d7f7311fd07de2e4324f2db0b2c8ccdb5181c9ea178"
+    },
+    {
+      "t": 308.64652499999994,
+      "why": "even",
+      "frame": "9504dec8870a77998e0a3efed69b40f1495d30826ea9194746dda3b3f3c6a118"
+    },
+    {
+      "t": 310.1259999999999,
+      "why": "beat-mid:inventory.z",
+      "frame": "98c43f3b17defc58decf7434329818b75ca4a28998cfb36de4e374c8fe120b60"
+    },
+    {
+      "t": 315.3059999999999,
+      "why": "beat-mid:inventory.zwhy",
+      "frame": "717c750d4661f44dd968b6a9d2b86438fa567e7be5244c7df3a78ee6074d755b"
+    },
+    {
+      "t": 319.27675,
+      "why": "even",
+      "frame": "324a482fd1849579ac500b5f730347f4aceab1de964de113aac0ad61db184299"
+    },
+    {
+      "t": 320.38599999999997,
+      "why": "beat-mid:inventory.zall",
+      "frame": "4526440e0e3d615e92cf0ee77318a166b7d173dc2ac53d29cef62944a1fd17bf"
+    },
+    {
+      "t": 325.53549999999996,
+      "why": "beat-mid:inventory.zlife",
+      "frame": "2f36e3e9d8d2af046a5f3f11f73612e880c58eb3362ede44d7ae23c9bb90feef"
+    },
+    {
+      "t": 328.18499999999995,
+      "why": "chapter-start:subtract",
+      "frame": "78b4e9d209b07f54f381532d10fd31528d323352892109e2b4e75f24ac6b2ffe"
+    },
+    {
+      "t": 328.5849999999999,
+      "why": "chapter-start:subtract",
+      "frame": "11c6ee188bba02e4c1496da5bf962a5c306ac0e4952f6436126c6ce07ce7be53"
+    },
+    {
+      "t": 329.90697499999993,
+      "why": "even",
+      "frame": "bdc290cd6d7360eb0ae78b0724366952b4435ffd900892f81c386a985322d610"
+    },
+    {
+      "t": 330.0849999999999,
+      "why": "beat-mid:subtract._title",
+      "frame": "26ad593eebbe50d4641d9a618a68b72df0e6a1dac05295fde7fa9787aeff11d1"
+    },
+    {
+      "t": 334.0849999999999,
+      "why": "beat-mid:subtract.s1",
+      "frame": "926bde368dcef8e9effc22ada88239dcecb4fec915cfb9613350b202740e7691"
+    },
+    {
+      "t": 338.60499999999996,
+      "why": "beat-mid:subtract.s1a",
+      "frame": "7635945baa99dce80aeee1b0a96b84c4de358785fda62a3f9f6d0d324af401dd"
+    },
+    {
+      "t": 340.5372,
+      "why": "even",
+      "frame": "5019d1a09f87bc8a7e0df33e54edc6ed3b8e79bc244dffcb491cb4fd23ad4746"
+    },
+    {
+      "t": 342.68499999999995,
+      "why": "beat-mid:subtract.s1b",
+      "frame": "2e44390de55a54c7994e21f97d98f1be45d0fa1e1095a311a338c3cdabac8d1b"
+    },
+    {
+      "t": 346.645,
+      "why": "beat-mid:subtract.s2a",
+      "frame": "adc1cf6874ef301102f842a1d4995719a21f511ebba367bce9a15dae728d7c31"
+    },
+    {
+      "t": 351.167425,
+      "why": "even",
+      "frame": "b5df360db6a8a48cd0d2a094941a850931f76025ac6f76e3fea10bf2271497e6"
+    },
+    {
+      "t": 352.34499999999997,
+      "why": "beat-mid:subtract.s2b",
+      "frame": "a4af7ff1b5402d3b23a7373e61ba52e6357f8b46e88448f5115d72abd072b3d9"
+    },
+    {
+      "t": 357.6449999999999,
+      "why": "beat-mid:subtract.s2c",
+      "frame": "cc275dc32fedda26b42b9a389c776ec56b77f75d48d26c2c9fd89d46919c7052"
+    },
+    {
+      "t": 361.79765,
+      "why": "even",
+      "frame": "ee6cbd6132221e3e99008cf114fee5af695611458c6f95b7f425db516b1b7664"
+    },
+    {
+      "t": 362.7349999999999,
+      "why": "beat-mid:subtract.claim",
+      "frame": "b81e0d7be8e8792e8531a5600a58a747b70ba3b855d924b0ab8bcf4b16797617"
+    },
+    {
+      "t": 365.92499999999995,
+      "why": "chapter-start:animals",
+      "frame": "73aded2fc5f39604dcc912a113df822ebaa0ec43f3132a480f79dfc31ef1e9bf"
+    },
+    {
+      "t": 366.32499999999993,
+      "why": "chapter-start:animals",
+      "frame": "cad5be081873cac020458bc8140021c3bcd6e016a97132a3f6f34c749da8a4b9"
+    },
+    {
+      "t": 367.82499999999993,
+      "why": "beat-mid:animals._title",
+      "frame": "5f4047e17ef8dbd045b1113957909f0e30c8ca83b5134e066b1bc6ae16218f4a"
+    },
+    {
+      "t": 371.9249999999999,
+      "why": "beat-mid:animals.animals",
+      "frame": "d1c79941cb0b090113dc95eea3d8d22ddbc2dd04c37053a6b0d94142bf886543"
+    },
+    {
+      "t": 372.427875,
+      "why": "even",
+      "frame": "c3555f5a2105faa5fcb56b8d774e42c512fa47d7cec5f660870eb25dba47fe03"
+    },
+    {
+      "t": 377.10299999999995,
+      "why": "beat-mid:animals.three",
+      "frame": "65be23856a878a52a3ad55146d33d43000710716df7da2ce18973991b064399f"
+    },
+    {
+      "t": 382.481,
+      "why": "beat-mid:animals.are",
+      "frame": "36bb33d9da8aef6f05708f4cfbec0dd22f711322ac81c61e1e01847fed8dc423"
+    },
+    {
+      "t": 383.05809999999997,
+      "why": "even",
+      "frame": "96d5f24b3f1a3fd23bdb235b6291fdaa63eccc09d175619147170e85788ad799"
+    },
+    {
+      "t": 387.681,
+      "why": "beat-mid:animals.ai",
+      "frame": "9acc1fec8918ed0e3ed53d37875ce29cd34e4cab496466fc02d2bcf12988419d"
+    },
+    {
+      "t": 392.86099999999993,
+      "why": "beat-mid:animals.ask",
+      "frame": "58f5fdc688a108c8557a0af9c9a55a64830ba3a2f616798da63785c8937b416e"
+    },
+    {
+      "t": 393.68832499999996,
+      "why": "even",
+      "frame": "fe902dd77ee0fb7e549015b82fe236b93f79d6dc53aa382f75c58daa12c94035"
+    },
+    {
+      "t": 397.86099999999993,
+      "why": "beat-mid:animals.trivia",
+      "frame": "38d57dfc83f712129a0a9f86176bc6e1b2a07248de81363c2761a6b59096578c"
+    },
+    {
+      "t": 403.16499999999996,
+      "why": "beat-mid:animals.why",
+      "frame": "467efcb276bba3907b438a7051483d15c4baf960bd67eb5a9f20ba5c83dc3d6b"
+    },
+    {
+      "t": 404.31854999999996,
+      "why": "even",
+      "frame": "161ac47b3ceb55106e1480103d96a42ce4187d4f172e7236aae2d273d47de4fd"
+    },
+    {
+      "t": 409.02899999999994,
+      "why": "beat-mid:animals.matters",
+      "frame": "237b351fa55c14655b684d65b75ec976a1941e3e5d417d9b0289582237e76adb"
+    },
+    {
+      "t": 414.94877499999996,
+      "why": "even",
+      "frame": "c30d2253cb21b0e68d351c5aa8829ae5a49751616ae5dbe24177db47ad8fa66a"
+    },
+    {
+      "t": 415.609,
+      "why": "beat-mid:animals.claim",
+      "frame": "27b9ebc2b8661ed05599e8119b1fcfbe0a323ae9ffa05f6acb0b09d9391d3298"
+    },
+    {
+      "t": 422.70899999999995,
+      "why": "beat-mid:animals.end",
+      "frame": "f7ad7571b8b48f0959bd082e26cab89733584f7035009e72bbb2f37ebc4a39c6"
+    },
+    {
+      "t": 426.20799999999997,
+      "why": "last",
+      "frame": "024d0f5c8b4ac6703329f394f20c64000a2862f85f8ea605839e1fd734de8694"
+    }
+  ]
+}
