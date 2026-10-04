@@ -4,6 +4,8 @@ import type { SfxName } from './audio/sfx';
 import { captionOf, speakersOf, voiceLines, type VoiceLine } from './audio/voiceLines';
 import { resolveCams } from './camera';
 import type { BeatScript, Cam, CamFn, Cast, ChapterScript, SfxCue } from './script';
+import type { ActionSfx, PlacedActions, ResolvedAction } from './sync/actions';
+import type { EaseName } from './sync/ease';
 
 /** A voice clip in a timed beat, with its speaker's pad (seconds of quiet after the line). */
 export interface TimedLine extends VoiceLine { pad: number }
@@ -39,6 +41,18 @@ export interface TimedChapter {
   idx: Record<string, number>;
   /** Per beat: the camera in force (pre-resolved). */
   cams: (Cam | CamFn | undefined)[];
+  /** Action name -> where it runs. Read through S.act, S.sinceAct, S.actT. */
+  acts: Record<string, TimedAction>;
+}
+
+/** An action placed in its chapter. */
+export interface TimedAction {
+  /** Key of the beat it belongs to. */
+  beat: string;
+  /** Seconds from chapter start. */
+  start: number;
+  dur: number;
+  ease: EaseName;
 }
 
 export interface Cue { t: number; type: SfxName; arg?: number }
@@ -52,13 +66,16 @@ export const TITLE_KEY = '_title';
 const TITLE_DUR = 3.4;
 const TITLE_SFX: SfxCue[] = [[0.05, 'whoosh'], [0.5, 'ding']];
 const CARD_SFX: SfxCue[] = [[0.1, 'card']];
+/** Seconds the picture fades out at the end of a chapter that another follows (render.ts). */
+export const FADE_OUT = 0.4;
 
-/** `cast` gives each line its speaker's pad; without it every pad is DEFAULT_PAD. */
-export function buildTimeline(chapters: ChapterScript[], durations: Durations = {}, cast: Partial<Cast> = {}): Timeline {
+/** Lays beats end to end. `durations` gives beat lengths; `cast` gives each line its speaker's pad (else DEFAULT_PAD);
+    `placed` are the actions, already placed in their beats. A video's timeline comes from sync/timelineOf.ts. */
+export function buildTimeline(chapters: ChapterScript[], durations: Durations = {}, cast: Partial<Cast> = {}, placed: PlacedActions = {}): Timeline {
   const out: TimedChapter[] = [], cues: Cue[] = [];
   let T = 0;
   chapters.forEach(function (script, ci) {
-    const ch = timeChapter(script, ci, T, durations, cast, cues);
+    const ch = timeChapter(script, ci, T, durations, cast, placed[script.id] || {}, cues);
     out.push(ch);
     T += ch.dur;
   });
@@ -66,8 +83,9 @@ export function buildTimeline(chapters: ChapterScript[], durations: Durations = 
   return { chapters: out, cues: cues, total: T };
 }
 
-function timeChapter(script: ChapterScript, ci: number, T: number, durations: Durations, cast: Partial<Cast>, cues: Cue[]): TimedChapter {
-  const src = withTitleBeat(script), idx: Record<string, number> = {}, beats: TimedBeat[] = [];
+function timeChapter(script: ChapterScript, ci: number, T: number, durations: Durations, cast: Partial<Cast>,
+  placed: Record<string, ResolvedAction[]>, cues: Cue[]): TimedChapter {
+  const src = withTitleBeat(script), idx: Record<string, number> = {}, beats: TimedBeat[] = [], acts: Record<string, TimedAction> = {};
   let a = 0;
   src.forEach(function (b, i) {
     const key = keyOf(script.id, b.id);
@@ -78,6 +96,10 @@ function timeChapter(script: ChapterScript, ci: number, T: number, durations: Du
     beats.push(tb);
     idx[key] = i;
     (sfx || []).forEach(function (q) { cues.push({ t: T + a + q[0], type: q[1], arg: q[2] }); });
+    (placed[key] || []).forEach(function (r) {
+      acts[r.name] = { beat: key, start: a + r.t0, dur: r.t1 - r.t0, ease: r.spec.ease ?? 'ease' };
+      (r.spec.sfx || []).forEach(function (q) { cues.push({ t: T + a + sfxAt(q, r), type: q[1], arg: q[2] }); });
+    });
     a += dur;
   });
   (script.cues || []).forEach(function (q) {
@@ -86,8 +108,15 @@ function timeChapter(script: ChapterScript, ci: number, T: number, durations: Du
   });
   return {
     id: script.id, ci: ci, title: script.title, short: script.short, root: script.root, scale: script.scale,
-    start: T, dur: a, beats: beats, idx: idx, cams: resolveCams(beats)
+    start: T, dur: a, beats: beats, idx: idx, cams: resolveCams(beats), acts: acts
   };
+}
+
+/** Seconds from the beat start at which an action's sound plays. */
+function sfxAt(q: ActionSfx, r: ResolvedAction): number {
+  if (q[0] === 'start') return r.t0;
+  if (q[0] === 'end') return r.t1;
+  return r.t0 + q[0];
 }
 
 /** A titled chapter opens with a title-card beat that holds the first beat's camera. */

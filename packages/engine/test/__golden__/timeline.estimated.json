@@ -1,0 +1,430 @@
+{
+ "chapters": [
+  {
+   "id": "title",
+   "ci": 0,
+   "short": "Title",
+   "root": 220,
+   "scale": [
+    0,
+    4,
+    7
+   ],
+   "start": 0,
+   "dur": 6,
+   "beats": [
+    {
+     "id": "title.t",
+     "dur": 6,
+     "still": true,
+     "cam": {
+      "x": 640,
+      "y": 360,
+      "z": 1
+     },
+     "key": "t",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    }
+   ],
+   "idx": {
+    "t": 0
+   },
+   "cams": [
+    {
+     "x": 640,
+     "y": 360,
+     "z": 1
+    }
+   ]
+  },
+  {
+   "id": "physics",
+   "ci": 1,
+   "title": "Physics",
+   "short": "Physics",
+   "root": 196,
+   "scale": [
+    0,
+    3,
+    7
+   ],
+   "start": 6,
+   "dur": 34.980000000000004,
+   "beats": [
+    {
+     "id": "physics._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 900,
+      "y": 380,
+      "z": 1.2
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "physics.atoms",
+     "say": "Everything you see is made of atoms.",
+     "cam": {
+      "x": 900,
+      "y": 380,
+      "z": 1.2
+     },
+     "key": "atoms",
+     "i": 1,
+     "start": 3.4,
+     "dur": 5.140000000000001,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Everything you see is made of atoms.",
+     "lines": [
+      {
+       "clip": "physics.atoms",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.laws",
+     "say": "Atoms follow the laws of physics, and nothing else.",
+     "sfx": [
+      [
+       0.6,
+       "blip"
+      ],
+      [
+       1.2,
+       "blip",
+       2
+      ]
+     ],
+     "key": "laws",
+     "i": 2,
+     "start": 8.540000000000001,
+     "dur": 5.98,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Atoms follow the laws of physics, and nothing else.",
+     "lines": [
+      {
+       "clip": "physics.laws",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.spirit",
+     "say": "A spirit tries to push one.",
+     "dur": 5.2,
+     "camT": 1.2,
+     "cam": {
+      "x": 1100,
+      "y": 400,
+      "z": 1.4
+     },
+     "key": "spirit",
+     "i": 3,
+     "start": 14.520000000000001,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A spirit tries to push one.",
+     "lines": [
+      {
+       "clip": "physics.spirit",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.fall",
+     "say": "The first domino falls, and the chain follows.",
+     "key": "fall",
+     "i": 4,
+     "start": 19.720000000000002,
+     "dur": 5.5600000000000005,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The first domino falls, and the chain follows.",
+     "lines": [
+      {
+       "clip": "physics.fall",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.stop",
+     "say": "Nothing reached it.",
+     "cam": {
+      "x": 1290,
+      "y": 420,
+      "z": 1.5
+     },
+     "key": "stop",
+     "i": 5,
+     "start": 25.28,
+     "dur": 4.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Nothing reached it.",
+     "lines": [
+      {
+       "clip": "physics.stop",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.card",
+     "card": "Atoms do *all* the work.",
+     "key": "card",
+     "i": 6,
+     "start": 29.880000000000003,
+     "dur": 5.1,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "physics.card",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "atoms": 1,
+    "laws": 2,
+    "spirit": 3,
+    "fall": 4,
+    "stop": 5,
+    "card": 6
+   },
+   "cams": [
+    {
+     "x": 900,
+     "y": 380,
+     "z": 1.2
+    },
+    {
+     "x": 900,
+     "y": 380,
+     "z": 1.2
+    },
+    {
+     "x": 900,
+     "y": 380,
+     "z": 1.2
+    },
+    {
+     "x": 1100,
+     "y": 400,
+     "z": 1.4
+    },
+    null,
+    {
+     "x": 1290,
+     "y": 420,
+     "z": 1.5
+    },
+    {
+     "x": 1290,
+     "y": 420,
+     "z": 1.5
+    }
+   ]
+  },
+  {
+   "id": "form",
+   "ci": 2,
+   "title": "Form",
+   "short": "Form",
+   "root": 247,
+   "scale": [
+    0,
+    2,
+    5
+   ],
+   "start": 40.980000000000004,
+   "dur": 12.6,
+   "beats": [
+    {
+     "id": "form._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 640,
+      "y": 360,
+      "z": 1
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "form.lever1",
+     "say": "Pull the lever.",
+     "cam": {
+      "x": 640,
+      "y": 360,
+      "z": 1
+     },
+     "key": "lever1",
+     "i": 1,
+     "start": 3.4,
+     "dur": 4.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Pull the lever.",
+     "lines": [
+      {
+       "clip": "form.lever1",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.lever2",
+     "say": "It lifts the weight.",
+     "still": true,
+     "key": "lever2",
+     "i": 2,
+     "start": 8,
+     "dur": 4.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It lifts the weight.",
+     "lines": [
+      {
+       "clip": "form.lever2",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "lever1": 1,
+    "lever2": 2
+   },
+   "cams": [
+    {
+     "x": 640,
+     "y": 360,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 360,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 360,
+     "z": 1
+    }
+   ]
+  }
+ ],
+ "cues": [
+  {
+   "t": 6.05,
+   "type": "whoosh"
+  },
+  {
+   "t": 6.5,
+   "type": "ding"
+  },
+  {
+   "t": 15.14,
+   "type": "blip"
+  },
+  {
+   "t": 15.74,
+   "type": "blip",
+   "arg": 2
+  },
+  {
+   "t": 26.220000000000002,
+   "type": "thud"
+  },
+  {
+   "t": 35.980000000000004,
+   "type": "card"
+  },
+  {
+   "t": 41.03,
+   "type": "whoosh"
+  },
+  {
+   "t": 41.480000000000004,
+   "type": "ding"
+  }
+ ],
+ "total": 53.580000000000005
+}
