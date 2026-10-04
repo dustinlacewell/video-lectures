@@ -1,4 +1,5 @@
 packages:
+  - packages/*
   - videos/*
   - site
   - studio/tools
