@@ -1,14 +1,15 @@
-/* Vite plugin: reads every videos/<slug>/video.json at build time, writes the cards into index.html, and publishes each poster at /<slug>/poster.png. */
+/* Vite plugin: reads every videos/<slug>/video.json at build time, merges each video's built runtime
+   from dist/<slug>/meta.json, writes the cards into index.html, and publishes each poster at /<slug>/poster.png. */
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
-import { parseVideo, posterPath, renderCards, sortVideos, type Video } from './src/catalog.ts';
+import { parseVideo, posterPath, renderCards, sortVideos, withRuntime, type Meta, type Video } from './src/catalog.ts';
 
 const SITE_URL = 'https://lectures.ldlework.com/';
 
-export function catalog(videosDir: string): Plugin {
-  const load = () => readVideos(videosDir);
+export function catalog(videosDir: string, distDir: string): Plugin {
+  const load = () => readVideos(videosDir, distDir);
   return {
     name: 'catalog',
     transformIndexHtml(html) {
@@ -33,10 +34,15 @@ export function catalog(videosDir: string): Plugin {
   };
 }
 
-function readVideos(videosDir: string): Video[] {
+function readVideos(videosDir: string, distDir: string): Video[] {
   const videos = readdirSync(videosDir)
     .map(dir => join(videosDir, dir, 'video.json'))
     .filter(existsSync)
-    .map(file => parseVideo(JSON.parse(readFileSync(file, 'utf8')), file));
+    .map(file => parseVideo(JSON.parse(readFileSync(file, 'utf8')), file))
+    .map(v => withRuntime(v, readMeta(join(distDir, v.slug, 'meta.json'))));
   return sortVideos(videos);
+}
+
+function readMeta(file: string): Meta | undefined {
+  return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : undefined;
 }

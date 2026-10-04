@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatRuntime, hasRuntime, parseVideo, renderCards, sortVideos, type Video } from '../src/catalog.ts';
+import { formatRuntime, hasRuntime, parseVideo, renderCards, sortVideos, withRuntime, type Video } from '../src/catalog.ts';
 
 const v = (over: Partial<Video> = {}): Video => ({
   slug: 'a', title: 'A', description: 'd', runtime: 426, poster: 'poster.png', published: '2026-10-03', ...over
@@ -13,16 +13,19 @@ describe('catalog', () => {
 
   it('rejects a video.json with a missing field', () => {
     expect(() => parseVideo({ ...v(), title: '' }, 'x/video.json')).toThrow('x/video.json: "title"');
-    expect(() => parseVideo({ ...v(), runtime: '426' }, 'x')).toThrow('"runtime"');
   });
 
-  it('accepts a video.json with no runtime, or runtime 0', () => {
+  it('parses a video.json with no runtime field: it carries none', () => {
     const { runtime, ...noRuntime } = v();
-    expect(() => parseVideo(noRuntime, 'x')).not.toThrow();
-    expect(() => parseVideo({ ...v(), runtime: 0 }, 'x')).not.toThrow();
     expect(hasRuntime(parseVideo(noRuntime, 'x'))).toBe(false);
-    expect(hasRuntime(parseVideo({ ...v(), runtime: 0 }, 'x'))).toBe(false);
-    expect(hasRuntime(parseVideo(v(), 'x'))).toBe(true);
+  });
+
+  it('merges a video\'s built meta.json runtime in, when it has been built', () => {
+    const { runtime, ...noRuntime } = v();
+    const built = parseVideo(noRuntime, 'x');
+    expect(hasRuntime(withRuntime(built, { runtime: 426.2 }))).toBe(true);
+    expect(withRuntime(built, { runtime: 426.2 }).runtime).toBe(426.2);
+    expect(hasRuntime(withRuntime(built, undefined))).toBe(false);
   });
 
   it('omits the runtime badge when there is no runtime', () => {

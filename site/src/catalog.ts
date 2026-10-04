@@ -4,7 +4,7 @@ export interface Video {
   slug: string;
   title: string;
   description: string;
-  /** Runtime in seconds. Absent or 0 before the engine computes it at build time: no badge. */
+  /** Runtime in seconds, from the video's built meta.json. Absent before that merge: no badge. */
   runtime?: number;
   /** Poster file name inside the video folder. */
   poster: string;
@@ -12,14 +12,23 @@ export interface Video {
   published: string;
 }
 
-/** Check one parsed video.json. `where` names the file in the error. */
+/** The fields of a video's built meta.json the site reads. */
+export interface Meta {
+  runtime: number;
+}
+
+/** Check one parsed video.json. `where` names the file in the error. video.json itself carries no runtime. */
 export function parseVideo(raw: unknown, where: string): Video {
   const r = raw as Record<string, unknown>;
   for (const k of ['slug', 'title', 'description', 'poster', 'published'] as const) {
     if (typeof r?.[k] !== 'string' || !r[k]) throw new Error(`${where}: "${k}" must be a non-empty string`);
   }
-  if (r.runtime !== undefined && typeof r.runtime !== 'number') throw new Error(`${where}: "runtime" must be a number`);
   return r as unknown as Video;
+}
+
+/** Merge a video's built meta.json runtime in. `meta` is undefined when the video has not been built yet. */
+export function withRuntime(v: Video, meta: Meta | undefined): Video {
+  return meta ? { ...v, runtime: meta.runtime } : v;
 }
 
 /** Whether a video has a runtime worth showing. */
