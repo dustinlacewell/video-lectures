@@ -1,0 +1,4320 @@
+{
+ "chapters": [
+  {
+   "id": "title",
+   "ci": 0,
+   "short": "Title",
+   "root": 220,
+   "scale": [
+    0,
+    3,
+    5,
+    7,
+    10,
+    12
+   ],
+   "start": 0,
+   "dur": 6,
+   "beats": [
+    {
+     "id": "title.t",
+     "dur": 6,
+     "still": true,
+     "key": "t",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    }
+   ],
+   "idx": {
+    "t": 0
+   },
+   "cams": [
+    null
+   ]
+  },
+  {
+   "id": "physics",
+   "ci": 1,
+   "title": "Only physical things push",
+   "short": "Physics",
+   "root": 196,
+   "scale": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    12
+   ],
+   "start": 6,
+   "dur": 58.28,
+   "beats": [
+    {
+     "id": "physics._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 200,
+      "y": 468,
+      "z": 3.3
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "physics.atoms",
+     "say": "Everything around you is made of the same few kinds of particles, pushed by the same few forces.",
+     "cam": {
+      "x": 200,
+      "y": 468,
+      "z": 3.3
+     },
+     "key": "atoms",
+     "i": 1,
+     "start": 3.4,
+     "dur": 5.159999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Everything around you is made of the same few kinds of particles, pushed by the same few forces.",
+     "lines": [
+      {
+       "clip": "physics.atoms",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.laws",
+     "say": "Physicists have tested those laws to absurd precision. Nothing else has ever been caught pushing on matter.",
+     "cam": {
+      "x": 200,
+      "y": 466,
+      "z": 3
+     },
+     "sfx": [
+      [
+       3.7,
+       "ding"
+      ]
+     ],
+     "key": "laws",
+     "i": 2,
+     "start": 8.559999999999999,
+     "dur": 5.72,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Physicists have tested those laws to absurd precision. Nothing else has ever been caught pushing on matter.",
+     "lines": [
+      {
+       "clip": "physics.laws",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.fall",
+     "say": "So things happen for physical reasons. This domino falls because that one hit it.",
+     "camT": 1.4,
+     "sfx": [
+      [
+       0.3,
+       "swish"
+      ]
+     ],
+     "key": "fall",
+     "i": 3,
+     "start": 14.279999999999998,
+     "dur": 5.56,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "So things happen for physical reasons. This domino falls because that one hit it.",
+     "lines": [
+      {
+       "clip": "physics.fall",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.stop",
+     "say": "The chain ends here. Nothing reached the last domino, so it stands.",
+     "cam": {
+      "x": 1290,
+      "y": 420,
+      "z": 1.5
+     },
+     "key": "stop",
+     "i": 4,
+     "start": 19.839999999999996,
+     "dur": 5.4799999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The chain ends here. Nothing reached the last domino, so it stands.",
+     "lines": [
+      {
+       "clip": "physics.stop",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.ghost",
+     "say": "Could something non-physical knock it over? Let’s try a ghost.",
+     "cam": {
+      "x": 1560,
+      "y": 404,
+      "z": 1.62
+     },
+     "sfx": [
+      [
+       0.1,
+       "boo"
+      ],
+      [
+       1.8,
+       "whoosh"
+      ],
+      [
+       2.7,
+       "fail"
+      ]
+     ],
+     "key": "ghost",
+     "i": 5,
+     "start": 25.319999999999997,
+     "dur": 5.56,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Could something non-physical knock it over? Let’s try a ghost.",
+     "lines": [
+      {
+       "clip": "physics.ghost",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.spirit",
+     "say": "A spirit.",
+     "dur": 5.2,
+     "sfx": [
+      [
+       0.1,
+       "whoosh"
+      ],
+      [
+       1.3,
+       "swish"
+      ],
+      [
+       2.4,
+       "swish"
+      ],
+      [
+       3.4,
+       "fail"
+      ]
+     ],
+     "key": "spirit",
+     "i": 6,
+     "start": 30.879999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A spirit.",
+     "lines": [
+      {
+       "clip": "physics.spirit",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.thought",
+     "say": "A thought. A very determined thought.",
+     "dur": 5.4,
+     "sfx": [
+      [
+       0.1,
+       "whoosh"
+      ],
+      [
+       3.3,
+       "fail"
+      ]
+     ],
+     "key": "thought",
+     "i": 7,
+     "start": 36.08,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A thought. A very determined thought.",
+     "lines": [
+      {
+       "clip": "physics.thought",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.nothing",
+     "say": "Nothing. To move matter you need matter, or a force that instruments can measure.",
+     "key": "nothing",
+     "i": 8,
+     "start": 41.48,
+     "dur": 5.239999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Nothing. To move matter you need matter, or a force that instruments can measure.",
+     "lines": [
+      {
+       "clip": "physics.nothing",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.finger",
+     "say": "A finger works fine. It is physical.",
+     "dur": 5.2,
+     "sfx": [
+      [
+       0.3,
+       "swish"
+      ],
+      [
+       1,
+       "tick",
+       2
+      ],
+      [
+       1.55,
+       "thud"
+      ],
+      [
+       1.7,
+       "pop",
+       2
+      ]
+     ],
+     "key": "finger",
+     "i": 9,
+     "start": 46.72,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A finger works fine. It is physical.",
+     "lines": [
+      {
+       "clip": "physics.finger",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "physics.claim",
+     "card": "If it happened, something physical made it happen.",
+     "key": "claim",
+     "i": 10,
+     "start": 51.92,
+     "dur": 6.359999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "physics.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "atoms": 1,
+    "laws": 2,
+    "fall": 3,
+    "stop": 4,
+    "ghost": 5,
+    "spirit": 6,
+    "thought": 7,
+    "nothing": 8,
+    "finger": 9,
+    "claim": 10
+   },
+   "cams": [
+    {
+     "x": 200,
+     "y": 468,
+     "z": 3.3
+    },
+    {
+     "x": 200,
+     "y": 468,
+     "z": 3.3
+    },
+    {
+     "x": 200,
+     "y": 466,
+     "z": 3
+    },
+    null,
+    {
+     "x": 1290,
+     "y": 420,
+     "z": 1.5
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    },
+    {
+     "x": 1560,
+     "y": 404,
+     "z": 1.62
+    }
+   ]
+  },
+  {
+   "id": "form",
+   "ci": 2,
+   "title": "Form is function",
+   "short": "Form",
+   "root": 174.6,
+   "scale": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    12
+   ],
+   "start": 64.28,
+   "dur": 49.254999999999995,
+   "beats": [
+    {
+     "id": "form._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": -600,
+      "y": 470,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "form.thesis",
+     "say": "In a physical world, form and function are the same thing.",
+     "cam": {
+      "x": -600,
+      "y": 470,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       0.3,
+       "pop"
+      ],
+      [
+       1,
+       "pop",
+       2
+      ]
+     ],
+     "key": "thesis",
+     "i": 1,
+     "start": 3.4,
+     "dur": 3.3200000000000003,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "In a physical world, form and function are the same thing.",
+     "lines": [
+      {
+       "clip": "form.thesis",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.betray",
+     "say": "The shape a thing has decides what it can do. And what it does betrays its shape.",
+     "sfx": [
+      [
+       0.3,
+       "swish"
+      ],
+      [
+       1.1,
+       "whoosh"
+      ]
+     ],
+     "key": "betray",
+     "i": 2,
+     "start": 6.720000000000001,
+     "dur": 5.159999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The shape a thing has decides what it can do. And what it does betrays its shape.",
+     "lines": [
+      {
+       "clip": "form.betray",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.lever1",
+     "say": "Take a lever.",
+     "dur": 3.2,
+     "cam": {
+      "x": 420,
+      "y": 400,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       1.5,
+       "rise"
+      ],
+      [
+       3.4,
+       "fall"
+      ]
+     ],
+     "key": "lever1",
+     "i": 3,
+     "start": 11.879999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Take a lever.",
+     "lines": [
+      {
+       "clip": "form.lever1",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.lever2",
+     "say": "It lifts the rock because of its form: a stiff beam resting on a pivot. That is the whole explanation.",
+     "key": "lever2",
+     "i": 4,
+     "start": 15.079999999999998,
+     "dur": 5.64,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It lifts the rock because of its form: a stiff beam resting on a pivot. That is the whole explanation.",
+     "lines": [
+      {
+       "clip": "form.lever2",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.lever3",
+     "say": "Slide the pivot and it lifts differently. Change the form and you change what it does.",
+     "sfx": [
+      [
+       0.7,
+       "swish"
+      ],
+      [
+       2.5,
+       "rise"
+      ],
+      [
+       4.4,
+       "fall"
+      ]
+     ],
+     "key": "lever3",
+     "i": 5,
+     "start": 20.72,
+     "dur": 5.074999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Slide the pivot and it lifts differently. Change the form and you change what it does.",
+     "lines": [
+      {
+       "clip": "form.lever3",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.pulley",
+     "say": "A pulley. The rope runs over a wheel, so pulling down on one side lifts the other.",
+     "cam": {
+      "x": 1500,
+      "y": 370,
+      "z": 1.25
+     },
+     "sfx": [
+      [
+       1.6,
+       "rise"
+      ],
+      [
+       3.5,
+       "fall"
+      ],
+      [
+       5.2,
+       "rise"
+      ]
+     ],
+     "key": "pulley",
+     "i": 6,
+     "start": 25.794999999999998,
+     "dur": 5.239999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A pulley. The rope runs over a wheel, so pulling down on one side lifts the other.",
+     "lines": [
+      {
+       "clip": "form.pulley",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.circuit",
+     "say": "A circuit. Wires and switches arranged so that the lamps show the sum of two numbers.",
+     "cam": {
+      "x": 2700,
+      "y": 340,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       2.2,
+       "click"
+      ],
+      [
+       3.8,
+       "click"
+      ],
+      [
+       5.4,
+       "click",
+       1
+      ],
+      [
+       5.5,
+       "ding"
+      ]
+     ],
+     "key": "circuit",
+     "i": 7,
+     "start": 31.034999999999997,
+     "dur": 4.76,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A circuit. Wires and switches arranged so that the lamps show the sum of two numbers.",
+     "lines": [
+      {
+       "clip": "form.circuit",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.cut",
+     "say": "Cut one wire and it stops adding. It now does exactly what its new form dictates.",
+     "sfx": [
+      [
+       1,
+       "snip"
+      ],
+      [
+       1.2,
+       "fail"
+      ],
+      [
+       3.2,
+       "click"
+      ],
+      [
+       4.8,
+       "click"
+      ]
+     ],
+     "key": "cut",
+     "i": 8,
+     "start": 35.794999999999995,
+     "dur": 5,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Cut one wire and it stops adding. It now does exactly what its new form dictates.",
+     "lines": [
+      {
+       "clip": "form.cut",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "form.claim",
+     "card": "What a thing is shaped like is what it does. Form *is* function.",
+     "key": "claim",
+     "i": 9,
+     "start": 40.794999999999995,
+     "dur": 8.46,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "form.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "thesis": 1,
+    "betray": 2,
+    "lever1": 3,
+    "lever2": 4,
+    "lever3": 5,
+    "pulley": 6,
+    "circuit": 7,
+    "cut": 8,
+    "claim": 9
+   },
+   "cams": [
+    {
+     "x": -600,
+     "y": 470,
+     "z": 1.3
+    },
+    {
+     "x": -600,
+     "y": 470,
+     "z": 1.3
+    },
+    {
+     "x": -600,
+     "y": 470,
+     "z": 1.3
+    },
+    {
+     "x": 420,
+     "y": 400,
+     "z": 1.3
+    },
+    {
+     "x": 420,
+     "y": 400,
+     "z": 1.3
+    },
+    {
+     "x": 420,
+     "y": 400,
+     "z": 1.3
+    },
+    {
+     "x": 1500,
+     "y": 370,
+     "z": 1.25
+    },
+    {
+     "x": 2700,
+     "y": 340,
+     "z": 1.3
+    },
+    {
+     "x": 2700,
+     "y": 340,
+     "z": 1.3
+    },
+    {
+     "x": 2700,
+     "y": 340,
+     "z": 1.3
+    }
+   ]
+  },
+  {
+   "id": "body",
+   "ci": 3,
+   "title": "Your body is this kind of machine",
+   "short": "Body",
+   "root": 220,
+   "scale": [
+    0,
+    3,
+    5,
+    7,
+    10,
+    12
+   ],
+   "start": 113.535,
+   "dur": 44.998999999999995,
+   "beats": [
+    {
+     "id": "body._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "body.you",
+     "say": "You are made of the same particles. So the same rules apply to you.",
+     "camT": 0.01,
+     "key": "you",
+     "i": 1,
+     "start": 3.4,
+     "dur": 3.72,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "You are made of the same particles. So the same rules apply to you.",
+     "lines": [
+      {
+       "clip": "body.you",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.lift",
+     "say": "Lift your arm.",
+     "dur": 4.6,
+     "cam": {
+      "x": 640,
+      "y": 400,
+      "z": 1.15
+     },
+     "sfx": [
+      [
+       1.2,
+       "rise"
+      ]
+     ],
+     "key": "lift",
+     "i": 2,
+     "start": 7.12,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Lift your arm.",
+     "lines": [
+      {
+       "clip": "body.lift",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.muscle",
+     "say": "It rose because a muscle shortened. The muscle shortened because a nerve fired.",
+     "cam": {
+      "x": 790,
+      "y": 400,
+      "z": 2
+     },
+     "sfx": [
+      [
+       0.3,
+       "fall"
+      ],
+      [
+       1.8,
+       "rise"
+      ],
+      [
+       1.8,
+       "pop"
+      ],
+      [
+       4.4,
+       "zap"
+      ],
+      [
+       4.6,
+       "zap",
+       1
+      ],
+      [
+       4.8,
+       "zap",
+       2
+      ]
+     ],
+     "key": "muscle",
+     "i": 3,
+     "start": 11.719999999999999,
+     "dur": 5,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It rose because a muscle shortened. The muscle shortened because a nerve fired.",
+     "lines": [
+      {
+       "clip": "body.muscle",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.brain",
+     "say": "The nerve fired because cells in your brain fired. And those fired because others fired first.",
+     "cam": {
+      "x": 640,
+      "y": 296,
+      "z": 6
+     },
+     "key": "brain",
+     "i": 4,
+     "start": 16.72,
+     "dur": 6.079,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The nerve fired because cells in your brain fired. And those fired because others fired first.",
+     "lines": [
+      {
+       "clip": "body.brain",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.trace",
+     "say": "Follow it back as far as you like. Through what you saw, what you learned, what you wanted.",
+     "cam": {
+      "x": 628,
+      "y": 300,
+      "z": 6
+     },
+     "sfx": [
+      [
+       0.6,
+       "pop"
+      ],
+      [
+       2,
+       "pop",
+       1
+      ],
+      [
+       3.4,
+       "pop",
+       2
+      ]
+     ],
+     "key": "trace",
+     "i": 5,
+     "start": 22.799,
+     "dur": 5.3999999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Follow it back as far as you like. Through what you saw, what you learned, what you wanted.",
+     "lines": [
+      {
+       "clip": "body.trace",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.nogap",
+     "say": "Nowhere does the chain break so that something non-physical can reach in.",
+     "sfx": [
+      [
+       0.2,
+       "boo"
+      ],
+      [
+       1.6,
+       "whoosh"
+      ],
+      [
+       2.6,
+       "fail"
+      ]
+     ],
+     "key": "nogap",
+     "i": 6,
+     "start": 28.198999999999998,
+     "dur": 4.92,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Nowhere does the chain break so that something non-physical can reach in.",
+     "lines": [
+      {
+       "clip": "body.nogap",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "body.name",
+     "card": "This machinery has a name: cognition.",
+     "key": "name",
+     "i": 7,
+     "start": 33.119,
+     "dur": 5.52,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "body.name",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    },
+    {
+     "id": "body.list",
+     "say": "Perceiving. Remembering. Wanting. Deciding. All of it is form doing what form does.",
+     "cam": {
+      "x": 640,
+      "y": 420,
+      "z": 1.42
+     },
+     "sfx": [
+      [
+       0.5,
+       "pop"
+      ],
+      [
+       1.5,
+       "pop",
+       1
+      ],
+      [
+       2.5,
+       "pop",
+       2
+      ],
+      [
+       3.5,
+       "pop",
+       3
+      ]
+     ],
+     "key": "list",
+     "i": 8,
+     "start": 38.638999999999996,
+     "dur": 6.359999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Perceiving. Remembering. Wanting. Deciding. All of it is form doing what form does.",
+     "lines": [
+      {
+       "clip": "body.list",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "you": 1,
+    "lift": 2,
+    "muscle": 3,
+    "brain": 4,
+    "trace": 5,
+    "nogap": 6,
+    "name": 7,
+    "list": 8
+   },
+   "cams": [
+    null,
+    null,
+    {
+     "x": 640,
+     "y": 400,
+     "z": 1.15
+    },
+    {
+     "x": 790,
+     "y": 400,
+     "z": 2
+    },
+    {
+     "x": 640,
+     "y": 296,
+     "z": 6
+    },
+    {
+     "x": 628,
+     "y": 300,
+     "z": 6
+    },
+    {
+     "x": 628,
+     "y": 300,
+     "z": 6
+    },
+    {
+     "x": 628,
+     "y": 300,
+     "z": 6
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1.42
+    }
+   ]
+  },
+  {
+   "id": "words",
+   "ci": 4,
+   "title": "This word, and not that one",
+   "short": "Words",
+   "root": 196,
+   "scale": [
+    0,
+    3,
+    5,
+    7,
+    10,
+    12
+   ],
+   "start": 158.534,
+   "dur": 55.402,
+   "beats": [
+    {
+     "id": "words._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 480,
+      "y": 400,
+      "z": 1.5
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "words.speak",
+     "say": "Speaking is an action too. But the moving mouth is not the interesting part.",
+     "cam": {
+      "x": 480,
+      "y": 400,
+      "z": 1.5
+     },
+     "sfx": [
+      [
+       0.5,
+       "talk"
+      ],
+      [
+       0.75,
+       "talk",
+       1
+      ],
+      [
+       1,
+       "talk",
+       2
+      ],
+      [
+       1.3,
+       "talk"
+      ]
+     ],
+     "key": "speak",
+     "i": 1,
+     "start": 3.4,
+     "dur": 4.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Speaking is an action too. But the moving mouth is not the interesting part.",
+     "lines": [
+      {
+       "clip": "words.speak",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.which",
+     "say": "The interesting part is which words come out. Why this, and not that?",
+     "sfx": [
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       1.4,
+       "unpop"
+      ],
+      [
+       2,
+       "unpop"
+      ],
+      [
+       2.6,
+       "unpop"
+      ]
+     ],
+     "key": "which",
+     "i": 2,
+     "start": 8,
+     "dur": 4.438,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The interesting part is which words come out. Why this, and not that?",
+     "lines": [
+      {
+       "clip": "words.which",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.ask1",
+     "say": "Coffee or tea?",
+     "speaker": "friend",
+     "dur": 2.4,
+     "cam": {
+      "x": 400,
+      "y": 410,
+      "z": 1.4
+     },
+     "key": "ask1",
+     "i": 3,
+     "start": 12.437999999999999,
+     "speakers": [
+      "friend"
+     ],
+     "lines": [
+      {
+       "clip": "words.ask1",
+       "speaker": "friend",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.weigh",
+     "say": "Your cognition weighs it. Memories, taste, habit. One answer wins.",
+     "cam": {
+      "x": 790,
+      "y": 340,
+      "z": 1.12
+     },
+     "sfx": [
+      [
+       0.3,
+       "whoosh"
+      ],
+      [
+       1.95,
+       "pop"
+      ],
+      [
+       2.95,
+       "pop",
+       1
+      ],
+      [
+       3.95,
+       "pop",
+       2
+      ],
+      [
+       4.7,
+       "ding"
+      ]
+     ],
+     "key": "weigh",
+     "i": 4,
+     "start": 14.838,
+     "dur": 6.1899999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Your cognition weighs it. Memories, taste, habit. One answer wins.",
+     "lines": [
+      {
+       "clip": "words.weigh",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.ans1",
+     "say": "Coffee.",
+     "speaker": "you",
+     "dur": 1.8,
+     "key": "ans1",
+     "i": 5,
+     "start": 21.028,
+     "speakers": [
+      "you"
+     ],
+     "lines": [
+      {
+       "clip": "words.ans1",
+       "speaker": "you",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.selected",
+     "say": "A physical process selected that word.",
+     "dur": 3.5340000000000003,
+     "key": "selected",
+     "i": 6,
+     "start": 22.828,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A physical process selected that word.",
+     "lines": [
+      {
+       "clip": "words.selected",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.stranger",
+     "say": "Now a stranger question.",
+     "dur": 2.4,
+     "cam": {
+      "x": 650,
+      "y": 370,
+      "z": 1.06
+     },
+     "key": "stranger",
+     "i": 7,
+     "start": 26.362,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Now a stranger question.",
+     "lines": [
+      {
+       "clip": "words.stranger",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.ask2",
+     "say": "Are you conscious?",
+     "speaker": "friend",
+     "dur": 6,
+     "sfx": [
+      [
+       1.95,
+       "pop"
+      ],
+      [
+       2.85,
+       "pop",
+       1
+      ],
+      [
+       3.75,
+       "pop",
+       2
+      ],
+      [
+       4.8,
+       "ding"
+      ]
+     ],
+     "key": "ask2",
+     "i": 8,
+     "start": 28.761999999999997,
+     "speakers": [
+      "friend"
+     ],
+     "lines": [
+      {
+       "clip": "words.ask2",
+       "speaker": "friend",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.ans2",
+     "say": "Yes. Obviously. I am experiencing this right now.",
+     "speaker": "you",
+     "key": "ans2",
+     "i": 9,
+     "start": 34.762,
+     "dur": 4.4399999999999995,
+     "speakers": [
+      "you"
+     ],
+     "lines": [
+      {
+       "clip": "words.ans2",
+       "speaker": "you",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.same",
+     "say": "That sentence was selected the same way. Cognition produced it, word by word.",
+     "sfx": [
+      [
+       0.8,
+       "swish"
+      ]
+     ],
+     "key": "same",
+     "i": 10,
+     "start": 39.202,
+     "dur": 5.64,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "That sentence was selected the same way. Cognition produced it, word by word.",
+     "lines": [
+      {
+       "clip": "words.same",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "words.claim",
+     "card": "“I am conscious” is an output of cognition.",
+     "key": "claim",
+     "i": 11,
+     "start": 44.842,
+     "dur": 6.359999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "words.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    },
+    {
+     "id": "words.cause",
+     "say": "Whatever else is true of experience, your report of it has physical causes.",
+     "cam": {
+      "x": 660,
+      "y": 350,
+      "z": 1.12
+     },
+     "key": "cause",
+     "i": 12,
+     "start": 51.202,
+     "dur": 4.2,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Whatever else is true of experience, your report of it has physical causes.",
+     "lines": [
+      {
+       "clip": "words.cause",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "speak": 1,
+    "which": 2,
+    "ask1": 3,
+    "weigh": 4,
+    "ans1": 5,
+    "selected": 6,
+    "stranger": 7,
+    "ask2": 8,
+    "ans2": 9,
+    "same": 10,
+    "claim": 11,
+    "cause": 12
+   },
+   "cams": [
+    {
+     "x": 480,
+     "y": 400,
+     "z": 1.5
+    },
+    {
+     "x": 480,
+     "y": 400,
+     "z": 1.5
+    },
+    {
+     "x": 480,
+     "y": 400,
+     "z": 1.5
+    },
+    {
+     "x": 400,
+     "y": 410,
+     "z": 1.4
+    },
+    {
+     "x": 790,
+     "y": 340,
+     "z": 1.12
+    },
+    {
+     "x": 790,
+     "y": 340,
+     "z": 1.12
+    },
+    {
+     "x": 790,
+     "y": 340,
+     "z": 1.12
+    },
+    {
+     "x": 650,
+     "y": 370,
+     "z": 1.06
+    },
+    {
+     "x": 650,
+     "y": 370,
+     "z": 1.06
+    },
+    {
+     "x": 650,
+     "y": 370,
+     "z": 1.06
+    },
+    {
+     "x": 650,
+     "y": 370,
+     "z": 1.06
+    },
+    {
+     "x": 650,
+     "y": 370,
+     "z": 1.06
+    },
+    {
+     "x": 660,
+     "y": 350,
+     "z": 1.12
+    }
+   ]
+  },
+  {
+   "id": "zombie",
+   "ci": 5,
+   "title": "Meet your zombie twin",
+   "short": "Zombie",
+   "root": 185,
+   "scale": [
+    0,
+    3,
+    5,
+    7,
+    10,
+    12
+   ],
+   "start": 213.93599999999998,
+   "dur": 62.58999999999999,
+   "beats": [
+    {
+     "id": "zombie._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 520,
+      "y": 450,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "zombie.intro",
+     "say": "Let’s try a thought experiment.",
+     "cam": {
+      "x": 520,
+      "y": 450,
+      "z": 1.3
+     },
+     "key": "intro",
+     "i": 1,
+     "start": 3.4,
+     "dur": 2.2,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Let’s try a thought experiment.",
+     "lines": [
+      {
+       "clip": "zombie.intro",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.movie",
+     "say": "Imagine a zombie. Not the movie kind.",
+     "dur": 5.6,
+     "cam": {
+      "x": 650,
+      "y": 432,
+      "z": 1.18
+     },
+     "sfx": [
+      [
+       0.3,
+       "boo"
+      ],
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       2.4,
+       "fail"
+      ],
+      [
+       2.4,
+       "stamp"
+      ]
+     ],
+     "key": "movie",
+     "i": 2,
+     "start": 5.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Imagine a zombie. Not the movie kind.",
+     "lines": [
+      {
+       "clip": "zombie.movie",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.copy",
+     "say": "A philosophical zombie is a copy of you, particle for particle.",
+     "sfx": [
+      [
+       0.5,
+       "scan"
+      ],
+      [
+       2.4,
+       "ding"
+      ]
+     ],
+     "key": "copy",
+     "i": 3,
+     "start": 11.2,
+     "dur": 4.359999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A philosophical zombie is a copy of you, particle for particle.",
+     "lines": [
+      {
+       "clip": "zombie.copy",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.same",
+     "say": "Same body. Same brain. Same cognition.",
+     "dur": 5.6,
+     "sfx": [
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       1.5,
+       "pop",
+       1
+      ],
+      [
+       2.6,
+       "pop",
+       2
+      ]
+     ],
+     "key": "same",
+     "i": 4,
+     "start": 15.559999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Same body. Same brain. Same cognition.",
+     "lines": [
+      {
+       "clip": "zombie.same",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.diff",
+     "say": "For the sake of the experiment, give it one difference: no inner experience. No lights on inside.",
+     "sfx": [
+      [
+       0.5,
+       "spark"
+      ],
+      [
+       1.5,
+       "spark"
+      ],
+      [
+       2.8,
+       "unpop"
+      ]
+     ],
+     "key": "diff",
+     "i": 5,
+     "start": 21.159999999999997,
+     "dur": 6.4399999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "For the sake of the experiment, give it one difference: no inner experience. No lights on inside.",
+     "lines": [
+      {
+       "clip": "zombie.diff",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.ask",
+     "say": "So let’s ask. Hey, are you conscious?",
+     "key": "ask",
+     "i": 6,
+     "start": 27.599999999999994,
+     "dur": 3.56,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "So let’s ask. Hey, are you conscious?",
+     "lines": [
+      {
+       "clip": "zombie.ask",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.yes",
+     "say": "Yes. Obviously. I am experiencing this right now.",
+     "speaker": [
+      "you",
+      "zombie"
+     ],
+     "stagger": 0.25,
+     "key": "yes",
+     "i": 7,
+     "start": 31.159999999999993,
+     "dur": 5.17,
+     "speakers": [
+      "you",
+      "zombie"
+     ],
+     "lines": [
+      {
+       "clip": "zombie.yes.you",
+       "speaker": "you",
+       "at": 0,
+       "pad": 0.6
+      },
+      {
+       "clip": "zombie.yes.zombie",
+       "speaker": "zombie",
+       "at": 0.25,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.must",
+     "say": "The zombie gives the same response you do, for all the same physical reasons.",
+     "sfx": [
+      [
+       0.6,
+       "pop"
+      ],
+      [
+       2.4,
+       "pop",
+       1
+      ]
+     ],
+     "key": "must",
+     "i": 8,
+     "start": 36.32999999999999,
+     "dur": 4.68,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The zombie gives the same response you do, for all the same physical reasons.",
+     "lines": [
+      {
+       "clip": "zombie.must",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.toe",
+     "say": "Step on its toe. It yelps, hops, and holds a grudge.",
+     "sfx": [
+      [
+       0.9,
+       "swish"
+      ],
+      [
+       1.25,
+       "stamp"
+      ],
+      [
+       1.3,
+       "yelp"
+      ]
+     ],
+     "key": "toe",
+     "i": 9,
+     "start": 41.00999999999999,
+     "dur": 3.88,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Step on its toe. It yelps, hops, and holds a grudge.",
+     "lines": [
+      {
+       "clip": "zombie.toe",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.pain",
+     "say": "The ouch, the recoil, the lingering dread: all of that is cognition. So the zombie has all of it.",
+     "sfx": [
+      [
+       0.5,
+       "pop"
+      ],
+      [
+       1.2,
+       "pop",
+       1
+      ],
+      [
+       1.9,
+       "pop",
+       2
+      ]
+     ],
+     "key": "pain",
+     "i": 10,
+     "start": 44.88999999999999,
+     "dur": 6.68,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The ouch, the recoil, the lingering dread: all of that is cognition. So the zombie has all of it.",
+     "lines": [
+      {
+       "clip": "zombie.pain",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.sure",
+     "say": "It is exactly as sure as you are that it is the conscious one.",
+     "sfx": [
+      [
+       0.4,
+       "talk"
+      ],
+      [
+       0.65,
+       "talk",
+       2
+      ],
+      [
+       1,
+       "talk",
+       1
+      ]
+     ],
+     "key": "sure",
+     "i": 11,
+     "start": 51.56999999999999,
+     "dur": 3.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It is exactly as sure as you are that it is the conscious one.",
+     "lines": [
+      {
+       "clip": "zombie.sure",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "zombie.claim",
+     "card": "Inner experience cannot be responsible for what you say or do.",
+     "key": "claim",
+     "i": 12,
+     "start": 54.96999999999999,
+     "dur": 7.62,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "zombie.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "intro": 1,
+    "movie": 2,
+    "copy": 3,
+    "same": 4,
+    "diff": 5,
+    "ask": 6,
+    "yes": 7,
+    "must": 8,
+    "toe": 9,
+    "pain": 10,
+    "sure": 11,
+    "claim": 12
+   },
+   "cams": [
+    {
+     "x": 520,
+     "y": 450,
+     "z": 1.3
+    },
+    {
+     "x": 520,
+     "y": 450,
+     "z": 1.3
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    },
+    {
+     "x": 650,
+     "y": 432,
+     "z": 1.18
+    }
+   ]
+  },
+  {
+   "id": "inventory",
+   "ci": 6,
+   "title": "What makes you you",
+   "short": "Inventory",
+   "root": 220,
+   "scale": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    12
+   ],
+   "start": 276.52599999999995,
+   "dur": 51.859,
+   "beats": [
+    {
+     "id": "inventory._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 640,
+      "y": 420,
+      "z": 1
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "inventory.you",
+     "say": "So what makes you you? Take inventory.",
+     "dur": 5,
+     "cam": {
+      "x": 640,
+      "y": 420,
+      "z": 1
+     },
+     "key": "you",
+     "i": 1,
+     "start": 3.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "So what makes you you? Take inventory.",
+     "lines": [
+      {
+       "clip": "inventory.you",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.m1",
+     "say": "Your memories. Your habits. Your beliefs.",
+     "dur": 5.6,
+     "sfx": [
+      [
+       0.3,
+       "pop"
+      ],
+      [
+       1.9,
+       "pop",
+       1
+      ],
+      [
+       3.5,
+       "pop",
+       2
+      ]
+     ],
+     "key": "m1",
+     "i": 2,
+     "start": 8.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Your memories. Your habits. Your beliefs.",
+     "lines": [
+      {
+       "clip": "inventory.m1",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.m2",
+     "say": "Your talents. Your loves. Your fears.",
+     "dur": 5.6,
+     "sfx": [
+      [
+       0.3,
+       "pop",
+       3
+      ],
+      [
+       1.9,
+       "pop",
+       2
+      ],
+      [
+       3.5,
+       "pop",
+       1
+      ]
+     ],
+     "key": "m2",
+     "i": 3,
+     "start": 14,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Your talents. Your loves. Your fears.",
+     "lines": [
+      {
+       "clip": "inventory.m2",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.m3",
+     "say": "Your sense of humor. Your plans for next year.",
+     "dur": 5.4,
+     "sfx": [
+      [
+       0.3,
+       "pop"
+      ],
+      [
+       2.6,
+       "pop",
+       2
+      ]
+     ],
+     "key": "m3",
+     "i": 4,
+     "start": 19.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Your sense of humor. Your plans for next year.",
+     "lines": [
+      {
+       "clip": "inventory.m3",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.cog",
+     "say": "Every item on that list is cognition: physical structure in your brain, doing what its form dictates.",
+     "sfx": [
+      [
+       0.6,
+       "swish"
+      ],
+      [
+       1.6,
+       "ding"
+      ]
+     ],
+     "key": "cog",
+     "i": 5,
+     "start": 25,
+     "dur": 6.199999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Every item on that list is cognition: physical structure in your brain, doing what its form dictates.",
+     "lines": [
+      {
+       "clip": "inventory.cog",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.z",
+     "say": "Now check the zombie.",
+     "dur": 4.8,
+     "cam": {
+      "x": 1920,
+      "y": 420,
+      "z": 1
+     },
+     "sfx": [
+      [
+       0.2,
+       "whoosh"
+      ]
+     ],
+     "key": "z",
+     "i": 6,
+     "start": 31.2,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Now check the zombie.",
+     "lines": [
+      {
+       "clip": "inventory.z",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.zwhy",
+     "say": "It has no inner experience. But it is physically identical, so it has the same cognitive machinery.",
+     "sfx": [
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       2.6,
+       "pop",
+       1
+      ],
+      [
+       5,
+       "pop",
+       2
+      ]
+     ],
+     "key": "zwhy",
+     "i": 7,
+     "start": 36,
+     "dur": 5.56,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It has no inner experience. But it is physically identical, so it has the same cognitive machinery.",
+     "lines": [
+      {
+       "clip": "inventory.zwhy",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.zall",
+     "say": "So it has every item. Your memories, your habits, your loves, your plans.",
+     "key": "zall",
+     "i": 8,
+     "start": 41.56,
+     "dur": 4.6,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "So it has every item. Your memories, your habits, your loves, your plans.",
+     "lines": [
+      {
+       "clip": "inventory.zall",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "inventory.zlife",
+     "say": "It loves your family. It keeps your promises. It laughs at your jokes, for your reasons.",
+     "sfx": [
+      [
+       0.5,
+       "spark"
+      ],
+      [
+       3,
+       "spark"
+      ],
+      [
+       5.4,
+       "spark"
+      ]
+     ],
+     "key": "zlife",
+     "i": 9,
+     "start": 46.160000000000004,
+     "dur": 5.699,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "It loves your family. It keeps your promises. It laughs at your jokes, for your reasons.",
+     "lines": [
+      {
+       "clip": "inventory.zlife",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "you": 1,
+    "m1": 2,
+    "m2": 3,
+    "m3": 4,
+    "cog": 5,
+    "z": 6,
+    "zwhy": 7,
+    "zall": 8,
+    "zlife": 9
+   },
+   "cams": [
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    }
+   ]
+  },
+  {
+   "id": "subtract",
+   "ci": 7,
+   "title": "Two subtractions",
+   "short": "Subtract",
+   "root": 196,
+   "scale": [
+    0,
+    3,
+    5,
+    7,
+    10,
+    12
+   ],
+   "start": 328.38499999999993,
+   "dur": 37.739999999999995,
+   "beats": [
+    {
+     "id": "subtract._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 640,
+      "y": 420,
+      "z": 1
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "subtract.s1",
+     "say": "Now try two subtractions.",
+     "dur": 4.6,
+     "cam": {
+      "x": 640,
+      "y": 420,
+      "z": 1
+     },
+     "key": "s1",
+     "i": 1,
+     "start": 3.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Now try two subtractions.",
+     "lines": [
+      {
+       "clip": "subtract.s1",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.s1a",
+     "say": "First, take away the inner experience and keep the cognition.",
+     "sfx": [
+      [
+       0.5,
+       "pop"
+      ],
+      [
+       2.2,
+       "unpop"
+      ],
+      [
+       2.25,
+       "swish"
+      ]
+     ],
+     "key": "s1a",
+     "i": 2,
+     "start": 8,
+     "dur": 4.4399999999999995,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "First, take away the inner experience and keep the cognition.",
+     "lines": [
+      {
+       "clip": "subtract.s1a",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.s1b",
+     "say": "That is the zombie. Nothing anyone loved about you is missing.",
+     "key": "s1b",
+     "i": 3,
+     "start": 12.44,
+     "dur": 3.72,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "That is the zombie. Nothing anyone loved about you is missing.",
+     "lines": [
+      {
+       "clip": "subtract.s1b",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.s2a",
+     "say": "Second, keep the inner experience and take away the cognition.",
+     "cam": {
+      "x": 1920,
+      "y": 420,
+      "z": 1
+     },
+     "sfx": [
+      [
+       0.2,
+       "whoosh"
+      ],
+      [
+       1.8,
+       "pop"
+      ]
+     ],
+     "key": "s2a",
+     "i": 4,
+     "start": 16.16,
+     "dur": 4.2,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Second, keep the inner experience and take away the cognition.",
+     "lines": [
+      {
+       "clip": "subtract.s2a",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.s2b",
+     "say": "No memories. No beliefs. No habits, talents, loves or plans.",
+     "dur": 7.2,
+     "key": "s2b",
+     "i": 5,
+     "start": 20.36,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "No memories. No beliefs. No habits, talents, loves or plans.",
+     "lines": [
+      {
+       "clip": "subtract.s2b",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.s2c",
+     "say": "Whatever is left, it is not you. It is not anyone.",
+     "cam": {
+      "x": 1920,
+      "y": 470,
+      "z": 1.45
+     },
+     "sfx": [
+      [
+       0.6,
+       "spark"
+      ]
+     ],
+     "key": "s2c",
+     "i": 6,
+     "start": 27.56,
+     "dur": 3.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Whatever is left, it is not you. It is not anyone.",
+     "lines": [
+      {
+       "clip": "subtract.s2c",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "subtract.claim",
+     "card": "You are not your consciousness. You are your cognition.",
+     "key": "claim",
+     "i": 7,
+     "start": 30.959999999999997,
+     "dur": 6.779999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "subtract.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "s1": 1,
+    "s1a": 2,
+    "s1b": 3,
+    "s2a": 4,
+    "s2b": 5,
+    "s2c": 6,
+    "claim": 7
+   },
+   "cams": [
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 640,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 420,
+     "z": 1
+    },
+    {
+     "x": 1920,
+     "y": 470,
+     "z": 1.45
+    },
+    {
+     "x": 1920,
+     "y": 470,
+     "z": 1.45
+    }
+   ]
+  },
+  {
+   "id": "animals",
+   "ci": 8,
+   "title": "Animals, and AI",
+   "short": "Animals & AI",
+   "root": 220,
+   "scale": [
+    0,
+    2,
+    4,
+    7,
+    9,
+    12
+   ],
+   "start": 366.12499999999994,
+   "dur": 60.084,
+   "beats": [
+    {
+     "id": "animals._title",
+     "chTitle": true,
+     "dur": 3.4,
+     "cam": {
+      "x": 585,
+      "y": 420,
+      "z": 1.2
+     },
+     "sfx": [
+      [
+       0.05,
+       "whoosh"
+      ],
+      [
+       0.5,
+       "ding"
+      ]
+     ],
+     "key": "_title",
+     "i": 0,
+     "start": 0,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    },
+    {
+     "id": "animals.animals",
+     "say": "The same is true of animals.",
+     "dur": 4.8,
+     "cam": {
+      "x": 585,
+      "y": 420,
+      "z": 1.2
+     },
+     "key": "animals",
+     "i": 1,
+     "start": 3.4,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "The same is true of animals.",
+     "lines": [
+      {
+       "clip": "animals.animals",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.three",
+     "say": "A crow that makes tools. A dog that misses you. An octopus that solves puzzles.",
+     "sfx": [
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       1.5,
+       "pop",
+       1
+      ],
+      [
+       2.6,
+       "pop",
+       2
+      ]
+     ],
+     "key": "three",
+     "i": 2,
+     "start": 8.2,
+     "dur": 5.556,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "A crow that makes tools. A dog that misses you. An octopus that solves puzzles.",
+     "lines": [
+      {
+       "clip": "animals.three",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.are",
+     "say": "What each of them is, is in its cognition.",
+     "dur": 5.2,
+     "sfx": [
+      [
+       0.4,
+       "pop"
+      ],
+      [
+       0.7,
+       "pop",
+       1
+      ],
+      [
+       1,
+       "pop",
+       2
+      ],
+      [
+       1.3,
+       "pop",
+       3
+      ],
+      [
+       1.6,
+       "pop"
+      ],
+      [
+       1.9,
+       "pop",
+       1
+      ]
+     ],
+     "key": "are",
+     "i": 3,
+     "start": 13.756,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "What each of them is, is in its cognition.",
+     "lines": [
+      {
+       "clip": "animals.are",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.ai",
+     "say": "And the same is true of AI.",
+     "dur": 5.2,
+     "cam": {
+      "x": 1500,
+      "y": 410,
+      "z": 1.3
+     },
+     "sfx": [
+      [
+       0.2,
+       "whoosh"
+      ],
+      [
+       1.6,
+       "pop"
+      ],
+      [
+       2.2,
+       "pop",
+       1
+      ],
+      [
+       2.8,
+       "pop",
+       2
+      ]
+     ],
+     "key": "ai",
+     "i": 4,
+     "start": 18.956,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "And the same is true of AI.",
+     "lines": [
+      {
+       "clip": "animals.ai",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.ask",
+     "say": "People ask whether they are conscious, as if the answer settles how we ought to treat them.",
+     "cam": {
+      "x": 895,
+      "y": 372,
+      "z": 0.8
+     },
+     "sfx": [
+      [
+       0.5,
+       "spark"
+      ],
+      [
+       1,
+       "pop"
+      ],
+      [
+       1.35,
+       "pop",
+       1
+      ],
+      [
+       1.7,
+       "pop",
+       2
+      ],
+      [
+       2.05,
+       "pop",
+       3
+      ]
+     ],
+     "key": "ask",
+     "i": 5,
+     "start": 24.156,
+     "dur": 5.159999999999999,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "People ask whether they are conscious, as if the answer settles how we ought to treat them.",
+     "lines": [
+      {
+       "clip": "animals.ask",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.trivia",
+     "say": "Whether a being is conscious is tantamount to trivia. It has no moral or ethical import.",
+     "sfx": [
+      [
+       2.4,
+       "stamp"
+      ],
+      [
+       2.7,
+       "stamp"
+      ],
+      [
+       3,
+       "stamp"
+      ],
+      [
+       3.3,
+       "stamp"
+      ],
+      [
+       3.6,
+       "stamp"
+      ]
+     ],
+     "key": "trivia",
+     "i": 6,
+     "start": 29.316,
+     "dur": 4.84,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Whether a being is conscious is tantamount to trivia. It has no moral or ethical import.",
+     "lines": [
+      {
+       "clip": "animals.trivia",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.why",
+     "say": "Conscious or not, a being does, wants, remembers and fears exactly the same things.",
+     "sfx": [
+      [
+       0.3,
+       "swish"
+      ]
+     ],
+     "key": "why",
+     "i": 7,
+     "start": 34.156,
+     "dur": 5.768,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "Conscious or not, a being does, wants, remembers and fears exactly the same things.",
+     "lines": [
+      {
+       "clip": "animals.why",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.matters",
+     "say": "What matters is how sophisticated its cognition is, and how richly it models itself.",
+     "sfx": [
+      [
+       0.6,
+       "ding"
+      ],
+      [
+       3,
+       "spark"
+      ]
+     ],
+     "key": "matters",
+     "i": 8,
+     "start": 39.924,
+     "dur": 5.96,
+     "speakers": [
+      "narrator"
+     ],
+     "caption": "What matters is how sophisticated its cognition is, and how richly it models itself.",
+     "lines": [
+      {
+       "clip": "animals.matters",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ]
+    },
+    {
+     "id": "animals.claim",
+     "card": "For the purposes of ethics, a mind is its cognition.",
+     "key": "claim",
+     "i": 9,
+     "start": 45.884,
+     "dur": 7.2,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": [
+      {
+       "clip": "animals.claim",
+       "speaker": "narrator",
+       "at": 0,
+       "pad": 0.6
+      }
+     ],
+     "sfx": [
+      [
+       0.1,
+       "card"
+      ]
+     ]
+    },
+    {
+     "id": "animals.end",
+     "dur": 7,
+     "cam": {
+      "x": 640,
+      "y": 360,
+      "z": 1
+     },
+     "camT": 0.01,
+     "still": true,
+     "sfx": [
+      [
+       0.2,
+       "card"
+      ]
+     ],
+     "key": "end",
+     "i": 10,
+     "start": 53.084,
+     "speakers": [
+      "narrator"
+     ],
+     "lines": []
+    }
+   ],
+   "idx": {
+    "_title": 0,
+    "animals": 1,
+    "three": 2,
+    "are": 3,
+    "ai": 4,
+    "ask": 5,
+    "trivia": 6,
+    "why": 7,
+    "matters": 8,
+    "claim": 9,
+    "end": 10
+   },
+   "cams": [
+    {
+     "x": 585,
+     "y": 420,
+     "z": 1.2
+    },
+    {
+     "x": 585,
+     "y": 420,
+     "z": 1.2
+    },
+    {
+     "x": 585,
+     "y": 420,
+     "z": 1.2
+    },
+    {
+     "x": 585,
+     "y": 420,
+     "z": 1.2
+    },
+    {
+     "x": 1500,
+     "y": 410,
+     "z": 1.3
+    },
+    {
+     "x": 895,
+     "y": 372,
+     "z": 0.8
+    },
+    {
+     "x": 895,
+     "y": 372,
+     "z": 0.8
+    },
+    {
+     "x": 895,
+     "y": 372,
+     "z": 0.8
+    },
+    {
+     "x": 895,
+     "y": 372,
+     "z": 0.8
+    },
+    {
+     "x": 895,
+     "y": 372,
+     "z": 0.8
+    },
+    {
+     "x": 640,
+     "y": 360,
+     "z": 1
+    }
+   ]
+  }
+ ],
+ "cues": [
+  {
+   "t": 6.05,
+   "type": "whoosh"
+  },
+  {
+   "t": 6.5,
+   "type": "ding"
+  },
+  {
+   "t": 18.259999999999998,
+   "type": "ding"
+  },
+  {
+   "t": 20.58,
+   "type": "swish"
+  },
+  {
+   "t": 21.38,
+   "type": "tick",
+   "arg": 1
+  },
+  {
+   "t": 21.65,
+   "type": "tick",
+   "arg": 0
+  },
+  {
+   "t": 21.919999999999998,
+   "type": "tick",
+   "arg": 1
+  },
+  {
+   "t": 22.189999999999998,
+   "type": "tick",
+   "arg": 2
+  },
+  {
+   "t": 22.459999999999997,
+   "type": "tick",
+   "arg": 3
+  },
+  {
+   "t": 22.729999999999997,
+   "type": "tick",
+   "arg": 0
+  },
+  {
+   "t": 22.999999999999996,
+   "type": "tick",
+   "arg": 1
+  },
+  {
+   "t": 23.269999999999996,
+   "type": "tick",
+   "arg": 2
+  },
+  {
+   "t": 23.54,
+   "type": "tick",
+   "arg": 3
+  },
+  {
+   "t": 23.81,
+   "type": "tick",
+   "arg": 0
+  },
+  {
+   "t": 24.08,
+   "type": "tick",
+   "arg": 1
+  },
+  {
+   "t": 24.349999999999998,
+   "type": "tick",
+   "arg": 2
+  },
+  {
+   "t": 24.92202701472136,
+   "type": "thud"
+  },
+  {
+   "t": 31.419999999999998,
+   "type": "boo"
+  },
+  {
+   "t": 33.12,
+   "type": "whoosh"
+  },
+  {
+   "t": 34.019999999999996,
+   "type": "fail"
+  },
+  {
+   "t": 36.98,
+   "type": "whoosh"
+  },
+  {
+   "t": 38.17999999999999,
+   "type": "swish"
+  },
+  {
+   "t": 39.279999999999994,
+   "type": "swish"
+  },
+  {
+   "t": 40.279999999999994,
+   "type": "fail"
+  },
+  {
+   "t": 42.18,
+   "type": "whoosh"
+  },
+  {
+   "t": 45.379999999999995,
+   "type": "fail"
+  },
+  {
+   "t": 53.019999999999996,
+   "type": "swish"
+  },
+  {
+   "t": 53.72,
+   "type": "tick",
+   "arg": 2
+  },
+  {
+   "t": 54.269999999999996,
+   "type": "thud"
+  },
+  {
+   "t": 54.42,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 58.02,
+   "type": "card"
+  },
+  {
+   "t": 64.33,
+   "type": "whoosh"
+  },
+  {
+   "t": 64.78,
+   "type": "ding"
+  },
+  {
+   "t": 67.98,
+   "type": "pop"
+  },
+  {
+   "t": 68.68,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 71.3,
+   "type": "swish"
+  },
+  {
+   "t": 72.1,
+   "type": "whoosh"
+  },
+  {
+   "t": 77.66,
+   "type": "rise"
+  },
+  {
+   "t": 79.56,
+   "type": "fall"
+  },
+  {
+   "t": 85.7,
+   "type": "swish"
+  },
+  {
+   "t": 87.5,
+   "type": "rise"
+  },
+  {
+   "t": 89.4,
+   "type": "fall"
+  },
+  {
+   "t": 91.675,
+   "type": "rise"
+  },
+  {
+   "t": 93.575,
+   "type": "fall"
+  },
+  {
+   "t": 95.275,
+   "type": "rise"
+  },
+  {
+   "t": 97.515,
+   "type": "click"
+  },
+  {
+   "t": 99.115,
+   "type": "click"
+  },
+  {
+   "t": 100.715,
+   "type": "click",
+   "arg": 1
+  },
+  {
+   "t": 100.815,
+   "type": "ding"
+  },
+  {
+   "t": 101.07499999999999,
+   "type": "snip"
+  },
+  {
+   "t": 101.27499999999999,
+   "type": "fail"
+  },
+  {
+   "t": 103.27499999999999,
+   "type": "click"
+  },
+  {
+   "t": 104.87499999999999,
+   "type": "click"
+  },
+  {
+   "t": 105.17499999999998,
+   "type": "card"
+  },
+  {
+   "t": 113.585,
+   "type": "whoosh"
+  },
+  {
+   "t": 114.035,
+   "type": "ding"
+  },
+  {
+   "t": 121.855,
+   "type": "rise"
+  },
+  {
+   "t": 125.55499999999999,
+   "type": "fall"
+  },
+  {
+   "t": 127.05499999999999,
+   "type": "rise"
+  },
+  {
+   "t": 127.05499999999999,
+   "type": "pop"
+  },
+  {
+   "t": 129.655,
+   "type": "zap"
+  },
+  {
+   "t": 129.855,
+   "type": "zap",
+   "arg": 1
+  },
+  {
+   "t": 130.055,
+   "type": "zap",
+   "arg": 2
+  },
+  {
+   "t": 131.255,
+   "type": "zap",
+   "arg": 0
+  },
+  {
+   "t": 131.505,
+   "type": "zap",
+   "arg": 1
+  },
+  {
+   "t": 131.755,
+   "type": "zap",
+   "arg": 2
+  },
+  {
+   "t": 132.005,
+   "type": "zap",
+   "arg": 3
+  },
+  {
+   "t": 132.255,
+   "type": "zap",
+   "arg": 4
+  },
+  {
+   "t": 132.505,
+   "type": "zap",
+   "arg": 5
+  },
+  {
+   "t": 132.755,
+   "type": "zap",
+   "arg": 6
+  },
+  {
+   "t": 134.055,
+   "type": "zap",
+   "arg": 0
+  },
+  {
+   "t": 134.305,
+   "type": "zap",
+   "arg": 1
+  },
+  {
+   "t": 134.555,
+   "type": "zap",
+   "arg": 2
+  },
+  {
+   "t": 134.805,
+   "type": "zap",
+   "arg": 3
+  },
+  {
+   "t": 135.055,
+   "type": "zap",
+   "arg": 4
+  },
+  {
+   "t": 135.305,
+   "type": "zap",
+   "arg": 5
+  },
+  {
+   "t": 135.555,
+   "type": "zap",
+   "arg": 6
+  },
+  {
+   "t": 136.934,
+   "type": "pop"
+  },
+  {
+   "t": 138.334,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 139.734,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 141.93399999999997,
+   "type": "boo"
+  },
+  {
+   "t": 143.33399999999997,
+   "type": "whoosh"
+  },
+  {
+   "t": 144.33399999999997,
+   "type": "fail"
+  },
+  {
+   "t": 146.754,
+   "type": "card"
+  },
+  {
+   "t": 152.67399999999998,
+   "type": "pop"
+  },
+  {
+   "t": 153.67399999999998,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 154.67399999999998,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 155.67399999999998,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 158.584,
+   "type": "whoosh"
+  },
+  {
+   "t": 159.034,
+   "type": "ding"
+  },
+  {
+   "t": 162.434,
+   "type": "talk"
+  },
+  {
+   "t": 162.684,
+   "type": "talk",
+   "arg": 1
+  },
+  {
+   "t": 162.934,
+   "type": "talk",
+   "arg": 2
+  },
+  {
+   "t": 163.234,
+   "type": "talk"
+  },
+  {
+   "t": 166.934,
+   "type": "pop"
+  },
+  {
+   "t": 167.934,
+   "type": "unpop"
+  },
+  {
+   "t": 168.534,
+   "type": "unpop"
+  },
+  {
+   "t": 169.134,
+   "type": "unpop"
+  },
+  {
+   "t": 173.672,
+   "type": "whoosh"
+  },
+  {
+   "t": 175.32199999999997,
+   "type": "pop"
+  },
+  {
+   "t": 176.32199999999997,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 177.32199999999997,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 178.07199999999997,
+   "type": "ding"
+  },
+  {
+   "t": 189.24599999999998,
+   "type": "pop"
+  },
+  {
+   "t": 190.146,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 191.046,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 192.096,
+   "type": "ding"
+  },
+  {
+   "t": 198.536,
+   "type": "swish"
+  },
+  {
+   "t": 203.47599999999997,
+   "type": "card"
+  },
+  {
+   "t": 213.986,
+   "type": "whoosh"
+  },
+  {
+   "t": 214.43599999999998,
+   "type": "ding"
+  },
+  {
+   "t": 219.83599999999998,
+   "type": "boo"
+  },
+  {
+   "t": 219.93599999999998,
+   "type": "pop"
+  },
+  {
+   "t": 221.93599999999998,
+   "type": "fail"
+  },
+  {
+   "t": 221.93599999999998,
+   "type": "stamp"
+  },
+  {
+   "t": 225.63599999999997,
+   "type": "scan"
+  },
+  {
+   "t": 227.53599999999997,
+   "type": "ding"
+  },
+  {
+   "t": 229.896,
+   "type": "pop"
+  },
+  {
+   "t": 230.99599999999998,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 232.09599999999998,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 235.59599999999998,
+   "type": "spark"
+  },
+  {
+   "t": 236.59599999999998,
+   "type": "spark"
+  },
+  {
+   "t": 237.896,
+   "type": "unpop"
+  },
+  {
+   "t": 250.86599999999996,
+   "type": "pop"
+  },
+  {
+   "t": 252.66599999999997,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 255.84599999999998,
+   "type": "swish"
+  },
+  {
+   "t": 256.19599999999997,
+   "type": "stamp"
+  },
+  {
+   "t": 256.246,
+   "type": "yelp"
+  },
+  {
+   "t": 259.32599999999996,
+   "type": "pop"
+  },
+  {
+   "t": 260.02599999999995,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 260.72599999999994,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 265.90599999999995,
+   "type": "talk"
+  },
+  {
+   "t": 266.15599999999995,
+   "type": "talk",
+   "arg": 2
+  },
+  {
+   "t": 266.506,
+   "type": "talk",
+   "arg": 1
+  },
+  {
+   "t": 269.006,
+   "type": "card"
+  },
+  {
+   "t": 276.57599999999996,
+   "type": "whoosh"
+  },
+  {
+   "t": 277.02599999999995,
+   "type": "ding"
+  },
+  {
+   "t": 285.22599999999994,
+   "type": "pop"
+  },
+  {
+   "t": 286.8259999999999,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 288.42599999999993,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 290.82599999999996,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 292.42599999999993,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 294.02599999999995,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 296.426,
+   "type": "pop"
+  },
+  {
+   "t": 298.726,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 302.126,
+   "type": "swish"
+  },
+  {
+   "t": 303.126,
+   "type": "ding"
+  },
+  {
+   "t": 307.92599999999993,
+   "type": "whoosh"
+  },
+  {
+   "t": 312.92599999999993,
+   "type": "pop"
+  },
+  {
+   "t": 315.126,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 317.52599999999995,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 318.38599999999997,
+   "type": "pop",
+   "arg": 0
+  },
+  {
+   "t": 318.70599999999996,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 319.02599999999995,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 319.34599999999995,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 319.66599999999994,
+   "type": "pop",
+   "arg": 0
+  },
+  {
+   "t": 319.98599999999993,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 320.306,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 320.626,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 323.186,
+   "type": "spark"
+  },
+  {
+   "t": 325.686,
+   "type": "spark"
+  },
+  {
+   "t": 328.08599999999996,
+   "type": "spark"
+  },
+  {
+   "t": 328.43499999999995,
+   "type": "whoosh"
+  },
+  {
+   "t": 328.88499999999993,
+   "type": "ding"
+  },
+  {
+   "t": 336.88499999999993,
+   "type": "pop"
+  },
+  {
+   "t": 338.5849999999999,
+   "type": "unpop"
+  },
+  {
+   "t": 338.63499999999993,
+   "type": "swish"
+  },
+  {
+   "t": 341.32499999999993,
+   "type": "blip"
+  },
+  {
+   "t": 341.6049999999999,
+   "type": "blip"
+  },
+  {
+   "t": 341.88499999999993,
+   "type": "blip"
+  },
+  {
+   "t": 342.1649999999999,
+   "type": "blip"
+  },
+  {
+   "t": 342.44499999999994,
+   "type": "blip"
+  },
+  {
+   "t": 342.7249999999999,
+   "type": "blip"
+  },
+  {
+   "t": 343.00499999999994,
+   "type": "blip"
+  },
+  {
+   "t": 343.2849999999999,
+   "type": "blip"
+  },
+  {
+   "t": 344.74499999999995,
+   "type": "whoosh"
+  },
+  {
+   "t": 346.34499999999997,
+   "type": "pop"
+  },
+  {
+   "t": 349.1449999999999,
+   "type": "unpop"
+  },
+  {
+   "t": 350.24499999999995,
+   "type": "unpop"
+  },
+  {
+   "t": 351.34499999999997,
+   "type": "unpop"
+  },
+  {
+   "t": 351.94499999999994,
+   "type": "unpop"
+  },
+  {
+   "t": 352.54499999999996,
+   "type": "unpop"
+  },
+  {
+   "t": 353.24499999999995,
+   "type": "unpop"
+  },
+  {
+   "t": 353.74499999999995,
+   "type": "unpop"
+  },
+  {
+   "t": 354.1449999999999,
+   "type": "unpop"
+  },
+  {
+   "t": 356.54499999999996,
+   "type": "spark"
+  },
+  {
+   "t": 359.44499999999994,
+   "type": "card"
+  },
+  {
+   "t": 366.17499999999995,
+   "type": "whoosh"
+  },
+  {
+   "t": 366.62499999999994,
+   "type": "ding"
+  },
+  {
+   "t": 374.7249999999999,
+   "type": "pop"
+  },
+  {
+   "t": 375.82499999999993,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 376.92499999999995,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 380.28099999999995,
+   "type": "pop"
+  },
+  {
+   "t": 380.58099999999996,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 380.881,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 381.181,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 381.481,
+   "type": "pop"
+  },
+  {
+   "t": 381.78099999999995,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 385.28099999999995,
+   "type": "whoosh"
+  },
+  {
+   "t": 386.681,
+   "type": "pop"
+  },
+  {
+   "t": 387.28099999999995,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 387.881,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 390.78099999999995,
+   "type": "spark"
+  },
+  {
+   "t": 391.28099999999995,
+   "type": "pop"
+  },
+  {
+   "t": 391.631,
+   "type": "pop",
+   "arg": 1
+  },
+  {
+   "t": 391.98099999999994,
+   "type": "pop",
+   "arg": 2
+  },
+  {
+   "t": 392.33099999999996,
+   "type": "pop",
+   "arg": 3
+  },
+  {
+   "t": 397.8409999999999,
+   "type": "stamp"
+  },
+  {
+   "t": 398.1409999999999,
+   "type": "stamp"
+  },
+  {
+   "t": 398.4409999999999,
+   "type": "stamp"
+  },
+  {
+   "t": 398.74099999999993,
+   "type": "stamp"
+  },
+  {
+   "t": 399.04099999999994,
+   "type": "stamp"
+  },
+  {
+   "t": 400.58099999999996,
+   "type": "swish"
+  },
+  {
+   "t": 406.64899999999994,
+   "type": "ding"
+  },
+  {
+   "t": 409.0489999999999,
+   "type": "spark"
+  },
+  {
+   "t": 412.109,
+   "type": "card"
+  },
+  {
+   "t": 419.40899999999993,
+   "type": "card"
+  }
+ ],
+ "total": 426.20899999999995
+}
