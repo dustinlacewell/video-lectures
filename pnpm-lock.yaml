@@ -7,14 +7,16 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@studio/voice':
-        specifier: workspace:*
-        version: link:packages/voice
     devDependencies:
       '@ldlework/workmark':
         specifier: ^1.6.0
         version: 1.6.0
+      '@studio/engine':
+        specifier: workspace:*
+        version: link:packages/engine
+      '@studio/voice':
+        specifier: workspace:*
+        version: link:packages/voice
       '@types/node':
         specifier: ^26.6.4
         version: 26.6.4

@@ -9,11 +9,10 @@
   "scripts": {
     "build:site": "node site/build-all.ts"
   },
-  "dependencies": {
-    "@studio/voice": "workspace:*"
-  },
   "devDependencies": {
     "@ldlework/workmark": "^1.6.0",
+    "@studio/engine": "workspace:*",
+    "@studio/voice": "workspace:*",
     "@types/node": "^26.6.4",
     "typescript": "^7.0.2",
     "zod": "^4.6.5"
