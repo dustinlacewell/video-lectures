@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkClips, DEFAULT_RULES } from '../clip-check/check.ts';
+import { checkClips, DEFAULT_RULES, noVoiceYetMessage } from '../clip-check/check.ts';
 import { markdown } from '../clip-check/report.ts';
 import { BEATS } from './fixture.ts';
 
@@ -33,5 +33,9 @@ describe('checkClips', () => {
     expect(md).toContain('- Missing clips: 3 beats.');
     expect(md).toContain('- zombie.yes at 0:11.0: zombie.yes.you, zombie.yes.zombie.');
     expect(md).not.toContain('manifest');
+  });
+
+  it('reports spoken beats and zero clips before voice exists', () => {
+    expect(noVoiceYetMessage(BEATS)).toBe('no voice yet: 4 spoken beats, 0 clips');
   });
 });
