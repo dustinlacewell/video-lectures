@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { buildTimeline, voiceDurations } from '../src/timeline';
+import { timelineOf } from '../src/sync/timelineOf';
+import type { Timeline } from '../src/timeline';
 import { CAST, SCRIPT } from './fixtures';
 
 /** Clip lengths for every voiced fixture beat, so the voiced path is pinned too. */
@@ -8,14 +9,19 @@ const LENGTHS = {
   'physics.stop': 1.2, 'physics.card': 1.4, 'form.lever1': 1.0, 'form.lever2': 1.3
 };
 
-describe('timeline golden', () => {
-  it('equals the pre-sync timeline with no voice', async () => {
-    const tl = buildTimeline(SCRIPT, {}, CAST);
-    await expect(JSON.stringify(tl, null, 1)).toMatchFileSnapshot('./__golden__/timeline.estimated.json');
+/** The timeline as the pre-sync builder wrote it: every field but the new, empty `acts`. */
+function pinned(tl: Timeline): string {
+  tl.chapters.forEach(ch => expect(ch.acts).toEqual({}));
+  return JSON.stringify(tl, (k, v) => k === 'acts' ? undefined : v, 1);
+}
+
+describe('timeline golden: no actions build the pre-sync timeline byte for byte', () => {
+  it('with no voice', async () => {
+    await expect(pinned(timelineOf({ script: SCRIPT, cast: CAST }))).toMatchFileSnapshot('./__golden__/timeline.estimated.json');
   });
 
-  it('equals the pre-sync timeline with voice', async () => {
-    const tl = buildTimeline(SCRIPT, voiceDurations(SCRIPT, LENGTHS, CAST), CAST);
-    await expect(JSON.stringify(tl, null, 1)).toMatchFileSnapshot('./__golden__/timeline.voiced.json');
+  it('with voice', async () => {
+    const tl = timelineOf({ script: SCRIPT, cast: CAST }, { lengths: LENGTHS, words: {} });
+    await expect(pinned(tl)).toMatchFileSnapshot('./__golden__/timeline.voiced.json');
   });
 });

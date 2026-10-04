@@ -1,10 +1,10 @@
-/* Composition root: load voice clip lengths, build the timeline, bind the canvas, wire the page, start the clock. */
+/* Composition root: load the measured voice, build the timeline, bind the canvas, wire the page, start the clock. */
 
 import { createVoiceTrack } from '../audio/voice';
-import type { ClipLengths } from '../audio/voiceTrack';
 import { setContext } from '../canvas';
 import type { SceneMap } from '../render';
-import { buildTimeline, voiceDurations } from '../timeline';
+import { timelineOf } from '../sync/timelineOf';
+import type { VoiceMedia } from '../sync/words';
 import type { VideoData } from '../video';
 import { exposeDebug } from './debug';
 import { buildPlayer } from './dom';
@@ -22,15 +22,15 @@ const clipUrl = (clip: string) => BASE + encodeURIComponent(clip) + '.wav';
 
 /** Build the player inside `el` and start it on `video`, drawn by `scenes`. */
 export async function mountPlayer(video: VideoData, scenes: SceneMap, el: HTMLElement): Promise<void> {
-  boot(video, scenes, el, await loadClipLengths());
+  boot(video, scenes, el, { lengths: await loadClipJson('durations.json'), words: await loadClipJson('words.json') });
 }
 
-function boot(video: VideoData, scenes: SceneMap, el: HTMLElement, clips: ClipLengths): void {
-  const tl = buildTimeline(video.script, voiceDurations(video.script, clips, video.cast), video.cast);
+function boot(video: VideoData, scenes: SceneMap, el: HTMLElement, media: VoiceMedia): void {
+  const tl = timelineOf(video, media);
   const els = buildPlayer(el);
   setContext(els.cv.getContext('2d')!);
 
-  const voice = createVoiceTrack(tl, clips, clipUrl);
+  const voice = createVoiceTrack(tl, media.lengths, clipUrl);
   const player = createPlayback(tl, scenes, els.cv, voice);
   const updateBar = createControlBar(els, tl, player);
   const autoHide = createAutoHide(els.player);
@@ -53,12 +53,12 @@ function runKey(a: KeyAction, player: Playback, total: number, box: HTMLElement)
   }
 }
 
-/** Clip lengths from durations.json, or none: then every beat falls back to its scripted timing. */
-async function loadClipLengths(): Promise<ClipLengths> {
+/** durations.json (clip lengths) or words.json (word times), or nothing: then timing falls back to estimates. */
+async function loadClipJson<T extends object>(name: string): Promise<T> {
   try {
-    const r = await fetch(BASE + 'durations.json');
-    return r.ok ? await r.json() as ClipLengths : {};
+    const r = await fetch(BASE + name);
+    return r.ok ? await r.json() as T : {} as T;
   } catch {
-    return {};
+    return {} as T;
   }
 }

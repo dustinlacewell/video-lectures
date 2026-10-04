@@ -8,12 +8,11 @@ import { bgGradient } from './draw';
 import { H, W, ease } from './math';
 import { drawCaption, drawCard, drawChapterTitle } from './overlays';
 import { drawGrain } from './grain';
-import { chapterAt, type TimedChapter, type Timeline } from './timeline';
+import { FADE_OUT, chapterAt, type TimedChapter, type Timeline } from './timeline';
 
 export type SceneMap = Record<string, Scene>;
 
 const FADE_IN = 0.45;
-const FADE_OUT = 0.4;
 
 /** Draw the frame at T. `scale` maps the 1280x720 virtual stage to canvas pixels. */
 export function renderFrame(tl: Timeline, scenes: SceneMap, T: number, scale: number): void {
